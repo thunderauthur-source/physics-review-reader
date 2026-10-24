@@ -4080,6 +4080,217 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s25">
+      <summary>完整推导 · 20 步：δ 函数势的束缚态与散射</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：完整解 \(V(x)=-\alpha\delta(x)\) 的束缚态（\(E<0\)）与散射态（\(E>0\)），推出唯一束缚能、反射/透射系数与隧穿。
+          约定：\(\alpha>0\) 为吸引势；\(\alpha<0\) 为排斥势。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="delta-potential">δ 函数势</a>的模型与方程</div>
+            <div class="step-body">
+              <p>\[ V(x)=-\alpha\delta(x),\qquad
+                 -\frac{\hbar^2}{2m}\psi''-\alpha\delta(x)\psi=E\psi. \]</p>
+              <p>除 \(x=0\) 外势为零；δ 只影响 \(x=0\) 处的导数跃变。波函数本身必须连续。</p>
+              <p class="step-why"><b>为什么用 δ：</b>它是最短程相互作用的极限，所有计算可手算，又能展示束缚/散射的统一方法。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">束缚态：\(E<0\) 的两侧解</div>
+            <div class="step-body">
+              <p>令</p>
+              \[ \kappa=\frac{\sqrt{-2mE}}{\hbar}>0. \]
+              <p>两侧 \(E<0\)，方程 \(\psi''=\kappa^2\psi\)，可归一化解为</p>
+              \[ \psi(x)=\begin{cases}Be^{\kappa x},&x<0,\\+Fe^{-\kappa x},&x>0.\end{cases} \]
+              <p>取指数衰减（不是增长）才能平方可积。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续性给 \(F=B\)</div>
+            <div class="step-body">
+              <p>\(\psi\) 在 \(x=0\) 连续：</p>
+              \[ \psi(0^-)=B=\psi(0^+)=F. \]
+              <p>所以束缚态关于 \(x=0\) 偶对称：</p>
+              \[ \psi(x)=B e^{-\kappa|x|}. \]
+              <p class="step-check"><b>检查：</b>δ 势是偶的，束缚态可取偶宇称；奇宇称解在 \(x=0\) 为零，不受 δ 影响，不能束缚。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">导数跃变：积分薛定谔方程</div>
+            <div class="step-body">
+              <p>在 \([-\epsilon,\epsilon]\) 积分：</p>
+              \[ -\frac{\hbar^2}{2m}\int_{-\epsilon}^{\epsilon}\psi''\mathrm{d}x
+                 -\alpha\int_{-\epsilon}^{\epsilon}\delta(x)\psi(x)\mathrm{d}x
+                 =E\int_{-\epsilon}^{\epsilon}\psi\,\mathrm{d}x. \]
+              <p>令 \(\epsilon\to0\)：右边 \(\to0\)，第一项 \(\to-\frac{\hbar^2}{2m}[\psi'(0^+)-\psi'(0^-)]\)，第二项 \(\to-\alpha\psi(0)\)。所以</p>
+              \[ \Delta\psi'\equiv\psi'(0^+)-\psi'(0^-)=-\frac{2m\alpha}{\hbar^2}\psi(0). \]
+              <p class="step-why"><b>关键：</b>只有一阶导跃变；波函数连续。跃变系数是 \(-2m\alpha/\hbar^2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入求 \(\kappa\)</div>
+            <div class="step-body">
+              <p>\(\psi'=+\kappa B e^{\kappa x}\)（\(x<0\)），\(\psi'=-\kappa B e^{-\kappa x}\)（\(x>0\)）。在 0：</p>
+              \[ \psi'(0^+)=-\kappa B,\qquad \psi'(0^-)=+\kappa B, \]
+              \[ \Delta\psi'=-2\kappa B. \]
+              <p>与跃变条件：</p>
+              \[ -2\kappa B=-\frac{2m\alpha}{\hbar^2}B. \]
+              <p>\(B\ne0\)，所以</p>
+              \[ \kappa=\frac{m\alpha}{\hbar^2}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">唯一束缚能</div>
+            <div class="step-body">
+              <p>由 \(\kappa=\sqrt{-2mE}/\hbar\)：</p>
+              \[ E=-\frac{\hbar^2\kappa^2}{2m}=-\frac{m\alpha^2}{2\hbar^2}. \]
+              <p>只有一个束缚态，能量只由 \(\alpha\) 决定；\(\alpha\) 越大，束缚越深。</p>
+              <p class="step-check"><b>检查：</b>\(\alpha>0\) 才有 \(E<0\)；\(\alpha<0\) 时 \(\kappa<0\)，不存在束缚态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化束缚态</div>
+            <div class="step-body">
+              <p>\[ 1=|B|^2\int_{-\infty}^{+\infty}e^{-2\kappa|x|}\mathrm{d}x
+                 =2|B|^2\int_0^{+\infty}e^{-2\kappa x}\mathrm{d}x
+                 =\frac{|B|^2}{\kappa}. \]</p>
+              <p>所以</p>
+              \[ B=\sqrt{\kappa}=\frac{\sqrt{m\alpha}}{\hbar}. \]
+              <p>取正实数；整体相位任意。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">束缚态波函数</div>
+            <div class="step-body">
+              <p>\[ \psi(x)=\frac{\sqrt{m\alpha}}{\hbar}e^{-m\alpha|x|/\hbar^2}. \]</p>
+              <p>峰值在 \(x=0\)，指数衰减长度 \(\ell=\hbar^2/(m\alpha)\)；\(\alpha\to0\) 时 \(\ell\to\infty\)，态离域化，能量趋于 0。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="bound-state">束缚态</a>、<a class="kp" data-kp="normalization">归一化</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">散射态：\(E>0\) 的入射/反射/透射</div>
+            <div class="step-body">
+              <p>令 \(k=\sqrt{2mE}/\hbar\)。取从左入射：</p>
+              \[ \psi(x)=\begin{cases}
+                 Ae^{\mathrm{i}kx}+Be^{-\mathrm{i}kx},&x<0,\\
+                 Fe^{\mathrm{i}kx},&x>0.
+                 \end{cases} \]
+              <p>\(A\) 入射、\(B\) 反射、\(F\) 透射；右边没有 \(e^{-ikx}\)（无右入射）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续性条件</div>
+            <div class="step-body">
+              <p>\(\psi(0^-)=\psi(0^+)\)：</p>
+              \[ A+B=F. \]
+              <p>导数：</p>
+              \[ \psi'(0^-)=\mathrm{i}k(A-B),\qquad \psi'(0^+)=\mathrm{i}kF. \]
+              <p>δ 势的跃变条件：</p>
+              \[ \mathrm{i}k(F-A+B)=-\frac{2m\alpha}{\hbar^2}F. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">引入无量纲 \(\beta\)</div>
+            <div class="step-body">
+              <p>令</p>
+              \[ \beta=\frac{m\alpha}{\hbar^2k}. \]
+              <p>则跃变条件除以 \(k\)：</p>
+              \[ \mathrm{i}(F-A+B)=-2\beta F. \]
+              <p>与 \(F=A+B\) 联立，解得</p>
+              \[ B=\frac{\mathrm{i}\beta}{1-\mathrm{i}\beta}A,\qquad
+                 F=\frac{1}{1-\mathrm{i}\beta}A. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">反射/透射系数是概率流之比</div>
+            <div class="step-body">
+              <p>平面波概率流 \(j=\frac{\hbar k}{m}|A|^2\)。所以</p>
+              \[ R=\frac{|B|^2}{|A|^2},\qquad T=\frac{|F|^2}{|A|^2}. \]
+              <p>因为 \(|\mathrm{i}\beta|=|\beta|\)，\(|1-\mathrm{i}\beta|^2=1+\beta^2\)：</p>
+              \[ R=\frac{\beta^2}{1+\beta^2},\qquad T=\frac{1}{1+\beta^2}. \]
+              <p class="step-check"><b>检查：</b>\(R+T=1\)，概率守恒。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用能量表示 \(T\)</div>
+            <div class="step-body">
+              <p>\[ \beta^2=\frac{m^2\alpha^2}{\hbar^4k^2}
+                 =\frac{m\alpha^2}{2\hbar^2E}. \]</p>
+              <p>所以</p>
+              \[ T=\frac{1}{1+\dfrac{m\alpha^2}{2\hbar^2E}}
+                 =\frac{E}{E+\dfrac{m\alpha^2}{2\hbar^2}}. \]
+              <p>\(R=1-T\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">\(\alpha^2\) 对称性：阱与垒同样透射</div>
+            <div class="step-body">
+              <p>\(T\) 只含 \(\alpha^2\)，所以把吸引势换成排斥势（\(\alpha\to-\alpha\)）时 \(T\) 不变：</p>
+              \[ T_{\text{well}}=T_{\text{barrier}}. \]
+              <p>即使 \(E<V_0\)（经典禁止），仍有 \(T>0\)：量子隧穿。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="tunneling">量子隧穿</a>；δ 势是最简单的隧穿模型。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两个极限</div>
+            <div class="step-body">
+              <p>\(E\to0\)（\(k\to0\)，\(\beta\to\infty\)）：\(T\to0\)，长波长几乎全反射。</p>
+              <p>\(E\to\infty\)（\(\beta\to0\)）：\(T\to1\)，短波长粒子几乎不感受 δ 势。</p>
+              <p class="step-check"><b>物理：</b>与「势的动量转移 \(\sim\hbar/\ell\)」比较：\(k\ell\gg1\) 时势显得很弱。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">δ 势作为有限深阱的极限</div>
+            <div class="step-body">
+              <p>取宽 \(2a\)、深 \(V_0\) 的方势阱，保持 \(\alpha=2V_0a\) 固定，让 \(a\to0\)、\(V_0\to\infty\)：</p>
+              \[ V(x)=-V_0\,\theta(a-|x|)\longrightarrow-\alpha\delta(x). \]
+              <p>有限阱的束缚能、透射系数在此极限下趋于 δ 势结果。</p>
+              <p class="step-why"><b>用途：</b>把 δ 势看成「短程势」的有效理论，而不是真实无穷大势。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>\([\alpha]=[\text{能量}]\cdot L\)（因为 \(\int\delta(x)\mathrm{d}x=1\)）。</p>
+              <p>\([\kappa]=[m\alpha/\hbar^2]=L^{-1}\)；\([E]=[\hbar^2\kappa^2/m]\)，正确。</p>
+              <p>\([\beta]\) 无量纲；\([T]=[R]=1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>让 \(\psi\) 跃变——错，只有 \(\psi'\) 跃变；</li>
+                <li>跃变系数漏 \(m\) 或 \(\hbar^2\)；</li>
+                <li>把 \(R,T\) 写成 \(|B|^2/|A|^2\) 却忘了概率流中的 \(k\)（同侧 k 相同，比值才恰好一样）；</li>
+                <li>认为排斥 δ 势没有反射——错，仍有 \(R>0\)；</li>
+                <li>认为 δ 势有多个束缚态——只有唯一一个（吸引时）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">波函数的尖角：δ 势的指纹</div>
+            <div class="step-body">
+              <p>δ 势解在 \(x=0\) 处 \(\psi\) 连续，但 \(\psi'\) 从 \(+\kappa B\) 跳到 \(-\kappa B\)，所以 \(|\psi|\) 有一个尖角（cusp），二阶导在 0 处奇异。</p>
+              <p>这正是「δ 势是有限窄深势的极限」的痕迹：真实势中尖角被有限宽度抹平，但低能、长波长下 δ 势结果仍适用。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="delta-potential">δ 函数势</a>、<a class="kp" data-kp="boundary">边界条件</a>；数值计算时不要用差分近似这个尖角。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>束缚：</b>\(E=-m\alpha^2/(2\hbar^2)\)，\(\psi=\sqrt{m\alpha}/\hbar\,e^{-m\alpha|x|/\hbar^2}\)，唯一。</p>
+              <p><b>散射：</b>\(T=1/(1+m\alpha^2/(2\hbar^2E))\)，\(R=1-T\)，只依赖 \(\alpha^2\)。</p>
+              <p><b>方法：</b>分区解 + 连续性 + 导数跃变；散射系数用概率流比。</p>
+              <p><b>自检：</b>能否独立积分薛定谔方程推出导数跃变？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4143,6 +4354,211 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s26">
+      <summary>完整推导 · 20 步：有限深方势阱</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：解 \(V=-V_0\)（\(|x|<a\)）、\(V=0\)（\(|x|>a\)）的束缚态，得到偶/奇超越方程、能级个数与散射共振。
+          约定：\(V_0>0\)，只讨论 \( -V_0<E<0\) 的束缚态。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="finite-well">有限深方势阱</a>的势能与分区</div>
+            <div class="step-body">
+              <p>\[ V(x)=\begin{cases}-V_0,&|x|<a,\\0,&|x|>a.\end{cases} \]</p>
+              <p>阱内 \(E+V_0>0\)，解是振荡的；阱外 \(E<0\)，解是指数衰减的。</p>
+              <p class="step-why"><b>与无限深阱区别：</b>壁高有限，波函数会渗入阱外（隧穿尾部），边界不是硬零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">阱内波数</div>
+            <div class="step-body">
+              <p>阱内：</p>
+              \[ -\frac{\hbar^2}{2m}\psi''-V_0\psi=E\psi
+                 \;\Longrightarrow\;\psi''=-k^2\psi, \]
+              \[ k=\frac{\sqrt{2m(E+V_0)}}{\hbar}>0. \]
+              <p>通解 \(A\cos kx+B\sin kx\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">阱外衰减常数</div>
+            <div class="step-body">
+              <p>阱外：</p>
+              \[ \psi''=\kappa^2\psi,\qquad
+                 \kappa=\frac{\sqrt{-2mE}}{\hbar}>0. \]
+              <p>可归一化解：</p>
+              \[ \psi(x)=\begin{cases}Ce^{\kappa x},&x<-a,\\De^{-\kappa x},&x>a.\end{cases} \]
+              <p>舍去增长项，否则 \(x\to\pm\infty\) 发散。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">宇称：偶解与奇解</div>
+            <div class="step-body">
+              <p>势关于 \(x=0\) 偶，所以本征态可取偶或奇：</p>
+              <p>偶：\(\psi(-x)=\psi(x)\)，阱内用 \(\cos kx\)；奇：\(\psi(-x)=-\psi(x)\)，阱内用 \(\sin kx\)。</p>
+              <p class="step-why"><b>为什么分开：</b>偶/奇边界条件不同，给出两族超越方程；混用会漏能级。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">偶解：连续性</div>
+            <div class="step-body">
+              <p>偶解：</p>
+              \[ \psi(x)=\begin{cases}
+                 A\cos kx,&|x|<a,\\
+                 Ce^{-\kappa|x|},&|x|>a.
+                 \end{cases} \]
+              <p>在 \(x=a\) 连续：</p>
+              \[ A\cos ka=Ce^{-\kappa a}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">偶解：导数连续</div>
+            <div class="step-body">
+              <p>对 \(x>a\)：\(\psi'=-\kappa Ce^{-\kappa x}\)；阱内 \(\psi'=-Ak\sin kx\)。在 \(a\)：</p>
+              \[ -Ak\sin ka=-\kappa Ce^{-\kappa a}. \]
+              <p>两式相除（\(A,C\ne0\)）：</p>
+              \[ k\tan ka=\kappa. \]
+              <p>这是偶宇称的超越方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">奇解：边界条件</div>
+            <div class="step-body">
+              <p>奇解：\(\psi=A\sin kx\)（\(|x|<a\)），\(\psi=Ce^{-\kappa|x|}\operatorname{sgn}(x)\)（\(|x|>a\)）。</p>
+              <p>连续性：</p>
+              \[ A\sin ka=Ce^{-\kappa a}. \]
+              <p>导数在 \(a\)：阱内 \(Ak\cos ka\)，阱外 \(-\kappa Ce^{-\kappa a}\)：</p>
+              \[ Ak\cos ka=-\kappa Ce^{-\kappa a}. \]
+              <p>相除：</p>
+              \[ k\cot ka=-\kappa\quad\Longleftrightarrow\quad -k\cot ka=\kappa. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">无量纲化</div>
+            <div class="step-body">
+              <p>令</p>
+              \[ \xi=ka,\qquad \eta=\kappa a,\qquad
+                 z_0=\frac{\sqrt{2mV_0}\,a}{\hbar}. \]
+              <p>则</p>
+              \[ \xi^2+\eta^2=z_0^2. \]
+              <p>偶解：\(\eta=\xi\tan\xi\)；奇解：\(\eta=-\xi\cot\xi\)。</p>
+              <p class="step-check"><b>检查：</b>\(z_0\) 越大（阱越深/宽），圆越大，交点数越多。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">图解法</div>
+            <div class="step-body">
+              <p>在 \((\xi,\eta)\) 第一象限画四分之一圆 \(\xi^2+\eta^2=z_0^2\)，再画 \(\eta=\xi\tan\xi\)（偶）与 \(\eta=-\xi\cot\xi\)（奇）。</p>
+              <p>交点给出允许的 \((\xi,\eta)\)，再由</p>
+              \[ E=-V_0+\frac{\hbar^2k^2}{2m}
+                 =-V_0+\frac{\hbar^2\xi^2}{2ma^2} \]
+              <p>得到束缚能。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">至少一个束缚态</div>
+            <div class="step-body">
+              <p>偶方程 \(\eta=\xi\tan\xi\) 在 \(\xi\to0\) 时 \(\eta\approx\xi^2\)，与圆 \(\eta\approx z_0\) 总有交点（只要 \(z_0>0\)）。</p>
+              <p>所以任意浅的吸引方势阱至少有一个偶束缚态；这是 1D 吸引势的一般性质。</p>
+              <p class="step-why"><b>对比：</b>3D 有限深阱需要势够强才有束缚态；1D 没有阈值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="bound-state">束缚态</a>个数</div>
+            <div class="step-body">
+              <p>奇解第一个交点出现在 \(\xi=\pi/2\)（因为 \(\cot\xi=0\)），对应 \(z_0=\pi/2\)。之后每跨过 \(\pi/2\) 增加一个态。</p>
+              <p>所以束缚态数</p>
+              \[ N=\left\lceil\frac{2z_0}{\pi}\right\rceil. \]
+              <p>例如 \(z_0=1\)：1 个（偶）；\(z_0=2\)：2 个（偶+奇）；\(z_0=4\)：3 个。</p>
+              <p class="step-check"><b>注意：</b>临界值附近新态刚出现在 \(E\to0\)，束缚很浅。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能级排序</div>
+            <div class="step-body">
+              <p>束缚态按能量从低到高交替为偶、奇、偶、奇……：</p>
+              <p>基态偶（无节点），第一激发态奇（一个节点），依此类推。</p>
+              <p>节点数仍随能量增加；但波函数在阱外有指数尾巴，节点定义只在阱内数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化与系数</div>
+            <div class="step-body">
+              <p>由连续性可把 \(C\) 用 \(A\) 表示：</p>
+              \[ C=A\cos(ka)e^{\kappa a}\quad(\text{偶}),\qquad
+                 C=A\sin(ka)e^{\kappa a}\quad(\text{奇}). \]
+              <p>再令 \(\int|\psi|^2\mathrm{d}x=1\) 定 \(A\)。积分分三段：阱内 + 两侧尾巴。</p>
+              <p class="step-why"><b>注意：</b>尾巴不能丢；浅阱时粒子有相当概率在阱外。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">无限深极限</div>
+            <div class="step-body">
+              <p>令 \(V_0\to\infty\)、\(z_0\to\infty\)，则 \(\eta=\kappa a\to\infty\)，\(Ce^{-\kappa a}\to0\)：波函数在壁上趋于零。</p>
+              <p>偶方程 \(\eta=\xi\tan\xi\) 要求 \(\tan\xi\to\infty\)，即 \(\xi\to n\pi/2\)；结合奇解，能级趋于无限深阱的 \(E_n=n^2\pi^2\hbar^2/(2ma^2)\)（注意阱宽 \(2a\)，公式中的 \(a\) 要换成 \(2a\)）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">δ 势极限</div>
+            <div class="step-body">
+              <p>取 \(V_0a=\alpha/2\) 固定，让 \(a\to0\)、\(V_0\to\infty\)：有限阱趋于 \(-\alpha\delta(x)\)。</p>
+              <p>束缚能应趋于 \(-m\alpha^2/(2\hbar^2)\)，波函数趋于指数 \(e^{-m\alpha|x|/\hbar^2}\)。</p>
+              <p class="step-check"><b>用途：</b>用有限阱数值解验证 δ 势极限，是很好的自检。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="scattering-state">散射态</a>与<a class="kp" data-kp="resonance">共振</a></div>
+            <div class="step-body">
+              <p>\(E>0\) 时阱内、外都是振荡解；透射系数一般 \(T<1\)，但在某些能量出现 \(T=1\) 的共振（阱内往返相位满足 \(2k'a=n\pi\)）。</p>
+              <p>这些共振对应准束缚态；能量宽度与寿命满足 \(\Delta E\,\tau\sim\hbar\)。</p>
+              <p class="step-why"><b>对比：</b>势垒的隧穿 \(T<1\)；势阱的共振透射 \(T=1\)，两者不要混。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">STM 与方势垒<a class="kp" data-kp="tunneling">隧穿</a></div>
+            <div class="step-body">
+              <p>扫描隧道显微镜用金属针尖—真空—样品构成方势垒。WKB/方垒近似：</p>
+              \[ T\approx16\frac{E(V_0-E)}{V_0^2}e^{-2\kappa L},\qquad
+                 \kappa=\frac{\sqrt{2m(V_0-E)}}{\hbar}. \]
+              <p>电流对间距 \(L\) 指数敏感，所以 STM 能分辨原子级高度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与常见错误</div>
+            <div class="step-body">
+              <p>\([\xi]=[\eta]=[z_0]=1\)；\([E]=[\hbar^2/ma^2]=\mathrm{J}\)。</p>
+              <ul>
+                <li>偶/奇方程混用；</li>
+                <li>忘记波函数在阱外有尾巴；</li>
+                <li>认为任意浅阱都有无穷多束缚态——只有有限个；</li>
+                <li>把 \(T=1\) 共振当成「无势」；</li>
+                <li>阱宽用 \(a\) 还是 \(2a\) 不统一。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">穿透深度与近阈值行为</div>
+            <div class="step-body">
+              <p>阱外衰减长度</p>
+              \[ \ell=\frac{1}{\kappa}=\frac{\hbar}{\sqrt{2m|E|}}. \]
+              <p>\(E\to0^-\) 时 \(\ell\to\infty\)：束缚刚形成时，波函数尾巴伸得很远，粒子有大量概率在阱外。</p>
+              <p>阱越深/宽，\(|E|\) 越大，\(\ell\) 越小，波函数越局域；无限深极限 \(\ell\to0\)，回到硬壁。</p>
+              <p class="step-check"><b>用途：</b>解释浅阱中的「 halo」、STM 中波函数泄漏与近阈值共振。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>方程：</b>偶 \(\eta=\xi\tan\xi\)，奇 \(\eta=-\xi\cot\xi\)，约束 \(\xi^2+\eta^2=z_0^2\)。</p>
+              <p><b>能级：</b>有限个束缚态，至少一个；\(N=\lceil2z_0/\pi\rceil\)。</p>
+              <p><b>极限：</b>\(V_0\to\infty\) 回无限深阱；\(a\to0\) 回 δ 势。</p>
+              <p><b>自检：</b>能否画出偶/奇方程的图，并说明为什么任意浅阱至少有一个束缚态？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4200,6 +4616,210 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         <li><b>完备性</b>：希尔伯特空间中任一函数可展开 <span class="m">f = Σc<sub>n</sub>f<sub>n</sub></span>，且 <span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|f⟩</span>。</li>
       </ul>
     </div>
+    <details class="blk b-deriv b-full" id="full-s31">
+      <summary>完整推导 · 20 步：希尔伯特空间与态矢量</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把波函数「升维」成抽象态矢量，建立内积、正交基、完备性、算符与谱分解的语言；这是第三章的形式基础。
+          约定：\(\mathcal H\) 为复希尔伯特空间；态矢量用狄拉克符号 \(|\psi\rangle\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">从波函数到态矢量</div>
+            <div class="step-body">
+              <p>波函数 \(\psi(x)\) 只是态在位置表象的「坐标」。抽象地，态是希尔伯特空间中的矢量 \(|\psi\rangle\)：</p>
+              \[ \psi(x)=\langle x|\psi\rangle. \]
+              <p>就像三维矢量 \(\mathbf v\) 与它的分量 \(v_i\) 的区别。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hilbert">希尔伯特空间</a>、<a class="kp" data-kp="dirac-notation">狄拉克符号</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">线性空间与叠加</div>
+            <div class="step-body">
+              <p>若 \(|\psi\rangle,|\phi\rangle\in\mathcal H\)，则任意复数 \(a,b\)：</p>
+              \[ a|\psi\rangle+b|\phi\rangle\in\mathcal H. \]
+              <p>这就是量子叠加的数学基础；薛定谔方程的线性保证演化保持叠加。</p>
+              <p class="step-check"><b>注意：</b>叠加是矢量加法，不是概率相加；概率由模方给出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内积</div>
+            <div class="step-body">
+              <p>内积 \(\langle\phi|\psi\rangle\) 是复数，满足：</p>
+              <ul>
+                <li>共轭对称：\(\langle\phi|\psi\rangle=\langle\psi|\phi\rangle^*\)；</li>
+                <li>对第二项线性：\(\langle\phi|a\psi+b\chi\rangle=a\langle\phi|\psi\rangle+b\langle\phi|\chi\rangle\)；</li>
+                <li>正定：\(\langle\psi|\psi\rangle\ge0\)，等号仅当 \(|\psi\rangle=0\)。</li>
+              </ul>
+              <p>位置表象：\(\langle\phi|\psi\rangle=\int\phi^*(x)\psi(x)\mathrm{d}x\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">范数与归一化</div>
+            <div class="step-body">
+              <p>定义范数</p>
+              \[ \||\psi\rangle\|=\sqrt{\langle\psi|\psi\rangle}. \]
+              <p>物理态要求 \(\||\psi\rangle\|=1\)，即 \(\langle\psi|\psi\rangle=1\)。</p>
+              <p>若未归一化，可令 \(|\psi\rangle\to|\psi\rangle/\sqrt{\langle\psi|\psi\rangle}\)；相位仍自由。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">柯西–施瓦茨不等式</div>
+            <div class="step-body">
+              <p>对任意两态：</p>
+              \[ |\langle\phi|\psi\rangle|^2\le\langle\phi|\phi\rangle\langle\psi|\psi\rangle. \]
+              <p>等号当且仅当两态线性相关。</p>
+              <p class="step-why"><b>用途：</b>保证内积连续、概率不超过 1；也是不确定原理证明的起点。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">正交归一基</div>
+            <div class="step-body">
+              <p>一组基 \(\{|e_n\rangle\}\) 满足</p>
+              \[ \langle e_m|e_n\rangle=\delta_{mn}. \]
+              <p>任意态可展开：</p>
+              \[ |\psi\rangle=\sum_n c_n|e_n\rangle,\qquad c_n=\langle e_n|\psi\rangle. \]
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="orthonormal">正交归一</a>、<a class="kp" data-kp="basis">基</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">完备性关系</div>
+            <div class="step-body">
+              <p>若基完备，则单位算符可写成</p>
+              \[ \sum_n|e_n\rangle\langle e_n|=\hat 1. \]
+              <p>作用在任意态上：</p>
+              \[ |\psi\rangle=\sum_n|e_n\rangle\langle e_n|\psi\rangle
+                 =\sum_n c_n|e_n\rangle. \]
+              <p class="step-check"><b>检查：</b>完备性保证「展开不丢信息」；不是所有正交系都完备。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">帕塞瓦尔定理</div>
+            <div class="step-body">
+              <p>取范数：</p>
+              \[ \langle\psi|\psi\rangle
+                 =\sum_m\sum_n c_m^*c_n\langle e_m|e_n\rangle
+                 =\sum_n|c_n|^2. \]
+              <p>所以 \(\sum_n|c_n|^2=1\)：系数模方就是概率。</p>
+              <p class="step-why"><b>物理：</b>这是「测量某本征值概率为 \(|c_n|^2\)」的数学来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">线性算符</div>
+            <div class="step-body">
+              <p>算符 \(\hat A\) 把态映到态，且保持线性：</p>
+              \[ \hat A(a|\psi\rangle+b|\phi\rangle)=a\hat A|\psi\rangle+b\hat A|\phi\rangle. \]
+              <p>位置表象中，\(\hat x=x\)、\(\hat p=-\mathrm{i}\hbar\partial_x\) 都是线性算符。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="operator">算符</a>；非线性算符（如测量坍缩）不在薛定谔演化里。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">厄密共轭</div>
+            <div class="step-body">
+              <p>\(\hat A^\dagger\) 由</p>
+              \[ \langle\phi|\hat A\psi\rangle=\langle\hat A^\dagger\phi|\psi\rangle \]
+              <p>定义。若 \(\hat A^\dagger=\hat A\)，称厄密算符。</p>
+              <p>位置、动量、哈密顿量都是厄密的；它们对应可观测量。</p>
+              <p class="step-check"><b>检查：</b>\(\hat p^\dagger=\hat p\) 依赖边界项为零；无限深阱/束缚态满足。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">本征值与本征矢量</div>
+            <div class="step-body">
+              <p>若</p>
+              \[ \hat A|a\rangle=a|a\rangle, \]
+              <p>则 \(a\) 为本征值，\(|a\rangle\) 为本征矢量。物理上，测量 \(\hat A\) 得 \(a\) 的概率为 \(|\langle a|\psi\rangle|^2\)。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="eigenfunction">本征函数</a>；波函数本征函数是位置表象的本征矢量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">厄密算符的本征值实数</div>
+            <div class="step-body">
+              <p>设 \(\hat A|a\rangle=a|a\rangle\)，\(\hat A^\dagger=\hat A\)：</p>
+              \[ a\langle a|a\rangle=\langle a|\hat A|a\rangle
+                 =\langle\hat A a|a\rangle=a^*\langle a|a\rangle. \]
+              <p>所以 \(a=a^*\)：本征值实数，才能作为测量结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不同本征值的本征矢量正交</div>
+            <div class="step-body">
+              <p>设 \(\hat A|a\rangle=a|a\rangle\)，\(\hat A|b\rangle=b|b\rangle\)，\(a\ne b\)：</p>
+              \[ a\langle b|a\rangle=\langle b|\hat A|a\rangle
+                 =\langle\hat A b|a\rangle=b\langle b|a\rangle. \]
+              <p>所以 \((a-b)\langle b|a\rangle=0\)，得 \(\langle b|a\rangle=0\)。</p>
+              <p class="step-check"><b>简并：</b>同一本征值的多个本征矢量不一定正交，但可 Gram–Schmidt 正交化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">谱分解</div>
+            <div class="step-body">
+              <p>若 \(\hat A\) 厄密且本征系完备：</p>
+              \[ \hat A=\sum_n a_n|a_n\rangle\langle a_n|. \]
+              <p>作用在态上给出展开；期望值：</p>
+              \[ \langle A\rangle=\langle\psi|\hat A|\psi\rangle
+                 =\sum_n a_n|\langle a_n|\psi\rangle|^2. \]
+              <p>这就是「期望值 = 本征值 × 概率」的算符版本。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置表象与 δ 函数</div>
+            <div class="step-body">
+              <p>位置本征态 \(|x\rangle\) 满足 \(\hat x|x\rangle=x|x\rangle\)，正交归一为</p>
+              \[ \langle x|x'\rangle=\delta(x-x'). \]
+              <p>波函数是投影：\(\psi(x)=\langle x|\psi\rangle\)。δ 归一化不是普通平方可积归一化，属于连续谱。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="completeness">完备性</a>；连续基的完备性写成 \(\int|x\rangle\langle x|\mathrm{d}x=\hat1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量表象</div>
+            <div class="step-body">
+              <p>动量本征态 \(|p\rangle\)，\(\hat p|p\rangle=p|p\rangle\)，\(\langle p|p'\rangle=\delta(p-p')\)。波函数：</p>
+              \[ \tilde\psi(p)=\langle p|\psi\rangle
+                 =\frac{1}{\sqrt{2\pi\hbar}}\int e^{-\mathrm{i}px/\hbar}\psi(x)\mathrm{d}x. \]
+              <p>位置与动量表象由傅里叶变换连接。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">表象变换</div>
+            <div class="step-body">
+              <p>同一态可在不同基展开：</p>
+              \[ |\psi\rangle=\sum_n c_n|e_n\rangle=\int\psi(x)|x\rangle\mathrm{d}x
+                 =\int\tilde\psi(p)|p\rangle\mathrm{d}p. \]
+              <p>系数之间由酉变换联系；物理结果（概率、期望）与表象无关。</p>
+              <p class="step-check"><b>用途：</b>选让问题最简单的表象：势场问题用位置表象，动量守恒用动量表象。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">张量积与多粒子</div>
+            <div class="step-body">
+              <p>两粒子态空间是张量积：</p>
+              \[ \mathcal H=\mathcal H_1\otimes\mathcal H_2,\qquad
+                 |\psi\rangle=\sum_{ij}c_{ij}|i\rangle_1|j\rangle_2. \]
+              <p>若 \(c_{ij}=a_i b_j\)，态可分离；否则为纠缠态。这是多体/量子信息的基础。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">无限维与严格性问题</div>
+            <div class="step-body">
+              <p>位置/动量本征态不属于平方可积希尔伯特空间，需用 rigged Hilbert space（装备希尔伯特空间）或盒归一化处理。</p>
+              <p>物理计算中把它们当「广义基」，只要最终概率/期望有限即可；严格数学另有一套语言。</p>
+              <p class="step-why"><b>注意：</b>δ 函数不是普通函数；不要对 \(|x\rangle\) 直接写 \(\langle x|x\rangle=1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>态：</b>希尔伯特空间矢量；叠加是矢量加法；内积给概率幅。</p>
+              <p><b>基：</b>正交归一 + 完备 → \(|\psi\rangle=\sum c_n|e_n\rangle\)，\(c_n=\langle e_n|\psi\rangle\)，\(\sum|c_n|^2=1\)。</p>
+              <p><b>算符：</b>厄密 ↔ 可观测量；本征值实数、本征矢量正交；谱分解给期望值。</p>
+              <p><b>自检：</b>能否用完备性关系独立推出展开系数公式？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5205,6 +5825,17 @@ applyFilter();
     'coherent-state': { title: '相干态', def: '满足 a_−|α⟩=α|α⟩ 的态；σxσp=ħ/2，⟨x⟩ 按经典频率振荡，是最接近经典运动的量子态。', card: 's23' },
     'phase-velocity': { title: '相速度', def: '等相位面传播速度 v_p=ω/k；非相对论自由粒子 v_p=ħk/(2m)=v_g/2，不代表粒子速度。', card: 's24' },
     'group-velocity': { title: '群速度', def: '波包包络速度 v_g=dω/dk；自由粒子 v_g=ħk/m=p/m，等于经典粒子速度。', card: 's24' },
+    'bound-state': { title: '束缚态', def: '能量低于无穷远处势能、波函数在两端指数衰减的态；能级离散，可归一化。', card: 's22' },
+    'finite-well': { title: '有限深方势阱', def: '宽 2a、深 V0 的方阱；束缚态由偶/奇超越方程决定，只有有限个，至少一个。', card: 's26' },
+    'delta-potential': { title: 'δ 函数势', def: 'V=−αδ(x)；波函数连续、一阶导跃变 −2mα/ħ²ψ(0)。吸引时唯一束缚态，散射时有隧穿。', card: 's25' },
+    'tunneling': { title: '量子隧穿', def: '粒子穿过经典禁止的势垒；T>0。方垒 T≈e^{−2κL}，δ 势 T=1/(1+mα²/2ħ²E)。', card: 's25' },
+    'scattering-state': { title: '散射态', def: 'E 高于无穷远势能的态，波函数在无穷远为振荡形式，不能平方可积归一化；用概率流定义 R、T。', card: 's26' },
+    'resonance': { title: '共振透射', def: '势阱中某些能量使 T=1；对应准束缚态，能量宽度与寿命满足 ΔEτ∼ħ。', card: 's26' },
+    'dirac-notation': { title: '狄拉克符号', def: '用 |ψ⟩ 表示态矢量、⟨φ| 表示对偶、⟨φ|ψ⟩ 表示内积；与具体表象无关。', card: 's31' },
+    'orthonormal': { title: '正交归一', def: '⟨e_m|e_n⟩=δ_mn；既正交又归一，便于展开系数 c_n=⟨e_n|ψ⟩。', card: 's31' },
+    'basis': { title: '基', def: '张成整个希尔伯特空间的线性无关矢量组；正交归一基使展开唯一、系数由投影给出。', card: 's31' },
+    'completeness': { title: '完备性', def: 'Σ|e_n⟩⟨e_n|=1（连续谱为积分）；保证任意态可展开且不丢信息。', card: 's31' },
+    'observable': { title: '可观测量', def: '对应厄密算符；本征值实数、本征矢量正交，测量结果只能是本征值。', card: 's32' },
     'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
   };
 
