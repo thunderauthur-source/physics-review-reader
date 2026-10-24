@@ -415,6 +415,147 @@
     .fname { white-space:normal; }
   }
 </style>
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+/* ===== 完整推导 / 知识点 / 三套遮罩（样卡） ===== */
+.b-full {
+  background: linear-gradient(180deg, #fbf7ff 0%, #f7fbff 100%);
+  border-color: #d9c8ef;
+}
+.b-full > summary { color: #5b3f8a; }
+.deriv-note {
+  font-size: .9em; color: #6b5b84; background: #f3ecff;
+  border-left: 3px solid #b9a4e6; border-radius: 0 8px 8px 0;
+  padding: 7px 10px; margin: 6px 0 10px; line-height: 1.65;
+}
+.steps { counter-reset: step; list-style: none; margin: 8px 0 0; padding: 0; }
+.step {
+  position: relative; counter-increment: step;
+  margin: 10px 0; padding: 12px 14px 12px 48px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: rgba(255, 255, 255, .72);
+}
+.step::before {
+  content: counter(step); position: absolute; left: 13px; top: 12px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: linear-gradient(135deg, #8b78e6, #b83f7c); color: #fff;
+  font-size: 12px; font-weight: 700; line-height: 24px; text-align: center;
+}
+.step-title { font-weight: 700; color: #3b3350; margin-bottom: 2px; }
+.step-body { position: relative; line-height: 1.78; }
+.step-body p { margin: 4px 0; }
+.step-why {
+  display: block; margin: 7px 0 2px; padding: 5px 9px;
+  font-size: .9em; color: #65557d; background: #f7f2ff;
+  border-left: 3px solid #b9a4e6; border-radius: 0 6px 6px 0;
+}
+.step-check {
+  display: block; margin: 7px 0 2px; padding: 5px 9px;
+  font-size: .9em; color: #2f6d5e; background: #eefaf6;
+  border-left: 3px solid #6fc7b2; border-radius: 0 6px 6px 0;
+}
+.keyeq {
+  display: block; position: relative; margin: 8px 0; padding: 7px 10px;
+  text-align: center; background: #f5fbf8;
+  border: 1px dashed #abd6c9; border-radius: 8px;
+}
+.katex { font-size: 1.02em; }
+.katex-display { margin: .35em 0; overflow-x: auto; overflow-y: hidden; padding: 1px 0; }
+
+/* 知识点 */
+.kp {
+  color: #5b3f8a; font-weight: 600; text-decoration: none;
+  border-bottom: 1px dotted #9b7fd4; cursor: pointer;
+}
+.kp:hover { background: #f1eaff; border-bottom-style: solid; }
+.kp-pop {
+  position: fixed; z-index: 9999; width: 350px; max-width: calc(100vw - 24px);
+  display: none; padding: 13px 14px 11px;
+  background: #fff; border: 1px solid #d9c8ef; border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(60, 35, 90, .22);
+}
+.kp-pop.show { display: block; }
+.kp-pop h5 { margin: 0 0 6px; font-size: 14px; color: #4b356f; }
+.kp-pop .kp-def { margin: 0 0 7px; font-size: 12.5px; line-height: 1.7; color: #4b4358; }
+.kp-pop .kp-formula { margin: 6px 0; padding: 5px 8px; background: #f7f4ff; border-radius: 6px; font-size: 12.5px; }
+.kp-pop .kp-acts { display: flex; gap: 7px; justify-content: flex-end; margin-top: 8px; }
+.kp-pop .kp-acts button {
+  border: 1px solid #d9c8ef; background: #fbf8ff; color: #5b3f8a;
+  border-radius: 7px; padding: 4px 9px; font-size: 12px; cursor: pointer;
+  font-family: inherit;
+}
+.kp-pop .kp-acts button:hover { background: #f1eaff; }
+
+/* 遮罩按钮 */
+.maskbtn b { margin-left: 4px; font-size: .82em; opacity: .65; font-weight: 700; }
+.maskbtn.on { border-color: #b83f7c; color: #b83f7c; background: #fff0f8; }
+.mask-tip {
+  display: none; max-width: 1180px; margin: 0 auto 8px; padding: 7px 14px;
+  font-size: 12.5px; color: #6b5b84; background: #f7f2ff;
+  border: 1px solid #e2d4f5; border-radius: 8px;
+}
+.mask-tip.show { display: block; }
+.maskable { position: relative; }
+.mask-eye {
+  position: absolute; right: 3px; top: 3px; z-index: 6;
+  width: 24px; height: 22px; padding: 0; border: 1px solid #d9c8ef;
+  border-radius: 6px; background: rgba(255,255,255,.95); color: #6b5b84;
+  font-size: 12px; line-height: 20px; cursor: pointer; opacity: 0;
+  transition: opacity .15s;
+}
+.maskable:hover .mask-eye, .mask-eye.show { opacity: 1; }
+.mask-eye:hover { background: #f1eaff; border-color: #b9a4e6; }
+
+/* 遮住结论 / 关键公式 */
+.concl.masked > *:not(.mask-eye),
+.keyeq.masked > *:not(.mask-eye) {
+  filter: blur(5px); user-select: none; pointer-events: none;
+}
+.concl.masked::after, .keyeq.masked::after {
+  content: '点击显示'; position: absolute; inset: 0; z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  color: #8a6fb0; font-size: .8em; letter-spacing: .08em;
+  background: rgba(247, 242, 255, .55); border-radius: 6px; cursor: pointer;
+}
+
+/* 遮住推导步骤：只遮正文，保留步骤标题 */
+.step.masked .step-body > *:not(.mask-eye) {
+  filter: blur(5px); user-select: none; pointer-events: none;
+}
+.step.masked .step-body::after {
+  content: '点击显示这一步'; position: absolute; inset: 0; z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  color: #8a6fb0; font-size: .8em; letter-spacing: .08em;
+  background: rgba(247, 242, 255, .55); border-radius: 6px; cursor: pointer;
+}
+.fml.masked { filter: blur(5px); cursor: pointer; user-select: none; }
+
+@media print {
+  .mask-eye, .mask-tip, .kp-pop { display: none !important; }
+  .concl.masked > *, .keyeq.masked > *, .step.masked .step-body > *, .fml.masked { filter: none !important; }
+  .concl.masked::after, .keyeq.masked::after, .step.masked .step-body::after { display: none !important; }
+}
+
+/* 点击跳转提示 */
+a.loc, .kp {
+  position: relative; border-radius: 4px;
+  transition: color .15s, background .15s, box-shadow .15s;
+}
+a.loc::after, .kp::after {
+  content: '↗'; font-size: .72em; font-style: normal;
+  margin-left: 2px; opacity: .45; display: inline-block;
+  transform: translateY(-.28em); transition: opacity .15s, transform .15s;
+}
+a.loc:hover, .kp:hover { background: #fff0f8; }
+a.loc:hover::after, .kp:hover::after { opacity: 1; transform: translate(1px, -.4em); }
+a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
+@keyframes jumpFlash {
+  0%   { background: #ffd9ec; box-shadow: 0 0 0 3px rgba(184,63,124,.35); }
+  55%  { background: #ffeaf4; box-shadow: 0 0 0 8px rgba(184,63,124,0); }
+  100% { background: transparent; box-shadow: 0 0 0 0 rgba(184,63,124,0); }
+}
+
+</style>
 
 <style>
   .card .meta { padding: 2px 18px 8px; color: #7a6b8e; font-size: 12px; }
@@ -447,8 +588,10 @@
       <button class="btn" id="bModeWarn" onclick="setMode('warn')" title="只看易错点（考前突击）">易错点</button>
       <button class="btn" id="bModeKey" onclick="setMode('key')" title="只看关键结论">结论</button>
     </div>
-    <button class="btn" id="bMask" onclick="toggleMask()" title="遮挡关键结论（自测，快捷键 M）">👁 遮挡结论</button>
-    <button class="btn" id="bMaskF" onclick="toggleMaskF()" title="模糊公式速查表（快捷键 F）">遮住公式</button>
+    <button class="btn maskbtn" id="bMaskC" onclick="toggleMaskMode('concl')" title="遮住/揭示结论（快捷键 M）">结论 <b>0/0</b></button>
+    <button class="btn maskbtn" id="bMaskF" onclick="toggleMaskMode('formula')" title="遮住/揭示关键公式（快捷键 F）">公式 <b>0/0</b></button>
+    <button class="btn maskbtn" id="bMaskS" onclick="toggleMaskMode('step')" title="遮住/揭示推导步骤（快捷键 R）">推导 <b>0/0</b></button>
+    <button class="btn" id="bMaskAll" onclick="revealAllMasks()" title="全部揭开">全部揭开</button>
     <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
     <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
     <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
@@ -456,6 +599,8 @@
   </div>
   <div class="pbar"><i id="pbarIn"></i></div>
 </div>
+
+<div class="mask-tip" id="maskTip"></div>
 
 <div class="wrap">
 
@@ -541,6 +686,184 @@
         <li><b>单相系 / 复相系</b>：同一化学组分、同一凝聚状态是一相；水–汽–冰共存就是单元三相系（「相」的概念第三章展开）。</li>
       </ul>
     </div>
+    <details class="blk b-deriv b-full" id="full-s11">
+      <summary>完整推导 · 20 步：平衡态与宏观描述</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把「热力学降维」讲清楚：系统分类 → 平衡态定义 → 状态参量 → 广延/强度量 → 状态函数 → 弛豫时间与准静态。
+          约定：不追踪 \(10^{23}\) 个分子，只用少数宏观量描述。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">系统、外界、边界</div>
+            <div class="step-body">
+              <p>热力学系统是被研究的宏观物体；外界是与之相互作用的其他物体；边界决定交换什么。</p>
+              <p>按交换关系分：孤立系（不交换物质/能量）、封闭系（只交换能量）、开放系（物质能量都交换）。</p>
+              <p class="step-why"><b>为什么先分类：</b>不同系统用不同的热力学基本方程（是否有 μdN 项）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">平衡态的定义</div>
+            <div class="step-body">
+              <p>在不受外界影响的条件下，系统的宏观性质不随时间变化，称为平衡态。</p>
+              <p>注意「宏观」二字：微观分子仍在运动、碰撞，只是平均效果稳定，所以叫<a class="kp" data-kp="equilibrium-state">热动平衡</a>。</p>
+              <p class="step-check"><b>反例：</b>稳定流动中密度/速度处处恒定，但有宏观流，不是热力学平衡态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">四类平衡同时成立</div>
+            <div class="step-body">
+              <p>平衡态要求：力学平衡（无宏观位移/压强差）、热平衡（温度均匀）、相平衡（无相变净流）、化学平衡（无化学反应净流）。</p>
+              <p>缺一不可；例如两相共存但温度不同，不是平衡态。</p>
+              <p class="step-why"><b>用途：</b>判断「是否达到平衡」时逐条检查四类平衡。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">宏观量与微观量</div>
+            <div class="step-body">
+              <p>宏观量：p、V、T、U、S 等，可直接测量或由状态函数给出；微观量：分子位置、速度、动能。</p>
+              <p>热力学不追踪微观量，只保留它们的统计平均；统计物理负责从微观推出宏观。</p>
+              <p class="step-check"><b>数量级：</b>1 mol 约 \(6.02\times10^{23}\) 个分子，逐个体追踪既不可能也无必要。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">状态参量</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="state-parameter">状态参量</a>：几何参量 V、力学参量 p、电磁参量、化学参量 n。</p>
+              <p>单位：p 用 Pa（1 atm=101325 Pa），V 用 m³（1 m³=10³ L），T 用 K。</p>
+              <p class="step-why"><b>注意：</b>状态参量是「平衡态」的标签；非平衡态没有统一的 p、T。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">广延量与强度量</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="extensive">广延量</a>与系统大小成正比：V、U、S、N；两半合并时相加。</p>
+              <p><a class="kp" data-kp="intensive">强度量</a>与大小无关：p、T、μ；两半合并时不变。</p>
+              <p>广延量除以质量/摩尔数得比量/摩尔量（如 v=V/m、u=U/m）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">简单系统只需两个参量</div>
+            <div class="step-body">
+              <p>对无电磁/化学变化的单相简单系统，状态由两个独立参量确定，常取 (p,V) 或 (p,T)。</p>
+              <p>第三个参量由物态方程约束，不独立。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="simple-system">简单系统</a>；多于两个参量叫复杂系统。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">状态函数</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="state-function">状态函数</a>只由平衡态决定，与到达该态的路径无关：U、S、H、F、G。</p>
+              <p>数学上，状态函数沿闭合路径的积分为零：\(\oint \mathrm{d}U=0\)。</p>
+              <p class="step-check"><b>对比：</b>功 W、热 Q 是过程量，不是状态函数；它们沿闭合路径的积分一般不为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">物态方程约束</div>
+            <div class="step-body">
+              <p>平衡态三个参量被物态方程约束：</p>
+              \[ f(p,V,T)=0. \]
+              <p>所以独立参量只有两个；物态方程把三维参量空间压成二维曲面。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="equation-of-state">物态方程</a>；下一节展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">弛豫时间</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="relaxation-time">弛豫时间</a> \(\tau\)：系统从初态过渡到平衡态所需的时间，由尺度与分子运动速度决定。</p>
+              <p>只有观测时间 \(t_{\rm obs}\gg\tau\)，才能把系统当平衡态；否则要用非平衡热力学。</p>
+              <p class="step-check"><b>例子：</b>气体 \(\tau\sim10^{-8}\,\mathrm{s}\)，玻璃 \(\tau\) 可达 years（玻璃是亚稳非平衡态）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热力学极限</div>
+            <div class="step-body">
+              <p>\(N\to\infty\)、\(V\to\infty\)，但 \(N/V\) 有限；此时相对涨落 \(\sim1/\sqrt N\to0\)，宏观量有确定值。</p>
+              <p>热力学极限是「宏观描述」成立的数学条件；小系统（纳米）涨落不可忽略。</p>
+              <p class="step-why"><b>统计物理：</b>配分函数的极限行为、相变严格定义都在此极限下。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">准静态过程</div>
+            <div class="step-body">
+              <p>过程进行得足够慢，使系统每一步都近似平衡态，称为准静态过程。</p>
+              <p>准静态过程可以在 p–V 图上画成曲线；非准静态过程没有统一 p、V 曲线。</p>
+              <p class="step-check"><b>注意：</b>准静态 ≠ 可逆；可逆还要求无耗散（无摩擦、无有限温差传热）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆过程</div>
+            <div class="step-body">
+              <p>可逆过程：系统与外界都能沿原路径反向回到初态，且不留下任何痕迹。</p>
+              <p>条件：准静态 + 无耗散。实际过程都不可逆；可逆是理想化极限。</p>
+              <p class="step-why"><b>用途：</b>可逆过程做最大功/最小功；熵变用可逆路径计算。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">路径与循环</div>
+            <div class="step-body">
+              <p>过程量（W、Q）依赖路径；状态量（U、S）只依赖初末态。</p>
+              <p>循环过程 \(\oint \mathrm{d}U=0\)，但 \(\oint \delta Q=\oint \delta W=W_{\rm net}\ne0\)（热机）。</p>
+              <p class="step-check"><b>符号：</b>系统吸热为正、对外做功为正；不同教材约定可能相反，先统一。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">涨落</div>
+            <div class="step-body">
+              <p>平衡态宏观量有微小涨落；相对涨落 \(\sim1/\sqrt N\)，宏观系统可忽略，小系统/临界点附近显著。</p>
+              <p>涨落是统计物理的核心；热力学只给平均值。</p>
+              <p class="step-why"><b>例子：</b>临界点附近密度涨落导致光散射（临界乳光）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相与组元</div>
+            <div class="step-body">
+              <p>相：物理性质均匀的部分；组元：能独立改变的化学组分。</p>
+              <p>单相系、复相系、单元系/多元系；第三章用相律与化学势处理相变。</p>
+              <p class="step-check"><b>例子：</b>水–冰–汽共存是单元三相系；盐水溶液是二元单相系。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位与量纲</div>
+            <div class="step-body">
+              <p>p：Pa=N/m²；V：m³；T：K；U、Q、W：J；S：J/K；μ：J/mol 或 J。</p>
+              <p>计算前统一单位；尤其 atm、L、cal 与 SI 的换算。</p>
+              <p class="step-check"><b>检查：</b>pV 的量纲是 J，与能量一致；nRT 也是 J。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把「宏观量暂时不变」当平衡态（稳定流动反例）；</li>
+                <li>把准静态当可逆；</li>
+                <li>把状态函数当过程量（或反过来）；</li>
+                <li>认为平衡态微观静止；</li>
+                <li>忽略弛豫时间，对快速过程套平衡态公式。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">独立参量的选择</div>
+            <div class="step-body">
+              <p>简单系统只需两个独立参量；选 (p,V)、(p,T) 或 (V,T) 都可以，取决于哪个量容易控制。</p>
+              <p>被固定为常数的参量叫约束条件：等压、等容、等温、绝热。不同约束对应不同的热容/响应系数。</p>
+              <p class="step-check"><b>注意：</b>「独立」指不能由物态方程互相表示；三个参量中任意两个可作自变量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>平衡态：</b>无外界影响时宏观量不变，四类平衡同时成立；微观仍运动。</p>
+              <p><b>描述：</b>状态参量 (p,V,T)，简单系统两个独立；广延量可加，强度量不可加。</p>
+              <p><b>过程：</b>准静态可画曲线；可逆 = 准静态 + 无耗散；状态函数与路径无关。</p>
+              <p><b>自检：</b>能否举一个「宏观量不变但不是平衡态」的例子？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -585,6 +908,185 @@
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s12">
+      <summary>完整推导 · 20 步：温度与第零定律</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从热平衡的传递性定义温度，建立温标三要素、理想气体温标与热力学温标的逻辑链。
+          约定：热接触通过透热壁；只交换热量，不交换粒子。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">热接触与热平衡</div>
+            <div class="step-body">
+              <p>两系统通过透热壁接触，宏观状态可能变化；最终不再有净热流，称为<a class="kp" data-kp="thermal-equilibrium">热平衡</a>。</p>
+              <p>热平衡是「不再有净能量交换」的宏观判据，不是「没有分子碰撞」。</p>
+              <p class="step-check"><b>绝热壁：</b>不允许热交换，系统可各自保持不同温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热平衡的传递性</div>
+            <div class="step-body">
+              <p>实验事实：若 A 与 C 热平衡、B 与 C 热平衡，则 A 与 B 热平衡。</p>
+              <p>这是<a class="kp" data-kp="zeroth-law">第零定律</a>；它不能由第一、第二定律推出，是独立经验事实。</p>
+              <p class="step-why"><b>为什么需要它：</b>没有传递性，就无法用「与同一温度计平衡」比较两个系统。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等价类</div>
+            <div class="step-body">
+              <p>把「与 C 热平衡」作为一个关系，它把所有系统分成若干等价类；同类系统彼此热平衡。</p>
+              <p>传递性保证这个分类自洽：不会出现 A~C、B~C 但 A 与 B 不平衡。</p>
+              <p class="step-check"><b>数学：</b>热平衡是等价关系（自反、对称、传递）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度作为等价类标签</div>
+            <div class="step-body">
+              <p>给每个等价类标一个实数 T，要求</p>
+              \[ A\sim B\;\Longleftrightarrow\;T_A=T_B. \]
+              <p>这个 T 就是<a class="kp" data-kp="temperature">温度</a>；它是态函数。</p>
+              <p class="step-why"><b>逻辑：</b>温度的存在性来自第零定律；不是先有温度计再有温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度是强度量</div>
+            <div class="step-body">
+              <p>两系统合并，体积、内能相加，但温度不变（平衡后）：</p>
+              \[ T_{A+B}=T_A=T_B. \]
+              <p>所以温度是强度量，不能相加；这与「热量可以相加」不同。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度计与测温属性</div>
+            <div class="step-body">
+              <p>温度计：选一个随温度单调变化的物理量 X（水银柱长度、电阻、气体压强），用</p>
+              \[ T(X)=aX+b \]
+              <p>标定。X 叫测温属性；a、b 由固定点确定。</p>
+              <p class="step-check"><b>问题：</b>不同测温属性给出的温标一般不一致（经验温标的缺陷）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">固定点与标定</div>
+            <div class="step-body">
+              <p>需要一个固定点 + 一个单位大小。历史上用冰点/沸点；现代用水的<a class="kp" data-kp="triple-point">三相点</a>。</p>
+              <p>三相点温度固定为 273.16 K，压强 611.657 Pa；它比冰点更可复现。</p>
+              <p class="step-why"><b>为什么用三相点：</b>三相共存时温度/压强唯一，不依赖外界压强。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体温标</div>
+            <div class="step-body">
+              <p>定容气体温度计，低压极限下：</p>
+              \[ T=273.16\,\mathrm{K}\times\lim_{p_{\rm gas}\to0}\frac{p}{p_{\rm tr}}. \]
+              <p>取极限是为了消除气体非理想性；不同气体在低压下给同一温标。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="ideal-gas-thermometer">理想气体温标</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">摄氏温标</div>
+            <div class="step-body">
+              <p>\[ t/^\circ\mathrm{C}=T/\mathrm{K}-273.15. \]
+              <p>注意三相点是 273.16 K，冰点是 273.15 K；差 0.01 K。</p>
+              <p class="step-check"><b>换算：</b>\(\Delta T\) 与 \(\Delta t\) 数值相同，因为只差常数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热力学温标</div>
+            <div class="step-body">
+              <p>由卡诺定理：可逆卡诺热机效率只依赖两热源温度，</p>
+              \[ \eta=1-\frac{Q_2}{Q_1}=1-\frac{T_2}{T_1}. \]
+              <p>由此定义<a class="kp" data-kp="thermodynamic-temperature">热力学温标</a>，与工作物质无关。</p>
+              <p class="step-why"><b>优点：</b>不依赖任何具体测温物质；理想气体温标在低压下与它一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝对零度</div>
+            <div class="step-body">
+              <p>卡诺效率 \(\eta<1\) 要求 \(T_2>0\)；\(T=0\) 时效率为 1，违反第二定律。</p>
+              <p>所以绝对零度不可达到（第三定律的推论之一）；\(T\to0\) 时 \(Q_2/Q_1\to0\)。</p>
+              <p class="step-check"><b>注意：</b>负温度不是「比绝对零度更冷」；它要求能级有上界，是布居反转的特殊状态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度计的使用</div>
+            <div class="step-body">
+              <p>温度计必须与系统达到热平衡；温度计的热容要小，避免改变系统温度。</p>
+              <p>测量快速变化温度时，温度计弛豫时间要远小于变化时标。</p>
+              <p class="step-check"><b>例子：</b>测气体温度时，温度计不能太大；否则吸热显著。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温标的线性化</div>
+            <div class="step-body">
+              <p>经验温标假定 \(T=aX+b\) 线性；但实际 X(T) 可能非线性，不同属性给出不同读数。</p>
+              <p>理想气体温标用 \(p\propto T\) 在低压下线性，作为标准；热力学温标则完全不用具体属性。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度间隔</div>
+            <div class="step-body">
+              <p>热力学温标中，1 K 定义为水的三相点温度的 1/273.16。</p>
+              <p>摄氏温标中 1 °C 与 1 K 等长；只是零点不同。</p>
+              <p class="step-why"><b>换算：</b>\(T_2-T_1=t_2-t_1\)，温差不需要加 273.15。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度与热运动</div>
+            <div class="step-body">
+              <p>微观上，温度表征热运动平均动能（理想气体 \(\langle E_k\rangle=\frac32k_BT\)）。</p>
+              <p>但温度是宏观统计量，单个分子没有「温度」；不能说「这个分子温度很高」。</p>
+              <p class="step-check"><b>注意：</b>温度不是热量的度量；热量是过程量，温度是状态量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热平衡与热流方向</div>
+            <div class="step-body">
+              <p>热流自发从高温流向低温，直到温度相等；这是第二定律的日常表现。</p>
+              <p>温度相等是热平衡的充要条件（对热接触系统）。</p>
+              <p class="step-why"><b>知识点：</b>第零定律给「相等」，第二定律给「方向」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把温度当广延量相加；</li>
+                <li>认为温度计读数直接等于热力学温度（未经校正）；</li>
+                <li>把摄氏度差与开尔文差混用（数值相同但零点不同）；</li>
+                <li>认为负温度比 0 K 冷；</li>
+                <li>用「单个分子的温度」描述微观状态。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与单位</div>
+            <div class="step-body">
+              <p>热力学温度单位 K 是 SI 基本单位；摄氏温度单位 °C 由 K 导出。</p>
+              <p>温度是强度量，量纲记作 \(\Theta\)；\(k_BT\) 的量纲是能量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度与热量的区别</div>
+            <div class="step-body">
+              <p>温度是状态量（强度量），描述冷热程度；热量是过程量，描述能量转移的多少。</p>
+              <p>「高温物体含热多」是错误说法：热量只在传递过程中有意义；物体含的是内能，不是热量。</p>
+              <p class="step-check"><b>例子：</b>一杯 90°C 的水比一浴缸 30°C 的水温度高，但内能可能更小。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>逻辑链：</b>热平衡传递性（第零定律）→ 等价类 → 温度 → 温标。</p>
+              <p><b>三种温标：</b>经验温标（依赖物质）→ 理想气体温标（低压极限）→ 热力学温标（卡诺定理，不依赖物质）。</p>
+              <p><b>换算：</b>\(T=t+273.15\)；三相点 273.16 K；绝对零度不可达。</p>
+              <p><b>自检：</b>为什么没有第零定律就无法定义温度？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -637,6 +1139,198 @@
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s13">
+      <summary>完整推导 · 20 步：物态方程与响应系数</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(f(p,V,T)=0\) 推出全微分、循环关系与 \(\alpha=\kappa_T\beta p\)，并讨论理想气体、维里方程、范德瓦耳斯方程。
+          约定：简单系统、单相、无电磁/化学变化；下标表示固定量。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">物态方程</div>
+            <div class="step-body">
+              <p>平衡态三个参量被约束：</p>
+              \[ f(p,V,T)=0. \]
+              <p>它把 \((p,V,T)\) 三维空间压成一张二维曲面；状态只能落在曲面上。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="equation-of-state">物态方程</a>；热力学本身给不出 f，必须实验或统计物理。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">解出任意一个参量</div>
+            <div class="step-body">
+              <p>原则上可解成</p>
+              \[ V=V(p,T),\qquad p=p(V,T),\qquad T=T(p,V). \]
+              <p>选哪个当因变量看问题方便；但三者不是独立。</p>
+              <p class="step-check"><b>检查：</b>固定一个参量，状态在曲面上走一条曲线（等压/等容/等温线）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">全微分</div>
+            <div class="step-body">
+              <p>取 \(V=V(p,T)\)：</p>
+              \[ \mathrm{d}V=\left(\frac{\partial V}{\partial p}\right)_T\mathrm{d}p
+                 +\left(\frac{\partial V}{\partial T}\right)_p\mathrm{d}T. \]
+              <p>这是后面所有响应系数的出发点。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">三个响应系数</div>
+            <div class="step-body">
+              <p>\[ \alpha=\frac1V\left(\frac{\partial V}{\partial T}\right)_p,\qquad
+                 \kappa_T=-\frac1V\left(\frac{\partial V}{\partial p}\right)_T,\qquad
+                 \beta=\frac1p\left(\frac{\partial p}{\partial T}\right)_V. \]</p>
+              <p>\(\alpha\) 体胀系数；\(\kappa_T\) 等温压缩系数；\(\beta\) 压力系数。\(\kappa_T\) 的负号保证它为正（加压体积减小）。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="expansion-coefficient">α</a>、<a class="kp" data-kp="compressibility">κ_T</a>、<a class="kp" data-kp="tension-coefficient">β</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">沿等容线</div>
+            <div class="step-body">
+              <p>令 \(\mathrm{d}V=0\)：</p>
+              \[ 0=\left(\frac{\partial V}{\partial p}\right)_T\mathrm{d}p
+                 +\left(\frac{\partial V}{\partial T}\right)_p\mathrm{d}T. \]
+              <p>解出等容线上的斜率：</p>
+              \[ \left(\frac{\partial p}{\partial T}\right)_V
+                 =-\frac{(\partial V/\partial T)_p}{(\partial V/\partial p)_T}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用系数表示</div>
+            <div class="step-body">
+              <p>分子 \(=V\alpha\)，分母 \(=-V\kappa_T\)，所以</p>
+              \[ \left(\frac{\partial p}{\partial T}\right)_V=\frac{\alpha}{\kappa_T}. \]
+              <p>而 \(\beta p=(\partial p/\partial T)_V\)，因此</p>
+              \[ \boxed{\alpha=\kappa_T\beta p}. \]
+              <p>这就是三个响应系数的循环关系。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体验证</div>
+            <div class="step-body">
+              <p>\(pV=nRT\)：</p>
+              \[ \alpha=\frac1V\left(\frac{\partial V}{\partial T}\right)_p=\frac1T, \]
+              \[ \kappa_T=-\frac1V\left(\frac{\partial V}{\partial p}\right)_T=\frac1p, \]
+              \[ \beta=\frac1p\left(\frac{\partial p}{\partial T}\right)_V=\frac1T. \]
+              <p>于是 \(\kappa_T\beta p=(1/p)(1/T)p=1/T=\alpha\)，验证成立。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">压缩系数的意义</div>
+            <div class="step-body">
+              <p>\(\kappa_T\) 描述等温加压时体积的相对收缩；\(\kappa_T\) 越大越易压缩。</p>
+              <p>对理想气体 \(\kappa_T=1/p\)：低压易压缩，高压难压缩。</p>
+              <p class="step-check"><b>量纲：</b>\(\alpha\)、\(\beta\) 量纲 \(1/K\)；\(\kappa_T\) 量纲 \(1/Pa\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">维里方程</div>
+            <div class="step-body">
+              <p>真实气体低压展开：</p>
+              \[ pV=nRT\left[1+\frac{B(T)}{V}+\frac{C(T)}{V^2}+\cdots\right]. \]
+              <p>\(B,C\) 为第二、第三维里系数；理想气体极限 \(V\to\infty\) 时回到 \(pV=nRT\)。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="virial">维里方程</a>；系数可由统计物理的集团展开计算。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">范德瓦耳斯方程</div>
+            <div class="step-body">
+              <p>\[ \left(p+\frac{a}{V_m^2}\right)(V_m-b)=RT. \]
+              <p>\(a\) 修正分子间吸引（内压），\(b\) 修正分子体积；\(V_m\) 为摩尔体积。</p>
+              <p>它比理想气体多两个参数，能描述气液临界点。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="van-der-waals">范德瓦耳斯方程</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">范德瓦耳斯方程的展开</div>
+            <div class="step-body">
+              <p>把 \(p=RT/(V_m-b)-a/V_m^2\) 在 \(1/V_m\) 展开：</p>
+              \[ pV_m=RT\left(1+\frac{b}{V_m}+\frac{b^2}{V_m^2}+\cdots\right)-\frac{a}{V_m}+\cdots \]
+              <p>所以第二维里系数 \(B=b-a/(RT)\)：低温 \(a\) 主导（吸引），高温 \(b\) 主导（排斥体积）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">临界点</div>
+            <div class="step-body">
+              <p>气液临界点满足</p>
+              \[ \left(\frac{\partial p}{\partial V_m}\right)_T=0,\qquad
+                 \left(\frac{\partial^2p}{\partial V_m^2}\right)_T=0. \]
+              <p>对范德瓦耳斯方程解得 \(V_c=3b\)、\(p_c=a/(27b^2)\)、\(T_c=8a/(27Rb)\)。</p>
+              <p class="step-check"><b>用途：</b>临界点以上气液不可区分；第三章展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对应状态律</div>
+            <div class="step-body">
+              <p>用约化变量 \(p_r=p/p_c\)、\(V_r=V_m/V_c\)、\(T_r=T/T_c\)，范德瓦耳斯方程变为</p>
+              \[ \left(p_r+\frac{3}{V_r^2}\right)(3V_r-1)=8T_r. \]
+              <p>不含物质参数：所有范德瓦耳斯气体在同一约化方程上，这是对应状态律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">物态方程的测量</div>
+            <div class="step-body">
+              <p>测等温线 \(p(V)\) 得 \(\kappa_T\)；测等压膨胀得 \(\alpha\)；测等容升温得 \(\beta\)。</p>
+              <p>三者满足 \(\alpha=\kappa_T\beta p\)，可作为数据自洽性检查。</p>
+              <p class="step-why"><b>注意：</b>真实气体在相变区等温线有平台，\(\kappa_T\to\infty\)，循环关系仍形式成立但需分段。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">广延性与齐次函数</div>
+            <div class="step-body">
+              <p>物态方程对广延量是齐次的：把系统扩大 \(\lambda\) 倍，\(V\to\lambda V\)、\(n\to\lambda n\)，但 \(p,T\) 不变。</p>
+              <p>所以 \(p=p(T,n/V)\) 只依赖强度量密度；这是欧拉齐次函数定理的物理体现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">微分形式</div>
+            <div class="step-body">
+              <p>由 \(V=V(p,T)\)：</p>
+              \[ \frac{\mathrm{d}V}{V}=\alpha\,\mathrm{d}T-\kappa_T\,\mathrm{d}p. \]
+              <p>这是工程计算常用形式：温度升高膨胀，压强升高压缩。</p>
+              <p class="step-check"><b>检查：</b>等压时 \(\mathrm{d}V/V=\alpha\mathrm{d}T\)；等温时 \(\mathrm{d}V/V=-\kappa_T\mathrm{d}p\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体内能</div>
+            <div class="step-body">
+              <p>理想气体 \(U=U(T)\)，与 V 无关；这是焦耳实验的结论。</p>
+              <p>真实气体 \(U\) 依赖 V（分子间势能）；节流膨胀温度变化正是这种依赖的体现。</p>
+              <p class="step-why"><b>注意：</b>物态方程本身不直接给 U(T) 的具体形式；还需热容数据。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(\kappa_T\) 的负号漏掉，得到负压缩系数；</li>
+                <li>把 \(\alpha\)、\(\beta\) 的量纲搞混；</li>
+                <li>在相变区直接用理想气体方程；</li>
+                <li>认为物态方程能唯一确定内能；</li>
+                <li>把范德瓦耳斯 \(b\) 当可忽略的小量而不看密度。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">响应系数的符号与稳定性</div>
+            <div class="step-body">
+              <p>热力学稳定性要求 \(\kappa_T>0\)：加压体积必须减小，否则系统会自发坍缩/膨胀。</p>
+              <p>\(\alpha\) 可以为负：水在 0–4°C 时受热收缩（反常膨胀）；\(\beta\) 对稳定系统通常为正。</p>
+              <p class="step-check"><b>检查：</b>若实验给出 \(\kappa_T<0\)，说明系统不在稳定平衡，或数据/符号约定有误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(f(p,V,T)=0\)；\(\mathrm{d}V/V=\alpha\mathrm{d}T-\kappa_T\mathrm{d}p\)；\(\alpha=\kappa_T\beta p\)。</p>
+              <p><b>模型：</b>理想气体 \(pV=nRT\)；维里展开；范德瓦耳斯方程与临界点。</p>
+              <p><b>自检：</b>能否从全微分独立推出 \(\alpha=\kappa_T\beta p\)，并用理想气体验证？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3242,9 +3936,7 @@ document.addEventListener('keydown', e => {
   if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
   if (e.key === 'Escape') { $('#q').value = ''; applyFilter(); setMode('all'); return; }
   const k = e.key.toLowerCase();
-  if (k === 'm') toggleMask();
-  else if (k === 'f') toggleMaskF();
-  else if (k === 'd') toggleDark();
+  if (k === 'd') toggleDark();
   else if (k === 'w') setMode(currentMode === 'warn' ? 'all' : 'warn');
   else if (k === 'k') setMode(currentMode === 'key' ? 'all' : 'key');
   else if (k === 'a') setMode('all');
@@ -3298,5 +3990,265 @@ applyFilter();
 <style>
   .card.flash { outline: 3px solid #f0b429; outline-offset: -3px; }
 </style>
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<script>
+/* ===== 热统：知识点弹卡 + 三套遮罩 + KaTeX ===== */
+(function () {
+  const KP = {
+    'equilibrium-state': { title: '平衡态', def: '不受外界影响时，系统宏观性质不随时间变化的状态；要求力学、热、相、化学四类平衡同时成立。', card: 's11' },
+    'state-parameter': { title: '状态参量', def: '描述平衡态的宏观变量：几何参量 V、力学参量 p、化学参量 n 等；简单系统只需两个独立参量。', card: 's11' },
+    'extensive': { title: '广延量', def: '与系统大小/物质的量成正比的状态量，如 V、U、S、N；两半系统合并时数值相加。', card: 's11' },
+    'intensive': { title: '强度量', def: '与系统大小无关的状态量，如 p、T、μ；两半系统合并时数值不变。', card: 's11' },
+    'state-function': { title: '状态函数', def: '只由平衡态参量决定、与路径无关的宏观量，如 U、S、H、F、G；循环一周变化为零。', card: 's11' },
+    'relaxation-time': { title: '弛豫时间', def: '系统从初态过渡到平衡态所需的时间；观测时间远大于它，才能把系统按平衡态处理。', card: 's11' },
+    'simple-system': { title: '简单系统', def: '只需两个独立状态参量即可确定平衡态的系统，通常取 (p,V) 或 (p,T)；多于两个为复杂系统。', card: 's11' },
+    'zeroth-law': { title: '热平衡定律（第零定律）', def: '若 A 与 C 热平衡、B 与 C 热平衡，则 A 与 B 热平衡；它保证温度作为态函数存在。', card: 's12' },
+    'thermal-equilibrium': { title: '热平衡', def: '两系统通过透热壁接触，交换热量而不交换粒子，最终达到共同温度的状态。', card: 's12' },
+    'temperature': { title: '温度', def: '热平衡的等价类标签；强度量。A、B 热平衡当且仅当 TA=TB。', card: 's12' },
+    'ideal-gas-thermometer': { title: '理想气体温标', def: '定容气体温度计：T=273.16K·lim(p/p_tr)，p_tr 为水三相点压强；在低压极限下不依赖气体种类。', card: 's12' },
+    'thermodynamic-temperature': { title: '热力学温标', def: '由卡诺定理定义、与测温物质无关的温标；单位 K，水的三相点为 273.16 K。', card: 's12' },
+    'triple-point': { title: '三相点', def: '水的气、液、固三相共存点，温度 273.16 K、压强 611.657 Pa；热力学温标的固定点。', card: 's12' },
+    'equation-of-state': { title: '物态方程', def: 'f(p,V,T)=0，把三个参量约束成二维曲面；必须由实验测定或统计物理导出，热力学本身不给。', card: 's13' },
+    'expansion-coefficient': { title: '体胀系数 α', def: 'α=(1/V)(∂V/∂T)_p；等压升温时体积的相对增加率。', card: 's13' },
+    'compressibility': { title: '等温压缩系数 κ_T', def: 'κ_T=−(1/V)(∂V/∂p)_T；等温加压时体积的相对收缩率，负号保证 κ_T>0。', card: 's13' },
+    'tension-coefficient': { title: '压力系数 β', def: 'β=(1/p)(∂p/∂T)_V；等容升温时压强的相对增加率。', card: 's13' },
+    'ideal-gas': { title: '理想气体', def: 'pV=nRT；分子间无相互作用、体积可忽略。内能只依赖 T，U=U(T)。', card: 's13' },
+    'virial': { title: '维里方程', def: 'pV=nRT[1+B(T)/V+C(T)/V²+…]；用维里系数修正真实气体，低压下只需第二维里系数。', card: 's13' },
+    'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
+  };
+
+  let pop = null;
+  let currentKp = null;
+
+  function ensurePop() {
+    if (pop) return pop;
+    pop = document.createElement('div');
+    pop.className = 'kp-pop';
+    pop.innerHTML = '<h5></h5><p class="kp-def"></p><div class="kp-acts">' +
+      '<button type="button" data-act="card">跳到卡片</button>' +
+      '<button type="button" data-act="doc">教材页</button>' +
+      '<button type="button" data-act="close">关闭</button></div>';
+    document.body.appendChild(pop);
+    pop.addEventListener('click', function (e) {
+      const b = e.target.closest('button');
+      if (!b) return;
+      const act = b.getAttribute('data-act');
+      if (act === 'close') { closeKp(); return; }
+      if (!currentKp) return;
+      if (act === 'card') {
+        const card = document.getElementById(currentKp.card);
+        closeKp();
+        if (!card) return;
+        if (card.classList.contains('closed')) card.classList.remove('closed');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('flash');
+        setTimeout(function () { card.classList.remove('flash'); }, 1800);
+      } else if (act === 'doc' && currentKp.doc) {
+        const msg = {
+          type: 'open-doc', doc: currentKp.doc,
+          page: currentKp.page || 1, end: currentKp.end || 0,
+          printed: currentKp.printed || ''
+        };
+        closeKp();
+        try { parent.postMessage(msg, '*'); } catch (err) {}
+      }
+    });
+    return pop;
+  }
+
+  function closeKp() {
+    if (pop) pop.classList.remove('show');
+    currentKp = null;
+  }
+
+  function showKp(el, id) {
+    const info = KP[id];
+    if (!info) return;
+    ensurePop();
+    currentKp = info;
+    pop.querySelector('h5').textContent = info.title;
+    pop.querySelector('.kp-def').textContent = info.def;
+    const docBtn = pop.querySelector('[data-act="doc"]');
+    docBtn.style.display = info.doc ? '' : 'none';
+    pop.classList.add('show');
+    const r = el.getBoundingClientRect();
+    const w = pop.offsetWidth, h = pop.offsetHeight;
+    let left = Math.min(window.innerWidth - w - 12, Math.max(12, r.left));
+    let top = r.bottom + 8;
+    if (top + h > window.innerHeight - 12) top = Math.max(12, r.top - h - 8);
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+  }
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('.kp');
+    if (a) {
+      e.preventDefault();
+      showKp(a, a.getAttribute('data-kp'));
+      return;
+    }
+    if (pop && pop.classList.contains('show') && !pop.contains(e.target)) closeKp();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeKp();
+  });
+
+  /* ---------- 三套遮罩 ---------- */
+  const MASK_KEY = 'thermo.outline.mask.v3';
+  const groups = {
+    concl: Array.from(document.querySelectorAll('.concl')),
+    formula: Array.from(document.querySelectorAll('.fml, .keyeq')),
+    step: Array.from(document.querySelectorAll('.step'))
+  };
+  let state = { modes: { concl: false, formula: false, step: false }, revealed: { concl: [], formula: [], step: [] } };
+  try {
+    const saved = JSON.parse(localStorage.getItem(MASK_KEY) || 'null');
+    if (saved) {
+      state.modes = Object.assign(state.modes, saved.modes || {});
+      state.revealed = Object.assign(state.revealed, saved.revealed || {});
+    }
+  } catch (err) {}
+
+  function saveMask() {
+    try { localStorage.setItem(MASK_KEY, JSON.stringify(state)); } catch (err) {}
+  }
+
+  groups.concl.concat(groups.formula, groups.step).forEach(function (el, i) {
+    el.classList.add('maskable');
+  });
+
+  Object.keys(groups).forEach(function (kind) {
+    groups[kind].forEach(function (el, idx) {
+      const card = el.closest('.card');
+      const id = (card ? card.id : 'x') + '-' + kind + '-' + idx;
+      el.setAttribute('data-mask-id', id);
+      el.setAttribute('data-mask-kind', kind);
+      if (kind === 'formula' && !el.classList.contains('keyeq')) return;
+      const eye = document.createElement('button');
+      eye.type = 'button';
+      eye.className = 'mask-eye';
+      eye.title = '遮住 / 显示';
+      eye.textContent = '👁';
+      eye.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+        toggleReveal(kind, id);
+      });
+      el.appendChild(eye);
+    });
+  });
+
+  function revealedList(kind) {
+    if (!Array.isArray(state.revealed[kind])) state.revealed[kind] = [];
+    return state.revealed[kind];
+  }
+  function toggleReveal(kind, id) {
+    if (!state.modes[kind]) state.modes[kind] = true;
+    const arr = revealedList(kind);
+    const i = arr.indexOf(id);
+    if (i >= 0) arr.splice(i, 1); else arr.push(id);
+    applyMask();
+  }
+  function toggleMode(kind) {
+    state.modes[kind] = !state.modes[kind];
+    state.revealed[kind] = [];
+    applyMask();
+  }
+  function revealAll() {
+    Object.keys(state.modes).forEach(function (k) { state.modes[k] = false; state.revealed[k] = []; });
+    applyMask();
+  }
+
+  function applyMask() {
+    let maskedTotal = 0, allTotal = 0;
+    Object.keys(groups).forEach(function (kind) {
+      const on = !!state.modes[kind];
+      document.body.classList.toggle('mask-' + kind, on);
+      const arr = revealedList(kind);
+      let masked = 0;
+      groups[kind].forEach(function (el) {
+        const id = el.getAttribute('data-mask-id');
+        const isMasked = on && arr.indexOf(id) < 0;
+        el.classList.toggle('masked', isMasked);
+        const eye = el.querySelector(':scope > .mask-eye');
+        if (eye) eye.classList.toggle('show', on);
+        if (isMasked) masked++;
+      });
+      maskedTotal += masked; allTotal += groups[kind].length;
+      const btn = document.getElementById(kind === 'concl' ? 'bMaskC' : kind === 'formula' ? 'bMaskF' : 'bMaskS');
+      if (btn) {
+        btn.classList.toggle('on', on);
+        const b = btn.querySelector('b');
+        if (b) b.textContent = (on ? masked : 0) + '/' + groups[kind].length;
+      }
+    });
+    const tip = document.getElementById('maskTip');
+    if (tip) {
+      const any = state.modes.concl || state.modes.formula || state.modes.step;
+      tip.classList.toggle('show', any);
+      if (any) {
+        tip.textContent = '自测模式：结论 ' + visibleCount('concl') + ' · 公式 ' + visibleCount('formula') +
+          ' · 推导 ' + visibleCount('step') + '；点击模糊块或 👁 逐个揭开，再点一次遮回。';
+      }
+    }
+    saveMask();
+  }
+  function visibleCount(kind) {
+    const on = !!state.modes[kind];
+    if (!on) return '0/' + groups[kind].length;
+    const arr = revealedList(kind);
+    let n = 0;
+    groups[kind].forEach(function (el) {
+      if (arr.indexOf(el.getAttribute('data-mask-id')) < 0) n++;
+    });
+    return n + '/' + groups[kind].length;
+  }
+
+  window.toggleMaskMode = toggleMode;
+  window.revealAllMasks = revealAll;
+
+  document.addEventListener('click', function (e) {
+    const el = e.target.closest('[data-mask-kind]');
+    if (!el) return;
+    if (e.target.closest('.mask-eye')) return;
+    if (e.target.closest('a')) return;
+    const kind = el.getAttribute('data-mask-kind');
+    if (!state.modes[kind]) return;
+    toggleReveal(kind, el.getAttribute('data-mask-id'));
+  });
+
+  applyMask();
+
+  /* ---------- 点击跳转高亮 ---------- */
+  document.querySelectorAll('.kp').forEach(function (a) {
+    const info = KP[a.getAttribute('data-kp')];
+    if (info) a.title = '点击查看知识点：' + info.title;
+  });
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a.loc, .kp');
+    if (!a) return;
+    a.classList.remove('jump-flash');
+    void a.offsetWidth;
+    a.classList.add('jump-flash');
+    setTimeout(function () { a.classList.remove('jump-flash'); }, 750);
+  }, true);
+
+  /* ---------- KaTeX ---------- */
+  if (window.renderMathInElement) {
+    try {
+      renderMathInElement(document.getElementById('main'), {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        strict: 'ignore'
+      });
+    } catch (err) { console.warn('KaTeX render failed', err); }
+  }
+})();
+
+</script>
 </body>
 </html>
