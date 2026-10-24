@@ -1387,6 +1387,190 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s14">
+      <summary>完整推导 · 20 步：功、p–V 图与路径依赖</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从活塞模型推出 \(\delta W=-p\,\mathrm{d}V\)，说明功是过程量、p–V 图面积、<a class="kp" data-kp="generalized-force">广义功</a>与非准静态的边界。
+          约定：汪志诚符号，外界对系统做功为正。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="work">功</a>是能量传递，不是状态量</div>
+            <div class="step-body">
+              <p>功描述有序的能量转移；系统不「拥有」功，只有内能等状态量。</p>
+              <p>说「这个系统有多少功」没有意义；只能说「某过程中外界做了多少功」。</p>
+              <p class="step-why"><b>对比：</b>内能 U 是状态函数；功 W、热 Q 是过程量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">符号约定</div>
+            <div class="step-body">
+              <p>本课程采用：外界对系统做功为正，记 \(\delta W>0\)；系统吸热为正 \(\delta Q>0\)。</p>
+              <p>第一定律写成 \(\mathrm{d}U=\delta Q+\delta W\)。</p>
+              <p class="step-check"><b>警告：</b>其他教材可能用系统对外做功为正，公式变为 \(\mathrm{d}U=\delta Q-\delta W\)；不要混用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">活塞模型</div>
+            <div class="step-body">
+              <p>活塞面积 A，位移 \(\mathrm{d}x\)，体积变化 \(\mathrm{d}V=A\,\mathrm{d}x\)。外界对系统做功：</p>
+              \[ \delta W=F_{\rm ext}\,\mathrm{d}x=(pA)\,\mathrm{d}x=p\,\mathrm{d}V. \]
+              <p>但按本课程符号，压缩时 \(\mathrm{d}V<0\) 应做功为正，所以</p>
+              \[ \boxed{\delta W=-p\,\mathrm{d}V}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="quasi-static">准静态</a>条件</div>
+            <div class="step-body">
+              <p>只有过程足够慢、系统内部压强处处均匀，才能用系统自身的 p 代替外力。</p>
+              <p>爆炸、自由膨胀、快速压缩不能用 \(-p\mathrm{d}V\)；此时外界做功要用实际外力计算。</p>
+              <p class="step-why"><b>知识点：</b>准静态；可逆过程还必须无耗散。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">有限功</div>
+            <div class="step-body">
+              <p>沿准静态路径从 \(V_1\) 到 \(V_2\)：</p>
+              \[ W=-\int_{V_1}^{V_2}p(V)\,\mathrm{d}V. \]
+              <p>膨胀 \(V_2>V_1\) 且 p>0 时 W<0：系统对外做功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">p–V 图面积</div>
+            <div class="step-body">
+              <p>\(\int p\,\mathrm{d}V\) 是 p–V 曲线下面积；\(\delta W=-p\mathrm{d}V\)，所以外界做功等于负面积。</p>
+              <p>膨胀曲线下面积 = 系统对外做的功；压缩时外界做正功。</p>
+              <p class="step-check"><b>检查：</b>面积正负由路径方向定；不要只看大小。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">路径依赖</div>
+            <div class="step-body">
+              <p>同一对初末态，走不同路径，p(V) 不同，积分不同：</p>
+              \[ W_{\rm path1}\ne W_{\rm path2}. \]
+              <p>所以 \(\delta W\) 不是全微分；写成 \(\delta\) 或 đ 提醒这一点。</p>
+              <p class="step-why"><b>数学：</b>\(\oint\delta W\ne0\) 一般成立；若恒为零才是状态函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="cyclic-process">循环功</a></div>
+            <div class="step-body">
+              <p>闭合循环：</p>
+              \[ W_{\rm net}=-\oint p\,\mathrm{d}V. \]
+              <p>顺时针循环（热机）\(W_{\rm net}<0\)：系统对外做净功；逆时针（制冷机）外界做净功。</p>
+              <p class="step-check"><b>面积：</b>循环功大小等于 p–V 图围成的面积。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">广义功</div>
+            <div class="step-body">
+              <p>一般形式：</p>
+              \[ \delta W=\sum_i Y_i\,\mathrm{d}y_i, \]
+              <p>\(Y_i\) 广义力，\(y_i\) 广义位移。体积功对应 \(Y=-p\)、\(y=V\)。</p>
+              <p class="step-why"><b>统一性：</b>不同形式的功都是「强度量 × 广延量增量」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">表面张力功</div>
+            <div class="step-body">
+              <p>液膜面积增加 \(\mathrm{d}A\)，外界做功</p>
+              \[ \delta W=\sigma\,\mathrm{d}A \]
+              <p>（\(\sigma\) 为表面张力系数；符号依约定，有的书写 \(-\sigma\mathrm{d}A\)）。</p>
+              <p class="step-check"><b>量纲：</b>\(\sigma\) 单位 N/m=J/m²，乘面积得 J。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">电磁功</div>
+            <div class="step-body">
+              <p>可逆电池：\(\delta W=\varepsilon\,\mathrm{d}q\)；磁介质：\(\delta W=\mu_0H\,\mathrm{d}M\) 等形式。</p>
+              <p>具体符号依教材约定；关键是「广义力 × 广义位移」。</p>
+              <p class="step-why"><b>用途：</b>§2.7 磁介质热力学、§3 相变都会用广义功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="free-expansion">自由膨胀</a></div>
+            <div class="step-body">
+              <p>气体向真空膨胀，外界没有阻力，\(\delta W=0\)；若绝热，则 \(\mathrm{d}U=0\)。</p>
+              <p>这不是准静态，不能用 \(-p\mathrm{d}V\) 计算功；但初末态仍可定义。</p>
+              <p class="step-check"><b>焦耳实验：</b>理想气体自由膨胀温度不变，说明 U 只依赖 T。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">摩擦做功</div>
+            <div class="step-body">
+              <p>有摩擦时，外界做的功一部分转化为系统内能（耗散），不是准静态可逆功。</p>
+              <p>可逆过程中外界做功最小（压缩）或系统做功最大（膨胀）；摩擦使功的利用率下降。</p>
+              <p class="step-why"><b>知识点：</b>耗散；熵产来源于不可逆。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">功与热的区别</div>
+            <div class="step-body">
+              <p>功：有序能量转移，可用宏观力×位移描述；热：无序能量转移，由温差驱动。</p>
+              <p>两者都是过程量，但微观机制不同；第一定律只关心总能量守恒。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位与量纲</div>
+            <div class="step-body">
+              <p>W：J；p：Pa；V：m³；\(p\mathrm{d}V\) 的量纲 J。</p>
+              <p>1 L·atm=101.325 J；工程常用 kcal，1 kcal=4.184 kJ。</p>
+              <p class="step-check"><b>检查：</b>用 L·atm 算完要换算成 J，否则与 U 的单位不一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：等温膨胀</div>
+            <div class="step-body">
+              <p>理想气体等温可逆：</p>
+              \[ W=-\int_{V_1}^{V_2}\frac{nRT}{V}\mathrm{d}V
+                 =-nRT\ln\frac{V_2}{V_1}. \]
+              <p>膨胀 \(V_2>V_1\)，W<0：系统对外做功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：等压膨胀</div>
+            <div class="step-body">
+              <p>p 恒定：</p>
+              \[ W=-p(V_2-V_1)=-p\Delta V. \]
+              <p>膨胀时 W<0；压缩时 W>0。</p>
+              <p class="step-check"><b>对比：</b>等温功含对数，等压功是线性；路径不同，功不同。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>符号约定混用；</li>
+                <li>非准静态过程硬套 \(-p\mathrm{d}V\)；</li>
+                <li>把功当状态函数；</li>
+                <li>循环功忘记方向/面积符号；</li>
+                <li>单位未统一（L·atm 未换 J）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆膨胀做最大功</div>
+            <div class="step-body">
+              <p>同样的初末态，可逆膨胀时外界阻力始终无限接近系统压强，系统对外做功最大：</p>
+              \[ |W_{\rm rev}|\ge |W_{\rm irr}|. \]
+              <p>不可逆膨胀（如突然撤去外压）有耗散/湍流，部分功变成热，净输出减少。</p>
+              <p class="step-check"><b>用途：</b>计算最大功/最小功；熵产与不可逆程度相关。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\delta W=-p\mathrm{d}V\)（准静态、本课程符号）；\(W=-\int p\mathrm{d}V\)。</p>
+              <p><b>几何：</b>p–V 图面积；循环功=围面积；路径不同功不同。</p>
+              <p><b>边界：</b>非准静态/自由膨胀/摩擦不能直接套公式。</p>
+              <p><b>自检：</b>能否判断「膨胀、压缩、循环」三种情况的 W 符号？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -1436,6 +1620,185 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s15">
+      <summary>完整推导 · 20 步：热力学第一定律</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从焦耳实验建立 \(\Delta U=Q+W\)，区分状态函数与过程量，并给出循环、自由膨胀、焓与热容的应用。
+          约定：外界对系统做功/系统吸热均为正。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">焦耳实验</div>
+            <div class="step-body">
+              <p>重物下落带动搅拌器，对绝热容器中的水做功，水温升高；用不同方式（摩擦、电流）做同样的功，升温相同。</p>
+              <p>结论：功与热可以相互转化，热是能量的一种形式。</p>
+              <p class="step-why"><b>意义：</b>打破「热素说」，为能量守恒进入热力学铺路。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="first-law">第一定律</a>的表述</div>
+            <div class="step-body">
+              <p>系统从初态到末态，内能增量等于吸热与外界做功之和：</p>
+              \[ \Delta U=Q+W. \]
+              <p>微分形式：\(\mathrm{d}U=\delta Q+\delta W\)。</p>
+              <p class="step-check"><b>注意：</b>这里 W 是外界对系统做功；不同教材符号可能相反。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="internal-energy">内能</a>是状态函数</div>
+            <div class="step-body">
+              <p>U 只依赖平衡态，\(\Delta U=U_2-U_1\) 与路径无关。</p>
+              <p>数学上 \(\oint\mathrm{d}U=0\)；\(\mathrm{d}U\) 是全微分。</p>
+              <p class="step-why"><b>对比：</b>Q、W 依赖路径，\(\oint\delta Q=\oint\delta W=W_{\rm net}\ne0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">过程量之和是状态量</div>
+            <div class="step-body">
+              <p>同一对初末态，路径 1 与路径 2：</p>
+              \[ Q_1+W_1=Q_2+W_2=\Delta U. \]
+              <p>Q、W 各自变，但组合不变；这正是第一定律的内容。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">循环过程</div>
+            <div class="step-body">
+              <p>循环一周 \(\Delta U=0\)，所以</p>
+              \[ Q_{\rm net}+W_{\rm net}=0
+                 \;\Longrightarrow\;
+                 Q_{\rm net}=-W_{\rm net}. \]
+              <p>热机：吸热多于放热，对外做净功；\(Q_{\rm net}>0\)、\(W_{\rm net}<0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">全微分与不完全微分</div>
+            <div class="step-body">
+              <p>\(\mathrm{d}U\) 可写成 \(\mathrm{d}U=(\partial U/\partial T)_V\mathrm{d}T+(\partial U/\partial V)_T\mathrm{d}V\)，混合偏导相等。</p>
+              <p>\(\delta Q\)、\(\delta W\) 不能写成某个函数的全微分；用 \(\delta\) 或 đ 标记。</p>
+              <p class="step-check"><b>判据：</b>若 \(\oint\) 恒为零，才是状态函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内能的组成</div>
+            <div class="step-body">
+              <p>无外场时：分子无规运动动能 + 分子内部能量 + 分子间势能。</p>
+              <p>不包括整体机械能；内能是相对量，可任选参考态。</p>
+              <p class="step-why"><b>广延性：</b>非平衡系统可分成局部平衡小块，U 相加。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体内能</div>
+            <div class="step-body">
+              <p>焦耳自由膨胀：绝热向真空膨胀，W=0、Q=0，温度不变。</p>
+              <p>所以理想气体 \(U=U(T)\)，与 V 无关；\(\mathrm{d}U=C_V\mathrm{d}T\)。</p>
+              <p class="step-why"><b>注意：</b>真实气体 U 依赖 V；只有理想气体极限可只用 T。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="free-expansion">自由膨胀</a></div>
+            <div class="step-body">
+              <p>自由膨胀对外不做功（真空无阻力），若绝热则 Q=0：</p>
+              \[ \Delta U=0. \]
+              <p>理想气体温度不变；真实气体温度通常变化（焦耳–汤姆孙效应另论）。</p>
+              <p class="step-check"><b>不可逆：</b>自由膨胀不可逆，不能用 \(-p\mathrm{d}V\) 算功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="enthalpy">焓</a>的引入</div>
+            <div class="step-body">
+              <p>定压过程：\(\delta Q=\mathrm{d}U+p\mathrm{d}V=\mathrm{d}(U+pV)\)。</p>
+              <p>定义 \(H=U+pV\)，则 \(\delta Q_p=\mathrm{d}H\)。</p>
+              <p class="step-why"><b>知识点：</b>焓；下一节展开 Cp 与 H 的关系。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热容</div>
+            <div class="step-body">
+              <p>定容：\(C_V=(\partial U/\partial T)_V\)；定压：\(C_p=(\partial H/\partial T)_p\)。</p>
+              <p>热容依赖过程，所以必须写下标 V 或 p。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第一类永动机不可能</div>
+            <div class="step-body">
+              <p>第一类永动机：不消耗能量而持续对外做功。若存在，循环中 \(Q_{\rm net}=0\) 但 \(W_{\rm net}<0\)，违反 \(\Delta U=0\)。</p>
+              <p>第一定律禁止这类机器；第二定律再禁止「单一热源全部变功」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">开放系统</div>
+            <div class="step-body">
+              <p>开放系统还要考虑物质带入/带出的能量：</p>
+              \[ \mathrm{d}U=\delta Q+\delta W+\sum_i h_i\,\mathrm{d}N_i \]
+              <p>（\(h_i\) 为偏摩尔焓）。本章主要处理封闭系；第三章引入化学势。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量守恒的深层起源</div>
+            <div class="step-body">
+              <p>诺特定理：物理规律的时间平移不变性对应能量守恒。</p>
+              <p>热力学第一定律是这条普遍守恒律在热现象中的表现，不是独立的新原理。</p>
+              <p class="step-why"><b>拓展：</b>广义相对论/宇宙学中能量定义更微妙，但局部守恒仍成立。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">符号练习</div>
+            <div class="step-body">
+              <p>系统吸热 Q>0、外界对系统做功 W>0；系统放热 Q<0、系统对外做功 W<0。</p>
+              <p>压缩：\(\mathrm{d}V<0\)，W>0；膨胀：\(\mathrm{d}V>0\)，W<0。</p>
+              <p class="step-check"><b>检查：</b>先判膨胀/压缩，再定 W 符号，最不容易错。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位与量纲</div>
+            <div class="step-body">
+              <p>U、Q、W 均为 J；摩尔内能 J/mol；比内能 J/kg。</p>
+              <p>pV 项也是 J；\(H=U+pV\) 量纲一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 Q、W 当状态函数；</li>
+                <li>符号约定混用；</li>
+                <li>自由膨胀用 \(-p\mathrm{d}V\) 算功；</li>
+                <li>认为 U 只依赖 T 对一切气体成立；</li>
+                <li>循环中把 \(Q_{\rm net}\) 与 \(W_{\rm net}\) 的符号搞反。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热功当量</div>
+            <div class="step-body">
+              <p>焦耳用不同机械方式做同样的功，得到相同温升，测出</p>
+              \[ 1\,\mathrm{cal}=4.184\,\mathrm{J}. \]
+              <p>这说明热不是一种「流体」，而是能量转移的形式；热与功可以按固定比例转化。</p>
+              <p class="step-check"><b>历史：</b>热功当量是能量守恒进入热力学的实验基石。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内能的参考态</div>
+            <div class="step-body">
+              <p>U 只定义到任意常数：\(U\to U+U_0\) 不改变 \(\Delta U\) 与所有物理结果。</p>
+              <p>通常选某参考态（如 0 K 或标准态）令 U=0；比较不同物质时要用同一参考约定。</p>
+              <p class="step-check"><b>注意：</b>绝对内能不可测；热力学只关心差值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\Delta U=Q+W\)；\(\mathrm{d}U=\delta Q+\delta W\)；U 态函数，Q/W 过程量。</p>
+              <p><b>循环：</b>\(\Delta U=0\Rightarrow Q_{\rm net}=-W_{\rm net}\)。</p>
+              <p><b>理想气体：</b>U=U(T)，自由膨胀温度不变。</p>
+              <p><b>自检：</b>能否用第一定律解释「第一类永动机不可能」？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -1485,6 +1848,187 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s16">
+      <summary>完整推导 · 20 步：热容、焓与 Cp−CV</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从「加多少热升多少温」定义热容，说明为什么定压要引入焓，并推出 \(C_p-C_V\) 的普遍关系。
+          约定：\(C_V,C_p\) 为总热容；摩尔热容加下标 m。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="heat-capacity">热容</a>的定义</div>
+            <div class="step-body">
+              <p>热容是「升温一度所需热量」，但热量依赖过程，所以必须指定约束：</p>
+              \[ C=\lim_{\Delta T\to0}\frac{\delta Q}{\Delta T}. \]
+              <p>没有下标的 C 没有意义；常见定容 \(C_V\)、定压 \(C_p\)。</p>
+              <p class="step-why"><b>注意：</b>热容不是「系统含的热量」，而是过程量对温度的响应。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="cv">定容热容</a></div>
+            <div class="step-body">
+              <p>定容 \(\mathrm{d}V=0\)，不做体积功，第一定律 \(\delta Q=\mathrm{d}U\)：</p>
+              \[ C_V=\left(\frac{\partial U}{\partial T}\right)_V. \]
+              <p>这是最干净的定义：直接联系内能与温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="cp">定压热容</a></div>
+            <div class="step-body">
+              <p>定压时 \(\delta Q=\mathrm{d}U+p\mathrm{d}V=\mathrm{d}(U+pV)\)。</p>
+              <p>括号内是状态函数，定义为焓 \(H=U+pV\)：</p>
+              \[ C_p=\left(\frac{\partial H}{\partial T}\right)_p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="enthalpy">焓</a>的定义</div>
+            <div class="step-body">
+              <p>\[ H\equiv U+pV. \]</p>
+              <p>H 是状态函数、广延量；量纲 J。它把「定压吸热」变成「焓增」。</p>
+              <p class="step-check"><b>注意：</b>H 的物理意义「定压吸热」只在定压过程成立，不能推广到任意过程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定压吸热</div>
+            <div class="step-body">
+              <p>\[ \delta Q_p=\mathrm{d}H,\qquad Q_p=\Delta H. \]
+              <p>所以等压过程的吸热可直接用焓变计算，不必再算功。</p>
+              <p class="step-why"><b>工程：</b>大多数化工/流动过程近似等压，焓因此常用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">Cp−CV 的普遍关系</div>
+            <div class="step-body">
+              <p>由 \(H=U+pV\)：</p>
+              \[ C_p-C_V=\left(\frac{\partial H}{\partial T}\right)_p
+                 -\left(\frac{\partial U}{\partial T}\right)_V. \]
+              <p>用链式法则与全微分可证：</p>
+              \[ C_p-C_V=T\left(\frac{\partial p}{\partial T}\right)_V
+                 \left(\frac{\partial V}{\partial T}\right)_p. \]
+              <p>右边恒非负（稳定系统），所以 \(C_p\ge C_V\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体</div>
+            <div class="step-body">
+              <p>\(pV=nRT\) 给 \((\partial p/\partial T)_V=nR/V\)、\((\partial V/\partial T)_p=nR/p\)，所以</p>
+              \[ C_p-C_V=T\cdot\frac{nR}{V}\cdot\frac{nR}{p}=nR. \]
+              <p>摩尔热容：\(C_{p,m}-C_{V,m}=R\)。</p>
+              <p class="step-check"><b>检查：</b>单原子理想气体 \(C_{V,m}=\frac32R\)，所以 \(C_{p,m}=\frac52R\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="gamma">绝热指数</a></div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ \gamma=\frac{C_p}{C_V}=1+\frac{nR}{C_V}. \]
+              <p>单原子 \(\gamma=5/3\)；双原子（常温）\(\gamma=7/5\)；多原子接近 \(4/3\)。</p>
+              <p class="step-why"><b>用途：</b>绝热过程 \(pV^\gamma=\)常数；声速 \(v=\sqrt{\gamma RT/M}\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焓的物理意义</div>
+            <div class="step-body">
+              <p>\(H=U+pV\)：内能加「排开外界介质所需的功」。开放系统流动时，焓代表随物质带入/带出的能量。</p>
+              <p>节流过程（§2.3）等焓，就是 H 的典型应用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等压过程的热量</div>
+            <div class="step-body">
+              <p>\[ Q_p=\Delta H=\int_{T_1}^{T_2}C_p\,\mathrm{d}T. \]</p>
+              <p>若 \(C_p\) 近似常数，\(Q_p=C_p\Delta T\)。</p>
+              <p class="step-check"><b>对比：</b>等容 \(Q_V=\Delta U=\int C_V\mathrm{d}T\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="latent-heat">潜热</a></div>
+            <div class="step-body">
+              <p>相变时温度不变但吸热：\(Q=L\)（潜热）。此时热容形式上的 \(C\to\infty\)，因为 \(\Delta T=0\)。</p>
+              <p>潜热是相变焓：熔化热、汽化热、升华热。</p>
+              <p class="step-why"><b>注意：</b>相变过程中不能用 \(C\Delta T\) 算热；要用潜热。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">固体与液体</div>
+            <div class="step-body">
+              <p>固体/液体体积随温度变化小，\(C_p\approx C_V\)；但差值不为零，高压下不可忽略。</p>
+              <p>对固体，\(C_p-C_V\) 与体胀系数平方、压缩系数有关（§2.2 的麦克斯韦关系可推）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度依赖</div>
+            <div class="step-body">
+              <p>\(C_V\) 随 T 变化：低温 \(T^3\)（固体德拜模型），高温趋于 \(3R\)（杜隆–珀替）。</p>
+              <p>理想气体 \(C_V\) 在常温近似常数；高温振动自由度激发后变大。</p>
+              <p class="step-check"><b>检查：</b>用常数 \(C_V\) 算大温差时误差可能很大。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="calorimetry">量热学</a></div>
+            <div class="step-body">
+              <p>混合法：\(Q_{\rm lost}=Q_{\rm gained}\)，即</p>
+              \[ m_1c_1(T_1-T_f)=m_2c_2(T_f-T_2). \]
+              <p>这是 \(C_p\) 测量的基础；忽略热容/散热会带来系统误差。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">摩尔热容与总热容</div>
+            <div class="step-body">
+              <p>总热容 \(C\)（J/K）；摩尔热容 \(C_m=C/n\)（J/(mol·K)）；比热容 \(c=C/m\)（J/(kg·K)）。</p>
+              <p>公式 \(C_p-C_V=nR\) 用的是总热容；若用摩尔热容则是 \(C_{p,m}-C_{V,m}=R\)。</p>
+              <p class="step-why"><b>易错：</b>题目给的是比热容还是摩尔热容，先看清。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">γ 的测量</div>
+            <div class="step-body">
+              <p>声速法：\(v=\sqrt{\gamma RT/M}\)；绝热膨胀法：测 \(pV^\gamma\) 曲线。</p>
+              <p>\(\gamma\) 反映分子自由度：平动 3、转动 2/3、振动更多；自由度越多，\(C_V\) 越大，\(\gamma\) 越接近 1。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">Cp 与 CV 的物理图像</div>
+            <div class="step-body">
+              <p>定容加热：热量全用于增加内能。</p>
+              <p>定压加热：一部分热量还要对外做功（体积膨胀），所以同样升温需要更多热：\(C_p>C_V\)。</p>
+              <p class="step-check"><b>图像：</b>\(C_p-C_V\) 就是「多做的膨胀功」对应的热容。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 H 的「定压吸热」推广到任意过程；</li>
+                <li>用 \(C_p\Delta T\) 算等容过程；</li>
+                <li>相变时用 \(C\Delta T\) 而不是潜热；</li>
+                <li>总热容与摩尔热容混用；</li>
+                <li>认为 \(C_p=C_V\) 对一切物质成立。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热容是广延量</div>
+            <div class="step-body">
+              <p>总热容与物质的量成正比：两杯水合并，热容相加；所以它是广延量。</p>
+              <p>摩尔热容/比热容是强度量，可用于不同物质比较；计算总热量时再乘 n 或 m。</p>
+              <p class="step-check"><b>检查：</b>\(C=nC_m=mc\)；单位分别为 J/K、J/(mol·K)、J/(kg·K)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>定义：</b>\(C_V=(\partial U/\partial T)_V\)，\(C_p=(\partial H/\partial T)_p\)，\(H=U+pV\)。</p>
+              <p><b>关系：</b>\(C_p-C_V=T(\partial p/\partial T)_V(\partial V/\partial T)_p\)；理想气体 \(=nR\)。</p>
+              <p><b>应用：</b>等压 \(Q=\Delta H\)，等容 \(Q=\Delta U\)，相变用潜热，绝热用 \(\gamma\)。</p>
+              <p><b>自检：</b>能否用「多做的膨胀功」解释 \(C_p>C_V\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4015,6 +4559,20 @@ applyFilter();
     'tension-coefficient': { title: '压力系数 β', def: 'β=(1/p)(∂p/∂T)_V；等容升温时压强的相对增加率。', card: 's13' },
     'ideal-gas': { title: '理想气体', def: 'pV=nRT；分子间无相互作用、体积可忽略。内能只依赖 T，U=U(T)。', card: 's13' },
     'virial': { title: '维里方程', def: 'pV=nRT[1+B(T)/V+C(T)/V²+…]；用维里系数修正真实气体，低压下只需第二维里系数。', card: 's13' },
+    'work': { title: '功', def: '有序能量转移，过程量；准静态体积功 δW=−p dV（外界对系统为正）。', card: 's14' },
+    'quasi-static': { title: '准静态过程', def: '过程足够慢，系统每步都近似平衡态；可在 p–V 图上画曲线。准静态 ≠ 可逆。', card: 's14' },
+    'cyclic-process': { title: '循环过程', def: '系统从某态出发又回到原态；ΔU=0，净功等于 p–V 图围面积，Q_net=−W_net。', card: 's14' },
+    'generalized-force': { title: '广义功', def: 'δW=ΣY_i dy_i；Y 为广义力、y 为广义位移。体积功对应 Y=−p、y=V。', card: 's14' },
+    'internal-energy': { title: '内能', def: '分子无规运动动能+分子内能+分子间势能（无外场）；状态函数、广延量，只定义到常数。', card: 's15' },
+    'first-law': { title: '热力学第一定律', def: 'ΔU=Q+W（外界对系统做功为正）；能量守恒在热现象中的表现，禁止第一类永动机。', card: 's15' },
+    'free-expansion': { title: '自由膨胀', def: '气体向真空膨胀，不做功；绝热时 ΔU=0。理想气体温度不变，过程不可逆。', card: 's15' },
+    'enthalpy': { title: '焓', def: 'H=U+pV，状态函数、广延量；定压过程 Q_p=ΔH。', card: 's16' },
+    'heat-capacity': { title: '热容', def: 'C=δQ/dT，依赖过程；定容 C_V、定压 C_p 是两种常用热容。', card: 's16' },
+    'cv': { title: '定容热容 C_V', def: 'C_V=(∂U/∂T)_V；定容时热量全部用于增加内能。', card: 's16' },
+    'cp': { title: '定压热容 C_p', def: 'C_p=(∂H/∂T)_p；定压时热量用于增加焓（含膨胀功）。', card: 's16' },
+    'gamma': { title: '绝热指数 γ', def: 'γ=C_p/C_V；理想气体 γ=1+R/C_{V,m}，绝热过程 pV^γ=常数。', card: 's16' },
+    'latent-heat': { title: '潜热', def: '相变时温度不变吸收的热量；熔化热、汽化热、升华热。不能用 CΔT 计算。', card: 's16' },
+    'calorimetry': { title: '量热学', def: '用热平衡 Q_lost=Q_gained 测量热容/潜热；需考虑容器热容与散热修正。', card: 's16' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
