@@ -1666,6 +1666,210 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         <li><b>与经典对照</b>：经典轨道 <span class="m">x(t)</span> 失效，代之以「概率云」<span class="m">Ψ*Ψ</span>；经典波（位移/场强）与量子波（概率幅）物理含义不同。</li>
       </ul>
     </div>
+    <details class="blk b-deriv b-full" id="full-s12">
+      <summary>完整推导 · 20 步：从概率幅到玻恩规则</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          这一节的核心不是再解一个方程，而是回答「\(\Psi\) 到底描述什么」。
+          约定：一维、归一化波函数 \(\Psi(x,t)\)；能严格推出的写成「推导」，属于基本假设的明确标成「假设」。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">经典概率与量子概率幅的区别</div>
+            <div class="step-body">
+              <p>经典统计里，概率 \(P\) 直接描述「我们不知道粒子在哪」；量子力学里，基本对象是复的<a class="kp" data-kp="probability-amplitude">概率幅</a> \(\Psi\)，概率由 \(|\Psi|^2\) 得到。</p>
+              <p>概率幅可以取负、取复数，所以能相消/相长；概率本身永远非负。这个区别是干涉的根源。</p>
+              <p class="step-why"><b>为什么不能直接叫概率：</b>若 \(\Psi\) 是概率，它必须非负实数，就无法解释双缝干涉的暗纹。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">玻恩规则：把概率幅变成概率密度</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="born-rule">玻恩统计诠释</a>规定：</p>
+              \[ \rho(x,t)=|\Psi(x,t)|^2=\Psi^*(x,t)\Psi(x,t). \]
+              <p>在 \(x\) 附近、宽度 \(\mathrm{d}x\) 内发现粒子的概率为</p>
+              \[ \mathrm{d}P=\rho(x,t)\,\mathrm{d}x. \]
+              <p class="step-why"><b>地位：</b>这是量子力学的<strong>基本假设</strong>，不能由薛定谔方程推出；薛定谔方程只负责 \(\Psi\) 怎么演化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">区间概率与归一化</div>
+            <div class="step-body">
+              <p>对区间 \([a,b]\) 积分：</p>
+              \[ P(a\le x\le b)=\int_a^b|\Psi(x,t)|^2\,\mathrm{d}x. \]
+              <p>总概率必须是 1，所以</p>
+              \[ \int_{-\infty}^{+\infty}|\Psi(x,t)|^2\,\mathrm{d}x=1. \]
+              <p>这就是<a class="kp" data-kp="normalization">归一化</a>条件；它把 \(\Psi\) 的常数因子固定下来（§1.4 详谈）。</p>
+              <p class="step-check"><b>量纲：</b>\(\rho\) 的量纲是 \(1/\text{长度}\)，\(\rho\,\mathrm{d}x\) 无量纲。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置期望值</div>
+            <div class="step-body">
+              <p>由概率分布求平均：</p>
+              \[ \langle x\rangle=\int_{-\infty}^{+\infty}x\,|\Psi(x,t)|^2\,\mathrm{d}x. \]
+              <p>更一般地，任意函数 \(f(x)\) 的期望为</p>
+              \[ \langle f(x)\rangle=\int f(x)\,|\Psi|^2\,\mathrm{d}x. \]
+              <p class="step-why"><b>注意：</b>这是「对大量全同制备系统测量 \(x\) 的平均」，不是对单次测量结果的预言；单次结果按 \(\rho\) 随机。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">整体相位不影响概率</div>
+            <div class="step-body">
+              <p>把波函数乘一个整体相位：</p>
+              \[ \Psi\;\longrightarrow\;\Psi'=e^{i\alpha}\Psi,\qquad \alpha\in\mathbb{R}. \]
+              <p>则</p>
+              \[ |\Psi'|^2=(e^{i\alpha}\Psi)^*(e^{i\alpha}\Psi)=e^{-i\alpha}e^{i\alpha}|\Psi|^2=|\Psi|^2. \]
+              <p>所以<a class="kp" data-kp="global-phase">整体相位</a>不改变任何概率、期望值；物理态对应的是「射线」而不是单个复矢量。</p>
+              <p class="step-why"><b>推论：</b>归一化只能定到相位；\(\Psi\) 与 \(e^{i\alpha}\Psi\) 描述同一个态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相对相位会影响干涉</div>
+            <div class="step-body">
+              <p>若态是两个分量的叠加</p>
+              \[ \Psi=\frac{1}{\sqrt{2}}\left(\psi_1+e^{i\phi}\psi_2\right), \]
+              <p>则</p>
+              \[ |\Psi|^2=\frac12\left(|\psi_1|^2+|\psi_2|^2+2\,\mathrm{Re}(e^{-i\phi}\psi_1^*\psi_2)\right). \]
+              <p>交叉项依赖相对相位 \(\phi\)，可以为正（相长）或为负（相消）。双缝干涉的明暗条纹就是这一项随位置变化的结果。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="relative-phase">相对相位</a>；整体相位不可观测，相对相位可观测。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量与坍缩：这是额外假设</div>
+            <div class="step-body">
+              <p>若测量位置得到结果 \(x_0\)，测量后态立即变为集中于 \(x_0\) 的波包（理想情形为 \(\delta\) 函数）：</p>
+              \[ \Psi(x,t)\;\longrightarrow\;\delta(x-x_0). \]
+              <p>这个过程叫<a class="kp" data-kp="collapse">波函数坍缩</a>。它<strong>不是</strong>薛定谔方程演化出来的，而是测量公设的一部分。</p>
+              <p class="step-why"><b>为什么必须单独假设：</b>薛定谔方程是线性的、可逆的；坍缩是非线性、不可逆的，二者逻辑上不属于同一套演化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">系综解释：概率是对谁说的</div>
+            <div class="step-body">
+              <p>「粒子以概率 \(\rho(x)\) 出现在 \(x\)」的严格说法是：对大量全同制备的系统（<a class="kp" data-kp="ensemble">系综</a>）做同样测量，结果的频率趋于 \(\rho(x)\)。</p>
+              <p>单次测量不可预言，但统计分布可检验；量子概率不是「知识不足」，而是理论的内禀随机性（至少在标准诠释里）。</p>
+              <p class="step-why"><b>可检验内容：</b>多次重复的直方图、期望值、方差；不是单次结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">概率守恒：从薛定谔方程推出连续性方程</div>
+            <div class="step-body">
+              <p>由含时方程及其共轭（§1.1 完整推导第 16 步已做）：</p>
+              \[ \partial_t\rho+\partial_x j=0, \]
+              \[ j=\frac{\hbar}{2mi}\left(\Psi^*\partial_x\Psi-\Psi\partial_x\Psi^*\right). \]
+              <p>这就是<a class="kp" data-kp="continuity">连续性方程</a>；\(j\) 是<a class="kp" data-kp="probability-current">概率流密度</a>。</p>
+              <p class="step-why"><b>意义：</b>概率不会凭空产生/消失，只会从一处流到另一处；它保证归一化不随时间改变（§1.4 再积分证明）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">波包：把平面波叠加成可归一化的态</div>
+            <div class="step-body">
+              <p>平面波 \(e^{ikx}\) 不平方可积，不能直接归一；物理的自由粒子用<a class="kp" data-kp="wavepacket">波包</a>表示：</p>
+              \[ \Psi(x,0)=\int_{-\infty}^{+\infty}\tilde\Psi(k)\,e^{ikx}\,\frac{\mathrm{d}k}{\sqrt{2\pi}}. \]
+              <p>不同 \(k\) 的平面波叠加，可以在有限区域集中，从而归一化。</p>
+              <p class="step-check"><b>检查：</b>波包越窄（位置越确定），其傅里叶变换越宽（动量越不确定）——这是不确定原理的伏笔。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：高斯波包的归一化</div>
+            <div class="step-body">
+              <p>设</p>
+              \[ \Psi(x)=A\,e^{-x^2/(2a^2)}. \]
+              <p>归一化：</p>
+              \[ 1=|A|^2\int_{-\infty}^{+\infty}e^{-x^2/a^2}\,\mathrm{d}x=|A|^2\,a\sqrt{\pi}. \]
+              <p>所以</p>
+              \[ A=\left(\pi a^2\right)^{-1/4}. \]
+              <p>概率密度为 \(\rho(x)=(\pi a^2)^{-1/2}e^{-x^2/a^2}\)，是均值 0、方差 \(a^2/2\) 的高斯分布。</p>
+              <p class="step-why"><b>检查：</b>\(\int\rho\,\mathrm{d}x=1\)；\(a\) 越小，位置越集中，动量分布越宽。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">节点与概率为零的位置</div>
+            <div class="step-body">
+              <p>若 \(\Psi(x_0)=0\)，则 \(\rho(x_0)=0\)：在 \(x_0\) 处发现粒子的概率密度为零。节点不是「粒子不能到达」，而是「在该点附近找到的概率趋于零」。</p>
+              <p>例如一维无限深势阱的 \(\psi_n\propto\sin(n\pi x/L)\) 在 \(x=mL/n\) 处有节点。</p>
+              <p class="step-why"><b>注意：</b>节点处波函数为零，但概率流 \(j\) 不一定为零；定态节点处 \(j=0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">离散谱与连续谱</div>
+            <div class="step-body">
+              <p>若测量结果离散（如能量本征值 \(E_n\)），概率为</p>
+              \[ P_n=|c_n|^2,\qquad \Psi=\sum_n c_n\psi_n, \]
+              <p>且 \(\sum_n|c_n|^2=1\)。若结果连续（如位置），则用概率密度 \(\rho(x)\)，\(P=\int\rho\,\mathrm{d}x\)。</p>
+              <p class="step-why"><b>统一写法：</b>离散用求和、连续用积分；归一化条件都是「总概率 = 1」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">方差与不确定度</div>
+            <div class="step-body">
+              <p>位置的方差：</p>
+              \[ \sigma_x^2=\langle x^2\rangle-\langle x\rangle^2, \]
+              <p>其中 \(\langle x^n\rangle=\int x^n|\Psi|^2\,\mathrm{d}x\)。\(\sigma_x\) 是概率分布的宽度，不是「测量误差」。</p>
+              <p>对高斯波包，\(\sigma_x=a/\sqrt2\)；动量分布的标准差 \(\sigma_p=\hbar/(a\sqrt2)\)，所以 \(\sigma_x\sigma_p=\hbar/2\)（高斯波包达到不确定原理下界）。</p>
+              <p class="step-check"><b>检查：</b>乘积与 \(a\) 无关，说明「窄位置 ↔ 宽动量」是普遍 trade-off。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与归一化的关系</div>
+            <div class="step-body">
+              <p>一维波函数量纲：\([\Psi]=L^{-1/2}\)，因为 \(|\Psi|^2\mathrm{d}x\) 无量纲；三维时 \([\Psi]=L^{-3/2}\)，归一化为 \(\int|\Psi|^2\mathrm{d}^3r=1\)。</p>
+              <p>概率密度 \(\rho\) 的量纲是 \(L^{-1}\)（一维）或 \(L^{-3}\)（三维）；概率本身永远无量纲。</p>
+              <p class="step-why"><b>用途：</b>写归一化因子时先看量纲，能快速发现 \(A\) 的幂次错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">经典极限：概率云变成轨道</div>
+            <div class="step-body">
+              <p>当 \(\hbar\to0\)、体系尺度远大于波长时，波包中心遵循经典运动，概率云宽度相对轨道尺度可忽略，看起来就像「粒子沿轨道运动」。</p>
+              <p>但量子概率本身不消失，只是被宏观平均掩盖；经典轨道是近似描述，不是更基本的实在。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="classical-limit">经典极限</a>；严格讨论属于半经典/退相干。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">哪些是推导，哪些是假设？</div>
+            <div class="step-body">
+              <p><b>推导：</b>整体相位不影响概率；相对相位产生干涉；连续性方程；高斯归一化；期望/方差公式。</p>
+              <p><b>假设：</b>\(\rho=|\Psi|^2\)（玻恩规则）；测量坍缩；单次测量随机；态由波函数完全描述。</p>
+              <p>把「假设」误当「推导」是概念题最常见的扣分点。</p>
+              <p class="step-check"><b>自检：</b>能否用一句话说清「为什么 \(\Psi\) 不是概率，而是概率幅」？</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见误解</div>
+            <div class="step-body">
+              <ul>
+                <li>「\(\Psi\) 是物质波，粒子像波一样振动」——不准确；\(\Psi\) 是概率幅，不是位移/密度。</li>
+                <li>「测量只是我们不知道结果」——标准诠释里单次结果没有确定值，不是隐变量。</li>
+                <li>「坍缩是方程演化」——不是；坍缩是测量公设。</li>
+                <li>「概率密度可以大于 1 就错了」——可以大于 1，只要积分等于 1；概率才必须 ≤1。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心公式：</b>\(\rho=|\Psi|^2\)，\(\int\rho\,\mathrm{d}x=1\)，\(\langle f\rangle=\int f\rho\,\mathrm{d}x\)。</p>
+              <p><b>核心图像：</b>\(\Psi\) 是复概率幅；整体相位不可观测，相对相位产生干涉；测量坍缩是额外假设。</p>
+              <p><b>与 §1.4 的分工：</b>本节讲「为什么是 \(|\Psi|^2\)」，§1.4 讲「怎么把 \(\Psi\) 归一化、归一化为什么保持」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">三维推广与边缘概率</div>
+            <div class="step-body">
+              <p>三维波函数 \(\Psi(\mathbf r,t)\) 的概率密度为</p>
+              \[ \rho(\mathbf r,t)=|\Psi(\mathbf r,t)|^2,\qquad \int_{\mathbb R^3}\rho\,\mathrm{d}^3r=1. \]
+              <p>若只关心 \(x\)，把 \(y,z\) 积掉，得到边缘密度：</p>
+              \[ \rho_x(x)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}|\Psi(x,y,z)|^2\,\mathrm{d}y\,\mathrm{d}z. \]
+              <p>对 \(x\) 的期望值只用 \(\rho_x\)：\(\langle x\rangle=\int x\rho_x(x)\mathrm{d}x\)。</p>
+              <p class="step-why"><b>为什么可以积掉：</b>概率论里「不关心的变量」做边缘化；这与测量只测 \(x\) 时，\(y,z\) 结果不被记录是一致的。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -1720,6 +1924,242 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s13">
+      <summary>完整推导 · 20 步：概率论工具箱</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          这一节把「离散分布 → 连续分布」的运算一次讲清：归一化、期望、方差、CDF/PDF、变量替换、高斯积分、二项分布与中心极限定理。
+          这些公式后面会原样用在 \(|\Psi|^2\) 上。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">概率的三条基本要求</div>
+            <div class="step-body">
+              <p>对离散结果 \(j\)，概率 \(P(j)\) 满足：</p>
+              <ul>
+                <li>非负：\(P(j)\ge0\)；</li>
+                <li>归一：\(\sum_j P(j)=1\)；</li>
+                <li>可加：互斥事件 \(A\cap B=\varnothing\) 时 \(P(A\cup B)=P(A)+P(B)\)。</li>
+              </ul>
+              <p class="step-why"><b>为什么先列这三条：</b>后面所有公式（期望、方差、连续极限）都是这三条的直接推论。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">离散期望值</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ \langle j\rangle=\sum_j j\,P(j). \]
+              <p>更一般地，对任意函数 \(f\)：</p>
+              \[ \langle f(j)\rangle=\sum_j f(j)P(j). \]
+              <p class="step-why"><b>依据：</b>「加权平均」；权重是概率，不是样本数。若做 \(N\) 次实验，频率 \(N_j/N\to P(j)\)，样本平均趋于 \(\sum jP(j)\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">方差恒等式</div>
+            <div class="step-body">
+              <p>按定义：</p>
+              \[ \sigma^2=\langle(j-\langle j\rangle)^2\rangle. \]
+              <p>展开：</p>
+              \[ \sigma^2=\langle j^2-2j\langle j\rangle+\langle j\rangle^2\rangle
+                =\langle j^2\rangle-2\langle j\rangle^2+\langle j\rangle^2
+                =\langle j^2\rangle-\langle j\rangle^2. \]
+              <p class="step-why"><b>用途：</b>实际计算先求 \(\langle j^2\rangle\) 和 \(\langle j\rangle\)，比直接算偏差平方和快。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">从离散到连续：概率密度</div>
+            <div class="step-body">
+              <p>连续变量单点概率为零，只能问区间。定义概率密度 \(\rho(x)\)，使</p>
+              \[ P(x\in[x,x+\mathrm{d}x])=\rho(x)\,\mathrm{d}x. \]
+              <p>归一化变成</p>
+              \[ \int_{-\infty}^{+\infty}\rho(x)\,\mathrm{d}x=1. \]
+              <p class="step-why"><b>与离散的对应：</b>\(P(j)\leftrightarrow\rho(x)\mathrm{d}x\)，\(\sum_j\leftrightarrow\int\mathrm{d}x\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">累积分布函数 CDF</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ F(x)=P(X\le x)=\int_{-\infty}^{x}\rho(x')\,\mathrm{d}x'. \]
+              <p>于是 \(F(-\infty)=0\)，\(F(+\infty)=1\)，且由微积分基本定理</p>
+              \[ \rho(x)=\frac{\mathrm{d}F}{\mathrm{d}x}. \]
+              <p>区间概率：</p>
+              \[ P(a\le X\le b)=F(b)-F(a)=\int_a^b\rho(x)\,\mathrm{d}x. \]
+              <p class="step-check"><b>检查：</b>\(\rho\) 可以大于 1（只要积分=1），\(F\) 必须在 \([0,1]\) 内且单调不减。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续期望与方差</div>
+            <div class="step-body">
+              <p>把求和换成积分：</p>
+              \[ \langle x\rangle=\int x\rho(x)\,\mathrm{d}x,\qquad
+                 \langle f(x)\rangle=\int f(x)\rho(x)\,\mathrm{d}x. \]
+              <p>方差仍满足</p>
+              \[ \sigma^2=\langle x^2\rangle-\langle x\rangle^2. \]
+              <p class="step-why"><b>注意：</b>积分必须收敛；尾巴太胖的分布可能没有有限方差（如柯西分布），物理上要检查。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">变量替换：为什么多一个雅可比因子</div>
+            <div class="step-body">
+              <p>设 \(Y=g(X)\) 且 \(g\) 单调可导，反函数 \(X=g^{-1}(Y)\)。由 CDF 相等：</p>
+              \[ F_Y(y)=P(Y\le y)=P(X\le g^{-1}(y))=F_X(g^{-1}(y)). \]
+              <p>对 \(y\) 求导，用链式法则：</p>
+              \[ \rho_Y(y)=\rho_X(g^{-1}(y))\left|\frac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y}\right|. \]
+              <p>等价地，\(\rho_Y(y)\,\mathrm{d}y=\rho_X(x)\,\mathrm{d}x\)：概率在坐标变换下不变。</p>
+              <p class="step-why"><b>易错：</b>只换变量不乘雅可比，是概率题最常见的错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">高斯积分：先算 \(I^2\)</div>
+            <div class="step-body">
+              <p>令</p>
+              \[ I=\int_{-\infty}^{+\infty}e^{-x^2}\,\mathrm{d}x. \]
+              <p>直接积不出来，改算</p>
+              \[ I^2=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}e^{-(x^2+y^2)}\,\mathrm{d}x\,\mathrm{d}y. \]
+              <p>换成极坐标 \(x=r\cos\theta,\ y=r\sin\theta\)，\(\mathrm{d}x\mathrm{d}y=r\,\mathrm{d}r\,\mathrm{d}\theta\)：</p>
+              \[ I^2=\int_0^{2\pi}\mathrm{d}\theta\int_0^{+\infty}r e^{-r^2}\,\mathrm{d}r
+                =2\pi\cdot\frac12=\pi. \]
+              <p>所以 \(I=\sqrt{\pi}\)。</p>
+              <p class="step-why"><b>关键：</b>极坐标的 \(r\) 来自雅可比；没有它积分不收敛。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一般高斯分布的归一化</div>
+            <div class="step-body">
+              <p>设</p>
+              \[ \rho(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}. \]
+              <p>令 \(u=(x-\mu)/(\sqrt2\sigma)\)，\(\mathrm{d}x=\sqrt2\sigma\,\mathrm{d}u\)：</p>
+              \[ \int\rho\,\mathrm{d}x=\frac{1}{\sigma\sqrt{2\pi}}\cdot\sqrt2\sigma\int e^{-u^2}\mathrm{d}u
+                =\frac{1}{\sqrt{\pi}}\cdot\sqrt{\pi}=1. \]
+              <p>所以归一化系数是 \(1/(\sigma\sqrt{2\pi})\)，不是随便写的。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">高斯的均值与方差</div>
+            <div class="step-body">
+              <p>对称性给出 \(\langle x\rangle=\mu\)（令 \(u=x-\mu\)，奇函数积分为零）。</p>
+              <p>方差：</p>
+              \[ \sigma^2=\int (x-\mu)^2\rho(x)\,\mathrm{d}x
+                =\frac{1}{\sigma\sqrt{2\pi}}\int u^2e^{-u^2/(2\sigma^2)}\mathrm{d}u
+                =\sigma^2. \]
+              <p>最后一步用分部积分或已知积分 \(\int u^2e^{-u^2/(2\sigma^2)}\mathrm{d}u=\sigma^3\sqrt{2\pi}\)。</p>
+              <p class="step-check"><b>检查：</b>参数 \(\mu\) 是中心、\(\sigma\) 是宽度；量纲分别与 \(x\) 相同。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">二项分布</div>
+            <div class="step-body">
+              <p>\(n\) 次独立试验，每次成功概率 \(p\)，成功次数 \(j\) 的分布：</p>
+              \[ P(j)=\binom{n}{j}p^j(1-p)^{n-j},\qquad j=0,1,\dots,n. \]
+              <p>归一化由二项式定理保证：</p>
+              \[ \sum_{j=0}^n\binom{n}{j}p^j(1-p)^{n-j}=(p+1-p)^n=1. \]
+              <p class="step-why"><b>例子：</b>伽尔顿板 \(p=1/2\)；\(n\) 层钉板对应 \(n\) 次左右选择。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">二项分布的均值：用组合恒等式</div>
+            <div class="step-body">
+              <p>计算 \(\langle j\rangle\)：</p>
+              \[ \langle j\rangle=\sum_{j=0}^n j\binom{n}{j}p^j(1-p)^{n-j}. \]
+              <p>用 \(j\binom{n}{j}=n\binom{n-1}{j-1}\)，令 \(k=j-1\)：</p>
+              \[ \langle j\rangle=np\sum_{k=0}^{n-1}\binom{n-1}{k}p^k(1-p)^{n-1-k}=np. \]
+              <p class="step-why"><b>技巧：</b>把 \(j\) 降一阶，剩下的是 \(n-1\) 次试验的归一化和。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">二项分布的方差</div>
+            <div class="step-body">
+              <p>先算 \(\langle j(j-1)\rangle\)，用 \(j(j-1)\binom{n}{j}=n(n-1)\binom{n-2}{j-2}\)：</p>
+              \[ \langle j(j-1)\rangle=n(n-1)p^2. \]
+              <p>于是</p>
+              \[ \langle j^2\rangle=\langle j(j-1)\rangle+\langle j\rangle=n(n-1)p^2+np. \]
+              <p>方差：</p>
+              \[ \sigma^2=\langle j^2\rangle-\langle j\rangle^2
+                =n(n-1)p^2+np-n^2p^2=np(1-p). \]
+              <p class="step-check"><b>极限：</b>\(p=0\) 或 1 时方差为 0；\(p=1/2\) 时最大，\(\sigma=\sqrt n/2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">中心极限定理：为什么趋于高斯</div>
+            <div class="step-body">
+              <p>把二项变量写成 \(n\) 个独立 0/1 变量之和：</p>
+              \[ j=\sum_{i=1}^n X_i,\qquad X_i=\begin{cases}1,&p\\0,&1-p\end{cases}. \]
+              <p>每个 \(X_i\) 的均值 \(p\)、方差 \(p(1-p)\)。中心极限定理说：独立同分布、方差有限的变量之和，标准化后</p>
+              \[ Z_n=\frac{j-np}{\sqrt{np(1-p)}}\;\Longrightarrow\;\mathcal N(0,1). \]
+              <p>所以 \(j\) 近似服从均值 \(np\)、方差 \(np(1-p)\) 的高斯分布。</p>
+              <p class="step-why"><b>说明：</b>这里只给思路；严格证明用特征函数，教材 §1.3 有展开证明。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">众数、中位数、平均值</div>
+            <div class="step-body">
+              <p>三个「中心」定义不同：</p>
+              <ul>
+                <li>众数：使 \(P(j)\) 或 \(\rho(x)\) 最大的点；</li>
+                <li>中位数：使 \(F(x)=1/2\) 的点；</li>
+                <li>平均值：\(\langle x\rangle=\int x\rho\,\mathrm{d}x\)。</li>
+              </ul>
+              <p>对称单峰分布三者重合；不对称分布一般不重合。物理题问「最可几位置」时指的是众数，不是平均值。</p>
+              <p class="step-why"><b>例子：</b>自由落体落点密度 \(\rho(x)=1/(2\sqrt{hx})\) 单调减，众数在 \(x\to0\)，平均值却是 \(h/3\)，中位数又是另一个值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">标准差与 \(1\sigma\) 区间</div>
+            <div class="step-body">
+              <p>\(\sigma=\sqrt{\langle x^2\rangle-\langle x\rangle^2}\) 是分布宽度。对高斯分布：</p>
+              \[ P(|x-\mu|\le\sigma)\approx68.3\%,\quad
+                 P(|x-\mu|\le2\sigma)\approx95.4\%,\quad
+                 P(|x-\mu|\le3\sigma)\approx99.7\%. \]
+              <p>这是「\(1\sigma\) 约 68%」的来源，不是对所有分布都成立。</p>
+              <p class="step-check"><b>检查：</b>方差量纲是 \(x^2\)，标准差量纲与 \(x\) 相同，所以误差棒用 \(\sigma\) 不用 \(\sigma^2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>一维：\([\rho]=L^{-1}\)，\([\langle x\rangle]=L\)，\([\sigma^2]=L^2\)，\([\sigma]=L\)。</p>
+              <p>三维：\([\rho]=L^{-3}\)，\(\int\rho\,\mathrm{d}^3r=1\)；期望值仍是 \(L\)。</p>
+              <p>概率 \(P\) 永远无量纲；若算出「概率」带量纲，一定是把密度当成了概率。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(\rho(x)\) 直接叫「概率」；正确的是「概率密度」，\(\rho\mathrm{d}x\) 才是概率。</li>
+                <li>变量替换忘记雅可比因子 \(|\mathrm{d}x/\mathrm{d}y|\)。</li>
+                <li>用 \(\langle x\rangle\) 代替最可几值；两者一般不同。</li>
+                <li>算方差时忘记减 \(\langle x\rangle^2\)，或把 \(\sigma\) 与 \(\sigma^2\) 混用。</li>
+                <li>高斯积分漏掉 \(\sqrt{\pi}\) 或 \(2\pi\) 的因子。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>离散：</b>\(\sum P=1\)，\(\langle j\rangle=\sum jP\)，\(\sigma^2=\langle j^2\rangle-\langle j\rangle^2\)。</p>
+              <p><b>连续：</b>\(\int\rho\mathrm{d}x=1\)，\(\rho=\mathrm{d}F/\mathrm{d}x\)，\(\langle f\rangle=\int f\rho\mathrm{d}x\)。</p>
+              <p><b>两条常用结果：</b>高斯归一化 \(1/(\sigma\sqrt{2\pi})\)；二项分布均值 \(np\)、方差 \(np(1-p)\)。</p>
+              <p><b>与量子力学的接口：</b>把 \(\rho\) 换成 \(|\Psi|^2\)，所有公式原样可用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">期望与方差的线性性质</div>
+            <div class="step-body">
+              <p>对常数 \(a,b\)：</p>
+              \[ \langle aX+b\rangle=a\langle X\rangle+b. \]
+              <p>证明：\(\langle aX+b\rangle=\int(ax+b)\rho\,\mathrm{d}x=a\int x\rho\,\mathrm{d}x+b\int\rho\,\mathrm{d}x=a\langle X\rangle+b\)。</p>
+              <p>方差：</p>
+              \[ \operatorname{Var}(aX+b)=a^2\operatorname{Var}(X). \]
+              <p>因为平移不改变分布宽度，乘 \(a\) 会把偏差放大 \(|a|\) 倍，平方后是 \(a^2\)。</p>
+              <p class="step-why"><b>用途：</b>换单位、平移坐标时不用重新积分；也解释了为什么标准差与 \(X\) 同量纲。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -1772,6 +2212,228 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s14">
+      <summary>完整推导 · 20 步：归一化与概率守恒</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          这一节回答三个问题：为什么要归一化、怎么定归一化常数、为什么归一化在时间演化下不会被破坏。
+          约定：一维、\(\Psi\) 平方可积；\(N(t)=\int|\Psi|^2\mathrm{d}x\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">线性方程留下一个未定常数</div>
+            <div class="step-body">
+              <p>薛定谔方程对 \(\Psi\) 是线性的：若 \(\Psi\) 是解，则对任意常数 \(C\)，</p>
+              \[ \Psi_C(x,t)=C\,\Psi(x,t) \]
+              <p>仍是解。因为方程两边都只含 \(\Psi\) 的一次项，乘 \(C\) 后整体约去。</p>
+              <p class="step-why"><b>后果：</b>方程本身不能确定 \(C\)；需要额外的物理条件——总概率为 1。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化条件</div>
+            <div class="step-body">
+              <p>概率诠释要求</p>
+              \[ \int_{-\infty}^{+\infty}|\Psi_C(x,t)|^2\,\mathrm{d}x=1. \]
+              <p>代入 \(\Psi_C=C\Psi\)：</p>
+              \[ |C|^2\int|\Psi|^2\,\mathrm{d}x=1
+                \quad\Longrightarrow\quad
+                |C|^2=\frac{1}{\int|\Psi|^2\mathrm{d}x}. \]
+              <p>所以 \(C\) 的模被确定，相位仍自由。</p>
+              <p class="step-why"><b>前提：</b>分母必须有限且非零，即 \(\Psi\) 平方可积；平面波不满足。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">实际做法：先归一化 \(t=0\)</div>
+            <div class="step-body">
+              <p>通常先给 \(\Psi(x,0)\)，定出</p>
+              \[ C=\frac{1}{\sqrt{\int|\Psi(x,0)|^2\mathrm{d}x}}, \]
+              <p>然后令 \(\Psi(x,0)\to C\Psi(x,0)\)。之后再解薛定谔方程，得到的 \(\Psi(x,t)\) 自动保持归一化（第 6–12 步证明）。</p>
+              <p class="step-check"><b>检查：</b>先归一化再演化，和先演化再归一化，结果只差一个整体相位。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化不唯一：整体相位仍自由</div>
+            <div class="step-body">
+              <p>若 \(\Psi\) 已归一化，则</p>
+              \[ \Psi'=e^{i\alpha}\Psi \]
+              <p>仍满足 \(\int|\Psi'|^2\mathrm{d}x=1\)，因为 \(|e^{i\alpha}|^2=1\)。</p>
+              <p>所以归一化确定的是「模」，不是「相位」；\(\Psi\) 与 \(e^{i\alpha}\Psi\) 描述同一个物理态。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="global-phase">整体相位</a>；物理态是射线，不是单个矢量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化因子的例子：高斯波包</div>
+            <div class="step-body">
+              <p>设 \(\Psi(x,0)=A e^{-x^2/(2a^2)}\)，则</p>
+              \[ 1=|A|^2\int e^{-x^2/a^2}\mathrm{d}x=|A|^2 a\sqrt{\pi}, \]
+              <p>所以</p>
+              \[ A=(\pi a^2)^{-1/4}. \]
+              <p class="step-check"><b>量纲：</b>\([A]=L^{-1/2}\)，与一维波函数一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">要证明：归一化不随时间改变</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ N(t)=\int_{-\infty}^{+\infty}|\Psi(x,t)|^2\,\mathrm{d}x. \]
+              <p>只需证明 \(\mathrm{d}N/\mathrm{d}t=0\)。把积分号内对 \(t\) 求导：</p>
+              \[ \frac{\mathrm{d}N}{\mathrm{d}t}
+                =\int\left[(\partial_t\Psi^*)\Psi+\Psi^*(\partial_t\Psi)\right]\mathrm{d}x. \]
+              <p class="step-why"><b>前提：</b>\(\Psi\) 足够光滑、积分收敛，允许积分号下求导；物理态满足。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入薛定谔方程及其共轭</div>
+            <div class="step-body">
+              <p>由</p>
+              \[ \partial_t\Psi=\frac{i\hbar}{2m}\partial_x^2\Psi-\frac{i}{\hbar}V\Psi, \]
+              <p>取复共轭：</p>
+              \[ \partial_t\Psi^*=-\frac{i\hbar}{2m}\partial_x^2\Psi^*+\frac{i}{\hbar}V\Psi^*. \]
+              <p class="step-why"><b>注意：</b>\(V\) 是实函数，所以 \(V^*=V\)；\(i\to-i\)，\(\hbar,m\) 不变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">势能项相消</div>
+            <div class="step-body">
+              <p>代入第 6 步：</p>
+              \[ (\partial_t\Psi^*)\Psi+\Psi^*(\partial_t\Psi)
+                =\frac{i\hbar}{2m}\left(\Psi^*\Psi''-\Psi\Psi^{*''}\right)
+                -\frac{i}{\hbar}V\Psi^*\Psi+\frac{i}{\hbar}V\Psi\Psi^*. \]
+              <p>后两项完全抵消，只剩</p>
+              \[ \frac{\mathrm{d}N}{\mathrm{d}t}
+                =\frac{i\hbar}{2m}\int\left(\Psi^*\Psi''-\Psi\Psi^{*''}\right)\mathrm{d}x. \]
+              <p class="step-why"><b>物理：</b>势能只改变相位，不产生/消灭概率；概率变化只能来自概率流。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分部积分</div>
+            <div class="step-body">
+              <p>对两项分别分部积分：</p>
+              \[ \int\Psi^*\Psi''\mathrm{d}x
+                =\left[\Psi^*\Psi'\right]_{-\infty}^{+\infty}-\int|\Psi'|^2\mathrm{d}x, \]
+              \[ \int\Psi\Psi^{*''}\mathrm{d}x
+                =\left[\Psi\Psi^{*'}\right]_{-\infty}^{+\infty}-\int|\Psi'|^2\mathrm{d}x. \]
+              <p>两者相减，\(\int|\Psi'|^2\) 抵消，只剩边界项：</p>
+              \[ \frac{\mathrm{d}N}{\mathrm{d}t}
+                =\frac{i\hbar}{2m}\left(\left[\Psi^*\Psi'-\Psi\Psi^{*'}\right]_{-\infty}^{+\infty}\right). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">边界项为零</div>
+            <div class="step-body">
+              <p>平方可积要求 \(\Psi(x,t)\to0\)（\(|x|\to\infty\)），且导数也足够快衰减；因此</p>
+              \[ \left[\Psi^*\Psi'-\Psi\Psi^{*'}\right]_{-\infty}^{+\infty}=0. \]
+              <p>于是</p>
+              \[ \frac{\mathrm{d}N}{\mathrm{d}t}=0. \]
+              <p class="step-check"><b>结论：</b>初始归一化后，任意时刻都归一化；这不是额外假设，是薛定谔方程的结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">写成连续性方程</div>
+            <div class="step-body">
+              <p>把被积函数写成全微分：</p>
+              \[ \partial_t|\Psi|^2+\partial_x j=0,\qquad
+                 j=\frac{\hbar}{2mi}\left(\Psi^*\partial_x\Psi-\Psi\partial_x\Psi^*\right). \]
+              <p>对全空间积分，\(j\) 在无穷远为零，就回到 \(\mathrm{d}N/\mathrm{d}t=0\)。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="continuity">连续性方程</a>、<a class="kp" data-kp="probability-current">概率流</a>；这是「概率守恒」的微分形式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定态：归一化后形状不随时间变</div>
+            <div class="step-body">
+              <p>若 \(V=V(x)\)，定态为</p>
+              \[ \Psi(x,t)=\psi(x)e^{-iEt/\hbar}. \]
+              <p>则</p>
+              \[ |\Psi(x,t)|^2=|\psi(x)|^2, \]
+              <p>与时间无关；只需对 \(\psi\) 归一化：\(\int|\psi|^2\mathrm{d}x=1\)。</p>
+              <p class="step-check"><b>检查：</b>定态的概率流 \(j=0\)（实 \(\psi\) 且只差相位），概率分布静止。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">叠加态的归一化：交叉项不能丢</div>
+            <div class="step-body">
+              <p>若 \(\Psi=c_1\psi_1+c_2\psi_2\)，\(\psi_1,\psi_2\) 正交归一，则</p>
+              \[ \int|\Psi|^2\mathrm{d}x=|c_1|^2+|c_2|^2+2\mathrm{Re}(c_1^*c_2\langle\psi_1|\psi_2\rangle). \]
+              <p>正交时最后一项为零，所以</p>
+              \[ |c_1|^2+|c_2|^2=1. \]
+              <p class="step-why"><b>易错：</b>非正交基（如两个高斯波包重叠）交叉项不为零，不能简单把系数平方相加。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：分段线性波函数</div>
+            <div class="step-body">
+              <p>课件 2-3 p08 的题型：给定</p>
+              \[ \Psi(x,0)=\begin{cases}
+                 A(a-x)/a,&0\le x\le a,\\
+                 A(x+a)/a,&-a\le x\le0,\\
+                 0,&\text{其他}.
+                 \end{cases} \]
+              <p>先算 \(1=|A|^2\int|\cdot|^2\mathrm{d}x\)，得 \(A=\sqrt{3/(2a)}\)；再求最可几位置、区间概率、\(\langle x\rangle\)。</p>
+              <p class="step-check"><b>技巧：</b>对称分段函数先算归一化，再算期望；不要一上来就积分 \(x|\Psi|^2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">未归一化时的期望值公式</div>
+            <div class="step-body">
+              <p>若暂时不归一化，期望值必须写成比值：</p>
+              \[ \langle x\rangle=\frac{\int x|\Psi|^2\mathrm{d}x}{\int|\Psi|^2\mathrm{d}x}. \]
+              <p>同理</p>
+              \[ \langle f(x)\rangle=\frac{\int f(x)|\Psi|^2\mathrm{d}x}{\int|\Psi|^2\mathrm{d}x}. \]
+              <p class="step-why"><b>原因：</b>概率密度要除以总概率；不归一化时总概率不是 1。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">平面波为什么不能直接归一化</div>
+            <div class="step-body">
+              <p>\(\Psi=Ae^{ikx}\)：</p>
+              \[ \int_{-\infty}^{+\infty}|A|^2\mathrm{d}x=|A|^2\cdot\infty, \]
+              <p>积分发散，不存在有限的 \(A\)。物理上的自由粒子用波包（不同 \(k\) 叠加），或用盒归一化/δ 归一化作为工具。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="square-integrable">平方可积</a>；平面波不属于希尔伯特空间，是广义本征态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">盒归一化与 δ 归一化</div>
+            <div class="step-body">
+              <p>把空间限制在长度 \(L\) 的盒子、取周期性边界：</p>
+              \[ \Psi_k=\frac{1}{\sqrt L}e^{ikx},\qquad \int_0^L|\Psi_k|^2\mathrm{d}x=1. \]
+              <p>让 \(L\to\infty\) 时，离散 \(k\) 变连续，归一化换成</p>
+              \[ \langle k|k'\rangle=\delta(k-k'). \]
+              <p class="step-why"><b>用途：</b>散射、自由粒子计算常用；\(\delta\) 不是普通函数，是分布。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>一维：\([\Psi]=L^{-1/2}\)，\([|\Psi|^2]=L^{-1}\)，\(\int|\Psi|^2\mathrm{d}x\) 无量纲。</p>
+              <p>三维：\([\Psi]=L^{-3/2}\)，\(\int|\Psi|^2\mathrm{d}^3r\) 无量纲。</p>
+              <p>归一化常数 \(A\) 的量纲必须与 \(\Psi\) 相同；若算出 \(A\) 带错量纲，说明漏了长度因子。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>只对部分区间归一化，却要求总概率为 1。</li>
+                <li>忘记 \(\Psi\) 是复数，把 \(|\Psi|^2\) 写成 \(\Psi^2\)。</li>
+                <li>叠加态归一化时漏掉交叉项（非正交情形）。</li>
+                <li>认为归一化会改变能量本征值或概率分布形状；它只改变整体标度/相位。</li>
+                <li>把平面波直接归一化，得到「无穷大常数」。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>条件：</b>\(\int|\Psi|^2\mathrm{d}x=1\)，只对平方可积态成立。</p>
+              <p><b>常数：</b>\(C=1/\sqrt{\int|\Psi|^2\mathrm{d}x}\)，相位仍自由。</p>
+              <p><b>守恒：</b>由薛定谔方程 + 分部积分 + 边界项为零，得 \(\mathrm{d}N/\mathrm{d}t=0\)，等价于 \(\partial_t\rho+\partial_x j=0\)。</p>
+              <p><b>自检：</b>能否不看上面，独立写出 \(\mathrm{d}N/\mathrm{d}t=0\) 的证明链条？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3267,6 +3929,25 @@ applyFilter();
     'classical-limit': { title: '经典极限', def: 'ħ→0、波长远小于体系尺度时，波包中心遵循经典运动；经典力学是量子力学在宏观尺度的近似。', card: 's11' },
     'hilbert': { title: '希尔伯特空间', def: '平方可积波函数构成的内积空间；态矢量、算符、本征展开都在这里定义。平面波不属于该空间，需用波包或广义本征态处理。', card: 's31' },
     'operator': { title: '算符', def: '作用在波函数上、给出另一个波函数的线性映射；可观测量对应厄密算符，本征值实数、本征函数正交。', card: 's32' },
+    'probability-amplitude': { title: '概率幅', def: '复函数 Ψ，本身不是概率；|Ψ|² 才是概率密度。概率幅可以相消/相长，因此能产生干涉。', card: 's12' },
+    'collapse': { title: '波函数坍缩', def: '测量得到某结果后，态立即变为该结果对应的本征态。它是测量公设的一部分，不是薛定谔方程演化出来的。', card: 's12' },
+    'global-phase': { title: '整体相位', def: 'Ψ → e^{iα}Ψ（α 为实常数）。|Ψ|² 不变，所有概率、期望值不变；物理态对应射线而非单个复矢量。', card: 's12' },
+    'relative-phase': { title: '相对相位', def: '叠加态中各分量之间的相位差。整体相位不可观测，相对相位会产生干涉交叉项，是可观测的。', card: 's12' },
+    'ensemble': { title: '系综', def: '大量全同制备的系统。量子概率的严格说法是：对系综重复测量，结果频率趋于 |Ψ|²；单次结果不可预言。', card: 's12' },
+    'probability-current': { title: '概率流密度', def: 'j = (ħ/2mi)(Ψ*∂xΨ − Ψ∂xΨ*)，满足 ∂tρ + ∂x j = 0；描述概率在空间中的流动。', card: 's12', doc: 'book', page: 13, end: 15, printed: '1–3' },
+    'square-integrable': { title: '平方可积', def: '∫|Ψ|²dx < ∞，才能归一化并属于希尔伯特空间；平面波不平方可积，只能作为广义本征态/盒归一化处理。', card: 's14', doc: 'book', page: 20, end: 21, printed: '8–9' },
+    'wavepacket': { title: '波包', def: '不同 k 的平面波叠加成的局域波；可归一化，位置与动量宽度满足不确定原理。', card: 's24' },
+    'pdf': { title: '概率密度 PDF', def: 'ρ(x) 满足 ρ(x)dx = 概率；ρ 可大于 1，但必须非负且 ∫ρdx=1。不要把它直接叫“概率”。', card: 's13', doc: 'book', page: 16, end: 20, printed: '4–8' },
+    'cdf': { title: '累积分布 CDF', def: 'F(x)=P(X≤x)=∫_{-∞}^x ρdx；F 从 0 单调增到 1，且 ρ=dF/dx。区间概率 F(b)−F(a)。', card: 's13' },
+    'expectation': { title: '期望值', def: '⟨f⟩=∫fρdx（离散为 ΣfP）。对波函数把 ρ 换成 |Ψ|²；未归一化时要除以 ∫|Ψ|²dx。', card: 's15' },
+    'variance': { title: '方差', def: 'σ²=⟨(x−⟨x⟩)²⟩=⟨x²⟩−⟨x⟩²；σ 是分布宽度，量纲与 x 相同。', card: 's13' },
+    'gaussian': { title: '高斯分布', def: 'ρ=(1/(σ√2π))e^{−(x−μ)²/2σ²}；均值 μ、方差 σ²。归一化系数来自 ∫e^{−u²}du=√π。', card: 's13' },
+    'binomial': { title: '二项分布', def: 'P(j)=C(n,j)p^j(1−p)^{n−j}；均值 np、方差 np(1−p)。伽尔顿板是 p=1/2 的特例。', card: 's13' },
+    'change-of-variables': { title: '变量替换', def: 'ρ_Y(y)=ρ_X(x)|dx/dy|；概率在坐标变换下不变，雅可比因子不能漏。', card: 's13' },
+    'central-limit': { title: '中心极限定理', def: '独立同分布、方差有限的大量随机变量之和，标准化后趋于标准正态；二项分布 n→∞ 趋于高斯。', card: 's13' },
+    'median': { title: '中位数', def: '满足 F(x)=1/2 的点；一半概率在左、一半在右。不对称分布中与平均值、众数不同。', card: 's13' },
+    'mode': { title: '众数 / 最可几值', def: '使 ρ(x) 或 P(j) 最大的点；物理题“最可几位置”指它，不是平均值。', card: 's13' },
+    'standard-deviation': { title: '标准差', def: 'σ=√σ²，与 x 同量纲；高斯分布中 |x−μ|≤σ 的概率约 68.3%。', card: 's13' },
     'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
   };
 
