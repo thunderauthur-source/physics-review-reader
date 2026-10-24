@@ -6714,6 +6714,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         </table>
       </div>
     </div>
+    <details class="blk b-deriv b-full" id="full-s37">
+      <summary>完整推导 · 20 步：相变的分类</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：按化学势导数的连续性区分一级/<a class="kp" data-kp="phase-transition-class">连续相变</a>，给出潜热、体积、热容的判据与典型例子。
+          约定：两相平衡；μ 为摩尔吉布斯函数。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title"><a class="kp" data-kp="phase-transition-class">分类依据</a></div><div class="step-body"><p>Ehrenfest 按 μ 的导数连续性分类：一阶导数不连续为一级，二阶不连续为二级（连续）。</p></div></li>
+          <li class="step"><div class="step-title">μ 的导数</div><div class="step-body"><p>\[ (\partial\mu/\partial T)_p=-s_m,\qquad (\partial\mu/\partial p)_T=v_m. \]</p></div></li>
+          <li class="step"><div class="step-title">一级相变</div><div class="step-body"><p>μ 连续，但 \(s_m,v_m\) 跃变：有潜热、有体积变化。</p></div></li>
+          <li class="step"><div class="step-title">潜热</div><div class="step-body"><p>\(L=T(s^\beta-s^\alpha)\)。</p></div></li>
+          <li class="step"><div class="step-title">体积变化</div><div class="step-body"><p>\(\Delta v=v^\beta-v^\alpha\ne0\)。</p></div></li>
+          <li class="step"><div class="step-title">二级相变</div><div class="step-body"><p>\(s_m,v_m\) 连续（无潜热、无体积变化），但 \(C_p,\kappa_T,\alpha\) 不连续或发散。</p></div></li>
+          <li class="step"><div class="step-title">连续相变</div><div class="step-body"><p>二级及更高阶统称连续相变；序参量连续由零变非零。</p></div></li>
+          <li class="step"><div class="step-title">热容</div><div class="step-body"><p>一级：有限跃变；连续：幂律发散或 λ 形。</p></div></li>
+          <li class="step"><div class="step-title">典型一级</div><div class="step-body"><p>冰–水、水–汽、固–液。</p></div></li>
+          <li class="step"><div class="step-title">典型连续</div><div class="step-body"><p>铁磁–顺磁、超导、超流、有序–无序、临界点。</p></div></li>
+          <li class="step"><div class="step-title">气液的两面性</div><div class="step-body"><p>气液可一级（有潜热），也可绕过临界点连续转变。</p></div></li>
+          <li class="step"><div class="step-title">Clapeyron 适用</div><div class="step-body"><p>一级相变可用 Clapeyron；连续相变 \(\Delta v=0\)，不能直接用。</p></div></li>
+          <li class="step"><div class="step-title">序参量</div><div class="step-body"><p>连续相变用序参量描述；一级相变的序参量有跃变。</p></div></li>
+          <li class="step"><div class="step-title">Ehrenfest 局限</div><div class="step-body"><p>临界点附近热容幂律发散，不是有限跃变；分类形式化。</p></div></li>
+          <li class="step"><div class="step-title">对称破缺</div><div class="step-body"><p>连续相变常伴随对称破缺；一级相变也可能有。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>把二级相当「程度小」；</li><li>气液一律当一级；</li><li>连续相变套 Clapeyron；</li><li>忘记潜热/体积判据。</li></ul></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>L：J/mol；Δv：m³/mol；C_p：J/K；μ：J/mol。</p></div></li>
+          <li class="step"><div class="step-title">实验判据</div><div class="step-body"><p>测潜热、体积突变、热容峰形；DSC、膨胀计、比热测量。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>μ 一阶导跃变=一级；二阶导跃变=连续；潜热/体积/热容是判据。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否用 μ 的导数解释一级与连续相变的区别？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6764,6 +6796,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         <p style="margin-top:9px"><b>标度关系</b>（可用来自查）：α + 2β + γ = 2；β(δ − 1) = γ；dν = 2 − α（超标度）。</p>
       </div>
     </div>
+    <details class="blk b-deriv b-full" id="full-s38">
+      <summary>完整推导 · 20 步：<a class="kp" data-kp="critical-exponent">临界现象</a>与临界指数</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：定义六个临界指数、标度关系与<a class="kp" data-kp="universality">普适性</a>，说明平均场为何在三维失效。
+          约定：\(t=(T-T_c)/T_c\)；序参量为密度差/磁化强度。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">临界现象</div><div class="step-body"><p>临近临界点，关联长度发散、涨落宏观可见（临界乳光），物理量按幂律变化。</p></div></li>
+          <li class="step"><div class="step-title">约化温度</div><div class="step-body"><p>\[ t=\frac{T-T_c}{T_c}. \]</p></div></li>
+          <li class="step"><div class="step-title">α</div><div class="step-body"><p>\(C_V\propto|t|^{-\alpha}\)；平均场 α=0（有限跃变）。</p></div></li>
+          <li class="step"><div class="step-title">β</div><div class="step-body"><p>序参量 \(\Delta\rho\propto(-t)^\beta\)（t<0）；平均场 β=1/2。</p></div></li>
+          <li class="step"><div class="step-title">γ</div><div class="step-body"><p>\(\kappa_T\propto|t|^{-\gamma}\)；平均场 γ=1。</p></div></li>
+          <li class="step"><div class="step-title">δ</div><div class="step-body"><p>临界等温线 \(p-p_c\propto|\rho-\rho_c|^\delta\)；平均场 δ=3。</p></div></li>
+          <li class="step"><div class="step-title">ν</div><div class="step-body"><p>关联长度 \(\xi\propto|t|^{-\nu}\)；平均场 ν=1/2。</p></div></li>
+          <li class="step"><div class="step-title">η</div><div class="step-body"><p>关联函数 \(G(r)\propto r^{-(d-2+\eta)}\)；平均场 η=0。</p></div></li>
+          <li class="step"><div class="step-title">标度关系</div><div class="step-body"><p>\(\alpha+2\beta+\gamma=2\)；\(\beta(\delta-1)=\gamma\)；\(d\nu=2-\alpha\)。</p></div></li>
+          <li class="step"><div class="step-title">标度关系的用途</div><div class="step-body"><p>只需测两个独立指数，其余可推；也可检验实验/数值自洽。</p></div></li>
+          <li class="step"><div class="step-title">平均场值</div><div class="step-body"><p>β=1/2、γ=1、δ=3、α=0、ν=1/2、η=0。</p></div></li>
+          <li class="step"><div class="step-title">三维实验值</div><div class="step-body"><p>β≈0.32、γ≈1.24、δ≈4.8、ν≈0.63、η≈0.04。</p></div></li>
+          <li class="step"><div class="step-title">为什么平均场失效</div><div class="step-body"><p>平均场忽略涨落；临界点附近关联长度发散，涨落主导。</p></div></li>
+          <li class="step"><div class="step-title">上临界维度</div><div class="step-body"><p>d≥4 时平均场指数正确；三维需重整化群/共形场论。</p></div></li>
+          <li class="step"><div class="step-title">普适性</div><div class="step-body"><p>临界指数只依赖空间维数 d 与序参量对称性，不依赖微观细节。</p></div></li>
+          <li class="step"><div class="step-title">普适类</div><div class="step-body"><p>水、CO₂、磁体（n=1）同属一个普适类；超流/超导不同。</p></div></li>
+          <li class="step"><div class="step-title">重整化群</div><div class="step-body"><p>Wilson：逐层粗粒化，找到不动点，指数由不动点线性化矩阵给出。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>把 β 当热容指数；</li><li>t 的定义不统一；</li><li>用平均场值算三维实验；</li><li>混淆 α 与比热跃变。</li></ul></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>六个指数 + 标度关系 + 普适性；平均场在 d<4 失效。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否用标度关系从 β、γ 推出 δ？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6823,6 +6887,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s39">
+      <summary>完整推导 · 20 步：朗道连续相变理论</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用<a class="kp" data-kp="order-parameter">序参量</a> M 展开自由能 \(F=F_0+aM^2+bM^4\)，推出 β=1/2、γ=1、δ=3、α=0 与比热跃变。
+          约定：单轴铁磁、无外场；\(a=a_0(T-T_c)\)，b>0。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title"><a class="kp" data-kp="landau-theory">朗道思想</a></div><div class="step-body"><p>用序参量统一描述连续相变：无序相 M=0，有序相 M≠0，Tc 处连续变号。</p></div></li>
+          <li class="step"><div class="step-title">序参量</div><div class="step-body"><p>铁磁：磁化强度 M；气液：密度差；超导：能隙/波函数。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="symmetry-breaking">对称破缺</a></div><div class="step-body"><p>有序相选定一个方向，M→−M 对称性自发破缺。</p></div></li>
+          <li class="step"><div class="step-title">自由能展开</div><div class="step-body"><p>\[ F=F_0+aM^2+bM^4+\cdots \]</p><p>奇次项因 M→−M 对称而消失。</p></div></li>
+          <li class="step"><div class="step-title">平衡条件</div><div class="step-body"><p>\[ \partial F/\partial M=2aM+4bM^3=0. \]</p></div></li>
+          <li class="step"><div class="step-title">两个解</div><div class="step-body"><p>M=0 或 \(M^2=-a/(2b)\)。</p></div></li>
+          <li class="step"><div class="step-title">系数假设</div><div class="step-body"><p>\(a=a_0(T-T_c)\)，b≈常数>0；b>0 保证 F 有下界。</p></div></li>
+          <li class="step"><div class="step-title">T>Tc</div><div class="step-body"><p>a>0，M=0 是极小：无序相。</p></div></li>
+          <li class="step"><div class="step-title">T<Tc</div><div class="step-body"><p>a<0，M=0 变极大；有序解</p><p>\[ M=\pm\sqrt{\frac{a_0(T_c-T)}{2b}}. \]</p></div></li>
+          <li class="step"><div class="step-title">β=1/2</div><div class="step-body"><p>\(M\propto(T_c-T)^{1/2}\)，所以 β=1/2（平均场）。</p></div></li>
+          <li class="step"><div class="step-title">自由能</div><div class="step-body"><p>代回：\(F=F_0-a_0^2(T_c-T)^2/(4b)\)（T<Tc）。</p></div></li>
+          <li class="step"><div class="step-title">比热</div><div class="step-body"><p>\(C=-T\partial^2F/\partial T^2\)，得有限跃变 \(\Delta C=a_0^2T_c/(2b)\)，α=0。</p></div></li>
+          <li class="step"><div class="step-title">加外场</div><div class="step-body"><p>\(F=F_0+aM^2+bM^4-\mu_0HM\)。</p></div></li>
+          <li class="step"><div class="step-title">临界等温线</div><div class="step-body"><p>T=Tc 时 \(4bM^3=\mu_0H\)，M∝H^{1/3}，δ=3。</p></div></li>
+          <li class="step"><div class="step-title">磁化率</div><div class="step-body"><p>χ∝|t|^{-1}，γ=1。</p></div></li>
+          <li class="step"><div class="step-title">与范氏对比</div><div class="step-body"><p>同一组平均场指数；范氏是朗道理论的气液版本。</p></div></li>
+          <li class="step"><div class="step-title">局限</div><div class="step-body"><p>忽略涨落；d<4 时指数不对，需重整化群。</p></div></li>
+          <li class="step"><div class="step-title">概念遗产</div><div class="step-body"><p>序参量、对称破缺、普适性仍是现代相变理论的核心。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>保留 M³ 项（破坏对称）；</li><li>b<0 导致无下界；</li><li>把平均场指数当精确；</li><li>忘记 a 的线性假设。</li></ul></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>F=F0+aM²+bM⁴ → M∝(Tc−T)^{1/2} → β=1/2，γ=1，δ=3，α=0。</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -7685,6 +7781,12 @@ applyFilter();
     'corresponding-states': { title: '对应态定律', def: '用 π=p/pc,φ=V/Vc,τ=T/Tc 后范氏方程不含 a,b；相同 π,τ 下 φ 相同。', card: 's35' },
     'kelvin-equation': { title: '开尔文方程', def: 'ln(p_r/p∞)=2σv_l/(RTr)；小液滴蒸气压高，凹液面低。', card: 's36' },
     'nucleation': { title: '成核', def: '新相形成需先克服表面能势垒；凝结核降低势垒，临界半径 r*=2σv_l/(RT lnS)。', card: 's36' },
+    'phase-transition-class': { title: '相变分类', def: 'μ 一阶导跃变为一级（有潜热/体积变化）；二阶导跃变为连续相变。', card: 's37' },
+    'critical-exponent': { title: '临界指数', def: 'α,β,γ,δ,ν,η 描述临界点附近幂律；平均场 β=1/2,γ=1,δ=3,α=0。', card: 's38' },
+    'universality': { title: '普适性', def: '临界指数只依赖空间维数与序参量对称性，不依赖微观细节；按普适类分组。', card: 's38' },
+    'order-parameter': { title: '序参量', def: '刻画有序程度的量：无序相为 0，有序相非零；Tc 处连续变号。', card: 's39' },
+    'symmetry-breaking': { title: '对称破缺', def: '有序相选定一个方向，使原系统的对称性自发降低。', card: 's39' },
+    'landau-theory': { title: '朗道理论', def: 'F=F0+aM²+bM⁴；a=a0(T−Tc)，b>0；给 β=1/2,γ=1,δ=3,α=0。', card: 's39' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
