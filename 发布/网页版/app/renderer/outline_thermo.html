@@ -2787,6 +2787,177 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         </ol>
       </div>
     </div>
+    <details class="blk b-deriv b-full" id="full-s110">
+      <summary>完整推导 · 20 步：第二定律的两种表述与等价性</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：说明第一定律为何不够，给出开尔文/<a class="kp" data-kp="clausius-statement">克劳修斯表述</a>，证明二者等价，并区分可逆与不可逆。
+          约定：热机从高温 \(T_1\) 吸热、向低温 \(T_2\) 放热；所有温度用 K。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">第一定律的边界</div>
+            <div class="step-body">
+              <p>第一定律只要求能量守恒，不限制能量转化的方向。</p>
+              <p>它允许「从单一热源吸热全部变功」而不违反能量守恒；但实验上这种机器不存在。</p>
+              <p class="step-why"><b>所以需要第二定律：</b>它是一条独立的、关于过程方向性的实验规律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="kelvin-statement">开尔文表述</a></div>
+            <div class="step-body">
+              <p>不可能从单一热源吸热，把它完全变为有用功而不产生其他影响。</p>
+              <p>等价说法：第二类永动机不可能。</p>
+              <p class="step-check"><b>关键词：</b>「单一热源」「完全变功」「不产生其他影响」三者缺一不可。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">克劳修斯表述</div>
+            <div class="step-body">
+              <p>不可能把热量从低温物体传到高温物体而不引起其他变化。</p>
+              <p>它说的是「热不能自发逆向流」；制冷机可以做到，但必须消耗功（其他变化）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等价性证明的思路</div>
+            <div class="step-body">
+              <p>要证「开尔文不成立 ⟹ 克劳修斯不成立」，再证反向；用反证法构造组合机器。</p>
+              <p>核心：把「单一热源全变功」的机器与制冷机组合，净效果变成「热从低温到高温，无其他变化」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">组合机器</div>
+            <div class="step-body">
+              <p>设违反开尔文的机器 K 从 \(T_1\) 吸热 Q，全部做功 W=Q。</p>
+              <p>用 W 驱动制冷机 R，从 \(T_2\) 吸热 \(Q_2\)，向 \(T_1\) 放热 \(Q_2+W\)。</p>
+              <p class="step-why"><b>关键：</b>R 需要的功恰好由 K 提供，不需要外界额外输入。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">净效果</div>
+            <div class="step-body">
+              <p>高温热源 \(T_1\)：K 吸走 Q，R 放回 \(Q_2+W\)，净收 \(Q_2+W-Q=Q_2\)。</p>
+              <p>低温热源 \(T_2\)：R 吸走 \(Q_2\)，净放 \(Q_2\)。</p>
+              <p>所以净效果是「\(Q_2\) 从低温流到高温，无其他变化」，违反克劳修斯。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">反向证明</div>
+            <div class="step-body">
+              <p>若克劳修斯不成立，存在机器把 \(Q_2\) 从 \(T_2\) 搬到 \(T_1\) 而不耗功；再用一台热机在 \(T_1,T_2\) 间工作，组合可造出「单一热源全变功」的机器，违反开尔文。</p>
+              <p>两个方向都成立，所以两种表述等价。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二类永动机</div>
+            <div class="step-body">
+              <p>第二类永动机：从单一热源（如海水）吸热，全部变功，不产生其他影响。</p>
+              <p>它不违反第一定律，但违反第二定律；所以「效率 100% 的热机」不可能。</p>
+              <p class="step-check"><b>对比：</b>第一类永动机违反能量守恒；第二类只违反方向性。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆过程</div>
+            <div class="step-body">
+              <p>可逆：过程进行后，系统与外界都能沿反向恢复原状，不留下任何影响。</p>
+              <p>条件：准静态 + 无耗散（无摩擦、无有限温差传热、无电阻等）。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="reversible">可逆过程</a>；它是理想化极限。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="irreversible">不可逆过程</a></div>
+            <div class="step-body">
+              <p>无论用什么办法都不能把后果完全消除的过程；实际过程都是不可逆的。</p>
+              <p>不可逆性来自耗散、有限温差传热、自由膨胀、混合、化学反应等。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="irreversible">不可逆过程</a>；熵增是其定量标志。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆判据</div>
+            <div class="step-body">
+              <p>可逆过程在 p–V 图上是一条确定曲线，且沿反方向操作能回到初态、外界也复原。</p>
+              <p>摩擦生热不可逆：热无法自动全部变回功而使系统/外界复原。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="heat-engine">热机</a>与<a class="kp" data-kp="refrigerator">制冷机</a></div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="heat-engine">热机</a>：从高温吸热，部分变功，部分放给低温；效率 \(\eta=W/Q_1<1\)。</p>
+              <p><a class="kp" data-kp="refrigerator">制冷机</a>：消耗功，把热从低温搬到高温；第二定律允许，但效率有限。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二定律的统计基础</div>
+            <div class="step-body">
+              <p>微观上，第二定律是统计性的：孤立系统倾向于演化到微观状态数更多的宏观态（熵更大）。</p>
+              <p>涨落定理说明小系统/短时间内可以出现「熵减」，但宏观平均不可逆。</p>
+              <p class="step-why"><b>注意：</b>第二定律不是绝对禁止，而是「概率极小」；宏观系统涨落可忽略。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">时间箭头</div>
+            <div class="step-body">
+              <p>第二定律给出宏观时间的方向：熵增方向定义「未来」。</p>
+              <p>微观动力学方程时间反演对称，但宏观统计描述出现箭头；这是统计力学的基本问题。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二定律与第一定律的关系</div>
+            <div class="step-body">
+              <p>第一定律：能量守恒，禁止第一类永动机；第二定律：方向性，禁止第二类永动机。</p>
+              <p>两者独立：满足能量守恒的过程仍可能违反第二定律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">卡诺定理预告</div>
+            <div class="step-body">
+              <p>可逆热机效率最高，且只依赖两热源温度：\(\eta=1-T_2/T_1\)。</p>
+              <p>这是第二定律的直接推论，也是热力学温标的基础。</p>
+              <p class="step-why"><b>下一节：</b><a class="kp" data-kp="carnot-theorem">卡诺定理</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的预告</div>
+            <div class="step-body">
+              <p>可逆过程 \(\mathrm{d}S=\delta Q_{\rm rev}/T\)；不可逆过程 \(\Delta S>\int\delta Q/T\)。</p>
+              <p>孤立系统 \(\Delta S\ge0\)：熵增原理是第二定律的定量表述。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="entropy">熵</a>；§1.13 展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>漏掉「不产生其他影响」；</li>
+                <li>认为第二定律可由第一定律推出；</li>
+                <li>把「热不能自发从低温到高温」绝对化（制冷机可以，但要耗功）；</li>
+                <li>认为可逆过程真实存在；</li>
+                <li>把第二类永动机与第一类混淆。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二定律的数学表述</div>
+            <div class="step-body">
+              <p>克劳修斯不等式：对任意循环，</p>
+              \[ \oint\frac{\delta Q}{T}\le0. \]
+              <p>可逆循环取等号；不可逆循环小于零。它是熵增原理的积分形式。</p>
+              <p class="step-check"><b>用途：</b>判断循环是否可逆、计算熵产；下一节展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>两种表述：</b>开尔文（单一热源全变功不可能）↔ 克劳修斯（热自动逆向不可能），等价。</p>
+              <p><b>方向性：</b>实际过程不可逆；可逆 = 准静态 + 无耗散。</p>
+              <p><b>推论：</b>卡诺定理、熵增原理、热力学温标。</p>
+              <p><b>自检：</b>能否用组合机器证明两种表述等价？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2838,6 +3009,184 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s111">
+      <summary>完整推导 · 20 步：卡诺定理的反证法</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：证明「相同两热源间，可逆热机效率最高且都相等」，并说明它为何与工质无关、如何给出温标。
+          约定：热机从 \(T_1\) 吸热、向 \(T_2\) 放热；可逆机记 R，任意机记 I。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="carnot-theorem">卡诺定理</a>的表述</div>
+            <div class="step-body">
+              <p>工作于相同两热源间的一切热机：</p>
+              <ul>
+                <li>可逆热机效率最高；</li>
+                <li>所有可逆热机效率相同，等于 \(1-T_2/T_1\)。</li>
+              </ul>
+              <p>它不依赖工质，是第二定律的直接推论。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">卡诺循环</div>
+            <div class="step-body">
+              <p>卡诺循环 = 两等温 + 两绝热，全部可逆；它是实现可逆热机的循环。</p>
+              <p>在 T–S 图上是矩形；在 p–V 图上是闭合曲线。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="carnot-cycle">卡诺循环</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">反证假设</div>
+            <div class="step-body">
+              <p>假设存在不可逆热机 I，效率高于同样两热源间的可逆热机 R：</p>
+              \[ \eta_I>\eta_R. \]
+              <p>要导出违反克劳修斯表述的矛盾。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">让 R 反向运行</div>
+            <div class="step-body">
+              <p>可逆机 R 可以反向当制冷机：消耗功，把热从 \(T_2\) 搬到 \(T_1\)。</p>
+              <p>不可逆机 I 不能这样反向；这是「可逆」的关键作用。</p>
+              <p class="step-check"><b>注意：</b>反证法只对可逆机反向，不能对 I 反向。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">功的匹配</div>
+            <div class="step-body">
+              <p>调节 I 的负载，使 I 输出的功恰好全部用来驱动 R：</p>
+              \[ W_I=W_R=W. \]
+              <p>组合机器不需要外界额外做功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热量账本</div>
+            <div class="step-body">
+              <p>I 从 \(T_1\) 吸 \(Q_1\)、向 \(T_2\) 放 \(Q_2=Q_1-W\)。</p>
+              <p>R 从 \(T_2\) 吸 \(Q_2'\)、向 \(T_1\) 放 \(Q_2'+W\)。</p>
+              <p>因为 \(\eta_I>\eta_R\)，同样 W 下 I 需要的 \(Q_1\) 更少（或放热更少），组合后净热量从 \(T_2\) 流向 \(T_1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">净效果违反克劳修斯</div>
+            <div class="step-body">
+              <p>组合机器的净效果：低温热源净放热、高温热源净吸热，此外无其他变化。</p>
+              <p>这正是「热从低温自动到高温」，违反克劳修斯表述。</p>
+              <p class="step-why"><b>所以假设不成立：</b>\(\eta_I\le\eta_R\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆机之间相等</div>
+            <div class="step-body">
+              <p>若 I 也是可逆的，把 I、R 角色互换，同样得 \(\eta_R\le\eta_I\)。</p>
+              <p>两式合并：\(\eta_I=\eta_R\)。所有可逆热机效率相同。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与工质无关</div>
+            <div class="step-body">
+              <p>证明只用了第二定律，没有用理想气体状态方程。</p>
+              <p>所以可逆效率对任意工质（气体、液体、磁介质……）都相同。</p>
+              <p class="step-check"><b>对比：</b>§1.9 的理想气体计算只是一个特例/证明。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="carnot-efficiency">效率公式</a></div>
+            <div class="step-body">
+              <p>对可逆卡诺热机：</p>
+              \[ \eta_{\rm rev}=1-\frac{T_2}{T_1}. \]
+              <p>不可逆热机 \(\eta<\eta_{\rm rev}\)；实际热机因摩擦/漏热更低。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="refrigerator">制冷机</a>版本</div>
+            <div class="step-body">
+              <p>逆循环：可逆制冷机制冷系数最大：</p>
+              \[ \omega_{\rm rev}=\frac{T_2}{T_1-T_2}. \]
+              <p>不可逆制冷机 \(\omega<\omega_{\rm rev}\)。</p>
+              <p class="step-why"><b>同一句话：</b>卡诺定理对热机和制冷机是同一约束的两种说法。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">推论：温标</div>
+            <div class="step-body">
+              <p>可逆效率只依赖温度，所以可用</p>
+              \[ \frac{Q_1}{Q_2}=\frac{T_1}{T_2} \]
+              <p>定义热力学温标；与工质无关。</p>
+              <p class="step-why"><b>下一节：</b><a class="kp" data-kp="thermodynamic-temperature">热力学温标</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">实践含义</div>
+            <div class="step-body">
+              <p>提高效率：提高 \(T_1\)、降低 \(T_2\)；但受材料/环境限制。</p>
+              <p>任何实际热机都低于卡诺效率；卡诺效率是理论上限，不是设计目标。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆条件的现实性</div>
+            <div class="step-body">
+              <p>可逆要求无摩擦、无有限温差传热、过程无限慢；实际不可能完全满足。</p>
+              <p>卡诺定理给的是「上限」，不是「可达值」。</p>
+              <p class="step-check"><b>注意：</b>不要因为不可达就否定定理；它是理论标尺。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二定律的等价性</div>
+            <div class="step-body">
+              <p>卡诺定理与开尔文/克劳修斯表述等价：若卡诺定理不成立，可造第二类永动机。</p>
+              <p>所以它是第二定律的另一种定量表述。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>让不可逆机反向参与反证；</li>
+                <li>认为卡诺定理依赖理想气体；</li>
+                <li>把「≤」写成「=」对实际热机；</li>
+                <li>用摄氏温度算效率；</li>
+                <li>认为制冷系数不能大于 1。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与符号</div>
+            <div class="step-body">
+              <p>\(\eta\)、\(\omega\) 无量纲；\(T\) 必须用 K。</p>
+              <p>吸热为正、放热为负；公式中 \(Q_2\) 用绝对值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么要求可逆</div>
+            <div class="step-body">
+              <p>反证法必须让「效率较高的那台」反向当制冷机；只有可逆机才能反向而不留下额外变化。</p>
+              <p>不可逆机反向需要外界额外做功/补偿，无法构造闭合的矛盾。</p>
+              <p class="step-check"><b>逻辑：</b>可逆性是反证法成立的前提，不是装饰条件。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">T–S 图上的证明</div>
+            <div class="step-body">
+              <p>可逆卡诺循环在 T–S 图上是矩形：吸热 \(T_1\Delta S\)、放热 \(T_2\Delta S\)。</p>
+              <p>效率立刻为 \(1-T_2/T_1\)；且与工质无关，因为熵是状态函数。</p>
+              <p class="step-why"><b>直观：</b>T–S 图把「温度比」与「热量比」直接联系起来。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>定理：</b>可逆热机效率最高且相等，\(\eta=1-T_2/T_1\)。</p>
+              <p><b>证明：</b>假设不可逆机更高 → 驱动可逆机制冷 → 热自动从低温到高温 → 违反克劳修斯。</p>
+              <p><b>推论：</b>热力学温标、制冷系数上限、实际热机上限。</p>
+              <p><b>自检：</b>能否独立复述反证法的热量账本？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2895,6 +3244,183 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s112">
+      <summary>完整推导 · 20 步：热力学温标的构造</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从卡诺定理的 \(Q_1/Q_2\) 只依赖温度出发，构造与工质无关的热力学温标，并说明它与理想气体温标的关系。
+          约定：可逆热机工作于 \(T_1>T_2\) 之间；固定点为水的三相点 273.16 K。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">经验温标的缺陷</div>
+            <div class="step-body">
+              <p>经验温标依赖测温物质/属性：水银、酒精、电阻给出的读数不完全一致。</p>
+              <p>需要一种「不依赖任何具体物质」的温标；卡诺定理提供了工具。</p>
+              <p class="step-why"><b>目标：</b>用可逆热机的热量比定义温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">卡诺效率只依赖温度</div>
+            <div class="step-body">
+              <p>由卡诺定理，可逆热机效率</p>
+              \[ \eta=1-\frac{|Q_2|}{Q_1} \]
+              <p>只依赖 \(T_1,T_2\)，与工质无关。</p>
+              <p>所以吸放热比 \(Q_1/|Q_2|\) 也只是两个温度的函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定义函数 F</div>
+            <div class="step-body">
+              <p>记</p>
+              \[ \frac{Q_1}{Q_2}=F(T_1,T_2) \]
+              <p>（\(Q_2\) 取绝对值）。F 与工质无关，只由两个热源温度决定。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">串联两台可逆热机</div>
+            <div class="step-body">
+              <p>让一台在 \(T_1,T_2\) 间工作，另一台在 \(T_2,T_3\) 间工作，中间热源 \(T_2\) 净热流为零。</p>
+              <p>组合等效于一台在 \(T_1,T_3\) 间的可逆热机。</p>
+              <p class="step-check"><b>关键：</b>中间热源不积累热量，否则不是循环。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">函数方程</div>
+            <div class="step-body">
+              <p>由串联：</p>
+              \[ F(T_1,T_3)=F(T_1,T_2)F(T_2,T_3). \]
+              <p>这是 F 必须满足的函数方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">解函数方程</div>
+            <div class="step-body">
+              <p>满足 \(F(a,c)=F(a,b)F(b,c)\) 的正函数只能写成</p>
+              \[ F(T_1,T_2)=\frac{f(T_1)}{f(T_2)}. \]
+              <p>即「两个温度之比」的形式。</p>
+              <p class="step-why"><b>数学：</b>取对数，方程变为 \(\ln F(a,c)=\ln F(a,b)+\ln F(b,c)\)，解为差函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定义<a class="kp" data-kp="thermodynamic-temperature">热力学温度</a></div>
+            <div class="step-body">
+              <p>于是</p>
+              \[ \frac{Q_1}{Q_2}=\frac{T_1}{T_2}. \]
+              <p>这就是热力学温标的定义：温度比等于可逆热机的吸放热比。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="thermodynamic-temperature">热力学温标</a>；不依赖工质。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">固定点标定</div>
+            <div class="step-body">
+              <p>选水的三相点为固定点，规定 \(T_{\rm tr}=273.16\,\mathrm{K}\)。</p>
+              <p>对任意温度 T，用可逆热机在三相点与 T 之间工作：</p>
+              \[ T=273.16\,\mathrm{K}\times\frac{Q}{Q_{\rm tr}}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位 K</div>
+            <div class="step-body">
+              <p>1 K 定义为三相点温度的 1/273.16。</p>
+              <p>摄氏温标：\(t/^\circ\mathrm{C}=T/\mathrm{K}-273.15\)；温差数值相同。</p>
+              <p class="step-check"><b>注意：</b>三相点 273.16 K，冰点 273.15 K，差 0.01 K。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与理想气体温标一致</div>
+            <div class="step-body">
+              <p>对理想气体可逆卡诺循环，直接算得 \(\eta=1-T_2/T_1\)（T 为理想气体温度）。</p>
+              <p>与热力学温标定义一致；所以在理想气体适用范围内，两者数值相同。</p>
+              <p class="step-why"><b>逻辑：</b>热力学温标不依赖理想气体；理想气体只是它的一个实现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="absolute-zero">绝对零度</a></div>
+            <div class="step-body">
+              <p>\(T=0\) 时 \(\eta=1\)，要求 \(Q_2=0\)：从单一热源全变功，违反第二定律。</p>
+              <p>所以绝对零度不可达到；\(T\to0\) 只能趋近。</p>
+              <p class="step-why"><b>第三定律：</b>从另一角度说明 \(T=0\) 不可达。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">负温度</div>
+            <div class="step-body">
+              <p>负温度不是「比 0 K 更冷」；它要求系统能级有上界且布居反转，是特殊的热力学状态。</p>
+              <p>负温度系统比正温度更「热」：与正温度系统接触时，热会从负温流向正温。</p>
+              <p class="step-check"><b>注意：</b>普通系统（动能无上界）没有负温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温标的基本性质</div>
+            <div class="step-body">
+              <p>热力学温度是强度量、非负；温度比有绝对意义，零点有绝对意义。</p>
+              <p>与经验温标不同，它不依赖测温属性；所有可逆热机给出同一温标。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度比的应用</div>
+            <div class="step-body">
+              <p>卡诺效率 \(\eta=1-T_2/T_1\) 可直接用于求温度比：</p>
+              \[ \frac{T_2}{T_1}=1-\eta. \]
+              <p>实验上测效率即可定温度比，不需要温度计物质。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy">熵</a>的联系</div>
+            <div class="step-body">
+              <p>可逆卡诺循环 \(\frac{Q_1}{T_1}=\frac{|Q_2|}{T_2}\)，即 \(\oint\delta Q_{\rm rev}/T=0\)。</p>
+              <p>由此定义熵 \(dS=\delta Q_{\rm rev}/T\)；温度是熵的共轭强度量。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="entropy">熵</a>；下一节展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量的现实性</div>
+            <div class="step-body">
+              <p>实际测温用理想气体温度计/铂电阻等，再按国际温标 ITS 校准到热力学温标。</p>
+              <p>热力学温标是基准；日常温度计是它的近似实现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>认为热力学温标依赖理想气体；</li>
+                <li>用摄氏温度算温度比；</li>
+                <li>把负温度当「更冷」；</li>
+                <li>认为绝对零度可达；</li>
+                <li>把 \(Q_1/Q_2=T_1/T_2\) 用于不可逆热机。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与单位</div>
+            <div class="step-body">
+              <p>温度比无量纲；\(T\) 的单位 K。</p>
+              <p>\(Q/T\) 的单位 J/K，即熵的单位；这保证熵量纲自洽。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温标的实验实现</div>
+            <div class="step-body">
+              <p>热力学温标是理论基准；实际用理想气体温度计、声学温度计、辐射温度计等实现，再按国际温标 ITS-90 校准。</p>
+              <p>不同温区的原级温度计不同，但都溯源于热力学温标。</p>
+              <p class="step-check"><b>注意：</b>「国际温标」是实用近似，不是热力学温标本身。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>构造：</b>卡诺定理 → \(Q_1/Q_2=F(T_1,T_2)\) → 串联 → \(F=T_1/T_2\) → 定义温标。</p>
+              <p><b>标定：</b>三相点 273.16 K；1 K=1/273.16。</p>
+              <p><b>性质：</b>与工质无关；理想气体温标在适用范围内与之一致；绝对零度不可达。</p>
+              <p><b>自检：</b>为什么串联两台可逆热机可以推出 F 是温度比？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5129,6 +5655,12 @@ applyFilter();
     'refrigerator': { title: '制冷机', def: '逆卡诺循环：从低温吸热 Q2、外界做功 W，制冷系数 ω=Q2/W=T2/(T1−T2)。', card: 's19' },
     'heat-pump': { title: '热泵', def: '逆循环把热量送到高温端；COP=Q1/W=T1/(T1−T2)=ω+1。', card: 's19' },
     'entropy': { title: '熵', def: '状态函数，dS=δQ_rev/T；可逆循环 ∮δQ/T=0，不可逆过程熵增。', card: 's110' },
+    'second-law': { title: '热力学第二定律', def: '关于过程方向性的独立实验规律；开尔文/克劳修斯表述等价，禁止第二类永动机。', card: 's110' },
+    'kelvin-statement': { title: '开尔文表述', def: '不可能从单一热源吸热全部变功而不产生其他影响；等价于第二类永动机不可能。', card: 's110' },
+    'clausius-statement': { title: '克劳修斯表述', def: '不可能把热从低温传到高温而不引起其他变化；制冷机需要耗功。', card: 's110' },
+    'irreversible': { title: '不可逆过程', def: '无法使系统与外界都完全复原的过程；耗散、有限温差传热、自由膨胀、混合都是不可逆。', card: 's110' },
+    'heat-engine': { title: '热机', def: '从高温吸热、部分变功、向低温放热的循环装置；效率 η=W/Q1<1。', card: 's110' },
+    'absolute-zero': { title: '绝对零度', def: '热力学温标零点 0 K；不可达到（第三定律），T→0 时卡诺效率→1 但需 Q2→0。', card: 's112' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
