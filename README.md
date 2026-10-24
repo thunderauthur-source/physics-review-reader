@@ -407,6 +407,9 @@ https://thunderauthur-source.github.io/physics-review-reader/
   <img src="docs/screenshots/share-qr.png" width="200" alt="扫码打开网页版">
 </p>
 
+仓库的社交预览图在 `docs/screenshots/social-preview.png`（1280×640）。
+在 GitHub 仓库 **Settings → General → Social preview** 上传它，别人把仓库链接发到微信/QQ/Twitter 时，卡片会显示这张图而不是默认头像。
+
 ### 群聊 / 班级群
 
 > 做了个物理复习阅读器，左边点提纲卡片、右边直接跳教材/讲义对应页，量子力学和热统都能用。
