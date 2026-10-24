@@ -3465,6 +3465,178 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s113">
+      <summary>完整推导 · 20 步：克劳修斯等式与不等式</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把卡诺定理翻译成 \(\oint\delta Q/T\le0\)，并说明可逆取等号、不可逆取小于号，为熵的定义铺路。
+          约定：\(\delta Q\) 为系统吸收的热量，放热为负；T 为热源/系统温度（可逆时相同）。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="clausius-inequality">任意循环</a></div>
+            <div class="step-body">
+              <p>考虑任意闭合循环，工质可以是任意物质；循环在 p–V 图上是一条闭合曲线。</p>
+              <p>目标：证明 \(\oint\delta Q/T\le0\)，且等号对应可逆。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分割成微小卡诺循环</div>
+            <div class="step-body">
+              <p>用一系列等温线/绝热线把循环切成许多细条；相邻细条的公共边界方向相反，积分相互抵消。</p>
+              <p>剩下的外边界近似原循环；每条细条近似一个卡诺循环。</p>
+              <p class="step-why"><b>为什么可以：</b>细条取得足够细，温度差趋于零，可用局部温度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对每条细条用卡诺定理</div>
+            <div class="step-body">
+              <p>细条在 \(T_1,T_2\) 间工作，效率</p>
+              \[ \eta=1-\frac{|Q_2|}{Q_1}\le1-\frac{T_2}{T_1}. \]
+              <p>整理（\(Q_2\) 为放热，取负）：</p>
+              \[ \frac{Q_1}{T_1}+\frac{Q_2}{T_2}\le0. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">求和</div>
+            <div class="step-body">
+              <p>对所有细条求和：</p>
+              \[ \sum_i\frac{Q_i}{T_i}\le0. \]
+              <p>内部边界成对抵消，只剩外边界。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">取极限</div>
+            <div class="step-body">
+              <p>细条无限细，\(Q_i\to\delta Q\)，求和变积分：</p>
+              \[ \boxed{\oint\frac{\delta Q}{T}\le0}. \]
+              <p>这就是<a class="kp" data-kp="clausius-inequality">克劳修斯不等式</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆循环取等号</div>
+            <div class="step-body">
+              <p>若循环可逆，每条细条都是可逆卡诺循环，卡诺定理取等号。</p>
+              <p>所以</p>
+              \[ \oint_{\rm rev}\frac{\delta Q}{T}=0. \]
+              <p>这是克劳修斯等式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不可逆循环取小于号</div>
+            <div class="step-body">
+              <p>若循环中有不可逆环节，细条效率低于卡诺效率，至少一条取严格小于，总和小于零。</p>
+              <p>所以不可逆循环 \(\oint\delta Q/T<0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">符号约定</div>
+            <div class="step-body">
+              <p>\(\delta Q>0\) 吸热，\(\delta Q<0\) 放热；T 必须用热力学温度 K。</p>
+              <p>放热项自然为负，不需要额外改符号。</p>
+              <p class="step-check"><b>检查：</b>用摄氏温度代入会出错；T 不能为负。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么等号重要</div>
+            <div class="step-body">
+              <p>可逆循环 \(\oint\delta Q/T=0\) 意味着积分与路径无关，只取决于初末态。</p>
+              <p>这正是「存在一个态函数」的判据；下一节据此定义熵。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="entropy">熵</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与<a class="kp" data-kp="carnot-theorem">卡诺定理</a>的关系</div>
+            <div class="step-body">
+              <p>克劳修斯不等式是卡诺定理的积分形式；卡诺定理是它在两个热源间的特例。</p>
+              <p>两者等价于第二定律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵产的雏形</div>
+            <div class="step-body">
+              <p>不可逆循环的 \(\oint\delta Q/T<0\) 可理解为「熵产」：系统回到原态，但外界留下不可逆痕迹。</p>
+              <p>对开放/封闭系统，熵产 \(\sigma\ge0\)；可逆时为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：卡诺循环</div>
+            <div class="step-body">
+              <p>可逆卡诺：\(\frac{Q_1}{T_1}-\frac{|Q_2|}{T_2}=0\)。</p>
+              <p>不可逆卡诺：\(\frac{Q_1}{T_1}-\frac{|Q_2|}{T_2}<0\)，即效率低于卡诺。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：热传递</div>
+            <div class="step-body">
+              <p>热量 Q 从 \(T_1\) 传到 \(T_2<T_1\)，对热源积分：</p>
+              \[ \Delta S_{\rm total}=-\frac{Q}{T_1}+\frac{Q}{T_2}>0. \]
+              <p>有限温差传热不可逆，总熵增加。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分割的合法性</div>
+            <div class="step-body">
+              <p>要求循环足够光滑、可分割；细条边界上的热流成对抵消。</p>
+              <p>对任意工质成立，因为卡诺定理与工质无关。</p>
+              <p class="step-check"><b>注意：</b>这是证明思路，严格证明需极限论证；考试一般直接引用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆与不可逆的判据</div>
+            <div class="step-body">
+              <p>\(\oint\delta Q/T=0\) ⟺ 循环可逆；\(<0\) ⟺ 不可逆。</p>
+              <p>这是第二定律的定量判据，比「能不能反向」更可算。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>用摄氏温度；</li>
+                <li>放热忘记取负；</li>
+                <li>把不可逆循环也写成等号；</li>
+                <li>认为 \(\oint\delta Q/T\) 是熵变（循环熵变为零）；</li>
+                <li>忘记 T 是热源温度（可逆时等于系统温度）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与第一定律的分工</div>
+            <div class="step-body">
+              <p>第一定律给能量账本；第二定律给方向账本。</p>
+              <p>克劳修斯不等式把方向性写成对 \(\delta Q/T\) 的积分约束。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">推广到不可逆过程</div>
+            <div class="step-body">
+              <p>对初末态 A→B，不可逆过程满足</p>
+              \[ S_B-S_A>\int_A^B\frac{\delta Q}{T}. \]
+              <p>可逆时取等号；这是熵增原理的微分/积分基础。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不等式的直接应用</div>
+            <div class="step-body">
+              <p>对不可逆循环，\(\oint\delta Q/T<0\)；对可逆循环取等号。</p>
+              <p>把循环拆成 A→B 与 B→A，可推出不可逆过程的熵变大于 \(\int\delta Q/T\)。</p>
+              <p class="step-check"><b>用途：</b>判断过程是否可逆；计算熵产。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\oint\delta Q/T\le0\)，可逆取等号。</p>
+              <p><b>用途：</b>定义熵、判断可逆性、计算熵产。</p>
+              <p><b>注意：</b>δQ 吸热为正，T 用 K，放热为负。</p>
+              <p><b>自检：</b>能否用卡诺定理说明为什么等号对应可逆？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3514,6 +3686,193 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s114">
+      <summary>完整推导 · 20 步：熵的定义与热力学基本方程</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从可逆循环 \(\oint\delta Q/T=0\) 定义<a class="kp" data-kp="entropy">熵</a>，推出 \(dU=TdS-pdV\)，并说明不可逆过程的熵变算法。
+          约定：可逆路径用下标 rev；T 为热力学温度。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">可逆循环的等式</div>
+            <div class="step-body">
+              <p>由克劳修斯等式：</p>
+              \[ \oint_{\rm rev}\frac{\delta Q}{T}=0. \]
+              <p>这是定义熵的起点。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="entropy">熵</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">拆成两段路径</div>
+            <div class="step-body">
+              <p>把可逆循环拆成 A→B 与 B→A：</p>
+              \[ \int_A^B\frac{\delta Q_{\rm rev}}{T}
+                 +\int_B^A\frac{\delta Q_{\rm rev}}{T}=0. \]
+              <p>所以</p>
+              \[ \int_A^B\frac{\delta Q_{\rm rev}}{T}
+                 =-\int_B^A\frac{\delta Q_{\rm rev}}{T}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">路径无关</div>
+            <div class="step-body">
+              <p>对任意两条连接 A、B 的可逆路径 1、2，组成闭合回路，积分等于零：</p>
+              \[ \int_{A\to B}^{(1)}\frac{\delta Q_{\rm rev}}{T}
+                 =\int_{A\to B}^{(2)}\frac{\delta Q_{\rm rev}}{T}. \]
+              <p>所以该积分只取决于 A、B 两个态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定义熵</div>
+            <div class="step-body">
+              <p>定义态函数 S：</p>
+              \[ S_B-S_A=\int_A^B\frac{\delta Q_{\rm rev}}{T}. \]
+              <p>这就是熵；S 是状态函数、广延量，单位 J/K。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">微分形式</div>
+            <div class="step-body">
+              <p>对无穷小可逆过程：</p>
+              \[ \mathrm{d}S=\frac{\delta Q_{\rm rev}}{T}. \]
+              <p>注意：这是沿可逆路径的定义，不是对任意过程都成立。</p>
+              <p class="step-check"><b>高频错误：</b>不可逆过程直接用 \(\mathrm{d}S=\delta Q/T\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入第一定律</div>
+            <div class="step-body">
+              <p>可逆过程：\(\delta Q_{\rm rev}=\mathrm{d}U+p\mathrm{d}V\)（本课程符号 \(\delta W=-p\mathrm{d}V\)）。</p>
+              <p>所以</p>
+              \[ \mathrm{d}U=T\,\mathrm{d}S-p\,\mathrm{d}V. \]
+              <p>这是热力学基本方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">基本方程的地位</div>
+            <div class="step-body">
+              <p>它把第一定律与第二定律合并，只含状态量 U、S、V 及其共轭 T、p。</p>
+              <p>第二章所有麦克斯韦关系、特性函数都从它出发。</p>
+              <p class="step-why"><b>记忆：</b>\(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\)，符号「T 正、p 负」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">读出偏导数</div>
+            <div class="step-body">
+              <p>把 U 看成 S、V 的函数：</p>
+              \[ T=\left(\frac{\partial U}{\partial S}\right)_V,\qquad
+                 p=-\left(\frac{\partial U}{\partial V}\right)_S. \]
+              <p>这是热力学的基本偏导数关系。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵与热容</div>
+            <div class="step-body">
+              <p>定容：\(\mathrm{d}S=C_V\mathrm{d}T/T\)，所以</p>
+              \[ C_V=T\left(\frac{\partial S}{\partial T}\right)_V. \]
+              <p>定压：</p>
+              \[ C_p=T\left(\frac{\partial S}{\partial T}\right)_p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵是广延量</div>
+            <div class="step-body">
+              <p>两系统合并，熵相加：\(S=S_1+S_2\)；温度、压强不变。</p>
+              <p>这与 U、V、N 一致；单位 J/K。</p>
+              <p class="step-check"><b>检查：</b>摩尔熵 J/(mol·K)、比熵 J/(kg·K)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不可逆过程</div>
+            <div class="step-body">
+              <p>对不可逆过程：</p>
+              \[ S_B-S_A>\int_A^B\frac{\delta Q}{T}. \]
+              <p>要算熵变，必须另设计一条连接同样初末态的可逆路径积分。</p>
+              <p class="step-why"><b>关键：</b>熵是态函数，熵变与路径无关；定义式只对可逆路径有效。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy-production">熵产</a></div>
+            <div class="step-body">
+              <p>定义熵产 \(\sigma\)：</p>
+              \[ \Delta S=\int\frac{\delta Q}{T}+\sigma,\qquad \sigma\ge0. \]
+              <p>可逆 \(\sigma=0\)；不可逆 \(\sigma>0\)。</p>
+              <p class="step-check"><b>用途：</b>判断过程不可逆程度；孤立系 \(\sigma=\Delta S\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">孤立系统熵增</div>
+            <div class="step-body">
+              <p>孤立系 \(\delta Q=0\)，所以</p>
+              \[ \Delta S\ge0. \]
+              <p>可逆绝热（等熵）取等号；不可逆绝热熵增。</p>
+              <p class="step-why"><b>熵增原理：</b>孤立系统自发过程朝熵增方向。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆热传递</div>
+            <div class="step-body">
+              <p>可逆等温吸热 Q：\(\Delta S=Q/T\)。</p>
+              <p>相变（等温等压）潜热 L：\(\Delta S=L/T\)。</p>
+              <p class="step-why"><b>例子：</b>冰融化熵增 \(L_f/T_m\)；水结冰熵减。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">参考态与绝对值</div>
+            <div class="step-body">
+              <p>\(S=S_0+\int_{\rm ref}^{\rm state}\delta Q_{\rm rev}/T\)；S₀ 是积分常数。</p>
+              <p>热力学只关心熵变；绝对熵由第三定律/统计物理给出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的统计意义</div>
+            <div class="step-body">
+              <p>玻尔兹曼：\(S=k_B\ln\Omega\)，\(\Omega\) 为微观状态数。</p>
+              <p>孤立系统演化到 \(\Omega\) 更大的宏观态，解释熵增的方向性。</p>
+              <p class="step-check"><b>注意：</b>这是统计意义，不是绝对禁止熵减；小系统涨落可出现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>对不可逆过程直接用 \(\mathrm{d}S=\delta Q/T\)；</li>
+                <li>把熵变与热量混为一谈；</li>
+                <li>忘记 T 用 K；</li>
+                <li>认为熵是强度量；</li>
+                <li>把 \(\oint\delta Q/T=0\) 当熵变（循环熵变为零）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与符号</div>
+            <div class="step-body">
+              <p>\([S]=J/K\)；\([T\mathrm{d}S]=J\)；\([p\mathrm{d}V]=J\)。</p>
+              <p>吸热熵增、放热熵减（对可逆过程）；不可逆还要加熵产。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的绝对值</div>
+            <div class="step-body">
+              <p>热力学只定义熵差；绝对熵需要第三定律或统计物理。</p>
+              <p>第三定律：完美晶体在 0 K 时 \(S=0\)；由此可积分到任意温度得绝对熵。</p>
+              <p class="step-check"><b>注意：</b>绝对熵不影响任何 \(\Delta S\) 计算。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>定义：</b>\(S_B-S_A=\int_A^B\delta Q_{\rm rev}/T\)，路径无关。</p>
+              <p><b>基本方程：</b>\(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\)；\(T=(\partial U/\partial S)_V\)，\(p=-(\partial U/\partial V)_S\)。</p>
+              <p><b>不可逆：</b>\(\Delta S>\int\delta Q/T\)，熵产 \(\sigma\ge0\)；孤立系 \(\Delta S\ge0\)。</p>
+              <p><b>自检：</b>为什么熵变可以沿可逆路径算，即使实际过程不可逆？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3568,6 +3927,184 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s115">
+      <summary>完整推导 · 20 步：理想气体的熵</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(\mathrm{d}S=\delta Q_{\rm rev}/T\) 推出 \(S(T,V)\)、\(S(T,p)\) 两种表达式，并用于等温/等容/等压/绝热/<a class="kp" data-kp="free-expansion">自由膨胀</a>。
+          约定：理想气体、\(C_V,C_p\) 近似常数；\(n\) 为摩尔数。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy">可逆路径</a></div>
+            <div class="step-body">
+              <p>熵是态函数，可沿任意可逆路径积分：</p>
+              \[ \mathrm{d}S=\frac{\delta Q_{\rm rev}}{T}. \]
+              <p>选一条方便的可逆路径，从初态到末态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第一定律</div>
+            <div class="step-body">
+              <p>可逆过程：</p>
+              \[ \delta Q_{\rm rev}=\mathrm{d}U+p\,\mathrm{d}V. \]
+              <p>本课程符号 \(\delta W=-p\mathrm{d}V\)，所以 \(\delta Q=\mathrm{d}U-\delta W=\mathrm{d}U+p\mathrm{d}V\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="internal-energy">理想气体内能</a></div>
+            <div class="step-body">
+              <p>\(\mathrm{d}U=C_V\mathrm{d}T\)，所以</p>
+              \[ \delta Q_{\rm rev}=C_V\mathrm{d}T+p\,\mathrm{d}V. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">消去压强</div>
+            <div class="step-body">
+              <p>用 \(p=nRT/V\)：</p>
+              \[ \delta Q_{\rm rev}=C_V\mathrm{d}T+nRT\frac{\mathrm{d}V}{V}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">除以 T</div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}S=\frac{C_V}{T}\mathrm{d}T+nR\frac{\mathrm{d}V}{V}. \]</p>
+              <p>这是全微分：两项分别只含 T、V。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">积分</div>
+            <div class="step-body">
+              <p>设 \(C_V\) 常数：</p>
+              \[ S(T,V)=C_V\ln T+nR\ln V+S_0. \]
+              <p>这是以 (T,V) 为自变量的熵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">换成 (T,p)</div>
+            <div class="step-body">
+              <p>由 \(V=nRT/p\)：</p>
+              \[ \ln V=\ln T-\ln p+\text{const}. \]
+              <p>代入：</p>
+              \[ S=C_V\ln T+nR(\ln T-\ln p)+S_0'
+                 =C_p\ln T-nR\ln p+S_0'. \]
+              <p>用了 \(C_p=C_V+nR\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两种写法等价</div>
+            <div class="step-body">
+              <p>\[ S=C_V\ln T+nR\ln V+S_0
+                 =C_p\ln T-nR\ln p+S_0'. \]</p>
+              <p>只差常数；对熵变无影响。</p>
+              <p class="step-check"><b>选择：</b>给 (T,V) 用第一式，给 (T,p) 用第二式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵变公式</div>
+            <div class="step-body">
+              <p>\[ \Delta S=C_V\ln\frac{T_2}{T_1}+nR\ln\frac{V_2}{V_1}. \]</p>
+              <p>或</p>
+              \[ \Delta S=C_p\ln\frac{T_2}{T_1}-nR\ln\frac{p_2}{p_1}. \]
+              <p>两式对同一对初末态给相同结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy">等温过程</a></div>
+            <div class="step-body">
+              <p>\(T_2=T_1\)：</p>
+              \[ \Delta S=nR\ln\frac{V_2}{V_1}=-nR\ln\frac{p_2}{p_1}. \]
+              <p>膨胀 \(V_2>V_1\)，熵增；压缩熵减。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等容过程</div>
+            <div class="step-body">
+              <p>\(V_2=V_1\)：</p>
+              \[ \Delta S=C_V\ln\frac{T_2}{T_1}. \]
+              <p>升温熵增；降温熵减。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等压过程</div>
+            <div class="step-body">
+              <p>\(p_2=p_1\)：</p>
+              \[ \Delta S=C_p\ln\frac{T_2}{T_1}. \]
+              <p>同样升温，等压熵增比等容多（因为还要膨胀）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热可逆</div>
+            <div class="step-body">
+              <p>\(\delta Q=0\)，可逆绝热：\(\Delta S=0\)。</p>
+              <p>所以可逆绝热过程是等熵过程；但不可逆绝热（自由膨胀）熵增。</p>
+              <p class="step-check"><b>注意：</b>「绝热」不等于「等熵」，只有可逆绝热才等熵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由膨胀</div>
+            <div class="step-body">
+              <p>初末态：\(T\) 不变、\(V_1\to V_2\)。选等温可逆路径算熵变：</p>
+              \[ \Delta S=nR\ln\frac{V_2}{V_1}>0. \]
+              <p>实际过程不可逆、绝热，但熵变仍用可逆等温路径算。</p>
+              <p class="step-why"><b>关键：</b>熵是态函数，路径可另选。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy">混合熵</a></div>
+            <div class="step-body">
+              <p>两种理想气体等温等压混合，各占体积 \(V/2\to V\)：</p>
+              \[ \Delta S_{\rm mix}=-nR\sum_i x_i\ln x_i\ge0. \]
+              <p>这是可逆混合的熵变；不可逆混合熵更大。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">参考态与绝对熵</div>
+            <div class="step-body">
+              <p>\(S_0\) 可任取；比较状态时消去。</p>
+              <p>绝对熵由第三定律 \(S(0)=0\)（完美晶体）或统计公式 \(S=k_B\ln\Omega\) 给出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与单位</div>
+            <div class="step-body">
+              <p>S：J/K；\(C_V,C_p\)：J/K；\(nR\)：J/K。</p>
+              <p>\(\ln\) 内应是无量纲比值；严格写 \(\ln(T/T_0)\)、\(\ln(V/V_0)\)，用差值可回避。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>不可逆过程直接用 \(\delta Q/T\) 积分；</li>
+                <li>忘记 \(nR\ln V\) 项；</li>
+                <li>把绝热当等熵（不可逆绝热不是）；</li>
+                <li>用摄氏温度；</li>
+                <li>两式混用导致体积/压强项符号错。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的统计解释</div>
+            <div class="step-body">
+              <p>玻尔兹曼关系 \(S=k_B\ln\Omega\)：体积越大、能量分布越均匀，微观状态数 \(\Omega\) 越大，熵越大。</p>
+              <p>这解释了等温膨胀熵增、压缩熵减的微观图像。</p>
+              <p class="step-why"><b>拓展：</b>统计物理中熵是系综的信息量；热力学熵是其宏观极限。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(S=C_V\ln T+nR\ln V+S_0=C_p\ln T-nR\ln p+S_0'\)。</p>
+              <p><b>熵变：</b>\(\Delta S=C_V\ln(T_2/T_1)+nR\ln(V_2/V_1)\)。</p>
+              <p><b>应用：</b>等温 \(nR\ln(V_2/V_1)\)；等容 \(C_V\ln(T_2/T_1)\)；等压 \(C_p\ln(T_2/T_1)\)；可逆绝热 0。</p>
+              <p><b>自检：</b>为什么自由膨胀的熵变可以用等温可逆路径算？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5661,6 +6198,10 @@ applyFilter();
     'irreversible': { title: '不可逆过程', def: '无法使系统与外界都完全复原的过程；耗散、有限温差传热、自由膨胀、混合都是不可逆。', card: 's110' },
     'heat-engine': { title: '热机', def: '从高温吸热、部分变功、向低温放热的循环装置；效率 η=W/Q1<1。', card: 's110' },
     'absolute-zero': { title: '绝对零度', def: '热力学温标零点 0 K；不可达到（第三定律），T→0 时卡诺效率→1 但需 Q2→0。', card: 's112' },
+    'clausius-inequality': { title: '克劳修斯不等式', def: '∮δQ/T≤0；可逆循环取等号，不可逆取小于号。它是第二定律的积分表述，也是熵存在的判据。', card: 's113' },
+    'fundamental-equation': { title: '热力学基本方程', def: 'dU=T dS−p dV；把第一、第二定律合并，是麦克斯韦关系与特性函数的出发点。', card: 's114' },
+    'entropy-production': { title: '熵产', def: 'ΔS=∫δQ/T+σ，σ≥0；可逆 σ=0，不可逆 σ>0。孤立系 σ=ΔS。', card: 's114' },
+    'ideal-gas-entropy': { title: '理想气体熵', def: 'S=C_V lnT+nR lnV+S0=C_p lnT−nR lnp+S0′；熵变与路径无关，但积分沿可逆路径。', card: 's115' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
