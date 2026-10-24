@@ -4156,6 +4156,177 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s116">
+      <summary>完整推导 · 20 步：第二定律的数学表述</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从克劳修斯不等式推出 \(\mathrm{d}S\ge\delta Q/T\)，再对孤立系得 \(\mathrm{d}S\ge0\)，并澄清适用范围。
+          约定：T 为热源/系统温度（可逆时相同）；\(\delta Q\) 吸热为正。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">出发点：克劳修斯不等式</div>
+            <div class="step-body">
+              <p>对任意循环：</p>
+              \[ \oint\frac{\delta Q}{T}\le0. \]
+              <p>可逆取等号，不可逆取小于号；这是第二定律的积分形式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">构造闭合路径</div>
+            <div class="step-body">
+              <p>取可逆路径 r 从 A 到 B，再取任意路径 i 从 B 回到 A，组成循环：</p>
+              \[ \int_A^B\left(\frac{\delta Q}{T}\right)_r
+                 +\int_B^A\left(\frac{\delta Q}{T}\right)_i\le0. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入熵定义</div>
+            <div class="step-body">
+              <p>第一项就是 \(S_B-S_A\)（沿可逆路径定义熵）：</p>
+              \[ S_B-S_A+\int_B^A\left(\frac{\delta Q}{T}\right)_i\le0. \]
+              <p>移项：</p>
+              \[ S_B-S_A\ge\int_A^B\left(\frac{\delta Q}{T}\right)_i. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">微分形式</div>
+            <div class="step-body">
+              <p>对无穷小过程：</p>
+              \[ \boxed{\mathrm{d}S\ge\frac{\delta Q}{T}}. \]
+              <p>可逆取等号，不可逆取大于号。这是<a class="kp" data-kp="second-law">第二定律</a>的微分表述。</p>
+              <p class="step-why"><b>注意：</b>\(\delta Q\) 是实际过程吸热，不要求可逆。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆情形</div>
+            <div class="step-body">
+              <p>可逆时 \(\mathrm{d}S=\delta Q_{\rm rev}/T\)，即 \(\delta Q_{\rm rev}=T\mathrm{d}S\)。</p>
+              <p>这是热力学基本方程 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\) 的来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不可逆情形</div>
+            <div class="step-body">
+              <p>不可逆时 \(\mathrm{d}S>\delta Q/T\)。差值就是熵产：</p>
+              \[ \mathrm{d}S=\frac{\delta Q}{T}+\delta\sigma,\qquad \delta\sigma>0. \]
+              <p>熵产反映耗散/有限温差等不可逆因素。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">孤立系</div>
+            <div class="step-body">
+              <p>孤立系 \(\delta Q=0\)，所以</p>
+              \[ \mathrm{d}S\ge0. \]
+              <p>这就是熵增加原理：孤立系熵永不减少。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">平衡态熵极大</div>
+            <div class="step-body">
+              <p>孤立系达到平衡时，熵取极大值；任何自发偏离都会使熵减小，因而不能发生。</p>
+              <p>数学上：一阶变分 \(\delta S=0\)，二阶变分 \(\delta^2S<0\)。</p>
+              <p class="step-check"><b>用途：</b>求平衡条件（如温度相等、压强相等）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">三种等价表述</div>
+            <div class="step-body">
+              <p>熵增加原理 \(\mathrm{d}S\ge0\)（孤立系）⟺ \(\mathrm{d}S\ge\delta Q/T\) ⟺ \(\oint\delta Q/T\le0\)。</p>
+              <p>三者都是第二定律的数学形式，适用对象不同。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的微观意义</div>
+            <div class="step-body">
+              <p>\(S=k_B\ln\Omega\)：熵是微观状态数的对数；熵增对应系统演化到更 probable 的宏观态。</p>
+              <p>这解释了为什么孤立系自发趋向均匀、无序。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵与能量品质</div>
+            <div class="step-body">
+              <p>熵越大，能量中不可做功的部分越多，能量品质越低。</p>
+              <p>热机效率、制冷系数都受熵产限制；不可逆过程「浪费」了做功能力。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">非孤立系</div>
+            <div class="step-body">
+              <p>非孤立系的熵可以减少（如冰箱内部），但代价是外界熵增加更多。</p>
+              <p>判断自发性要把系统+环境凑成孤立系，看总熵。</p>
+              <p class="step-check"><b>高频错误：</b>只对系统用 \(\mathrm{d}S\ge0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">「宇宙孤立系」的误用</div>
+            <div class="step-body">
+              <p>把整个宇宙当孤立系套熵增，涉及引力/宇宙学，不能简单外推。</p>
+              <p>热力学第二定律适用于局部宏观系统；宇宙学中的熵需广义相对论/统计场论处理。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">涨落</div>
+            <div class="step-body">
+              <p>熵增是统计性的：小系统短时间可出现熵减涨落，但概率随系统增大指数减小。</p>
+              <p>宏观第二定律是 \(N\to\infty\) 的极限。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：热传导</div>
+            <div class="step-body">
+              <p>Q 从 \(T_1\) 到 \(T_2<T_1\)，总熵变</p>
+              \[ \Delta S=-\frac{Q}{T_1}+\frac{Q}{T_2}>0. \]
+              <p>有限温差传热不可逆，熵增。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：自由膨胀</div>
+            <div class="step-body">
+              <p>理想气体向真空膨胀：\(\delta Q=0\)，但 \(\Delta S=nR\ln(V_2/V_1)>0\)。</p>
+              <p>所以 \(\mathrm{d}S>\delta Q/T=0\)：不可逆。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>对非孤立系说「熵一定增加」；</li>
+                <li>把 \(\mathrm{d}S=\delta Q/T\) 用于不可逆过程；</li>
+                <li>认为熵增给出速率（它只给方向）；</li>
+                <li>把宇宙当普通孤立系；</li>
+                <li>忽略涨落/小系统。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与符号</div>
+            <div class="step-body">
+              <p>\([\mathrm{d}S]=J/K\)；\([\delta Q/T]=J/K\)；不等式两边量纲一致。</p>
+              <p>T 必须用 K；吸热为正，放热为负。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy-production">熵产</a>与做功能力损失</div>
+            <div class="step-body">
+              <p>不可逆过程产生熵 \(\sigma\)，同时损失做功能力 \(T_0\sigma\)（\(T_0\) 为环境温度）。</p>
+              <p>这就是「熵是能量品质」的定量表述：熵产越大，可用功越少。</p>
+              <p class="step-check"><b>工程：</b>火用分析、热机优化都以熵产最小为目标。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\mathrm{d}S\ge\delta Q/T\)；可逆取等号，不可逆取大于号。</p>
+              <p><b>孤立系：</b>\(\mathrm{d}S\ge0\)，平衡时熵极大。</p>
+              <p><b>用途：</b>判断自发性、求平衡条件、计算熵产。</p>
+              <p><b>自检：</b>能否用克劳修斯不等式推出 \(\mathrm{d}S\ge\delta Q/T\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4231,6 +4402,176 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s117">
+      <summary>完整推导 · 20 步：熵增原理的应用</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：掌握「把系统扩大成孤立系 → 分别算熵变 → 总熵判自发」的<a class="kp" data-kp="entropy-criterion">通用方法</a>，覆盖自由膨胀、热传导、混合、相变、焦耳热。
+          约定：所有 T 用 K；不可逆部分另设计可逆路径。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">通用方法</div>
+            <div class="step-body">
+              <p>① 把系统与相关外界合起来，构成孤立系；② 对每部分算 \(\Delta S\)；③ 总熵 \(\Delta S_{\rm tot}\ge0\) 则可自发。</p>
+              <p>只对系统本身用熵增，是高频错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由膨胀</div>
+            <div class="step-body">
+              <p>理想气体向真空膨胀：绝热、不做功，\(\Delta U=0\)，T 不变。</p>
+              <p>实际过程不可逆，不能直接用 \(\delta Q/T\) 积分。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">设计可逆路径</div>
+            <div class="step-body">
+              <p>初末态相同，选等温可逆膨胀 \(V_1\to V_2\)：</p>
+              \[ \Delta S=\int\frac{\delta Q_{\rm rev}}{T}
+                 =nR\ln\frac{V_2}{V_1}>0. \]
+              <p>气体是孤立系，熵增说明自由膨胀可自发。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热传导</div>
+            <div class="step-body">
+              <p>\(T_1>T_2\)，热量 Q 从高温传到低温。把两物体合成孤立系：</p>
+              \[ \Delta S_1=-\frac{Q}{T_1},\qquad \Delta S_2=+\frac{Q}{T_2}. \]
+              <p>总熵：</p>
+              \[ \Delta S=Q\left(\frac1{T_2}-\frac1{T_1}\right)>0. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">有限温差积分</div>
+            <div class="step-body">
+              <p>若两物体温度显著变化，用微元：</p>
+              \[ \Delta S=\int\frac{\delta Q}{T}. \]
+              <p>对固体 \(C\) 常数：\(\Delta S=C\ln(T_f/T_i)\)。</p>
+              <p class="step-check"><b>注意：</b>不能直接用 Q/T 当温度变化大时。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两种气体混合</div>
+            <div class="step-body">
+              <p>等温等压，体积 \(V_1,V_2\) 混合成 \(V=V_1+V_2\)。每种气体视为等温膨胀：</p>
+              \[ \Delta S=n_1R\ln\frac{V}{V_1}+n_2R\ln\frac{V}{V_2}>0. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="gibbs-paradox">吉布斯佯谬</a></div>
+            <div class="step-body">
+              <p>若两种气体相同，混合前后不可区分，熵变应为零；上式却给正数。</p>
+              <p>原因：把同种气体当成可区分；正确做法是除以 \(N!\) 或引入化学势。</p>
+              <p class="step-why"><b>结论：</b>混合熵公式只适用于不同气体。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">同种气体混合</div>
+            <div class="step-body">
+              <p>同温同压同种气体混合，熵变为零（理想气体）；真实气体有混合热，但不等于「混合熵」。</p>
+              <p>这是吉布斯佯谬的解决。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两杯水混合</div>
+            <div class="step-body">
+              <p>等质量、等压热容 \(C_p\)，初温 \(T_1,T_2\)，绝热混合终温 \(T_f=(T_1+T_2)/2\)。</p>
+              <p>每杯：\(\Delta S=C_p\ln(T_f/T_i)\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">总熵变</div>
+            <div class="step-body">
+              <p>\[ \Delta S=C_p\ln\frac{T_f^2}{T_1T_2}
+                 =2C_p\ln\frac{T_f}{\sqrt{T_1T_2}}>0. \]
+              <p>因为算术平均 \(T_f\) 大于几何平均 \(\sqrt{T_1T_2}\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相变</div>
+            <div class="step-body">
+              <p>等温等压相变，潜热 L：</p>
+              \[ \Delta S=\frac{L}{T}. \]
+              <p>熔化/汽化吸热，熵增；凝固/凝结放热，熵减。</p>
+              <p class="step-check"><b>检查：</b>相变温度必须用 K。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焦耳热</div>
+            <div class="step-body">
+              <p>电阻发热 Q 给水/物体，若物体从 \(T_i\) 到 \(T_f\)：</p>
+              \[ \Delta S=C\ln\frac{T_f}{T_i}. \]
+              <p>电源/环境熵变另算；总熵增。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热库熵变</div>
+            <div class="step-body">
+              <p>热库温度不变，吸/放热 Q：\(\Delta S_{\rm reservoir}=\pm Q/T\)。</p>
+              <p>热库很大，温度近似不变；这是常用近似。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">可逆与不可逆路径</div>
+            <div class="step-body">
+              <p>熵变与路径无关，但计算时必须选可逆路径；实际不可逆路径只用于判断方向。</p>
+              <p>自由膨胀、热传导、混合都是不可逆，但熵变可用可逆替代路径算。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">判断自发性</div>
+            <div class="step-body">
+              <p>总熵增加 → 可自发；总熵不变 → 可逆；总熵减小 → 不能自发（逆过程可自发）。</p>
+              <p>只对孤立系/绝热总系统成立。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例子：两物体接触</div>
+            <div class="step-body">
+              <p>有限大小两物体接触，终温由能量守恒求；总熵变用积分，结果恒正。</p>
+              <p>温差越小，熵增越小；极限可逆传热熵增为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>自由膨胀用 \(\Delta S=0\)；</li>
+                <li>热传导直接用 Q/T 而不积分；</li>
+                <li>同种气体套混合熵公式；</li>
+                <li>只看系统熵不看环境；</li>
+                <li>用摄氏温度。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与符号</div>
+            <div class="step-body">
+              <p>\(\Delta S\)：J/K；Q/T：J/K；\(C_p\ln\)：J/K。</p>
+              <p>吸热熵增、放热熵减；总熵变看代数和。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热不可逆过程</div>
+            <div class="step-body">
+              <p>绝热但不可逆（如自由膨胀、节流）：\(\delta Q=0\)，但 \(\Delta S>0\)。</p>
+              <p>所以「绝热」不等于「等熵」；只有可逆绝热才等熵。</p>
+              <p class="step-check"><b>例子：</b>节流前后焓相等，但熵增加。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>方法：</b>扩大成孤立系，分别算熵变，总熵判自发。</p>
+              <p><b>公式：</b>自由膨胀 \(nR\ln(V_2/V_1)\)；热传导 \(Q(1/T_2-1/T_1)\)；混合 \(\sum n_iR\ln(V/V_i)\)；相变 \(L/T\)。</p>
+              <p><b>自检：</b>为什么自由膨胀的熵变可以用等温可逆路径算？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4289,6 +4630,190 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s118">
+      <summary>完整推导 · 20 步：自由能与吉布斯函数</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用勒让德变换把「环境熵变」折算进系统，得到等温等容用 F、等温等压用 G 的自发性判据。
+          约定：封闭系、无化学变化；T 为环境/系统温度。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">熵判据的局限</div>
+            <div class="step-body">
+              <p>熵判据只适用于孤立系；实验常在等温等容/等温等压下进行，要把环境也算进去，很麻烦。</p>
+              <p>目标：构造只含系统自身的新判据。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="entropy">熵</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">环境熵变</div>
+            <div class="step-body">
+              <p>环境温度 T 不变，系统吸热 Q，环境放热 Q：</p>
+              \[ \Delta S_{\rm env}=-\frac{Q}{T}. \]
+              <p>总熵：\(\Delta S_{\rm tot}=\Delta S-Q/T\)。要判断自发性，只需看 \(\Delta S_{\rm tot}\ge0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等温等容</div>
+            <div class="step-body">
+              <p>等容不做体积功，\(Q=\Delta U\)。所以</p>
+              \[ \Delta S_{\rm tot}=\Delta S-\frac{\Delta U}{T}
+                 =-\frac{\Delta(U-TS)}{T}. \]
+              <p>定义 \(F=U-TS\)：\(\Delta S_{\rm tot}=-\Delta F/T\ge0\)，即 \(\Delta F\le0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="free-energy">自由能 F</a></div>
+            <div class="step-body">
+              <p>\[ F\equiv U-TS. \]</p>
+              <p>F 是状态函数、广延量，单位 J；叫亥姆霍兹自由能。</p>
+              <p class="step-check"><b>注意：</b>F 的定义含 T，T 是环境温度；等温过程中 T 不变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">F 判据</div>
+            <div class="step-body">
+              <p>等温等容、不做非体积功：</p>
+              \[ \mathrm{d}F\le0. \]
+              <p>自发过程朝 F 减小方向；平衡时 F 取极小。</p>
+              <p class="step-why"><b>用途：</b>等温等容的相变、化学平衡。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等温等压</div>
+            <div class="step-body">
+              <p>等压时 \(Q=\Delta U+p\Delta V=\Delta(U+pV)=\Delta H\)。总熵：</p>
+              \[ \Delta S_{\rm tot}=\Delta S-\frac{\Delta H}{T}
+                 =-\frac{\Delta(H-TS)}{T}. \]
+              <p>定义 \(G=H-TS\)：\(\Delta G\le0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="gibbs">吉布斯函数 G</a></div>
+            <div class="step-body">
+              <p>\[ G\equiv H-TS=U+pV-TS. \]</p>
+              <p>G 是状态函数、广延量，单位 J；叫吉布斯自由能。</p>
+              <p class="step-check"><b>区别：</b>F 用于等温等容，G 用于等温等压。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">G 判据</div>
+            <div class="step-body">
+              <p>等温等压、无非体积功：</p>
+              \[ \mathrm{d}G\le0. \]
+              <p>自发朝 G 减小；平衡时 G 极小。</p>
+              <p class="step-why"><b>用途：</b>常压相变、化学反应方向、相图。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">勒让德变换</div>
+            <div class="step-body">
+              <p>从 \(U(S,V)\) 换到 \(F(T,V)\)：</p>
+              \[ F=U-TS,\qquad \mathrm{d}F=\mathrm{d}U-T\mathrm{d}S-S\mathrm{d}T
+                 =-S\mathrm{d}T-p\mathrm{d}V. \]
+              <p>自变量从 (S,V) 换成 (T,V)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">G 的微分</div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p. \]</p>
+              <p>自然变量 (T,p)；这是等温等压问题最方便的形式。</p>
+              <p class="step-check"><b>检查：</b>\(\mathrm{d}G\) 只含 dT、dp，不含 dV/dS。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">F 的微分</div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}F=-S\mathrm{d}T-p\mathrm{d}V. \]</p>
+              <p>自然变量 (T,V)；等温等容问题用它。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">读出偏导数</div>
+            <div class="step-body">
+              <p>\[ S=-\left(\frac{\partial F}{\partial T}\right)_V,\qquad
+                 p=-\left(\frac{\partial F}{\partial V}\right)_T, \]
+              \[ S=-\left(\frac{\partial G}{\partial T}\right)_p,\qquad
+                 V=\left(\frac{\partial G}{\partial p}\right)_T. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">最大功</div>
+            <div class="step-body">
+              <p>等温过程中系统对外做的最大功等于 \(-\Delta F\)（可逆时取等号）。</p>
+              <p>因此 F 叫「自由能」：可转化为功的那部分内能。</p>
+              <p class="step-why"><b>注意：</b>不可逆过程做功小于最大功，差值对应熵产。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相平衡</div>
+            <div class="step-body">
+              <p>等温等压两相共存，平衡条件 \(G_1=G_2\)（同种物质）。</p>
+              <p>否则物质会从 G 高的相流向 G 低的相。</p>
+              <p class="step-why"><b>第三章：</b>化学势 \(\mu=G/n\) 相等是相平衡条件。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">G 与<a class="kp" data-kp="chemical-potential">化学势</a></div>
+            <div class="step-body">
+              <p>单元系 \(G=n\mu\)，\(\mu\) 为化学势；多组分 \(G=\sum_i n_i\mu_i\)。</p>
+              <p>\(\mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p+\sum_i\mu_i\mathrm{d}n_i\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">麦克斯韦关系预告</div>
+            <div class="step-body">
+              <p>由 \(\mathrm{d}F\) 的混合偏导相等：</p>
+              \[ \left(\frac{\partial S}{\partial V}\right)_T
+                 =\left(\frac{\partial p}{\partial T}\right)_V. \]
+              <p>由 \(\mathrm{d}G\)：</p>
+              \[ -\left(\frac{\partial S}{\partial p}\right)_T
+                 =\left(\frac{\partial V}{\partial T}\right)_p. \]
+              <p>第二章系统推导。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">判据选择</div>
+            <div class="step-body">
+              <p>孤立系：S 极大；等温等容：F 极小；等温等压：G 极小；等熵等容：U 极小；等熵等压：H 极小。</p>
+              <p>选错判据是热力学最常见的方法错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 F、G 当内能；</li>
+                <li>等压过程用 F 判据；</li>
+                <li>忘记 T 是环境温度；</li>
+                <li>认为 G 最小对任何过程都成立；</li>
+                <li>把 \(\Delta G<0\) 与「反应一定快」混为一谈（动力学另论）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">F、G 的广延性与比量</div>
+            <div class="step-body">
+              <p>F、G 都是广延量：两系统合并时相加；除以 n 得摩尔自由能/摩尔吉布斯函数。</p>
+              <p>对单元系 \(G=n\mu\)，所以 \(\mu\) 是摩尔吉布斯函数；多组分 \(G=\sum n_i\mu_i\)。</p>
+              <p class="step-check"><b>检查：</b>\(\mu\) 是强度量，与 n 无关；G 与 n 成正比。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>定义：</b>\(F=U-TS\)，\(G=H-TS\)。</p>
+              <p><b>判据：</b>等温等容 \(\mathrm{d}F\le0\)；等温等压 \(\mathrm{d}G\le0\)。</p>
+              <p><b>微分：</b>\(\mathrm{d}F=-S\mathrm{d}T-p\mathrm{d}V\)，\(\mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p\)。</p>
+              <p><b>自检：</b>能否用总熵判据推出 \(\Delta G\le0\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6202,6 +6727,11 @@ applyFilter();
     'fundamental-equation': { title: '热力学基本方程', def: 'dU=T dS−p dV；把第一、第二定律合并，是麦克斯韦关系与特性函数的出发点。', card: 's114' },
     'entropy-production': { title: '熵产', def: 'ΔS=∫δQ/T+σ，σ≥0；可逆 σ=0，不可逆 σ>0。孤立系 σ=ΔS。', card: 's114' },
     'ideal-gas-entropy': { title: '理想气体熵', def: 'S=C_V lnT+nR lnV+S0=C_p lnT−nR lnp+S0′；熵变与路径无关，但积分沿可逆路径。', card: 's115' },
+    'entropy-criterion': { title: '熵判据', def: '孤立系 ΔS≥0：熵增可自发，平衡时熵极大。非孤立系要加上环境熵。', card: 's116' },
+    'free-energy': { title: '自由能 F', def: 'F=U−TS；等温等容判据 dF≤0，平衡时 F 极小；最大功=−ΔF。', card: 's118' },
+    'gibbs': { title: '吉布斯函数 G', def: 'G=H−TS=U+pV−TS；等温等压判据 dG≤0，平衡时 G 极小；相平衡 G1=G2。', card: 's118' },
+    'chemical-potential': { title: '化学势 μ', def: 'μ=(∂G/∂n)_{T,p}；单元系 G=nμ，相平衡/化学平衡要求 μ 相等。', card: 's118' },
+    'gibbs-paradox': { title: '吉布斯佯谬', def: '同种气体混合熵应为零，但可区分粒子公式给正值；解决需除以 N! 或引入化学势。', card: 's117' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
