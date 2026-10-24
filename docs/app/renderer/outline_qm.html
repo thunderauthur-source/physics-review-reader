@@ -937,6 +937,147 @@
     .meta { padding:0 0 8px; gap:8px; }
   }
 </style>
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+/* ===== 完整推导 / 知识点 / 三套遮罩（样卡） ===== */
+.b-full {
+  background: linear-gradient(180deg, #fbf7ff 0%, #f7fbff 100%);
+  border-color: #d9c8ef;
+}
+.b-full > summary { color: #5b3f8a; }
+.deriv-note {
+  font-size: .9em; color: #6b5b84; background: #f3ecff;
+  border-left: 3px solid #b9a4e6; border-radius: 0 8px 8px 0;
+  padding: 7px 10px; margin: 6px 0 10px; line-height: 1.65;
+}
+.steps { counter-reset: step; list-style: none; margin: 8px 0 0; padding: 0; }
+.step {
+  position: relative; counter-increment: step;
+  margin: 10px 0; padding: 12px 14px 12px 48px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: rgba(255, 255, 255, .72);
+}
+.step::before {
+  content: counter(step); position: absolute; left: 13px; top: 12px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: linear-gradient(135deg, #8b78e6, #b83f7c); color: #fff;
+  font-size: 12px; font-weight: 700; line-height: 24px; text-align: center;
+}
+.step-title { font-weight: 700; color: #3b3350; margin-bottom: 2px; }
+.step-body { position: relative; line-height: 1.78; }
+.step-body p { margin: 4px 0; }
+.step-why {
+  display: block; margin: 7px 0 2px; padding: 5px 9px;
+  font-size: .9em; color: #65557d; background: #f7f2ff;
+  border-left: 3px solid #b9a4e6; border-radius: 0 6px 6px 0;
+}
+.step-check {
+  display: block; margin: 7px 0 2px; padding: 5px 9px;
+  font-size: .9em; color: #2f6d5e; background: #eefaf6;
+  border-left: 3px solid #6fc7b2; border-radius: 0 6px 6px 0;
+}
+.keyeq {
+  display: block; position: relative; margin: 8px 0; padding: 7px 10px;
+  text-align: center; background: #f5fbf8;
+  border: 1px dashed #abd6c9; border-radius: 8px;
+}
+.katex { font-size: 1.02em; }
+.katex-display { margin: .35em 0; overflow-x: auto; overflow-y: hidden; padding: 1px 0; }
+
+/* 知识点 */
+.kp {
+  color: #5b3f8a; font-weight: 600; text-decoration: none;
+  border-bottom: 1px dotted #9b7fd4; cursor: pointer;
+}
+.kp:hover { background: #f1eaff; border-bottom-style: solid; }
+.kp-pop {
+  position: fixed; z-index: 9999; width: 350px; max-width: calc(100vw - 24px);
+  display: none; padding: 13px 14px 11px;
+  background: #fff; border: 1px solid #d9c8ef; border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(60, 35, 90, .22);
+}
+.kp-pop.show { display: block; }
+.kp-pop h5 { margin: 0 0 6px; font-size: 14px; color: #4b356f; }
+.kp-pop .kp-def { margin: 0 0 7px; font-size: 12.5px; line-height: 1.7; color: #4b4358; }
+.kp-pop .kp-formula { margin: 6px 0; padding: 5px 8px; background: #f7f4ff; border-radius: 6px; font-size: 12.5px; }
+.kp-pop .kp-acts { display: flex; gap: 7px; justify-content: flex-end; margin-top: 8px; }
+.kp-pop .kp-acts button {
+  border: 1px solid #d9c8ef; background: #fbf8ff; color: #5b3f8a;
+  border-radius: 7px; padding: 4px 9px; font-size: 12px; cursor: pointer;
+  font-family: inherit;
+}
+.kp-pop .kp-acts button:hover { background: #f1eaff; }
+
+/* 遮罩按钮 */
+.maskbtn b { margin-left: 4px; font-size: .82em; opacity: .65; font-weight: 700; }
+.maskbtn.on { border-color: #b83f7c; color: #b83f7c; background: #fff0f8; }
+.mask-tip {
+  display: none; max-width: 1180px; margin: 0 auto 8px; padding: 7px 14px;
+  font-size: 12.5px; color: #6b5b84; background: #f7f2ff;
+  border: 1px solid #e2d4f5; border-radius: 8px;
+}
+.mask-tip.show { display: block; }
+.maskable { position: relative; }
+.mask-eye {
+  position: absolute; right: 3px; top: 3px; z-index: 6;
+  width: 24px; height: 22px; padding: 0; border: 1px solid #d9c8ef;
+  border-radius: 6px; background: rgba(255,255,255,.95); color: #6b5b84;
+  font-size: 12px; line-height: 20px; cursor: pointer; opacity: 0;
+  transition: opacity .15s;
+}
+.maskable:hover .mask-eye, .mask-eye.show { opacity: 1; }
+.mask-eye:hover { background: #f1eaff; border-color: #b9a4e6; }
+
+/* 遮住结论 / 关键公式 */
+.concl.masked > *:not(.mask-eye),
+.keyeq.masked > *:not(.mask-eye) {
+  filter: blur(5px); user-select: none; pointer-events: none;
+}
+.concl.masked::after, .keyeq.masked::after {
+  content: '点击显示'; position: absolute; inset: 0; z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  color: #8a6fb0; font-size: .8em; letter-spacing: .08em;
+  background: rgba(247, 242, 255, .55); border-radius: 6px; cursor: pointer;
+}
+
+/* 遮住推导步骤：只遮正文，保留步骤标题 */
+.step.masked .step-body > *:not(.mask-eye) {
+  filter: blur(5px); user-select: none; pointer-events: none;
+}
+.step.masked .step-body::after {
+  content: '点击显示这一步'; position: absolute; inset: 0; z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  color: #8a6fb0; font-size: .8em; letter-spacing: .08em;
+  background: rgba(247, 242, 255, .55); border-radius: 6px; cursor: pointer;
+}
+.fml.masked { filter: blur(5px); cursor: pointer; user-select: none; }
+
+@media print {
+  .mask-eye, .mask-tip, .kp-pop { display: none !important; }
+  .concl.masked > *, .keyeq.masked > *, .step.masked .step-body > *, .fml.masked { filter: none !important; }
+  .concl.masked::after, .keyeq.masked::after, .step.masked .step-body::after { display: none !important; }
+}
+
+/* 点击跳转提示 */
+a.loc, .kp {
+  position: relative; border-radius: 4px;
+  transition: color .15s, background .15s, box-shadow .15s;
+}
+a.loc::after, .kp::after {
+  content: '↗'; font-size: .72em; font-style: normal;
+  margin-left: 2px; opacity: .45; display: inline-block;
+  transform: translateY(-.28em); transition: opacity .15s, transform .15s;
+}
+a.loc:hover, .kp:hover { background: #fff0f8; }
+a.loc:hover::after, .kp:hover::after { opacity: 1; transform: translate(1px, -.4em); }
+a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
+@keyframes jumpFlash {
+  0%   { background: #ffd9ec; box-shadow: 0 0 0 3px rgba(184,63,124,.35); }
+  55%  { background: #ffeaf4; box-shadow: 0 0 0 8px rgba(184,63,124,0); }
+  100% { background: transparent; box-shadow: 0 0 0 0 rgba(184,63,124,0); }
+}
+
+</style>
 </head>
 <body data-mode="all">
 
@@ -959,8 +1100,10 @@
       <button class="btn" id="bModeWarn" onclick="setMode('warn')" title="只看易错点（考前突击）">易错点</button>
       <button class="btn" id="bModeKey" onclick="setMode('key')" title="只看关键结论">结论</button>
     </div>
-    <button class="btn" id="bMask" onclick="toggleMask()" title="遮挡关键结论（自测，快捷键 M）">👁 遮挡结论</button>
-    <button class="btn" id="bMaskF" onclick="toggleMaskF()" title="模糊公式速查表（快捷键 F）">遮住公式</button>
+    <button class="btn maskbtn" id="bMaskC" onclick="toggleMaskMode('concl')" title="遮住/揭示结论（快捷键 M）">结论 <b>0/0</b></button>
+    <button class="btn maskbtn" id="bMaskF" onclick="toggleMaskMode('formula')" title="遮住/揭示关键公式（快捷键 F）">公式 <b>0/0</b></button>
+    <button class="btn maskbtn" id="bMaskS" onclick="toggleMaskMode('step')" title="遮住/揭示推导步骤（快捷键 R）">推导 <b>0/0</b></button>
+    <button class="btn" id="bMaskAll" onclick="revealAllMasks()" title="全部揭开">全部揭开</button>
     <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
     <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
     <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
@@ -968,6 +1111,7 @@
   </div>
   <div class="pbar"><i id="pbarIn"></i></div>
 </div>
+<div class="mask-tip" id="maskTip"></div>
 
 <div class="wrap">
 
@@ -1180,6 +1324,297 @@
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s11">
+      <summary>完整推导 · 25 步：从德布罗意波到薛定谔方程</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把自由粒子的<a class="kp" data-kp="debroglie">德布罗意关系</a>翻译成微分方程，再推广到有势场的情形。
+          约定：一维、非相对论、\(m\) 为粒子质量，\(\hbar=h/2\pi\)，\(\Psi\) 为<a class="kp" data-kp="wavefunction">波函数</a>。
+          每步都给出「为什么可以这样做」；最后单独说明哪些是推导、哪些是基本假设。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">固定物理情境：一维自由粒子</div>
+            <div class="step-body">
+              <p>考虑一个质量为 \(m\) 的粒子，在一维空间运动，暂时没有势场（\(V=0\)），速度远小于光速，用非相对论能量。</p>
+              <p>实验上，这种粒子的波动性由<a class="kp" data-kp="debroglie">德布罗意关系</a>给出：</p>
+              \[ E=\hbar\omega,\qquad p=\hbar k. \]
+              <p>这里 \(E\) 是能量，\(p\) 是动量，\(\omega\) 是角频率，\(k\) 是波数；\(\hbar=h/2\pi\) 把「频率/波长」和「能量/动量」联系起来。</p>
+              <p class="step-why"><b>依据：</b>德布罗意假设（教材 §1.1 之前的历史线索，课件 2-1）。<b>适用条件：</b>自由粒子、非相对论；\(E=p^2/2m\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">写出自由粒子的平面波</div>
+            <div class="step-body">
+              <p>满足上述 \(E,p\) 的最简单的波，是沿 \(+x\) 方向传播的<a class="kp" data-kp="plane-wave">平面波</a>：</p>
+              \[ \Psi(x,t)=A\,e^{i(kx-\omega t)}. \]
+              <p>\(A\) 是复振幅。这里必须允许 \(\Psi\) 取复值：相位 \(kx-\omega t\) 要同时编码 \(p=\hbar k\) 和 \(E=\hbar\omega\)，实函数只有「振幅 + 符号」，无法独立承载这两个相位。</p>
+              <p class="step-why"><b>为什么是复的：</b>复指数把「空间周期 \(2\pi/k\)」和「时间周期 \(2\pi/\omega\)」放进同一个相位里；后面求导会分别把 \(k\)、\(\omega\) 提出来。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对时间求导：把 \(\omega\) 提出来</div>
+            <div class="step-body">
+              <p>对 \(t\) 求偏导：</p>
+              \[ \frac{\partial\Psi}{\partial t}=-i\omega\,\Psi. \]
+              <p>两边乘以 \(i\hbar\)：</p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}=i\hbar(-i\omega)\Psi=\hbar\omega\,\Psi. \]
+              <p>用德布罗意关系 \(\hbar\omega=E\)，得到</p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}=E\,\Psi. \]
+              <p class="step-why"><b>依据：</b>\(\hbar\omega=E\)。<b>含义：</b>\(i\hbar\partial_t\) 作用在波函数上，等于「能量乘以波函数」——这就是<a class="kp" data-kp="energy-op">能量算符</a>的雏形。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对空间求一阶导：把 \(k\) 提出来</div>
+            <div class="step-body">
+              <p>对 \(x\) 求偏导：</p>
+              \[ \frac{\partial\Psi}{\partial x}=ik\,\Psi. \]
+              <p>两边乘以 \(-i\hbar\)：</p>
+              \[ -i\hbar\frac{\partial\Psi}{\partial x}=-i\hbar(ik)\Psi=\hbar k\,\Psi=p\,\Psi. \]
+              <p>所以 \(p\) 对应微分算符</p>
+              \[ \hat p=-i\hbar\frac{\partial}{\partial x}. \]
+              <p class="step-why"><b>依据：</b>\(p=\hbar k\)。<b>含义：</b>动量不是「数」，而是作用在波函数上的<a class="kp" data-kp="momentum-op">动量算符</a>；\(-i\hbar\partial_x\) 才能让平面波本征值为实数 \(p\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对空间求二阶导：把 \(k^2\) 提出来</div>
+            <div class="step-body">
+              <p>再求一次导：</p>
+              \[ \frac{\partial^2\Psi}{\partial x^2}=(ik)^2\Psi=-k^2\Psi. \]
+              <p>两边乘以 \(-\hbar^2/2m\)：</p>
+              \[ -\frac{\hbar^2}{2m}\frac{\partial^2\Psi}{\partial x^2}
+                 =-\frac{\hbar^2}{2m}(-k^2)\Psi
+                 =\frac{\hbar^2k^2}{2m}\Psi. \]
+              <p class="step-why"><b>为什么用二阶导：</b>非相对论动能 \(T=p^2/2m\) 含 \(p^2\)，而 \(p^2\) 对应 \((-i\hbar\partial_x)^2=-\hbar^2\partial_x^2\)。一阶导只能给 \(p\)，给不了 \(p^2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用自由粒子色散关系把 \(E\) 和 \(k\) 连起来</div>
+            <div class="step-body">
+              <p>自由粒子的能量只有动能：</p>
+              \[ E=\frac{p^2}{2m}=\frac{\hbar^2k^2}{2m}. \]
+              <p>于是角频率</p>
+              \[ \omega=\frac{E}{\hbar}=\frac{\hbar k^2}{2m}. \]
+              <p class="step-why"><b>检查：</b>\(k\) 越大，\(\omega\) 越大；\(m\to\infty\) 时 \(\omega\to0\)，回到经典「重粒子几乎不动」的极限。这个关系叫<a class="kp" data-kp="dispersion">色散关系</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">拼出自由粒子的薛定谔方程</div>
+            <div class="step-body">
+              <p>把第 3 步的 \(E\Psi\) 和第 5 步的 \(\frac{\hbar^2k^2}{2m}\Psi\) 用第 6 步的 \(E=\frac{\hbar^2k^2}{2m}\) 等同起来：</p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}
+                 =E\Psi
+                 =\frac{\hbar^2k^2}{2m}\Psi
+                 =-\frac{\hbar^2}{2m}\frac{\partial^2\Psi}{\partial x^2}. \]
+              <p>即</p>
+              \[ \boxed{\,i\hbar\frac{\partial\Psi}{\partial t}
+                 =-\frac{\hbar^2}{2m}\frac{\partial^2\Psi}{\partial x^2}\,}. \]
+              <p class="step-why"><b>适用范围：</b>只对自由粒子、平面波推导出来。<b>不是：</b>对任意势场的证明；第 10 步才把它推广为假设。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">验证：平面波确实满足方程</div>
+            <div class="step-body">
+              <p>把 \(\Psi=Ae^{i(kx-\omega t)}\) 代回第 7 步的方程：左边 \(i\hbar(-i\omega)\Psi=\hbar\omega\Psi\)，右边 \(-\frac{\hbar^2}{2m}(-k^2)\Psi=\frac{\hbar^2k^2}{2m}\Psi\)。</p>
+              <p>两边相等，当且仅当</p>
+              \[ \hbar\omega=\frac{\hbar^2k^2}{2m}, \]
+              <p>这正是自由粒子的色散关系。说明方程和德布罗意关系是自洽的。</p>
+              <p class="step-check"><b>检查：</b>方程对 \(\Psi\) 是线性的；\(A\) 任意，所以解的叠加仍是解。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">叠加原理：为什么方程必须是线性的</div>
+            <div class="step-body">
+              <p>若 \(\Psi_1,\Psi_2\) 都是解，则对任意复系数 \(c_1,c_2\)，</p>
+              \[ \Psi=c_1\Psi_1+c_2\Psi_2 \]
+              <p>仍是解。因为方程对 \(\Psi\) 及其导数都是一次的，没有 \(\Psi^2\)、\(\Psi\Psi^*\) 这类项。</p>
+              <p>物理上，这意味着「两条可能路径的概率幅可以相加」，才会出现干涉；如果方程是非线性的，叠加原理和量子干涉都不成立。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="superposition">叠加原理</a>；它是量子力学的公设之一，不是从方程「推」出来的，但方程必须线性才能容纳它。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">先加一个常数势 \(V_0\)</div>
+            <div class="step-body">
+              <p>若空间各点都有相同的势能 \(V_0\)，总能量变成</p>
+              \[ E=\frac{p^2}{2m}+V_0. \]
+              <p>平面波的频率相应变为</p>
+              \[ \omega=\frac{1}{\hbar}\left(\frac{\hbar^2k^2}{2m}+V_0\right). \]
+              <p>模仿第 7 步，得到</p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}
+                 =\left(-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}+V_0\right)\Psi. \]
+              <p class="step-why"><b>检查：</b>\(V_0\) 只把能量零点平移，不改变概率分布；物理上不可观测绝对势能零点。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">把常数势换成 \(V(x,t)\)：从「推导」变成「假设」</div>
+            <div class="step-body">
+              <p>当势能随位置/时间变化时，平面波不再是精确解（\(k\) 不再恒定），上面的推导链条断了。量子力学的基本做法是：把 \(V_0\) 直接替换成 \(V(x,t)\)，并要求方程局部成立：</p>
+              \[ \boxed{\,i\hbar\frac{\partial\Psi}{\partial t}
+                 =\left[-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}+V(x,t)\right]\Psi\,}. \]
+              <p>这就是一维含时薛定谔方程。它是<b>基本假设</b>，不能从经典力学严格证明；前面的平面波推导只是「猜出它的历史线索」。</p>
+              <p class="step-why"><b>依据：</b>教材式 (1.1)、课件 2-1 p06。<b>适用：</b>非相对论、单粒子、势场给定；不适用于相对论/强场/粒子产生湮灭。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么时间是一阶，空间是二阶？</div>
+            <div class="step-body">
+              <p>时间一阶意味着：只要知道初始时刻的 \(\Psi(x,0)\)，方程就唯一决定之后所有时刻的 \(\Psi(x,t)\)，不需要 \(\partial_t\Psi(x,0)\)。这与「波函数完全描述状态」的假设一致。</p>
+              <p>空间二阶来自动能 \(p^2/2m\)：\(p^2\) 对应二阶空间导数。经典波动方程时间也是二阶，需要「初始位移 + 初始速度」两个初值；薛定谔方程只需要一个初值。</p>
+              <p class="step-why"><b>推论：</b>概率流守恒（第 16 步）依赖「时间一阶 + 方程线性」；如果时间二阶，概率密度一般不再守恒。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么必须出现 \(i\)？</div>
+            <div class="step-body">
+              <p>若方程是实系数的，实波函数的解只能做「振动」，无法让相位 \(e^{i(kx-\omega t)}\) 独立传播；而相位差正是干涉和动量/能量编码的来源。</p>
+              <p>更技术地说，\(i\) 让演化算符 \(e^{-i\hat Ht/\hbar}\) 成为酉算符，保证概率守恒；去掉 \(i\) 会得到指数增长/衰减的解，概率不守恒。</p>
+              <p class="step-why"><b>知识点：</b>复波函数、相位、酉演化；这里只做动机说明，严格证明在第三章形式理论。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">算符对应：把经典量换成微分算符</div>
+            <div class="step-body">
+              <p>从第 3、4、5 步可以总结出替换规则：</p>
+              \[ E\;\longrightarrow\;i\hbar\frac{\partial}{\partial t},\qquad
+                 p\;\longrightarrow\;-i\hbar\frac{\partial}{\partial x},\qquad
+                 p^2\;\longrightarrow\;-\hbar^2\frac{\partial^2}{\partial x^2}. \]
+              <p>于是经典能量关系 \(E=p^2/2m+V\) 变成作用在 \(\Psi\) 上的算符方程，这就是薛定谔方程。</p>
+              <p class="step-why"><b>注意：</b>这是「对应规则」，不是严格推导；算符的顺序、厄密性在第三章讨论（<a class="kp" data-kp="operator">算符</a>）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">推广到三维</div>
+            <div class="step-body">
+              <p>把 \(p_x\to-\mathrm{i}\hbar\partial_x\) 换成矢量动量算符</p>
+              \[ \hat{\mathbf p}=-\mathrm{i}\hbar\nabla, \]
+              <p>动能算符变成</p>
+              \[ \hat T=\frac{\hat{\mathbf p}\cdot\hat{\mathbf p}}{2m}
+                 =-\frac{\hbar^2}{2m}\nabla^2. \]
+              <p>三维含时薛定谔方程为</p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}
+                 =\left[-\frac{\hbar^2}{2m}\nabla^2+V(\mathbf r,t)\right]\Psi. \]
+              <p class="step-why"><b>检查：</b>一维时 \(\nabla^2=\partial_x^2\)，回到第 11 步；三维动能仍是非负算符。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">波函数的概率诠释与归一化</div>
+            <div class="step-body">
+              <p>薛定谔方程只给出 \(\Psi\) 的演化，不直接说明 \(\Psi\) 是什么。玻恩的<a class="kp" data-kp="born-rule">统计诠释</a>规定：</p>
+              \[ \rho(x,t)=|\Psi(x,t)|^2 \]
+              <p>是概率密度，即在 \([x,x+\mathrm{d}x]\) 内发现粒子的概率为 \(\rho\,\mathrm{d}x\)。因此必须满足</p>
+              \[ \int_{-\infty}^{+\infty}|\Psi(x,t)|^2\,\mathrm{d}x=1. \]
+              <p>这就是<a class="kp" data-kp="normalization">归一化</a>条件；只有平方可积的波函数才能这样归一。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="probability-density">概率密度</a>、<a class="kp" data-kp="born-rule">玻恩规则</a>；详见 §1.2、§1.4。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">概率守恒：从方程推出连续性方程</div>
+            <div class="step-body">
+              <p>令 \(\rho=\Psi^*\Psi\)，对时间求导：</p>
+              \[ \partial_t\rho=(\partial_t\Psi^*)\Psi+\Psi^*(\partial_t\Psi). \]
+              <p>由薛定谔方程及其复共轭：</p>
+              \[ \partial_t\Psi=\frac{i\hbar}{2m}\partial_x^2\Psi-\frac{i}{\hbar}V\Psi,\qquad
+                 \partial_t\Psi^*=-\frac{i\hbar}{2m}\partial_x^2\Psi^*+\frac{i}{\hbar}V\Psi^*. \]
+              <p>代入后势能项相消：</p>
+              \[ \partial_t\rho=\frac{i\hbar}{2m}\left(\Psi^*\partial_x^2\Psi-\Psi\partial_x^2\Psi^*\right)
+                 =-\partial_x j, \]
+              <p>其中</p>
+              \[ j=\frac{\hbar}{2mi}\left(\Psi^*\partial_x\Psi-\Psi\partial_x\Psi^*\right). \]
+              <p>于是</p>
+              \[ \partial_t\rho+\partial_x j=0. \]
+              <p>这就是<a class="kp" data-kp="continuity">连续性方程</a>：概率不会凭空产生或消失，只会流动。</p>
+              <p class="step-why"><b>检查：</b>对全空间积分，若 \(j\) 在无穷远衰减，则 \(\frac{d}{dt}\int\rho\,dx=0\)，归一化不随时间改变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">边界条件与正则性</div>
+            <div class="step-body">
+              <p>解方程还需要边界条件。物理上要求：</p>
+              <ul>
+                <li>\(\Psi\) 在全空间连续（概率密度不能突变）；</li>
+                <li>在势能有限的地方，\(\partial_x\Psi\) 也连续（动能有限）；</li>
+                <li>\(\Psi\) 平方可积，无穷远处趋于 0；</li>
+                <li>无限深势阱的壁外 \(\Psi=0\)。</li>
+              </ul>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="boundary">边界条件</a>；这些条件不是方程本身，而是「波函数代表物理态」的附加要求。§2.2、§2.5 会反复用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">势能与时间无关时：分离出定态</div>
+            <div class="step-body">
+              <p>若 \(V=V(x)\)，设</p>
+              \[ \Psi(x,t)=\psi(x)\,e^{-\mathrm{i}Et/\hbar}. \]
+              <p>代入含时方程：左边 \(i\hbar(-\mathrm{i}E/\hbar)\Psi=E\Psi\)，右边 \(e^{-\mathrm{i}Et/\hbar}[-\frac{\hbar^2}{2m}\psi''+V\psi]\)。约去时间因子：</p>
+              \[ -\frac{\hbar^2}{2m}\frac{\mathrm{d}^2\psi}{\mathrm{d}x^2}+V(x)\psi=E\psi. \]
+              <p>这就是定态薛定谔方程；\(E\) 是能量本征值。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="stationary">定态</a>；详见 §2.1。注意分离变量要求 \(V\) 不显含 \(t\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由粒子极限：回到平面波</div>
+            <div class="step-body">
+              <p>令 \(V=0\)，定态方程变为</p>
+              \[ -\frac{\hbar^2}{2m}\psi''=E\psi, \]
+              <p>解为 \(\psi=e^{\pm ikx}\)，\(E=\hbar^2k^2/2m\)。加上时间因子就是第 2 步的平面波。</p>
+              <p>但平面波不平方可积，不能直接归一化；实际自由粒子要用波包（不同 \(k\) 的叠加）来描述。</p>
+              <p class="step-check"><b>检查：</b>\(k\) 任意连续，所以自由粒子能谱连续；束缚态才出现离散能级。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">经典极限：\(\hbar\to0\) 时回到牛顿力学</div>
+            <div class="step-body">
+              <p>当作用量远大于 \(\hbar\)、德布罗意波长远小于体系尺度时，波包的中心的运动满足经典方程；相位 \(S/\hbar\) 的梯度给出动量，哈密顿–雅可比方程出现。</p>
+              <p>这不是说「量子力学变成经典力学」，而是说经典力学是量子力学在 \(\hbar\to0\) 的近似；干涉/隧穿等效应在此极限下指数小。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="classical-limit">经典极限</a>；严格讨论见后续章节/教材补充。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>逐项检查方程 \(i\hbar\partial_t\Psi=[-\frac{\hbar^2}{2m}\partial_x^2+V]\Psi\) 的量纲（以焦耳 J 为单位）：</p>
+              <ul>
+                <li>\([\hbar\partial_t]=(\mathrm{J\cdot s})(\mathrm{s^{-1}})=\mathrm{J}\)；</li>
+                <li>\([\frac{\hbar^2}{2m}\partial_x^2]=\frac{(\mathrm{J\cdot s})^2}{\mathrm{kg}}\cdot\mathrm{m^{-2}}
+                  =\frac{\mathrm{J^2\cdot s^2}}{\mathrm{kg\cdot m^2}}=\mathrm{J}\)；</li>
+                <li>\([V]=\mathrm{J}\)。</li>
+              </ul>
+              <p>三项同量纲，方程成立。若把 \(\hbar\) 写成 \(h\)，会多出 \(2\pi\) 因子，量纲仍对但数值错。</p>
+              <p class="step-check"><b>检查：</b>这是最快发现「漏了 \(\hbar\)」或「\(\partial_x^2\) 写成 \(\partial_x\)」的方法。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">平面波不能直接归一化：需要波包</div>
+            <div class="step-body">
+              <p>\(\int_{-\infty}^{\infty}|Ae^{ikx}|^2dx=|A|^2\int dx=\infty\)，平面波不属于平方可积空间。物理上的自由粒子用波包</p>
+              \[ \Psi(x,0)=\int_{-\infty}^{\infty}\tilde\Psi(k)e^{ikx}\,\frac{\mathrm{d}k}{\sqrt{2\pi}} \]
+              <p>描述；不同 \(k\) 叠加后可以在有限区域归一化。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="normalization">归一化</a>、<a class="kp" data-kp="hilbert">希尔伯特空间</a>；严格处理见 §2.4、§3.1、§3.3。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">哪些是推导，哪些是假设？</div>
+            <div class="step-body">
+              <p><b>推导得到：</b>自由粒子的平面波满足 \(i\hbar\partial_t\Psi=-\frac{\hbar^2}{2m}\partial_x^2\Psi\)；这是德布罗意关系 + 非相对论色散的必然结果。</p>
+              <p><b>作为假设：</b>把自由粒子方程推广到任意 \(V(x,t)\)；玻恩概率诠释；波函数完全描述状态；测量公设。</p>
+              <p>所以「薛定谔方程不能从经典力学证明」这句话是对的；但「自由粒子情形可以从德布罗意关系猜出来」也是对的，两者不矛盾。</p>
+              <p class="step-why"><b>易错：</b>不要把「历史线索」当成「严格证明」；也不要把「基本假设」当成「凭空捏造」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结：方程、条件、常见错误</div>
+            <div class="step-body">
+              <p><b>方程：</b></p>
+              \[ i\hbar\frac{\partial\Psi}{\partial t}
+                 =\left[-\frac{\hbar^2}{2m}\nabla^2+V\right]\Psi. \]
+              <p><b>条件：</b>非相对论、单粒子、势场给定；\(\Psi\) 平方可积、满足边界条件。</p>
+              <p><b>常见错误：</b>① 把 \(\hbar\) 写成 \(h\)；② 时间也写成二阶；③ 把 \(V\) 当力；④ 以为平面波可以直接归一；⑤ 以为方程能由经典力学严格推出。</p>
+              <p class="step-check"><b>自检：</b>能否不看上面，独立写出方程、说出时间一阶/空间二阶的理由、并推出连续性方程？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2429,7 +2864,7 @@
 <footer>
   Griffiths《量子力学概论》第二版（中译本）· 课件范围：绪论、概率论与第 1–3 章<br>
   按「物理图像 — 推导脉络 — 关键结论 — 易错点」组织 · 每节标注原书页码与对应课件 · 供上课同步与考前复习使用<br>
-  <span style="opacity:.7">公式为 HTML 排版，无需联网；打印时推导块会自动展开</span>
+  <span style="opacity:.7">公式排版：新内容用本地 KaTeX（无需联网），旧内容为 HTML 排版；打印时推导块会自动展开</span>
 </footer>
 
 <script>
@@ -2736,8 +3171,9 @@ document.addEventListener('keydown', e => {
   if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
   if (e.key === 'Escape') { $('#q').value = ''; applyFilter(); setMode('all'); return; }
   const k = e.key.toLowerCase();
-  if (k === 'm') toggleMask();
-  else if (k === 'f') toggleMaskF();
+  if (k === 'm') toggleMaskMode('concl');
+  else if (k === 'f') toggleMaskMode('formula');
+  else if (k === 'r') toggleMaskMode('step');
   else if (k === 'd') toggleDark();
   else if (k === 'w') setMode(currentMode === 'warn' ? 'all' : 'warn');
   else if (k === 'k') setMode(currentMode === 'key' ? 'all' : 'key');
@@ -2807,6 +3243,264 @@ applyFilter();
     }
   }
 })();
+</script>
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<script>
+/* ===== 样卡：知识点弹卡 + 三套遮罩 + KaTeX ===== */
+(function () {
+  const KP = {
+    'debroglie': { title: '德布罗意关系', def: '物质波的基本关系：E = ħω，p = ħk。把粒子的能量/动量与波的频率/波数联系起来，是自由粒子薛定谔方程的出发点。', card: 's0a' },
+    'wavefunction': { title: '波函数', def: '描述量子态的复函数 Ψ(x,t)。本身不可直接观测，|Ψ|² 给出概率密度；必须平方可积并满足边界条件。', card: 's12', doc: 'book', page: 13, end: 15, printed: '1–3' },
+    'plane-wave': { title: '平面波', def: 'Ψ = A e^{i(kx−ωt)}，是自由粒子的动量本征态；不能直接归一化，实际自由粒子要用波包叠加。', card: 's24' },
+    'energy-op': { title: '能量算符', def: 'iħ∂/∂t。作用在波函数上给出能量本征值：iħ∂tΨ = EΨ（对定态/平面波）。', card: 's11', doc: 'book', page: 13, end: 13, printed: '1' },
+    'momentum-op': { title: '动量算符', def: 'p̂ = −iħ∂/∂x（三维为 −iħ∇）。它让平面波 e^{ikx} 的本征值为 ħk，且保证本征值为实数。', card: 's15' },
+    'dispersion': { title: '色散关系', def: '自由粒子 E = ħ²k²/2m，即 ω = ħk²/2m。它决定波包如何传播、相速度与群速度的区别。', card: 's24' },
+    'superposition': { title: '叠加原理', def: '若 Ψ₁、Ψ₂ 是解，则 c₁Ψ₁ + c₂Ψ₂ 也是解。概率幅相加会产生干涉，这是量子力学与经典概率的关键区别。', card: 's31' },
+    'potential': { title: '势能 V(x,t)', def: '外场对粒子的势能，不是力；力是 −∂V/∂x。薛定谔方程中 V 直接乘 Ψ，改变局部的相位演化。', card: 's11' },
+    'born-rule': { title: '玻恩统计诠释', def: '|Ψ(x,t)|² 是概率密度；单次测量不可预言，大量全同系统的结果服从该分布。Ψ 本身是概率幅。', card: 's12', doc: 'book', page: 13, end: 15, printed: '1–3' },
+    'probability-density': { title: '概率密度', def: 'ρ(x,t) = |Ψ|²，量纲为 1/长度；ρ dx 才是无量纲概率。节点处 ρ=0，发现粒子的概率为零。', card: 's12' },
+    'normalization': { title: '归一化', def: '∫|Ψ|²dx = 1，保证总概率为 1。只有平方可积的波函数才能归一；平面波不能直接归一。', card: 's14' },
+    'continuity': { title: '连续性方程', def: '∂tρ + ∂x j = 0，j = (ħ/2mi)(Ψ*∂xΨ − Ψ∂xΨ*) 是概率流密度。它表示概率守恒，来自薛定谔方程和复共轭。', card: 's12' },
+    'boundary': { title: '边界条件', def: 'Ψ 连续；势能有限处 ∂xΨ 连续；无穷远衰减；无限深阱壁外 Ψ=0。它们与方程一起决定能级和波函数。', card: 's22' },
+    'stationary': { title: '定态', def: 'V 不显含 t 时，Ψ = ψ(x)e^{−iEt/ħ}；|Ψ|² 不随时间变化，能量 E 有确定值。ψ 满足定态薛定谔方程。', card: 's21' },
+    'classical-limit': { title: '经典极限', def: 'ħ→0、波长远小于体系尺度时，波包中心遵循经典运动；经典力学是量子力学在宏观尺度的近似。', card: 's11' },
+    'hilbert': { title: '希尔伯特空间', def: '平方可积波函数构成的内积空间；态矢量、算符、本征展开都在这里定义。平面波不属于该空间，需用波包或广义本征态处理。', card: 's31' },
+    'operator': { title: '算符', def: '作用在波函数上、给出另一个波函数的线性映射；可观测量对应厄密算符，本征值实数、本征函数正交。', card: 's32' },
+    'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
+  };
+
+  let pop = null;
+  let currentKp = null;
+
+  function ensurePop() {
+    if (pop) return pop;
+    pop = document.createElement('div');
+    pop.className = 'kp-pop';
+    pop.innerHTML = '<h5></h5><p class="kp-def"></p><div class="kp-acts">' +
+      '<button type="button" data-act="card">跳到卡片</button>' +
+      '<button type="button" data-act="doc">教材页</button>' +
+      '<button type="button" data-act="close">关闭</button></div>';
+    document.body.appendChild(pop);
+    pop.addEventListener('click', function (e) {
+      const b = e.target.closest('button');
+      if (!b) return;
+      const act = b.getAttribute('data-act');
+      if (act === 'close') { closeKp(); return; }
+      if (!currentKp) return;
+      if (act === 'card') {
+        const card = document.getElementById(currentKp.card);
+        closeKp();
+        if (!card) return;
+        if (card.classList.contains('closed')) card.classList.remove('closed');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('flash');
+        setTimeout(function () { card.classList.remove('flash'); }, 1800);
+      } else if (act === 'doc' && currentKp.doc) {
+        const msg = {
+          type: 'open-doc', doc: currentKp.doc,
+          page: currentKp.page || 1, end: currentKp.end || 0,
+          printed: currentKp.printed || ''
+        };
+        closeKp();
+        try { parent.postMessage(msg, '*'); } catch (err) {}
+      }
+    });
+    return pop;
+  }
+
+  function closeKp() {
+    if (pop) pop.classList.remove('show');
+    currentKp = null;
+  }
+
+  function showKp(el, id) {
+    const info = KP[id];
+    if (!info) return;
+    ensurePop();
+    currentKp = info;
+    pop.querySelector('h5').textContent = info.title;
+    pop.querySelector('.kp-def').textContent = info.def;
+    const docBtn = pop.querySelector('[data-act="doc"]');
+    docBtn.style.display = info.doc ? '' : 'none';
+    pop.classList.add('show');
+    const r = el.getBoundingClientRect();
+    const w = pop.offsetWidth, h = pop.offsetHeight;
+    let left = Math.min(window.innerWidth - w - 12, Math.max(12, r.left));
+    let top = r.bottom + 8;
+    if (top + h > window.innerHeight - 12) top = Math.max(12, r.top - h - 8);
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+  }
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('.kp');
+    if (a) {
+      e.preventDefault();
+      showKp(a, a.getAttribute('data-kp'));
+      return;
+    }
+    if (pop && pop.classList.contains('show') && !pop.contains(e.target)) closeKp();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeKp();
+  });
+
+  /* ---------- 三套遮罩 ---------- */
+  const MASK_KEY = 'qm.outline.mask.v3';
+  const groups = {
+    concl: Array.from(document.querySelectorAll('.concl')),
+    formula: Array.from(document.querySelectorAll('.fml, .keyeq')),
+    step: Array.from(document.querySelectorAll('.step'))
+  };
+  let state = { modes: { concl: false, formula: false, step: false }, revealed: { concl: [], formula: [], step: [] } };
+  try {
+    const saved = JSON.parse(localStorage.getItem(MASK_KEY) || 'null');
+    if (saved) {
+      state.modes = Object.assign(state.modes, saved.modes || {});
+      state.revealed = Object.assign(state.revealed, saved.revealed || {});
+    }
+  } catch (err) {}
+
+  function saveMask() {
+    try { localStorage.setItem(MASK_KEY, JSON.stringify(state)); } catch (err) {}
+  }
+
+  groups.concl.concat(groups.formula, groups.step).forEach(function (el, i) {
+    el.classList.add('maskable');
+  });
+
+  Object.keys(groups).forEach(function (kind) {
+    groups[kind].forEach(function (el, idx) {
+      const card = el.closest('.card');
+      const id = (card ? card.id : 'x') + '-' + kind + '-' + idx;
+      el.setAttribute('data-mask-id', id);
+      el.setAttribute('data-mask-kind', kind);
+      if (kind === 'formula' && !el.classList.contains('keyeq')) return;
+      const eye = document.createElement('button');
+      eye.type = 'button';
+      eye.className = 'mask-eye';
+      eye.title = '遮住 / 显示';
+      eye.textContent = '👁';
+      eye.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+        toggleReveal(kind, id);
+      });
+      el.appendChild(eye);
+    });
+  });
+
+  function revealedList(kind) {
+    if (!Array.isArray(state.revealed[kind])) state.revealed[kind] = [];
+    return state.revealed[kind];
+  }
+  function toggleReveal(kind, id) {
+    if (!state.modes[kind]) state.modes[kind] = true;
+    const arr = revealedList(kind);
+    const i = arr.indexOf(id);
+    if (i >= 0) arr.splice(i, 1); else arr.push(id);
+    applyMask();
+  }
+  function toggleMode(kind) {
+    state.modes[kind] = !state.modes[kind];
+    state.revealed[kind] = [];
+    applyMask();
+  }
+  function revealAll() {
+    Object.keys(state.modes).forEach(function (k) { state.modes[k] = false; state.revealed[k] = []; });
+    applyMask();
+  }
+
+  function applyMask() {
+    let maskedTotal = 0, allTotal = 0;
+    Object.keys(groups).forEach(function (kind) {
+      const on = !!state.modes[kind];
+      document.body.classList.toggle('mask-' + kind, on);
+      const arr = revealedList(kind);
+      let masked = 0;
+      groups[kind].forEach(function (el) {
+        const id = el.getAttribute('data-mask-id');
+        const isMasked = on && arr.indexOf(id) < 0;
+        el.classList.toggle('masked', isMasked);
+        const eye = el.querySelector(':scope > .mask-eye');
+        if (eye) eye.classList.toggle('show', on);
+        if (isMasked) masked++;
+      });
+      maskedTotal += masked; allTotal += groups[kind].length;
+      const btn = document.getElementById(kind === 'concl' ? 'bMaskC' : kind === 'formula' ? 'bMaskF' : 'bMaskS');
+      if (btn) {
+        btn.classList.toggle('on', on);
+        const b = btn.querySelector('b');
+        if (b) b.textContent = (on ? masked : 0) + '/' + groups[kind].length;
+      }
+    });
+    const tip = document.getElementById('maskTip');
+    if (tip) {
+      const any = state.modes.concl || state.modes.formula || state.modes.step;
+      tip.classList.toggle('show', any);
+      if (any) {
+        tip.textContent = '自测模式：结论 ' + visibleCount('concl') + ' · 公式 ' + visibleCount('formula') +
+          ' · 推导 ' + visibleCount('step') + '；点击模糊块或 👁 逐个揭开，再点一次遮回。';
+      }
+    }
+    saveMask();
+  }
+  function visibleCount(kind) {
+    const on = !!state.modes[kind];
+    if (!on) return '0/' + groups[kind].length;
+    const arr = revealedList(kind);
+    let n = 0;
+    groups[kind].forEach(function (el) {
+      if (arr.indexOf(el.getAttribute('data-mask-id')) < 0) n++;
+    });
+    return n + '/' + groups[kind].length;
+  }
+
+  window.toggleMaskMode = toggleMode;
+  window.revealAllMasks = revealAll;
+
+  document.addEventListener('click', function (e) {
+    const el = e.target.closest('[data-mask-kind]');
+    if (!el) return;
+    if (e.target.closest('.mask-eye')) return;
+    if (e.target.closest('a')) return;
+    const kind = el.getAttribute('data-mask-kind');
+    if (!state.modes[kind]) return;
+    toggleReveal(kind, el.getAttribute('data-mask-id'));
+  });
+
+  applyMask();
+
+  /* ---------- 点击跳转高亮 ---------- */
+  document.querySelectorAll('.kp').forEach(function (a) {
+    const info = KP[a.getAttribute('data-kp')];
+    if (info) a.title = '点击查看知识点：' + info.title;
+  });
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a.loc, .kp');
+    if (!a) return;
+    a.classList.remove('jump-flash');
+    void a.offsetWidth;
+    a.classList.add('jump-flash');
+    setTimeout(function () { a.classList.remove('jump-flash'); }, 750);
+  }, true);
+
+  /* ---------- KaTeX ---------- */
+  if (window.renderMathInElement) {
+    try {
+      renderMathInElement(document.getElementById('main'), {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        strict: 'ignore'
+      });
+    } catch (err) { console.warn('KaTeX render failed', err); }
+  }
+})();
+
 </script>
 </body>
 </html>
