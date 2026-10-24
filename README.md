@@ -8,13 +8,15 @@
 
 ## 在线网页版
 
-部署完成后地址（GitHub Pages）：
+已上线（GitHub Pages）：
 
 ```
 https://thunderauthur-source.github.io/physics-review-reader/
 ```
 
-网页版是纯静态文件，不需要后端。入口在 `发布/网页版/`。
+仓库：<https://github.com/thunderauthur-source/physics-review-reader>
+
+网页版是纯静态文件，不需要后端。GitHub Pages 从仓库 `docs/` 目录发布；`发布/网页版/` 是同一份网页版的本地副本。
 
 ## 目录结构
 
@@ -25,7 +27,8 @@ https://thunderauthur-source.github.io/physics-review-reader/
 HTML/                     两份单文件可打印提纲
 发布/
   安装版/                 单文件安装包与说明（exe 放在 Releases）
-  网页版/                 静态网页版（GitHub Pages 从这里部署）
+  网页版/                 静态网页版的本地副本
+docs/                     GitHub Pages 发布目录（网页版）
 构建/                     数据生成、自检、安装器源码
 说明.txt                  本机版详细说明
 ```
@@ -44,7 +47,13 @@ python -m http.server 8080 --bind 127.0.0.1
 
 ### Windows 安装版
 
-`发布/安装版/物理复习提纲阅读器_v1.0_单文件版.exe`，首次运行会让用户选择安装位置（默认 `D:\物理复习提纲阅读器`），不自动装进 C 盘。
+下载地址（GitHub Releases）：
+
+```
+https://github.com/thunderauthur-source/physics-review-reader/releases/tag/v1.0
+```
+
+文件名 `PhysicsReader_v1.0_Installer.exe`，首次运行会让用户选择安装位置（默认 `D:\物理复习提纲阅读器`），不自动装进 C 盘。
 
 ## 构建
 
