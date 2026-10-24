@@ -2487,6 +2487,214 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s15">
+      <summary>完整推导 · 20 步：动量算符与 Ehrenfest 定理</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从「位置期望」出发，推出动量算符 \(\hat p=-i\hbar\partial_x\)、一般期望值公式，以及 Ehrenfest 定理。
+          约定：一维、归一化波函数；算符只作用在它右边的波函数上。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">位置期望值</div>
+            <div class="step-body">
+              <p>由<a class="kp" data-kp="expectation">概率密度</a> \(\rho=|\Psi|^2\)：</p>
+              \[ \langle x\rangle=\int_{-\infty}^{+\infty}x|\Psi(x,t)|^2\,\mathrm{d}x
+                 =\int \Psi^*\,x\,\Psi\,\mathrm{d}x. \]
+              <p>这可以看成「\(\Psi^*\) 夹住算符 \(x\)」：\(\langle x\rangle=\langle\Psi|\hat x|\Psi\rangle\)。</p>
+              <p class="step-why"><b>依据：</b>概率论期望值；算符 \(\hat x=x\) 只是乘法。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量没有「位置函数」形式</div>
+            <div class="step-body">
+              <p>动量不是 \(x\) 的函数，不能写 \(p(x)\)；在位置表象里，它必须是一个微分算符。先看平面波：</p>
+              \[ \Psi_p(x)=A e^{ipx/\hbar}. \]
+              <p>对它求导：</p>
+              \[ -i\hbar\frac{\mathrm{d}}{\mathrm{d}x}\Psi_p=p\,\Psi_p. \]
+              <p>所以 \(p\) 对应 \(-i\hbar\partial_x\)。</p>
+              <p class="step-why"><b>为什么带 \(-i\)：</b>要让 \(e^{ipx/\hbar}\) 的本征值为实数 \(p\)，系数必须是 \(-i\hbar\)；\(+i\hbar\) 会给 \(-p\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="momentum-op">动量算符</a></div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ \hat p=-\mathrm{i}\hbar\frac{\partial}{\partial x}. \]
+              <p>它作用在任意波函数上，不要求平面波；平面波只是它的本征态。</p>
+              <p>三维：\(\hat{\mathbf p}=-\mathrm{i}\hbar\nabla\)。</p>
+              <p class="step-check"><b>检查：</b>\(\hat p\) 是反厄密的？不，\(-i\hbar\partial_x\) 是厄密的（分部积分可证），所以 \(\langle p\rangle\) 为实数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="expectation">动量期望值</a></div>
+            <div class="step-body">
+              <p>把算符夹在 \(\Psi^*\) 与 \(\Psi\) 之间：</p>
+              \[ \langle p\rangle=\int \Psi^*\left(-\mathrm{i}\hbar\frac{\partial}{\partial x}\right)\Psi\,\mathrm{d}x. \]
+              <p>注意 \(\Psi^*\) 不被求导；算符只作用在右边的 \(\Psi\) 上。</p>
+              <p class="step-why"><b>与位置对比：</b>\(\langle x\rangle=\int\Psi^*x\Psi\)，\(\langle p\rangle=\int\Psi^*(-i\hbar\partial_x)\Psi\)；统一为 \(\langle Q\rangle=\int\Psi^*\hat Q\Psi\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一般力学量的期望值</div>
+            <div class="step-body">
+              <p>若 \(\hat Q\) 是 \(x\) 与 \(-i\hbar\partial_x\) 的函数，则</p>
+              \[ \langle Q\rangle=\int \Psi^*\,\hat Q\left(x,-\mathrm{i}\hbar\partial_x\right)\Psi\,\mathrm{d}x. \]
+              <p>常见算符：</p>
+              \[ \hat x=x,\quad \hat p=-\mathrm{i}\hbar\partial_x,\quad
+                 \hat T=-\frac{\hbar^2}{2m}\partial_x^2,\quad \hat H=\hat T+V(x). \]
+              <p class="step-check"><b>检查：</b>算符的顺序不能随意交换，因为 \(\hat x\hat p\ne\hat p\hat x\)（下一步）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对易子 \([x,p]\)</div>
+            <div class="step-body">
+              <p>把它作用在任意 \(\Psi\) 上：</p>
+              \[ [\hat x,\hat p]\Psi=\hat x(\hat p\Psi)-\hat p(\hat x\Psi). \]
+              <p>第一项：\(x(-\mathrm{i}\hbar\Psi')=-\mathrm{i}\hbar x\Psi'\)；第二项：\(-\mathrm{i}\hbar(x\Psi)'=-\mathrm{i}\hbar(\Psi+x\Psi')\)。相减得</p>
+              \[ [\hat x,\hat p]\Psi=\mathrm{i}\hbar\Psi,\qquad [\hat x,\hat p]=\mathrm{i}\hbar. \]
+              <p class="step-why"><b>意义：</b>这是不确定原理的代数根源；也是为什么 \(x,p\) 不能同时有确定值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置期望值的时间导数</div>
+            <div class="step-body">
+              <p>由连续性方程 \(\partial_t\rho+\partial_x j=0\)：</p>
+              \[ \frac{\mathrm{d}\langle x\rangle}{\mathrm{d}t}
+                 =\int x\,\partial_t\rho\,\mathrm{d}x
+                 =-\int x\,\partial_x j\,\mathrm{d}x. \]
+              <p>分部积分，边界项为零：</p>
+              \[ \frac{\mathrm{d}\langle x\rangle}{\mathrm{d}t}=\int j\,\mathrm{d}x. \]
+              <p class="step-why"><b>前提：</b>\(\Psi\) 平方可积、\(j\) 在无穷远衰减；否则边界项不为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入概率流</div>
+            <div class="step-body">
+              <p>概率流：</p>
+              \[ j=\frac{\hbar}{2m\mathrm{i}}\left(\Psi^*\Psi'-\Psi\Psi^{*'}\right). \]
+              <p>对第二项分部积分：</p>
+              \[ \int\Psi\Psi^{*'}\mathrm{d}x=-\int\Psi^{*}\Psi'\mathrm{d}x, \]
+              <p>所以</p>
+              \[ \int j\,\mathrm{d}x=\frac{\hbar}{m\mathrm{i}}\int\Psi^*\Psi'\,\mathrm{d}x
+                 =\frac{1}{m}\int\Psi^*\left(-\mathrm{i}\hbar\partial_x\right)\Psi\,\mathrm{d}x
+                 =\frac{\langle p\rangle}{m}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">Ehrenfest 第一式</div>
+            <div class="step-body">
+              <p>合并第 7、8 步：</p>
+              \[ \frac{\mathrm{d}\langle x\rangle}{\mathrm{d}t}=\frac{\langle p\rangle}{m}. \]
+              <p>形式上就是经典关系 \(dx/dt=p/m\)，但这里是期望值之间的关系。</p>
+              <p class="step-why"><b>注意：</b>不能因此说「粒子有轨迹」；\(\langle x\rangle\) 是系综平均，单次测量仍随机。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量期望值的时间导数</div>
+            <div class="step-body">
+              <p>对 \(\langle p\rangle=\int\Psi^*(-\mathrm{i}\hbar\partial_x)\Psi\) 求导，代入薛定谔方程及其共轭，分部积分、丢边界项。关键是势能项 \(V\) 不再完全相消，留下</p>
+              \[ \frac{\mathrm{d}\langle p\rangle}{\mathrm{d}t}
+                 =-\left\langle \frac{\partial V}{\partial x}\right\rangle
+                 =\langle F\rangle. \]
+              <p class="step-why"><b>物理：</b>动量期望的变化率等于力的期望；量子力学在平均意义上满足牛顿第二定律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">Ehrenfest 第二式</div>
+            <div class="step-body">
+              <p>合并：</p>
+              \[ m\frac{\mathrm{d}^2\langle x\rangle}{\mathrm{d}t^2}
+                 =m\frac{\mathrm{d}}{\mathrm{d}t}\frac{\langle p\rangle}{m}
+                 =\frac{\mathrm{d}\langle p\rangle}{\mathrm{d}t}
+                 =\left\langle -\frac{\partial V}{\partial x}\right\rangle. \]
+              <p>这就是 Ehrenfest 定理：</p>
+              \[ m\frac{\mathrm{d}^2\langle x\rangle}{\mathrm{d}t^2}=\langle F(x)\rangle. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么不是「经典轨迹」</div>
+            <div class="step-body">
+              <p>经典方程是 \(m\ddot x=F(x)\)，右边是「在轨迹那一点取力」；量子方程是 \(\langle F(x)\rangle\)，即对概率分布取平均。</p>
+              <p>只有当 \(F(x)\) 在波包范围内近似线性（或波包很窄）时，\(\langle F(x)\rangle\approx F(\langle x\rangle)\)，才恢复经典轨迹。</p>
+              <p class="step-check"><b>反例：</b>波包分裂到势垒两侧时，\(\langle x\rangle\) 可能落在势垒内，但粒子从未在那里；此时不能谈「轨迹」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量空间的波函数</div>
+            <div class="step-body">
+              <p>把 \(\Psi(x)\) 做傅里叶变换：</p>
+              \[ \tilde\Psi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int e^{-\mathrm{i}px/\hbar}\Psi(x)\,\mathrm{d}x. \]
+              <p>则 \(\langle p\rangle=\int p|\tilde\Psi(p)|^2\mathrm{d}p\)，\(\langle p^2\rangle=\int p^2|\tilde\Psi|^2\mathrm{d}p\)。</p>
+              <p class="step-why"><b>用途：</b>动量分布的计算常比在 \(x\) 表象里分部积分更简单。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：高斯波包的动量期望</div>
+            <div class="step-body">
+              <p>设 \(\Psi(x)=Ae^{-x^2/(2a^2)}e^{\mathrm{i}p_0x/\hbar}\)。位置分布是高斯，中心 0；动量分布也是高斯，中心 \(p_0\)：</p>
+              \[ \langle x\rangle=0,\qquad \langle p\rangle=p_0. \]
+              <p>方差：\(\sigma_x^2=a^2/2\)，\(\sigma_p^2=\hbar^2/(2a^2)\)，乘积 \(\hbar/2\)。</p>
+              <p class="step-check"><b>检查：</b>给波函数乘 \(e^{ip_0x/\hbar}\) 只平移动量分布，不改变位置分布。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">算符的厄密性与实期望</div>
+            <div class="step-body">
+              <p>可观测量对应厄密算符：\(\hat Q^\dagger=\hat Q\)。对任意 \(\Psi\)，</p>
+              \[ \langle Q\rangle^*=\left(\int\Psi^*\hat Q\Psi\right)^*
+                 =\int\Psi(\hat Q\Psi)^*=\int\Psi^*\hat Q^\dagger\Psi=\langle Q\rangle. \]
+              <p>所以期望值必为实数；若算出复数，检查算符是否漏了共轭/边界项。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hermitian">厄密算符</a>、<a class="kp" data-kp="operator">算符</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动能期望</div>
+            <div class="step-body">
+              <p>\(\hat T=-\frac{\hbar^2}{2m}\partial_x^2\)，所以</p>
+              \[ \langle T\rangle=-\frac{\hbar^2}{2m}\int\Psi^*\Psi''\,\mathrm{d}x
+                 =\frac{\hbar^2}{2m}\int|\Psi'|^2\,\mathrm{d}x\ge0. \]
+              <p>分部积分把二阶导搬到 \(\Psi^*\) 上，并丢掉边界项；被积函数 \(|\Psi'|^2\) 非负。</p>
+              <p class="step-check"><b>检查：</b>动能期望不可能为负；若算出负值，说明分部积分符号错了。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="commutator">守恒量</a></div>
+            <div class="step-body">
+              <p>若 \(\hat Q\) 不显含 \(t\) 且 \([\hat Q,\hat H]=0\)，则</p>
+              \[ \frac{\mathrm{d}\langle Q\rangle}{\mathrm{d}t}=0. \]
+              <p>这就是「与哈密顿量对易的算符对应守恒量」；例如自由粒子 \(\hat p\) 与 \(\hat H\) 对易，动量守恒。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="commutator">对易子</a>；严格证明见 §3.5。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">经典极限</div>
+            <div class="step-body">
+              <p>当波包很窄、势能变化尺度远大于波包宽度时，\(\langle F(x)\rangle\approx F(\langle x\rangle)\)，Ehrenfest 方程退化为牛顿方程。</p>
+              <p>这不是「量子力学变成经典」，而是经典轨迹作为波包中心的近似。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="classical-limit">经典极限</a>、<a class="kp" data-kp="wavepacket">波包</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>\([\hat p]=[\hbar\partial_x]=\mathrm{J\cdot s/m}=\mathrm{kg\cdot m/s}\)，正确。</p>
+              <p>\([\hat T]=[\hbar^2/2m\,\partial_x^2]=\mathrm{J}\)，正确。</p>
+              <p>\([\langle p\rangle]=\mathrm{kg\cdot m/s}\)；若算出长度量纲，说明漏了 \(\hbar\) 或除以了质量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\langle Q\rangle=\int\Psi^*\hat Q\Psi\)，\(\hat p=-\mathrm{i}\hbar\partial_x\)。</p>
+              <p><b>Ehrenfest：</b>\(d\langle x\rangle/dt=\langle p\rangle/m\)，\(m d^2\langle x\rangle/dt^2=\langle F\rangle\)。</p>
+              <p><b>常见错误：</b>算符只乘不同导、\(\Psi^*\) 漏共轭、把期望值当单次测量、忘记边界项。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2540,6 +2748,212 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       <p style="margin-top:8px">严格证明（§3.5）：由施瓦茨不等式 + 对易子 <span class="m">[x̂, p̂] = iħ</span>，得 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>；取等号的条件是波函数为高斯型 —— 即「最小不确定波包」。</p>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s16">
+      <summary>完整推导 · 20 步：不确定原理的证明与边界</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从对易子 \([\hat x,\hat p]=i\hbar\) 证明 \(\sigma_x\sigma_p\ge\hbar/2\)，并说明等式条件、能量–时间版本和常见误解。
+          约定：\(\sigma_A^2=\langle(\hat A-\langle A\rangle)^2\rangle\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">波包的位置宽度与动量宽度</div>
+            <div class="step-body">
+              <p><a class="kp" data-kp="wavepacket">波包</a>在位置空间有一定宽度 \(\sigma_x\)，在动量空间也有宽度 \(\sigma_p\)。二者不是独立可调的：位置越窄，动量越宽。</p>
+              <p>傅里叶变换已经把这一点编码进去：窄函数 ↔ 宽频谱。</p>
+              <p class="step-why"><b>目标：</b>把这个直觉变成不等式 \(\sigma_x\sigma_p\ge\hbar/2\)，并找到取等号的态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="standard-deviation">标准差</a>的定义</div>
+            <div class="step-body">
+              <p>对任意厄密算符 \(\hat A\)：</p>
+              \[ \sigma_A^2=\langle(\hat A-\langle A\rangle)^2\rangle
+                 =\langle A^2\rangle-\langle A\rangle^2. \]
+              <p>\(\sigma_A\) 是测量结果的统计散布，不是「测量误差」，也不是「仪器精度」。</p>
+              <p class="step-check"><b>检查：</b>\(\sigma_A^2\ge0\)；若为负，说明算符不厄密或计算错。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">把偏差写成态矢量</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ |f\rangle=(\hat x-\langle x\rangle)|\Psi\rangle,\qquad
+                 |g\rangle=(\hat p-\langle p\rangle)|\Psi\rangle. \]
+              <p>则</p>
+              \[ \langle f|f\rangle=\sigma_x^2,\qquad \langle g|g\rangle=\sigma_p^2. \]
+              <p class="step-why"><b>为什么这样做：</b>把「散布」变成两个矢量的长度，才能用内积不等式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">柯西–施瓦茨不等式</div>
+            <div class="step-body">
+              <p>对任意两个矢量：</p>
+              \[ \langle f|f\rangle\langle g|g\rangle\ge|\langle f|g\rangle|^2. \]
+              <p>所以</p>
+              \[ \sigma_x^2\sigma_p^2\ge|\langle f|g\rangle|^2. \]
+              <p class="step-why"><b>取等条件：</b>\(|g\rangle=\lambda|f\rangle\)，即两个偏差矢量平行；后面会看到这对应高斯波包。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">展开内积 \(\langle f|g\rangle\)</div>
+            <div class="step-body">
+              <p>用 \(\hat x,\hat p\) 厄密：</p>
+              \[ \langle f|g\rangle
+                 =\langle\Psi|(\hat x-\langle x\rangle)(\hat p-\langle p\rangle)|\Psi\rangle. \]
+              <p>展开：</p>
+              \[ \langle f|g\rangle
+                 =\langle \hat x\hat p\rangle-\langle x\rangle\langle p\rangle. \]
+              <p>注意算符顺序：\(\hat x\hat p\) 不能换成 \(\hat p\hat x\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">取虚部</div>
+            <div class="step-body">
+              <p>对任意复数 \(z\)，\(|z|^2\ge(\operatorname{Im}z)^2\)。把 \(\langle f|g\rangle\) 写成实部+虚部：</p>
+              \[ \langle f|g\rangle=\frac12\left(\langle f|g\rangle+\langle g|f\rangle\right)
+                 +\frac12\left(\langle f|g\rangle-\langle g|f\rangle\right). \]
+              <p>第二项是纯虚数；其虚部为</p>
+              \[ \operatorname{Im}\langle f|g\rangle
+                 =\frac{1}{2\mathrm{i}}\langle [\hat x,\hat p]\rangle. \]
+              <p>这里用了 \(\langle g|f\rangle=\langle f|g\rangle^*\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入<a class="kp" data-kp="commutator">对易子</a></div>
+            <div class="step-body">
+              <p>\([\hat x,\hat p]=\mathrm{i}\hbar\)，所以</p>
+              \[ \operatorname{Im}\langle f|g\rangle
+                 =\frac{1}{2\mathrm{i}}\,\mathrm{i}\hbar=\frac{\hbar}{2}. \]
+              <p>于是</p>
+              \[ \sigma_x^2\sigma_p^2\ge\left(\frac{\hbar}{2}\right)^2. \]
+              <p>开方（\(\sigma\ge0\)）：</p>
+              \[ \boxed{\sigma_x\sigma_p\ge\frac{\hbar}{2}}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等式条件：<a class="kp" data-kp="gaussian">高斯波包</a></div>
+            <div class="step-body">
+              <p>柯西–施瓦茨取等要求 \(|g\rangle=\lambda|f\rangle\)。在位置表象：</p>
+              \[ -\mathrm{i}\hbar\frac{\mathrm{d}}{\mathrm{d}x}\Psi-\langle p\rangle\Psi
+                 =\lambda\left(x-\langle x\rangle\right)\Psi. \]
+              <p>这是一阶线性微分方程，解为</p>
+              \[ \Psi(x)=A\exp\left[-\frac{(x-\langle x\rangle)^2}{2\sigma_x^2}
+                 +\mathrm{i}\frac{\langle p\rangle}{\hbar}x\right]. \]
+              <p>即高斯波包；它的 \(\sigma_x\sigma_p=\hbar/2\)，达到下界。</p>
+              <p class="step-check"><b>检查：</b>高斯波包是「最小不确定态」；任何其他形状都更宽。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么是 \(\hbar/2\) 而不是 \(\hbar\)</div>
+            <div class="step-body">
+              <p>\(\hbar/2\) 来自对易子的虚部：\(\operatorname{Im}\langle [x,p]\rangle/2=\hbar/2\)。如果错误地把对易子当成 \(\hbar\) 而忘记 \(1/2\)，会得到 \(\sigma_x\sigma_p\ge\hbar\)，数值差一倍。</p>
+              <p>高斯波包的实际乘积正好是 \(\hbar/2\)，可作为记忆锚点。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一般算符的不确定关系</div>
+            <div class="step-body">
+              <p>对任意两个厄密算符：</p>
+              \[ \sigma_A\sigma_B\ge\frac12\left|\langle[\hat A,\hat B]\rangle\right|. \]
+              <p>推导完全平行：把 \(\hat A-\langle A\rangle\)、\(\hat B-\langle B\rangle\) 当矢量，取内积虚部。</p>
+              <p class="step-why"><b>用途：</b>\([\hat x,\hat p]=i\hbar\) 只是最重要特例；角动量分量、能量–时间等都用这个框架。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量–时间不确定关系</div>
+            <div class="step-body">
+              <p>时间不是算符（在标准量子力学里是参数），所以 \(\sigma_E\sigma_t\ge\hbar/2\) 的解释不同：\(\sigma_t\) 常取态的寿命 \(\tau\) 或演化时标。</p>
+              <p>对寿命 \(\tau\) 的态，能量宽度满足</p>
+              \[ \Delta E\,\tau\sim\hbar. \]
+              <p>这不是「测量时间与能量不能同时准确」，而是「短寿命态必然有宽能量分布」。</p>
+              <p class="step-why"><b>例子：</b>不稳定粒子的衰变宽度、激发态谱线宽度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：单缝衍射</div>
+            <div class="step-body">
+              <p>缝宽 \(a\) 限制位置：\(\sigma_x\sim a\)。衍射角 \(\theta\sim\lambda/a\)，横向动量展宽 \(\sigma_p\sim p\theta\sim h/a\)。</p>
+              <p>所以 \(\sigma_x\sigma_p\sim a\cdot h/a=h\)，数量级满足 \(\ge\hbar/2\)（差 \(2\pi\) 是估算精度）。</p>
+              <p class="step-check"><b>用途：</b>这是不确定原理最直观的实验体现，不是「仪器扰动」造成的。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：原子基态能量</div>
+            <div class="step-body">
+              <p>电子被束缚在尺度 \(a\) 内：\(\sigma_x\sim a\)，\(\sigma_p\sim\hbar/a\)。能量</p>
+              \[ E\sim\frac{\hbar^2}{2ma^2}-\frac{e^2}{4\pi\epsilon_0 a}. \]
+              <p>对 \(a\) 求极小：</p>
+              \[ \frac{\mathrm{d}E}{\mathrm{d}a}=-\frac{\hbar^2}{ma^3}+\frac{e^2}{4\pi\epsilon_0 a^2}=0
+                 \Rightarrow a=\frac{4\pi\epsilon_0\hbar^2}{me^2}=a_0. \]
+              <p>代入得 \(E\sim-13.6\,\mathrm{eV}\)，数量级正确。</p>
+              <p class="step-why"><b>意义：</b>不确定原理阻止电子塌进核，给出原子尺度的基础。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">「测量扰动」不是唯一来源</div>
+            <div class="step-body">
+              <p>不确定原理不是「测量把粒子踢了一下」；它是态本身的统计散布。即使不做测量，\(\Psi\) 也没有同时确定的 \(x,p\)。</p>
+              <p>测量扰动（Heisenberg 显微镜）只是帮助理解的图像，不是原理的证明。</p>
+              <p class="step-why"><b>易错：</b>把 \(\sigma_x\) 说成「测量误差」、把 \(\sigma_p\) 说成「仪器精度」都不准确。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与「同时测量」的区别</div>
+            <div class="step-body">
+              <p>标准不确定关系说的是「制备在同一个态上，分别测 \(x\) 和 \(p\) 的统计散布」。还存在「联合测量」的不确定关系（如 Arthurs–Kelly），形式不同，不要混用。</p>
+              <p>考试若问「能否同时测准」，标准答案是：不能制备出 \(\sigma_x=\sigma_p=0\) 的态；单次同时测量的精度受额外限制。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>\([\sigma_x]=L\)，\([\sigma_p]=M L/T\)，乘积 \(M L^2/T\)，与 \([\hbar]\) 相同。所以 \(\sigma_x\sigma_p\ge\hbar/2\) 量纲正确。</p>
+              <p>若把 \(\hbar\) 写成 \(h\)，数值会差 \(2\pi\)，量纲仍对，不能靠量纲发现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见误解</div>
+            <div class="step-body">
+              <ul>
+                <li>「不确定原理是因为测量不准」——错；是态的内禀性质。</li>
+                <li>「\(\sigma_x\sigma_p\ge\hbar/2\) 对所有态都取等号」——只有高斯取等。</li>
+                <li>「时间–能量关系与 \(x\)–\(p\) 完全一样」——时间不是算符，解释不同。</li>
+                <li>「粒子有确定的位置和动量，只是我们不知道」——标准量子力学否定隐变量式的说法。</li>
+                <li>「\(\hbar/2\) 可以换成 \(\hbar\)」——差一倍，数值题会扣分。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与 Ehrenfest 定理的关系</div>
+            <div class="step-body">
+              <p>Ehrenfest 定理说期望值满足经典方程；不确定原理说散布不能同时为零。两者不矛盾：期望可以走经典轨迹，但波包仍有宽度。</p>
+              <p>当 \(\hbar\to0\) 或波包相对体系尺度极窄时，散布可忽略，经典轨迹出现。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="uncertainty-principle">不确定原理</a>、<a class="kp" data-kp="classical-limit">经典极限</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">角动量不确定关系</div>
+            <div class="step-body">
+              <p>由对易子 \([\hat L_x,\hat L_y]=\mathrm{i}\hbar\hat L_z\)，套用一般公式：</p>
+              \[ \sigma_{L_x}\sigma_{L_y}\ge\frac{\hbar}{2}\left|\langle L_z\rangle\right|. \]
+              <p>若 \(L_z\) 有确定值，\(L_x,L_y\) 不能同时确定；这是角动量分量不能同时有确定值的代数原因。</p>
+              <p class="step-why"><b>用途：</b>原子磁矩、旋转谱带、角动量耦合都会用到；与 \(x,p\) 的关系同构。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\sigma_x\sigma_p\ge\hbar/2\)，来自 \([\hat x,\hat p]=i\hbar\)。</p>
+              <p><b>取等：</b>高斯波包；\(\sigma_x\sigma_p=\hbar/2\)。</p>
+              <p><b>一般：</b>\(\sigma_A\sigma_B\ge\frac12|\langle[\hat A,\hat B]\rangle|\)；时间–能量用寿命解释。</p>
+              <p><b>自检：</b>能否不看上面，用柯西–施瓦茨不等式复述证明的三步？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2602,6 +3016,206 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s21">
+      <summary>完整推导 · 20 步：分离变量与定态</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：当 \(V=V(x)\) 时，把含时薛定谔方程拆成「时间方程 + 空间本征值方程」，并证明定态的性质、正交归一与叠加展开。
+          约定：一维、束缚态 \(\psi\) 平方可积；\(E\) 为分离常数。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">前提：势能不显含时间</div>
+            <div class="step-body">
+              <p>若 \(V=V(x)\)，含时方程</p>
+              \[ \mathrm{i}\hbar\frac{\partial\Psi}{\partial t}
+                 =\left[-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}+V(x)\right]\Psi \]
+              <p>中不含 \(t\) 的显式项，允许尝试分离变量。</p>
+              <p class="step-why"><b>反例：</b>若 \(V=V(x,t)\)（如激光场、时变阱），不能设 \(\Psi=\psi(x)\phi(t)\)，必须解完整含时方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">乘积试探解</div>
+            <div class="step-body">
+              <p>设</p>
+              \[ \Psi(x,t)=\psi(x)\,\phi(t). \]
+              <p>这不是假设「所有解都可分离」，而是先找一类特殊解；后面用叠加构造一般解。</p>
+              <p class="step-why"><b>策略：</b>先找本征解（基），再展开任意态；这是线性方程的标准解法。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入并求导</div>
+            <div class="step-body">
+              <p>\(\partial_t\Psi=\psi\phi'\)，\(\partial_x^2\Psi=\psi''\phi\)。代入：</p>
+              \[ \mathrm{i}\hbar\,\psi\phi'
+                 =-\frac{\hbar^2}{2m}\psi''\phi+V(x)\psi\phi. \]
+              <p>两边除以 \(\psi\phi\)（在 \(\Psi\ne0\) 的区域）：</p>
+              \[ \mathrm{i}\hbar\frac{\phi'}{\phi}
+                 =-\frac{\hbar^2}{2m}\frac{\psi''}{\psi}+V(x). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分离变量：两边只能等于常数</div>
+            <div class="step-body">
+              <p>左边只含 \(t\)，右边只含 \(x\)。要对所有 \(x,t\) 成立，两边必须等于同一个常数，记为 \(E\)：</p>
+              \[ \mathrm{i}\hbar\frac{\phi'}{\phi}=E,\qquad
+                 -\frac{\hbar^2}{2m}\frac{\psi''}{\psi}+V(x)=E. \]
+              <p class="step-why"><b>为什么：</b>固定 \(t\) 让 \(x\) 变，左边不变，所以右边是常数；反之亦然。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">时间方程</div>
+            <div class="step-body">
+              <p>\(\mathrm{i}\hbar\phi'=E\phi\)，解为</p>
+              \[ \phi(t)=C e^{-\mathrm{i}Et/\hbar}. \]
+              <p>把常数 \(C\) 吸收进 \(\psi\)，取</p>
+              \[ \phi(t)=e^{-\mathrm{i}Et/\hbar}. \]
+              <p class="step-check"><b>检查：</b>\(|\phi|^2=1\)，时间部分只贡献相位，不改变概率。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">空间方程：<a class="kp" data-kp="stationary">定态薛定谔方程</a></div>
+            <div class="step-body">
+              <p>整理右边：</p>
+              \[ -\frac{\hbar^2}{2m}\psi''+V(x)\psi=E\psi. \]
+              <p>写成算符形式：</p>
+              \[ \hat H\psi=E\psi,\qquad \hat H=-\frac{\hbar^2}{2m}\frac{\mathrm{d}^2}{\mathrm{d}x^2}+V(x). \]
+              <p>这是 \(\hat H\) 的本征值方程；\(E\) 是本征值，\(\psi\) 是本征函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="boundary">边界条件</a>把微分方程变成本征值问题</div>
+            <div class="step-body">
+              <p>仅有方程还不够，需要边界条件：\(\psi\) 连续、\(\psi'\) 在势能有限处连续、无穷远衰减、无限深阱壁外 \(\psi=0\)。</p>
+              <p>只有某些离散的 \(E\) 才能同时满足方程和边界条件；这些 \(E\) 就是允许能级。</p>
+              <p class="step-why"><b>与经典对比：</b>经典粒子能量可连续；束缚态的量子能级通常离散，来源是边界条件 + 平方可积。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="stationary">定态</a>的概率密度不随时间变</div>
+            <div class="step-body">
+              <p>把 \(\Psi=\psi e^{-\mathrm{i}Et/\hbar}\) 代入：</p>
+              \[ |\Psi(x,t)|^2=|\psi(x)e^{-\mathrm{i}Et/\hbar}|^2=|\psi(x)|^2. \]
+              <p>时间相位模为 1，完全抵消；因此所有位置概率、期望值都不随时间变。</p>
+              <p class="step-check"><b>注意：</b>「定态」不是「波函数不随时间变」；波函数仍有相位 \(e^{-\mathrm{i}Et/\hbar}\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量完全确定</div>
+            <div class="step-body">
+              <p>定态下：</p>
+              \[ \langle H\rangle=\int\psi^*\hat H\psi\,\mathrm{d}x
+                 =E\int|\psi|^2\mathrm{d}x=E, \]
+              \[ \langle H^2\rangle=\int\psi^*\hat H^2\psi\,\mathrm{d}x
+                 =E^2\int|\psi|^2\mathrm{d}x=E^2. \]
+              <p>所以 \(\sigma_H^2=\langle H^2\rangle-\langle H\rangle^2=0\)；每次测能量都得 \(E\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">厄密性保证能级为实数</div>
+            <div class="step-body">
+              <p>\(\hat H\) 是厄密算符：对任意 \(\psi,\phi\)，</p>
+              \[ \int\psi^*(\hat H\phi)\,\mathrm{d}x=\int(\hat H\psi)^*\phi\,\mathrm{d}x. \]
+              <p>取 \(\phi=\psi\) 得 \(\langle H\rangle=\langle H\rangle^*\)，所以 \(E\) 为实数。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hermitian">厄密算符</a>；否则「能量」没有物理意义。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不同能级的<a class="kp" data-kp="eigenfunction">本征函数</a>正交</div>
+            <div class="step-body">
+              <p>设 \(\hat H\psi_n=E_n\psi_n\)，\(\hat H\psi_m=E_m\psi_m\)。计算：</p>
+              \[ \int\psi_m^*\hat H\psi_n\,\mathrm{d}x=E_n\int\psi_m^*\psi_n\,\mathrm{d}x, \]
+              \[ \int(\hat H\psi_m)^*\psi_n\,\mathrm{d}x=E_m\int\psi_m^*\psi_n\,\mathrm{d}x. \]
+              <p>两式左边相等（厄密性），相减：</p>
+              \[ (E_n-E_m)\int\psi_m^*\psi_n\,\mathrm{d}x=0. \]
+              <p>若 \(E_n\ne E_m\)，则 \(\int\psi_m^*\psi_n=0\)：正交。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">简并情形</div>
+            <div class="step-body">
+              <p>若 \(E_n=E_m\)（简并），上面的论证不能直接给正交；但可以对简并子空间做 Gram–Schmidt 正交化，仍可选出正交基。</p>
+              <p>一维束缚态通常非简并；二维/三维或对称势可能出现简并。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="degeneracy">简并</a>；不要看到「同能级」就断言波函数一定正交。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化</div>
+            <div class="step-body">
+              <p>对每个束缚态取</p>
+              \[ \int_{-\infty}^{+\infty}|\psi_n(x)|^2\,\mathrm{d}x=1. \]
+              <p>于是正交归一：</p>
+              \[ \langle\psi_m|\psi_n\rangle=\delta_{mn}. \]
+              <p class="step-check"><b>检查：</b>归一化后 \(\Psi_n=\psi_ne^{-\mathrm{i}E_nt/\hbar}\) 也自动归一化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一般解是本征态的<a class="kp" data-kp="superposition">叠加</a></div>
+            <div class="step-body">
+              <p>因为方程线性，任意解可展开：</p>
+              \[ \Psi(x,t)=\sum_n c_n\psi_n(x)e^{-\mathrm{i}E_nt/\hbar}. \]
+              <p>每一项都是定态；叠加后一般不再是定态（概率密度会随时间变）。</p>
+              <p class="step-why"><b>前提：</b>\(\{\psi_n\}\) 完备；束缚态 + 连续谱共同构成完备基。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">系数由初态投影得到</div>
+            <div class="step-body">
+              <p>在 \(t=0\)：\(\Psi(x,0)=\sum_n c_n\psi_n(x)\)。两边左乘 \(\psi_m^*\) 积分，用正交归一：</p>
+              \[ c_m=\int\psi_m^*(x)\Psi(x,0)\,\mathrm{d}x=\langle\psi_m|\Psi(0)\rangle. \]
+              <p>这就是「用初态投影到本征基」。</p>
+              <p class="step-check"><b>检查：</b>\(\sum_n|c_n|^2=1\)，总概率为 1。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两态叠加的拍频</div>
+            <div class="step-body">
+              <p>取 \(\Psi=c_1\psi_1e^{-\mathrm{i}E_1t/\hbar}+c_2\psi_2e^{-\mathrm{i}E_2t/\hbar}\)，则</p>
+              \[ |\Psi|^2=|c_1\psi_1|^2+|c_2\psi_2|^2
+                 +2\operatorname{Re}\left(c_1^*c_2\psi_1^*\psi_2
+                 e^{\mathrm{i}(E_1-E_2)t/\hbar}\right). \]
+              <p>交叉项以角频率</p>
+              \[ \omega=\frac{|E_2-E_1|}{\hbar} \]
+              <p>振荡，即拍频。这正是光谱跃迁频率的来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定态的完备性（<a class="kp" data-kp="hilbert">希尔伯特空间</a>）</div>
+            <div class="step-body">
+              <p>若 \(\{\psi_n\}\) 完备，任意平方可积初态都可展开；连续谱情形把求和换成积分：</p>
+              \[ \Psi(x,0)=\sum_n c_n\psi_n(x)+\int c(E)\psi_E(x)\,\mathrm{d}E. \]
+              <p>完备性是「用定态构造任意解」的数学保证，通常作为厄密算符本征函数系的定理。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定态不是「静止」</div>
+            <div class="step-body">
+              <p>\(\Psi\) 有相位 \(e^{-\mathrm{i}Et/\hbar}\)，所以 \(\Psi\) 本身随时间变；只有 \(|\Psi|^2\)、期望值不变。</p>
+              <p>「定态」的「定」指的是概率分布与能量确定，不是波函数冻结。</p>
+              <p class="step-why"><b>易错：</b>把定态说成「波函数不随时间变化」是概念题常见错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量零点与束缚态</div>
+            <div class="step-body">
+              <p>势能可整体平移 \(V\to V+V_0\)，所有 \(E_n\to E_n+V_0\)，波函数不变；只有相对能量/势垒高度有物理意义。</p>
+              <p>束缚态要求 \(E\) 低于无穷远处的势，波函数在两端指数衰减；否则是散射态（连续谱）。</p>
+              <p class="step-check"><b>检查：</b>无限深阱 \(V=\infty\) 壁外 \(\psi=0\)，能级 \(E_n\propto n^2\)；这是下一节的具体应用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>分离：</b>\(\Psi=\psi(x)e^{-\mathrm{i}Et/\hbar}\)，\(\hat H\psi=E\psi\)。</p>
+              <p><b>性质：</b>概率密度静止、能量确定、本征函数正交归一、任意态可叠加。</p>
+              <p><b>展开：</b>\(c_n=\langle\psi_n|\Psi(0)\rangle\)，\(\sum|c_n|^2=1\)；两态叠加拍频 \(|E_2-E_1|/\hbar\)。</p>
+              <p><b>自检：</b>能否独立证明不同能级的本征函数正交？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3948,6 +4562,11 @@ applyFilter();
     'median': { title: '中位数', def: '满足 F(x)=1/2 的点；一半概率在左、一半在右。不对称分布中与平均值、众数不同。', card: 's13' },
     'mode': { title: '众数 / 最可几值', def: '使 ρ(x) 或 P(j) 最大的点；物理题“最可几位置”指它，不是平均值。', card: 's13' },
     'standard-deviation': { title: '标准差', def: 'σ=√σ²，与 x 同量纲；高斯分布中 |x−μ|≤σ 的概率约 68.3%。', card: 's13' },
+    'hermitian': { title: '厄密算符', def: '满足 ⟨f|Âg⟩=⟨Âf|g⟩ 的算符；本征值实数、本征函数正交，对应可观测量。', card: 's32' },
+    'commutator': { title: '对易子', def: '[Â,B̂]=ÂB̂−B̂Â；不对易意味着两量不能同时有确定值。位置与动量 [x̂,p̂]=iħ。', card: 's35' },
+    'uncertainty-principle': { title: '不确定原理', def: 'σ_Aσ_B ≥ ½|⟨[Â,B̂]⟩|；位置–动量为 σxσp≥ħ/2，高斯波包取等号。它不是测量误差，而是态的内禀散布。', card: 's16' },
+    'eigenfunction': { title: '本征函数', def: '满足 Âψ=aψ 的函数；a 为本征值。定态是哈密顿量的本征函数，能量为本征值。', card: 's33' },
+    'degeneracy': { title: '简并', def: '同一本征值对应多个线性无关本征函数；简并子空间内可通过正交化选基。一维束缚态通常非简并。', card: 's33' },
     'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
   };
 
