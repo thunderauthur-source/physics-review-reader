@@ -4882,6 +4882,189 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s21">
+      <summary>完整推导 · 20 步：四个热力学函数的全微分</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\) 出发，用勒让德变换得到 H、F、G 的全微分与自然变量，并导出麦克斯韦关系。
+          约定：均匀系、可逆过程或两平衡态之间；忽略化学势项。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="fundamental-equation">基本方程</a></div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}U=T\,\mathrm{d}S-p\,\mathrm{d}V. \]</p>
+              <p>自然变量 (S,V)；U 是 S、V 的函数。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="fundamental-equation">热力学基本方程</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么要换变量</div>
+            <div class="step-body">
+              <p>实验上控制 T、p 比控制 S 容易；勒让德变换把 S→T、V→p，得到新函数。</p>
+              <p>换变量不丢信息，只是改变「自然自变量」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="enthalpy">焓 H</a></div>
+            <div class="step-body">
+              <p>令 \(H=U+pV\)：</p>
+              \[ \mathrm{d}H=\mathrm{d}U+p\mathrm{d}V+V\mathrm{d}p
+                 =T\mathrm{d}S+V\mathrm{d}p. \]
+              <p>自然变量 (S,p)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="free-energy">自由能 F</a></div>
+            <div class="step-body">
+              <p>令 \(F=U-TS\)：</p>
+              \[ \mathrm{d}F=\mathrm{d}U-T\mathrm{d}S-S\mathrm{d}T
+                 =-S\mathrm{d}T-p\mathrm{d}V. \]
+              <p>自然变量 (T,V)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="gibbs">吉布斯函数 G</a></div>
+            <div class="step-body">
+              <p>令 \(G=U-TS+pV=H-TS=F+pV\)：</p>
+              \[ \mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p. \]
+              <p>自然变量 (T,p)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">四个函数的家族关系</div>
+            <div class="step-body">
+              <p>\[ H=U+pV,\quad F=U-TS,\quad G=H-TS=F+pV. \]</p>
+              <p>它们不是独立函数；知道一个（以正确自变量）可推出其余。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自然变量表</div>
+            <div class="step-body">
+              <p>U(S,V)、H(S,p)、F(T,V)、G(T,p)。</p>
+              <p>选错自变量，偏导数没有简单意义；这是热力学最常见的错误之一。</p>
+              <p class="step-check"><b>检查：</b>看微分里出现哪两个 d，就是自然变量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">偏导数</div>
+            <div class="step-body">
+              <p>由 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\)：</p>
+              \[ T=\left(\frac{\partial U}{\partial S}\right)_V,\qquad
+                 p=-\left(\frac{\partial U}{\partial V}\right)_S. \]
+              <p>由 \(\mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p\)：</p>
+              \[ S=-\left(\frac{\partial G}{\partial T}\right)_p,\qquad
+                 V=\left(\frac{\partial G}{\partial p}\right)_T. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">全微分判据</div>
+            <div class="step-body">
+              <p>若 \(\mathrm{d}Z=M\mathrm{d}x+N\mathrm{d}y\) 是全微分，则</p>
+              \[ \left(\frac{\partial M}{\partial y}\right)_x
+                 =\left(\frac{\partial N}{\partial x}\right)_y. \]
+              <p>这是麦克斯韦关系的数学来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">四条麦克斯韦关系</div>
+            <div class="step-body">
+              <p>对 U、H、F、G 分别用交叉导数：</p>
+              \[ \left(\frac{\partial T}{\partial V}\right)_S
+                 =-\left(\frac{\partial p}{\partial S}\right)_V, \]
+              \[ \left(\frac{\partial T}{\partial p}\right)_S
+                 =\left(\frac{\partial V}{\partial S}\right)_p, \]
+              \[ \left(\frac{\partial S}{\partial V}\right)_T
+                 =\left(\frac{\partial p}{\partial T}\right)_V, \]
+              \[ \left(\frac{\partial S}{\partial p}\right)_T
+                 =-\left(\frac{\partial V}{\partial T}\right)_p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">符号规律</div>
+            <div class="step-body">
+              <p>dU、dG 的第二个偏导带负号，对应两条带负号的麦氏关系；dH、dF 对应正号。</p>
+              <p>不要死背，临场用交叉导数推。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">广延性</div>
+            <div class="step-body">
+              <p>U、H、F、G 都是广延量；S、V、n 也是广延量，T、p 是强度量。</p>
+              <p>两系统合并，广延量相加；强度量不变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">开放系推广</div>
+            <div class="step-body">
+              <p>有物质交换时：</p>
+              \[ \mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V+\mu\mathrm{d}n. \]
+              <p>其余三个函数加 \(+\mu\mathrm{d}n\) 项；第三章相变用。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="chemical-potential">化学势</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">吉布斯–杜安关系</div>
+            <div class="step-body">
+              <p>由 G 的广延性：\(G=n\mu\)，且</p>
+              \[ \mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p+\mu\mathrm{d}n. \]
+              <p>比较全微分可得 \(S\mathrm{d}T-V\mathrm{d}p+n\mathrm{d}\mu=0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">特性函数</div>
+            <div class="step-body">
+              <p>U(S,V)、H(S,p)、F(T,V)、G(T,p) 都是特性函数：知道其中一个，可推出全部热力学量。</p>
+              <p>例如知道 F(T,V) 可求 S、p、U、H、G。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">记忆口诀</div>
+            <div class="step-body">
+              <p>「U 减 TS 得 F，加 pV 得 G；H 是 U 加 pV」。</p>
+              <p>微分符号：换 T 出 −S dT，换 p 出 +V dp。</p>
+              <p class="step-check"><b>自检：</b>能否不看表写出四个 d？</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 dF 写成 −S dT + V dp（那是 dG）；</li>
+                <li>忘记偏导数的下标；</li>
+                <li>把 H、F、G 当独立函数；</li>
+                <li>把麦氏关系用于非平衡态；</li>
+                <li>开放系漏 μdn。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲</div>
+            <div class="step-body">
+              <p>四项都是 J；\(T\mathrm{d}S\)、\(p\mathrm{d}V\)、\(\mu\mathrm{d}n\) 均 J。</p>
+              <p>S 的单位 J/K，μ 的单位 J/mol 或 J。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">四个函数的平衡判据</div>
+            <div class="step-body">
+              <p>不同约束用不同函数：孤立系 S 极大；等温等容 F 极小；等温等压 G 极小；等熵等容 U 极小；等熵等压 H 极小。</p>
+              <p>这是「特性函数」在平衡问题中的直接应用。</p>
+              <p class="step-check"><b>注意：</b>判据必须与约束匹配，否则结论无效。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>四个微分：</b>\(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\)，\(\mathrm{d}H=T\mathrm{d}S+V\mathrm{d}p\)，\(\mathrm{d}F=-S\mathrm{d}T-p\mathrm{d}V\)，\(\mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p\)。</p>
+              <p><b>关系：</b>H=U+pV，F=U−TS，G=H−TS。</p>
+              <p><b>麦氏：</b>交叉导数相等；下一节用。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论 <span class="tag key">必须背熟</span></h4>
       <div class="concl">
@@ -4947,6 +5130,187 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s22">
+      <summary>完整推导 · 20 步：麦克斯韦关系的应用</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用四条麦氏关系把「含熵的不可测量」换成 \(p,V,T\) 的可测量，推出 \((\partial U/\partial V)_T\)、\((\partial H/\partial p)_T\)、\(C_p-C_V\)。
+          约定：均匀系、平衡态；T 用 K。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">核心思想</div>
+            <div class="step-body">
+              <p>熵的偏导数难测；p、V、T 的偏导数可测。麦氏关系是两者之间的桥。</p>
+              <p>套路：把 dU/dH 中的 \(T\mathrm{d}S\) 用麦氏关系换掉。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="maxwell-relations">四条关系</a></div>
+            <div class="step-body">
+              <p>\[ \left(\frac{\partial T}{\partial V}\right)_S
+                 =-\left(\frac{\partial p}{\partial S}\right)_V, \]
+              \[ \left(\frac{\partial T}{\partial p}\right)_S
+                 =\left(\frac{\partial V}{\partial S}\right)_p, \]
+              \[ \left(\frac{\partial S}{\partial V}\right)_T
+                 =\left(\frac{\partial p}{\partial T}\right)_V, \]
+              \[ \left(\frac{\partial S}{\partial p}\right)_T
+                 =-\left(\frac{\partial V}{\partial T}\right)_p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">推导 \((\partial U/\partial V)_T\)</div>
+            <div class="step-body">
+              <p>由 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\)，等温除以 dV：</p>
+              \[ \left(\frac{\partial U}{\partial V}\right)_T
+                 =T\left(\frac{\partial S}{\partial V}\right)_T-p. \]
+              <p>代入第三条麦氏关系：</p>
+              \[ \left(\frac{\partial U}{\partial V}\right)_T
+                 =T\left(\frac{\partial p}{\partial T}\right)_V-p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">推导 \((\partial H/\partial p)_T\)</div>
+            <div class="step-body">
+              <p>由 \(\mathrm{d}H=T\mathrm{d}S+V\mathrm{d}p\)，等温除以 dp：</p>
+              \[ \left(\frac{\partial H}{\partial p}\right)_T
+                 =T\left(\frac{\partial S}{\partial p}\right)_T+V. \]
+              <p>代入第四条：</p>
+              \[ \left(\frac{\partial H}{\partial p}\right)_T
+                 =V-T\left(\frac{\partial V}{\partial T}\right)_p. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">\(C_p-C_V\) 的推导</div>
+            <div class="step-body">
+              <p>由 \(C_p-C_V=T(\partial p/\partial T)_V(\partial V/\partial T)_p\)，用循环关系</p>
+              \[ \left(\frac{\partial p}{\partial T}\right)_V
+                 =-\frac{(\partial V/\partial T)_p}{(\partial V/\partial p)_T} \]
+              <p>代入即可化成可测量形式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用 α、κ_T 表示</div>
+            <div class="step-body">
+              <p>\[ \alpha=\frac1V\left(\frac{\partial V}{\partial T}\right)_p,\qquad
+                 \kappa_T=-\frac1V\left(\frac{\partial V}{\partial p}\right)_T. \]
+              <p>代入得</p>
+              \[ C_p-C_V=\frac{TV\alpha^2}{\kappa_T}. \]
+              <p>右边恒非负，所以 \(C_p\ge C_V\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体验证</div>
+            <div class="step-body">
+              <p>\(\alpha=1/T\)、\(\kappa_T=1/p\)，所以</p>
+              \[ C_p-C_V=\frac{TV(1/T^2)}{1/p}=nR. \]
+              <p>与 §1.6 一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">熵的可测表达式</div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}S=\left(\frac{\partial S}{\partial T}\right)_V\mathrm{d}T
+                 +\left(\frac{\partial S}{\partial V}\right)_T\mathrm{d}V
+                 =\frac{C_V}{T}\mathrm{d}T+\left(\frac{\partial p}{\partial T}\right)_V\mathrm{d}V. \]
+              <p>这样 S 的变化可由 \(C_V\) 与物态方程算出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">另一组变量</div>
+            <div class="step-body">
+              <p>\[ \mathrm{d}S=\frac{C_p}{T}\mathrm{d}T-\left(\frac{\partial V}{\partial T}\right)_p\mathrm{d}p. \]</p>
+              <p>给 (T,p) 时用这式；给 (T,V) 用上式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="joule-thomson">节流系数</a>的预览</div>
+            <div class="step-body">
+              <p>\[ \mu_{\rm JT}=\left(\frac{\partial T}{\partial p}\right)_H
+                 =\frac{T(\partial V/\partial T)_p-V}{C_p}. \]
+              <p>分子正是 \(-(\partial H/\partial p)_T\)；下一节展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">真实气体内能</div>
+            <div class="step-body">
+              <p>\((\partial U/\partial V)_T=T(\partial p/\partial T)_V-p\)。对范德瓦耳斯气体不为零，代表分子间势能。</p>
+              <p>理想气体 \(p=nRT/V\) 给零，恢复焦耳定律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">麦氏关系的适用条件</div>
+            <div class="step-body">
+              <p>只适用于均匀系平衡态；非平衡/非均匀系不能直接用。</p>
+              <p>相变区要分段，或在共存线上用 Clapeyron 方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">记忆方法</div>
+            <div class="step-body">
+              <p>不要背四条；记住四个 d，用交叉导数现推。</p>
+              <p>带负号的是 dU、dG；正号的是 dH、dF。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：固体热容差</div>
+            <div class="step-body">
+              <p>固体 \(\alpha\) 小、\(\kappa_T\) 小，\(C_p-C_V\) 通常很小，但高压下不可忽略。</p>
+              <p>测 \(C_p\)、\(\alpha\)、\(\kappa_T\) 可反推 \(C_V\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：熵的积分</div>
+            <div class="step-body">
+              <p>由 \(C_V(T)\) 与物态方程可积分得 S(T,V)：</p>
+              \[ S(T,V)=S_0+\int\frac{C_V}{T}\mathrm{d}T+\int\left(\frac{\partial p}{\partial T}\right)_V\mathrm{d}V. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>麦氏关系符号记反；</li>
+                <li>偏导下标丢失；</li>
+                <li>把 \(C_p-C_V\) 写成负；</li>
+                <li>在非平衡态使用；</li>
+                <li>把 α、κ 的定义符号搞反。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲</div>
+            <div class="step-body">
+              <p>\((\partial U/\partial V)_T\)：J/m³=Pa；\((\partial H/\partial p)_T\)：J/Pa=m³。</p>
+              <p>\(TV\alpha^2/\kappa_T\)：J/K·K·K⁻²/(Pa⁻¹)=J/K，与热容一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">麦氏关系的几何意义</div>
+            <div class="step-body">
+              <p>每条麦氏关系都是「状态曲面」上二阶混合偏导相等的体现；它不依赖具体物质。</p>
+              <p>因此可用来检验实验数据是否自洽，也可从易测的 p–V–T 数据求难测的熵/内能。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>两条核心：</b>\((\partial U/\partial V)_T=T(\partial p/\partial T)_V-p\)，\((\partial H/\partial p)_T=V-T(\partial V/\partial T)_p\)。</p>
+              <p><b>热容差：</b>\(C_p-C_V=TV\alpha^2/\kappa_T\ge0\)。</p>
+              <p><b>方法：</b>用麦氏关系把含 S 的偏导换成可测量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自检</div>
+            <div class="step-body">
+              <p>能否不看上面，独立推出 \((\partial U/\partial V)_T\) 与 \(C_p-C_V\)？</p>
+              <p>若能，说明麦氏关系的套路已经掌握。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5013,6 +5377,180 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s23">
+      <summary>完整推导 · 20 步：节流与绝热膨胀</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：证明节流等焓，推出<a class="kp" data-kp="joule-thomson">焦耳–汤姆孙系数</a> \(\mu_{\rm JT}\)，并比较绝热膨胀的降温机制。
+          约定：多孔塞节流、稳态流动、管壁绝热；理想气体/真实气体分别讨论。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">节流装置</div>
+            <div class="step-body">
+              <p>气体在绝热管中通过多孔塞，左侧压强 \(p_1\)、右侧 \(p_2<p_1\)，两边维持恒定。</p>
+              <p>过程缓慢但不可逆（节流有耗散），不是准静态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热条件</div>
+            <div class="step-body">
+              <p>管壁绝热、过程快，与环境无热交换：\(Q=0\)。</p>
+              <p class="step-check"><b>注意：</b>节流不可逆，不能用 \(-p\mathrm{d}V\) 积分算功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">流动功</div>
+            <div class="step-body">
+              <p>左侧气体被推入多孔塞，外界对它做功 \(p_1V_1\)；右侧气体推出，系统对外做功 \(p_2V_2\)。</p>
+              <p>净功（外界对系统）：</p>
+              \[ W=p_1V_1-p_2V_2. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第一定律</div>
+            <div class="step-body">
+              <p>\(\Delta U=Q+W\)，Q=0：</p>
+              \[ U_2-U_1=p_1V_1-p_2V_2. \]
+              <p>移项：</p>
+              \[ U_2+p_2V_2=U_1+p_1V_1. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等焓</div>
+            <div class="step-body">
+              <p>由 \(H=U+pV\)：</p>
+              \[ H_1=H_2. \]
+              <p>节流是等焓过程；这是它最重要的性质。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焦耳–汤姆孙系数</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ \mu_{\rm JT}=\left(\frac{\partial T}{\partial p}\right)_H. \]
+              <p>节流 \(dp<0\)：\(\mu>0\) 降温，\(\mu<0\) 升温，\(\mu=0\) 不变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用循环关系</div>
+            <div class="step-body">
+              <p>把 H 不变的偏导换成 T 不变的偏导：</p>
+              \[ \left(\frac{\partial T}{\partial p}\right)_H
+                 =-\frac{(\partial H/\partial p)_T}{(\partial H/\partial T)_p}. \]
+              <p>分母是 \(C_p\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">代入 \((\partial H/\partial p)_T\)</div>
+            <div class="step-body">
+              <p>由麦氏关系：</p>
+              \[ \left(\frac{\partial H}{\partial p}\right)_T
+                 =V-T\left(\frac{\partial V}{\partial T}\right)_p. \]
+              <p>所以</p>
+              \[ \mu_{\rm JT}=\frac{T(\partial V/\partial T)_p-V}{C_p}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用体胀系数表示</div>
+            <div class="step-body">
+              <p>\(\alpha=(1/V)(\partial V/\partial T)_p\)，所以</p>
+              \[ \mu_{\rm JT}=\frac{V(\alpha T-1)}{C_p}. \]
+              <p>符号由 \(\alpha T-1\) 决定。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体</div>
+            <div class="step-body">
+              <p>\(\alpha=1/T\)，所以 \(\alpha T-1=0\)，\(\mu_{\rm JT}=0\)。</p>
+              <p>理想气体节流温度不变，不能用于制冷。</p>
+              <p class="step-check"><b>实验：</b>真实气体在常温下可降温，说明分子间相互作用。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">真实气体</div>
+            <div class="step-body">
+              <p>低温/低压下吸引主导，\(\alpha T>1\)，\(\mu>0\) 降温；高温下排斥体积主导，\(\mu<0\) 升温。</p>
+              <p>\(\mu=0\) 的温度叫<a class="kp" data-kp="inversion-temperature">转变温度</a> \(T_{\rm inv}\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">转变温度</div>
+            <div class="step-body">
+              <p>由 \(\alpha T=1\) 解出 \(T_{\rm inv}\)；不同压强下不同，形成转变曲线。</p>
+              <p>要液化气体，必须先预冷到 \(T<T_{\rm inv}\)，否则节流升温。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热膨胀</div>
+            <div class="step-body">
+              <p>气体在绝热容器中推动活塞膨胀：Q=0，对外做功，内能减少，温度下降。</p>
+              <p>可逆绝热：\(pV^\gamma=const\)；不可逆绝热不能用此式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热膨胀降温</div>
+            <div class="step-body">
+              <p>理想气体：</p>
+              \[ T_2=T_1\left(\frac{V_1}{V_2}\right)^{\gamma-1}. \]
+              <p>膨胀比越大，降温越多；但需要外界做功（活塞）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">节流 vs 绝热膨胀</div>
+            <div class="step-body">
+              <p>节流：等焓、不可逆、不需要运动部件，但理想气体不降温。</p>
+              <p>绝热膨胀：等熵（可逆）、对外做功、理想气体也降温，但需要活塞/透平。</p>
+              <p class="step-check"><b>工程：</b>林德液化用节流；克劳德液化用膨胀机。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">液化流程</div>
+            <div class="step-body">
+              <p>预冷 → 节流/膨胀 → 部分液化 → 分离液气 → 未液化气体回流换热。</p>
+              <p>节流液化效率低，但结构简单；大型装置用透平膨胀。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把节流当可逆绝热，套 \(pV^\gamma\)；</li>
+                <li>认为节流一定降温；</li>
+                <li>忘记 \(\mu\) 的符号与 dp 的负号；</li>
+                <li>理想气体节流算降温；</li>
+                <li>把等焓与等熵混淆。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲</div>
+            <div class="step-body">
+              <p>\(\mu_{\rm JT}\)：K/Pa；\(C_p\)：J/K；\(V(\alpha T-1)\)：m³，乘 Pa 得 J，比值 K/Pa。</p>
+              <p>检查量纲可发现公式是否漏项。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">节流液化流程</div>
+            <div class="step-body">
+              <p>预冷到转变温度以下 → 节流膨胀降温 → 部分液化 → 分离液气 → 未液化气体回流换热。</p>
+              <p>节流结构简单但效率低；大型装置用透平膨胀机（接近等熵）效率更高。</p>
+              <p class="step-check"><b>对比：</b>节流等焓，膨胀机近似等熵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>节流：</b>\(H_1=H_2\)，\(\mu_{\rm JT}=[T(\partial V/\partial T)_p-V]/C_p\)。</p>
+              <p><b>理想气体：</b>\(\mu=0\)；真实气体有转变温度。</p>
+              <p><b>绝热膨胀：</b>可逆时等熵，理想气体也降温；节流与膨胀是两种不同制冷机制。</p>
+              <p><b>自检：</b>能否独立推出 \(H_1=H_2\) 与 \(\mu_{\rm JT}\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6732,6 +7270,11 @@ applyFilter();
     'gibbs': { title: '吉布斯函数 G', def: 'G=H−TS=U+pV−TS；等温等压判据 dG≤0，平衡时 G 极小；相平衡 G1=G2。', card: 's118' },
     'chemical-potential': { title: '化学势 μ', def: 'μ=(∂G/∂n)_{T,p}；单元系 G=nμ，相平衡/化学平衡要求 μ 相等。', card: 's118' },
     'gibbs-paradox': { title: '吉布斯佯谬', def: '同种气体混合熵应为零，但可区分粒子公式给正值；解决需除以 N! 或引入化学势。', card: 's117' },
+    'maxwell-relations': { title: '麦克斯韦关系', def: '由四个热力学函数全微分的交叉导数相等得到；把含熵的偏导换成 p,V,T 的可测量。', card: 's22' },
+    'joule-thomson': { title: '焦耳–汤姆孙效应', def: '气体经多孔塞节流，H1=H2；μ_JT=(∂T/∂p)_H=[T(∂V/∂T)_p−V]/C_p。', card: 's23' },
+    'inversion-temperature': { title: '转变温度', def: 'μ_JT=0 的温度；低于它节流降温，高于它升温。液化前需预冷到转变温度以下。', card: 's23' },
+    'throttling': { title: '节流过程', def: '绝热多孔塞流动，等焓但不可逆；不是准静态，不能套 pV^γ。', card: 's23' },
+    'adiabatic-expansion': { title: '绝热膨胀', def: '绝热对外做功，内能减少、温度下降；可逆时等熵，理想气体也降温。', card: 's23' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
