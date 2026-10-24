@@ -4877,6 +4877,205 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s32">
+      <summary>完整推导 · 20 步：可观测量为什么必须是厄密算符</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从「测量值是实数」推出厄密条件，证明本征态对应确定测量值，并说明谱、简并与测量的逻辑。
+          约定：\(\hat Q\) 为线性算符；内积对第二项线性。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">测量结果必须是实数（<a class="kp" data-kp="observable">可观测量</a>）</div>
+            <div class="step-body">
+              <p>任何可观测量的单次测量结果都是实数；期望值 \(\langle Q\rangle\) 作为大量结果的加权平均，也必须是实数：</p>
+              \[ \langle Q\rangle=\langle\psi|\hat Q|\psi\rangle\in\mathbb R. \]
+              <p>这给算符 \(\hat Q\) 加了一个限制。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="observable">可观测量</a>；复数结果没有仪器能直接读出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">实性条件的等价写法</div>
+            <div class="step-body">
+              <p>\(\langle Q\rangle=\langle Q\rangle^*\)：</p>
+              \[ \langle\psi|\hat Q\psi\rangle
+                 =\langle\hat Q\psi|\psi\rangle. \]
+              <p>这里用了 \(\langle\phi|\chi\rangle^*=\langle\chi|\phi\rangle\)。</p>
+              <p class="step-check"><b>注意：</b>右边是 \(\langle\hat Q\psi|\psi\rangle\)，不是 \(\langle\psi|\hat Q^\dagger|\psi\rangle\) 的某种数乘。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">从「所有态」到<a class="kp" data-kp="hermitian">厄密</a>定义</div>
+            <div class="step-body">
+              <p>要求对任意 \(|\psi\rangle\) 都成立还不够方便；更强的要求是对任意 \(|\phi\rangle,|\psi\rangle\)：</p>
+              \[ \langle\phi|\hat Q\psi\rangle=\langle\hat Q\phi|\psi\rangle. \]
+              <p>这就是厄密算符的定义。它保证任意态的期望值都为实。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hermitian">厄密算符</a>；也可写成 \(\hat Q^\dagger=\hat Q\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">伴随算符</div>
+            <div class="step-body">
+              <p>\(\hat Q^\dagger\) 由</p>
+              \[ \langle\phi|\hat Q\psi\rangle=\langle\hat Q^\dagger\phi|\psi\rangle \]
+              <p>定义。厄密即 \(\hat Q^\dagger=\hat Q\)。位置、动量、哈密顿量都满足。</p>
+              <p class="step-check"><b>检查：</b>\((\hat A\hat B)^\dagger=\hat B^\dagger\hat A^\dagger\)，顺序要反。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量算符的厄密性</div>
+            <div class="step-body">
+              <p>对 \(\hat p=-\mathrm{i}\hbar\partial_x\)：</p>
+              \[ \langle f|\hat p g\rangle
+                 =-\mathrm{i}\hbar\int f^*g'\mathrm{d}x. \]
+              <p>分部积分：</p>
+              \[ =-\mathrm{i}\hbar\left[f^*g\right]_{-\infty}^{+\infty}
+                 +\mathrm{i}\hbar\int (f^*)'g\,\mathrm{d}x. \]
+              <p>边界项为零（平方可积），且 \(\mathrm{i}\hbar(f^*)'=(-\mathrm{i}\hbar f')^*\)，所以等于 \(\langle\hat p f|g\rangle\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">边界项为什么关键</div>
+            <div class="step-body">
+              <p>若波函数在无穷远不衰减，或限制在有限区间但边界不为零，分部积分会留下边界项，\(\hat p\) 在该定义域内就不是厄密的。</p>
+              <p>无限深阱中 \(\psi(0)=\psi(a)=0\)，边界项也为零；因此动量算符在允许域内厄密。</p>
+              <p class="step-why"><b>严格性：</b>厄密性依赖定义域；不是只看微分表达式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="eigenfunction">本征态</a>：测量值完全确定</div>
+            <div class="step-body">
+              <p>若态满足</p>
+              \[ \hat Q|\psi\rangle=q|\psi\rangle, \]
+              <p>则测量 \(Q\) 的结果必为 \(q\)，没有涨落：</p>
+              \[ \langle Q\rangle=q,\qquad
+                 \langle Q^2\rangle=q^2,\qquad
+                 \sigma_Q^2=0. \]
+              <p class="step-why"><b>反之：</b>若 \(\sigma_Q=0\)，则 \(|\psi\rangle\) 必是 \(\hat Q\) 的本征态（方差为零的充要条件）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">本征方程与谱（<a class="kp" data-kp="degeneracy">简并</a>）</div>
+            <div class="step-body">
+              <p>本征方程 \(\hat Q\psi=q\psi\) 的解 \(q\) 的集合叫谱：离散谱（如束缚态能级）、连续谱（如自由粒子动量）、混合谱。</p>
+              <p>简并：同一 \(q\) 对应多个线性无关本征函数。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="eigenfunction">本征函数</a>、<a class="kp" data-kp="degeneracy">简并</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：\( \hat Q=\mathrm{i}\mathrm{d}/\mathrm{d}\varphi \)</div>
+            <div class="step-body">
+              <p>周期条件 \(f(\varphi+2\pi)=f(\varphi)\)。本征方程：</p>
+              \[ \mathrm{i}f'=qf\;\Longrightarrow\;f=Ae^{-\mathrm{i}q\varphi}. \]
+              <p>周期性要求 \(e^{-\mathrm{i}q2\pi}=1\)，所以 \(q=0,\pm1,\pm2,\dots\)：整数谱，非简并。</p>
+              <p class="step-check"><b>注意：</b>这个算符是厄密的（周期边界下分部积分边界项抵消）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">本征值实数（预告）</div>
+            <div class="step-body">
+              <p>厄密算符的本征值必为实：</p>
+              \[ q\langle\psi|\psi\rangle=\langle\psi|\hat Q\psi\rangle
+                 =\langle\hat Q\psi|\psi\rangle=q^*\langle\psi|\psi\rangle. \]
+              <p>所以 \(q=q^*\)。严格证明见 §3.3。</p>
+              <p class="step-why"><b>逻辑：</b>先有厄密性，才有实本征值；不能反过来把「实算符」都叫厄密。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不同本征值正交（预告）</div>
+            <div class="step-body">
+              <p>若 \(\hat Qf=qf\)、\(\hat Qg=q'g\)，\(q\ne q'\)：</p>
+              \[ q'\langle f|g\rangle=\langle f|\hat Qg\rangle
+                 =\langle\hat Qf|g\rangle=q\langle f|g\rangle, \]
+              <p>所以 \((q'-q)\langle f|g\rangle=0\)，即 \(\langle f|g\rangle=0\)。</p>
+              <p class="step-check"><b>简并：</b>\(q=q'\) 时不能推出正交，需额外正交化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">投影算符与概率</div>
+            <div class="step-body">
+              <p>对非简并本征值 \(q_n\)，定义投影算符</p>
+              \[ \hat P_n=|q_n\rangle\langle q_n|. \]
+              <p>则测到 \(q_n\) 的概率为</p>
+              \[ P(q_n)=\langle\psi|\hat P_n|\psi\rangle=|\langle q_n|\psi\rangle|^2. \]
+              <p>简并时 \(\hat P_q=\sum_{i}|q,i\rangle\langle q,i|\)，概率为 \(\langle\psi|\hat P_q|\psi\rangle\)。</p>
+              <p class="step-why"><b>用途：</b>投影算符把「测量」写成与基无关的算符，便于推广到密度矩阵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量公设（<a class="kp" data-kp="collapse">坍缩</a>）</div>
+            <div class="step-body">
+              <p>对态 \(|\psi\rangle=\sum_n c_n|q_n\rangle\)，测量 \(Q\) 得 \(q_n\) 的概率为 \(|c_n|^2\)；测量后态坍缩到 \(|q_n\rangle\)。</p>
+              <p>若简并，投影到整个简并子空间，概率为各 \(|c_n|^2\) 之和。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="collapse">波函数坍缩</a>；这是额外公设，不由薛定谔方程给出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">算符不是数</div>
+            <div class="step-body">
+              <p>不能把 \(\hat Q\) 提到内积外：</p>
+              \[ \langle\psi|\hat Q|\psi\rangle\ne \hat Q\langle\psi|\psi\rangle. \]
+              <p>算符作用在右边的态上；只有当 \(|\psi\rangle\) 是本征态时，才能用 \(\hat Q|\psi\rangle=q|\psi\rangle\) 把 \(q\) 提出。</p>
+              <p class="step-check"><b>常见错误：</b>把 \(\hat p\) 当普通数约分，忘记它对乘积求导。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对易与共同本征态（<a class="kp" data-kp="commutator">对易子</a>）</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]=0\)，则存在共同本征态，两个量可同时有确定值；若不对易，一般不能。</p>
+              <p>例如 \([\hat x,\hat p]=\mathrm{i}\hbar\ne0\)，所以没有同时确定的 \(x,p\) 态。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="commutator">对易子</a>；严格证明见 §3.5。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相容可观测量的测量顺序</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]=0\)，先测 \(A\) 再测 \(B\) 与反过来，结果分布相同；若不对易，顺序会影响结果。</p>
+              <p>这就是「相容/不相容观测」的代数判据。</p>
+              <p class="step-check"><b>例子：</b>\(x\) 与 \(p\) 不相容；\(H\) 与 \(p\)（自由粒子）相容。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续谱与 δ 归一化</div>
+            <div class="step-body">
+              <p>连续谱本征态（如 \(|x\rangle,|p\rangle\)）不能平方可积归一，改用</p>
+              \[ \langle x|x'\rangle=\delta(x-x'),\qquad
+                 \langle p|p'\rangle=\delta(p-p'). \]
+              <p>它们不属于希尔伯特空间，但可作为广义基展开物理态。</p>
+              <p class="step-why"><b>注意：</b>\(\delta(0)\) 无意义；不要对连续本征态直接写「概率」。 </p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与实性检查</div>
+            <div class="step-body">
+              <p>可观测量算符的本征值必须与物理量同量纲；期望值也必须同量纲且为实。</p>
+              <p>若算出 \(\langle p\rangle\) 带虚部，检查：\(\Psi^*\) 是否漏共轭、分部积分边界项、算符是否厄密。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把厄密条件写成 \(\langle f|\hat Qg\rangle=\langle f|\hat Q^\dagger g\rangle\) 却漏了作用对象；</li>
+                <li>忘记边界项，误判动量算符厄密；</li>
+                <li>认为「本征值实」自动等价于「算符厄密」；</li>
+                <li>简并时以为本征函数自动正交；</li>
+                <li>把测量坍缩说成薛定谔方程演化。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>可观测量 ↔ 厄密算符；\(\hat Q^\dagger=\hat Q\)；本征值实、本征态确定、不同本征值正交。</p>
+              <p><b>测量：</b>概率 \(|c_n|^2\)，坍缩到本征态；简并时投影到子空间。</p>
+              <p><b>判据：</b>\([\hat A,\hat B]=0\) ↔ 可同时确定。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4933,6 +5132,208 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s33">
+      <summary>完整推导 · 20 步：本征函数的三大性质</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：证明厄密算符本征值实、不同本征值本征函数正交、本征系完备，并给出离散/连续谱的归一化与展开。
+          约定：\(\hat Q^\dagger=\hat Q\)；本征方程 \(\hat Qf_n=q_nf_n\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">定理 1：<a class="kp" data-kp="hermitian">厄密算符</a>的本征值实数</div>
+            <div class="step-body">
+              <p>\[ q_n\langle f_n|f_n\rangle
+                 =\langle f_n|\hat Qf_n\rangle
+                 =\langle\hat Qf_n|f_n\rangle
+                 =q_n^*\langle f_n|f_n\rangle. \]</p>
+              <p>因 \(f_n\ne0\)，\(\langle f_n|f_n\rangle>0\)，所以 \(q_n=q_n^*\)。</p>
+              <p class="step-why"><b>物理：</b>测量结果必须是实数；这是厄密算符作为可观测量的根本原因。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定理 2：不同本征值正交</div>
+            <div class="step-body">
+              <p>设 \(\hat Qf=qf\)，\(\hat Qg=q'g\)，\(q\ne q'\)：</p>
+              \[ q'\langle f|g\rangle=\langle f|\hat Qg\rangle
+                 =\langle\hat Qf|g\rangle=q\langle f|g\rangle. \]
+              <p>所以 \((q'-q)\langle f|g\rangle=0\)，得 \(\langle f|g\rangle=0\)。</p>
+              <p class="step-check"><b>简并：</b>\(q=q'\) 时不能推出正交；简并子空间需额外选基。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">离散谱的<a class="kp" data-kp="orthonormal">归一化</a></div>
+            <div class="step-body">
+              <p>对离散谱，把每个本征函数归一化：</p>
+              \[ \langle f_m|f_n\rangle=\delta_{mn}. \]
+              <p>归一化只定模长，整体相位仍自由；简并时先正交化再归一化。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="orthonormal">正交归一</a>；这是展开系数公式的前提。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="completeness">完备性</a>关系</div>
+            <div class="step-body">
+              <p>厄密算符的本征系完备：</p>
+              \[ \sum_n|f_n\rangle\langle f_n|=\hat 1. \]
+              <p>作用在任意态上给出展开；这是「任意态都能用本征态表示」的数学表述。</p>
+              <p class="step-check"><b>注意：</b>完备性是定理/公理，不是自动对任意正交系成立；连续谱要加上积分。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">展开与系数</div>
+            <div class="step-body">
+              <p>\[ |\psi\rangle=\sum_n c_n|f_n\rangle,\qquad
+                 c_n=\langle f_n|\psi\rangle. \]</p>
+              <p>推导：两边左乘 \(\langle f_m|\)，用正交归一，只剩 \(c_m\)。</p>
+              <p class="step-why"><b>物理：</b>\(c_n\) 是态在 \(|f_n\rangle\) 上的投影，是概率幅。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">帕塞瓦尔与概率</div>
+            <div class="step-body">
+              <p>\[ \langle\psi|\psi\rangle=\sum_n|c_n|^2=1. \]</p>
+              <p>所以 \(|c_n|^2\) 可以解释为测到 \(q_n\) 的概率；总概率为 1。</p>
+              <p class="step-check"><b>检查：</b>若 \(\sum|c_n|^2\ne1\)，检查基是否归一/完备，或系数是否算错。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续谱：<a class="kp" data-kp="dirac-notation">δ 归一化</a></div>
+            <div class="step-body">
+              <p>连续本征值 \(z\) 的本征函数不能平方可积归一，改用</p>
+              \[ \langle f_{z'}|f_z\rangle=\delta(z'-z). \]
+              <p>展开变成积分：</p>
+              \[ |\psi\rangle=\int c(z)|f_z\rangle\mathrm{d}z,\qquad
+                 c(z)=\langle f_z|\psi\rangle. \]
+              <p>完备性：\(\int|f_z\rangle\langle f_z|\mathrm{d}z=\hat1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量本征函数</div>
+            <div class="step-body">
+              <p>解 \(-i\hbar f'=pf\)：</p>
+              \[ f_p(x)=\frac{1}{\sqrt{2\pi\hbar}}e^{\mathrm{i}px/\hbar}. \]
+              <p>正交归一：</p>
+              \[ \langle f_{p'}|f_p\rangle=\delta(p'-p). \]
+              <p class="step-why"><b>归一化因子：</b>来自 \(\int e^{\mathrm{i}(p-p')x/\hbar}\mathrm{d}x=2\pi\hbar\delta(p-p')\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置本征函数</div>
+            <div class="step-body">
+              <p>解 \(x g_y=yg_y\)：</p>
+              \[ g_y(x)=\delta(x-y). \]
+              <p>正交归一：</p>
+              \[ \langle g_{y'}|g_y\rangle=\delta(y'-y). \]
+              <p>它不是普通平方可积函数；只作为连续基使用。</p>
+              <p class="step-check"><b>检查：</b>\(\int\delta(x-y)\psi(x)\mathrm{d}x=\psi(y)\)，正好是投影。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="hilbert">希尔伯特空间</a>的位置表象展开</div>
+            <div class="step-body">
+              <p>以 \(|x\rangle\) 为基：</p>
+              \[ |\psi\rangle=\int\psi(x)|x\rangle\mathrm{d}x,\qquad
+                 \psi(x)=\langle x|\psi\rangle. \]
+              <p>这就是「波函数是态在位置基上的分量」；完备性 \(\int|x\rangle\langle x|\mathrm{d}x=1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量表象就是傅里叶变换</div>
+            <div class="step-body">
+              <p>\[ \tilde\psi(p)=\langle p|\psi\rangle
+                 =\frac{1}{\sqrt{2\pi\hbar}}\int e^{-\mathrm{i}px/\hbar}\psi(x)\mathrm{d}x. \]</p>
+              <p>反过来：</p>
+              \[ \psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int e^{\mathrm{i}px/\hbar}\tilde\psi(p)\mathrm{d}p. \]
+              <p class="step-why"><b>用途：</b>动量概率密度 \(|\tilde\psi(p)|^2\)；动量期望用积分更简单。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="degeneracy">简并</a>：本征函数不唯一</div>
+            <div class="step-body">
+              <p>若 \(q\) 对应 \(f_1,f_2\) 两个线性无关解，则任意线性组合 \(af_1+bf_2\) 仍是本征函数。</p>
+              <p>要得到正交归一基，对简并子空间做 Gram–Schmidt：</p>
+              \[ f_2'=f_2-\frac{\langle f_1|f_2\rangle}{\langle f_1|f_1\rangle}f_1. \]
+              <p class="step-check"><b>注意：</b>简并时「测到 q 的概率」是投影到整个子空间的模方，不是单个系数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">谱定理</div>
+            <div class="step-body">
+              <p>厄密算符可写成谱分解：</p>
+              \[ \hat Q=\sum_n q_n|f_n\rangle\langle f_n|
+                 +\int z|f_z\rangle\langle f_z|\mathrm{d}z. \]
+              <p>离散 + 连续谱都包含；每个投影算符对应一个测量结果。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="completeness">完备性</a>；谱定理是「测量 = 投影」的数学核心。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：无限深阱的<a class="kp" data-kp="eigenfunction">本征函数</a></div>
+            <div class="step-body">
+              <p>\(\hat H\) 的本征函数</p>
+              \[ \psi_n=\sqrt{\frac2a}\sin\frac{n\pi x}{a},\qquad
+                 E_n=\frac{n^2\pi^2\hbar^2}{2ma^2}. \]
+              <p>正交归一、完备；任意初态可展开，系数 \(c_n=\int\psi_n^*\Psi(0)\mathrm{d}x\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：谐振子</div>
+            <div class="step-body">
+              <p>\(\hat H\) 的本征函数 \(\psi_n\) 含厄密多项式，正交归一；升降算符在基下是稀疏矩阵。</p>
+              <p>这展示了「选对算符基」能把微分方程问题变成线性代数问题。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hilbert">希尔伯特空间</a>、<a class="kp" data-kp="dirac-notation">狄拉克符号</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">共同本征函数</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]=0\)，可找一组共同本征函数，同时对角化两个算符；反之一般不能。</p>
+              <p>例如自由粒子 \(\hat H\) 与 \(\hat p\) 对易，\(e^{ipx/\hbar}\) 同时是二者的本征函数。</p>
+              <p class="step-check"><b>简并时：</b>共同本征基可能不唯一，需要用另一算符的量子数标记。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量与坍缩</div>
+            <div class="step-body">
+              <p>测量 \(Q\) 得 \(q_n\) 后，态变为 \(|f_n\rangle\)（简并时投影到子空间）。重复测量同一量，结果确定。</p>
+              <p>若先测 \(Q\) 再测不对易的 \(R\)，第二次会破坏第一次的确定性。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="collapse">波函数坍缩</a>；测量顺序影响结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>简并时默认本征函数正交；</li>
+                <li>把连续谱的 δ 归一化当成普通概率归一；</li>
+                <li>忘记展开系数要取复共轭 \(\langle f_n|\psi\rangle\)；</li>
+                <li>把「本征值实」当成所有实算符都厄密；</li>
+                <li>把位置本征函数 \(\delta(x-y)\) 当物理态。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">本征函数的相位自由</div>
+            <div class="step-body">
+              <p>若 \(f_n\) 是本征函数，则 \(e^{\mathrm{i}\alpha}f_n\) 仍是同一本征值 \(q_n\) 的本征函数：</p>
+              \[ \hat Q(e^{\mathrm{i}\alpha}f_n)=e^{\mathrm{i}\alpha}\hat Qf_n
+                 =q_n(e^{\mathrm{i}\alpha}f_n). \]
+              <p>整体相位不影响概率 \(|c_n|^2\)，但不同本征态之间的相对相位会影响叠加态的干涉。</p>
+              <p class="step-check"><b>注意：</b>归一化只能定到相位；不要试图用归一化条件确定相位。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>三性质：</b>本征值实、不同本征值正交、本征系完备。</p>
+              <p><b>展开：</b>\(|\psi\rangle=\sum c_n|f_n\rangle\)，\(c_n=\langle f_n|\psi\rangle\)，\(\sum|c_n|^2=1\)。</p>
+              <p><b>连续谱：</b>\(\langle f_{z'}|f_z\rangle=\delta(z'-z)\)，展开用积分。</p>
+              <p><b>自检：</b>能否独立证明正交性，并说明简并时为什么失效？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4987,6 +5388,199 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s34">
+      <summary>完整推导 · 20 步：广义统计诠释</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把「位置的玻恩规则」推广到任意可观测量：展开系数 → 概率幅 → 概率；并说明测量、简并、连续谱与相容观测。
+          约定：\(\hat Q\) 厄密，本征系 \(|f_n\rangle\) 正交归一完备。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">把态按 \(\hat Q\) 的本征基展开</div>
+            <div class="step-body">
+              <p>\[ |\psi\rangle=\sum_n c_n|f_n\rangle. \]</p>
+              <p>这一步只用到完备性；\(\hat Q\) 的本征函数构成一组基。</p>
+              <p class="step-why"><b>为什么选 \(\hat Q\) 的基：</b>在这个基里，测量 \(\hat Q\) 的结果与系数直接对应。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">系数由投影给出（<a class="kp" data-kp="probability-amplitude">概率幅</a>）</div>
+            <div class="step-body">
+              <p>两边左乘 \(\langle f_m|\)，用 \(\langle f_m|f_n\rangle=\delta_{mn}\)：</p>
+              \[ c_m=\langle f_m|\psi\rangle. \]
+              <p>位置表象：\(c_m=\int f_m^*(x)\psi(x)\mathrm{d}x\)。</p>
+              <p class="step-check"><b>注意：</b>是 \(f_m^*\psi\)，不是 \(f_m\psi\)；复共轭不能漏。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化给出概率和</div>
+            <div class="step-body">
+              <p>\[ \langle\psi|\psi\rangle
+                 =\sum_m\sum_n c_m^*c_n\delta_{mn}
+                 =\sum_n|c_n|^2=1. \]</p>
+              <p>交叉项因正交而消失；总概率为 1。</p>
+              <p class="step-why"><b>关键：</b>这是「\(|c_n|^2\) 可以当概率」的数学前提。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="born-rule">广义统计诠释</a>（离散谱）</div>
+            <div class="step-body">
+              <p>测量 \(Q\) 得本征值 \(q_n\) 的概率：</p>
+              \[ P(q_n)=|c_n|^2=|\langle f_n|\psi\rangle|^2. \]
+              <p>测量后态坍缩到 \(|f_n\rangle\)。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="born-rule">玻恩规则</a>、<a class="kp" data-kp="probability-amplitude">概率幅</a>；\(c_n\) 是概率幅，不是概率。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="expectation">期望值</a></div>
+            <div class="step-body">
+              <p>\[ \langle Q\rangle=\sum_n q_nP(q_n)=\sum_n q_n|c_n|^2. \]</p>
+              <p>也可写成 \(\langle\psi|\hat Q|\psi\rangle\)：</p>
+              \[ \langle\psi|\hat Q|\psi\rangle
+                 =\sum_n q_n|\langle f_n|\psi\rangle|^2. \]
+              <p>两种写法等价；后者不用先展开。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="variance">方差</a></div>
+            <div class="step-body">
+              <p>\[ \sigma_Q^2=\sum_n(q_n-\langle Q\rangle)^2P(q_n)
+                 =\langle Q^2\rangle-\langle Q\rangle^2. \]</p>
+              <p>若态是本征态，只有一个 \(P=1\)，方差为零；否则一般不为零。</p>
+              <p class="step-check"><b>检查：</b>\(\sigma_Q^2\ge0\)；若为负，检查概率是否归一。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量后的态（<a class="kp" data-kp="collapse">坍缩</a>）</div>
+            <div class="step-body">
+              <p>测得 \(q_n\) 后：</p>
+              \[ |\psi\rangle\longrightarrow|f_n\rangle. \]
+              <p>这是投影公设；若简并，投影到 \(q_n\) 对应的整个子空间，而不是任意选一个态。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="collapse">波函数坍缩</a>；它不是薛定谔方程演化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">重复测量同一量</div>
+            <div class="step-body">
+              <p>刚测完 \(Q\) 得 \(q_n\)，态为 \(|f_n\rangle\)，立刻再测 \(Q\)：概率 1 得 \(q_n\)，结果确定。</p>
+              <p>这就是「测量制备本征态」；但若中间插入不对易的测量，确定性被破坏。</p>
+              <p class="step-check"><b>注意：</b>「重复测量」指同一可观测量、同一装置、忽略演化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续谱</div>
+            <div class="step-body">
+              <p>\[ |\psi\rangle=\int c(z)|f_z\rangle\mathrm{d}z,\qquad
+                 c(z)=\langle f_z|\psi\rangle. \]</p>
+              <p>测量结果落在 \([z,z+\mathrm{d}z]\) 的概率：</p>
+              \[ \mathrm{d}P=|c(z)|^2\mathrm{d}z. \]
+              <p>所以 \(|c(z)|^2\) 是概率密度，不是概率；单点概率为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置表象</div>
+            <div class="step-body">
+              <p>取 \(\hat Q=\hat x\)，本征函数 \(\delta(x-y)\)，系数 \(c(y)=\psi(y)\)：</p>
+              \[ \mathrm{d}P=|\psi(y)|^2\mathrm{d}y. \]
+              <p>这正是 §1.2 的玻恩规则；广义诠释把它作为特例。</p>
+              <p class="step-why"><b>统一：</b>位置、动量、能量没有本质区别，都是「投影到本征基」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量表象</div>
+            <div class="step-body">
+              <p>\[ \tilde\psi(p)=\langle p|\psi\rangle
+                 =\frac{1}{\sqrt{2\pi\hbar}}\int e^{-\mathrm{i}px/\hbar}\psi(x)\mathrm{d}x. \]</p>
+              <p>\(\mathrm{d}P=|\tilde\psi(p)|^2\mathrm{d}p\)；动量期望 \(\langle p\rangle=\int p|\tilde\psi|^2\mathrm{d}p\)。</p>
+              <p class="step-check"><b>检查：</b>\(\int|\tilde\psi|^2\mathrm{d}p=1\)（帕塞瓦尔）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：δ 势束缚态的动量分布</div>
+            <div class="step-body">
+              <p>束缚态 \(\psi(x)=\sqrt\kappa e^{-\kappa|x|}\)（\(\kappa=m\alpha/\hbar^2\)）。傅里叶变换得洛伦兹型：</p>
+              \[ \tilde\psi(p)\propto\frac{1}{p^2+\hbar^2\kappa^2}. \]
+              <p>动量分布不是高斯，尾部较胖；位置越窄（κ 大），动量分布越宽。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">尾部概率</div>
+            <div class="step-body">
+              <p>对洛伦兹分布，尾部概率</p>
+              \[ P(|p|>p_0)=\int_{|p|>p_0}|\tilde\psi(p)|^2\mathrm{d}p \]
+              <p>随 \(p_0\) 只按 \(1/p_0\) 衰减（而不是高斯的指数衰减）。课件 4-4 p05 的数值 \(1/4-1/(2\pi)\approx0.0908\) 就是这类积分。</p>
+              <p class="step-why"><b>物理：</b>洛伦兹尾部导致「大动量概率」比高斯高，散射/衰变中常见。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="degeneracy">简并</a>情形</div>
+            <div class="step-body">
+              <p>若 \(q\) 对应正交归一本征态 \(f_{q,1},\dots,f_{q,g}\)，测到 \(q\) 的概率：</p>
+              \[ P(q)=\sum_{i=1}^g|\langle f_{q,i}|\psi\rangle|^2. \]
+              <p>测量后投影到整个简并子空间，而不是单个 \(f_{q,i}\)。</p>
+              <p class="step-check"><b>注意：</b>简并子空间内的基选择任意；总概率与基选择无关。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相容可观测量</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]=0\)，存在共同本征基 \(|a,b\rangle\)，可同时指定 \(a,b\)：</p>
+              \[ |\psi\rangle=\sum_{a,b}c_{ab}|a,b\rangle,\qquad
+                 P(a,b)=|c_{ab}|^2. \]
+              <p>先测 A 再测 B 与反过来，结果一致（对易）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">不相容可观测量（<a class="kp" data-kp="commutator">对易子</a>）</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]\ne0\)，没有共同本征基；测 A 会改变 B 的分布。</p>
+              <p>例如测 \(x\) 后态近似 δ 函数，动量分布极宽；再测 \(p\) 的结果与测 \(x\) 前不同。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="commutator">对易子</a>、<a class="kp" data-kp="uncertainty-principle">不确定原理</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">概率幅与概率的区别</div>
+            <div class="step-body">
+              <p>\(c_n\) 是复数，可正可负可带相位；\(|c_n|^2\) 才是非负概率。</p>
+              <p>相对相位在叠加中产生干涉；整体相位不影响概率。这是量子概率与经典概率最本质的区别。</p>
+              <p class="step-check"><b>易错：</b>把 \(c_n\) 直接当概率、或把 \(c_n+c_m\) 当概率相加，都会出错。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">投影公式</div>
+            <div class="step-body">
+              <p>对一般态（不必归一），测到 \(q\) 的概率可写成</p>
+              \[ P(q)=\frac{\langle\psi|\hat P_q|\psi\rangle}{\langle\psi|\psi\rangle}. \]
+              <p>归一化后分母为 1；简并投影 \(\hat P_q=\sum_i|q,i\rangle\langle q,i|\)。</p>
+              <p class="step-check"><b>检查：</b>\(\sum_qP(q)=1\)；若不等，检查本征基是否完备。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>忘记 \(c_n\) 的复共轭；</li>
+                <li>把连续谱的 \(|c(z)|^2\) 当概率而不是密度；</li>
+                <li>简并时只取一个本征态算概率；</li>
+                <li>认为测量后态还是原来的叠加态；</li>
+                <li>把「期望值」当单次测量结果。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(c_n=\langle f_n|\psi\rangle\)，\(P(q_n)=|c_n|^2\)，\(\sum|c_n|^2=1\)。</p>
+              <p><b>测量：</b>坍缩到本征态；简并时投影到子空间；相容量可同时确定。</p>
+              <p><b>连续谱：</b>\(\mathrm{d}P=|c(z)|^2\mathrm{d}z\)；位置/动量是特例。</p>
+              <p><b>自检：</b>能否用展开系数写出期望值、方差与坍缩后的态？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
