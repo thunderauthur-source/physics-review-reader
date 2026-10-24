@@ -6441,6 +6441,39 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       <p style="margin-top:8px"><b>④ 相律</b>：f = k + 2 − π。单元系 k = 1，故 f = 3 − π：单相 f = 2，两相 f = 1，三相 f = 0（三相点是一个确定的状态点）。</p>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s34">
+      <summary>完整推导 · 20 步：复相平衡与克拉珀龙方程</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(\mu^\alpha=\mu^\beta\) 推出相图曲线与 <a class="kp" data-kp="clapeyron">Clapeyron 方程</a>，并给出蒸气压近似与<a class="kp" data-kp="phase-rule">相律</a>。
+          约定：单元系、两相平衡；L 为摩尔潜热。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">相平衡条件</div><div class="step-body"><p>两相平衡：\(T^\alpha=T^\beta\)、\(p^\alpha=p^\beta\)、\(\mu^\alpha=\mu^\beta\)。</p></div></li>
+          <li class="step"><div class="step-title">相曲线</div><div class="step-body"><p>\(\mu^\alpha(T,p)=\mu^\beta(T,p)\) 解出 \(p=p(T)\)，即汽化/熔解/升华曲线。</p></div></li>
+          <li class="step"><div class="step-title">沿曲线微移</div><div class="step-body"><p>\(d\mu^\alpha=d\mu^\beta\)。</p></div></li>
+          <li class="step"><div class="step-title">吉布斯–杜安</div><div class="step-body"><p>\(d\mu=-s_m dT+v_m dp\)。</p></div></li>
+          <li class="step"><div class="step-title">代入</div><div class="step-body"><p>\(-s^\alpha dT+v^\alpha dp=-s^\beta dT+v^\beta dp\)。</p></div></li>
+          <li class="step"><div class="step-title">Clapeyron 方程</div><div class="step-body"><p>\[ \frac{\mathrm{d}p}{\mathrm{d}T}=\frac{s^\beta-s^\alpha}{v^\beta-v^\alpha}
+                 =\frac{L}{T(v^\beta-v^\alpha)}. \]</p></div></li>
+          <li class="step"><div class="step-title">潜热</div><div class="step-body"><p>\(L=T(s^\beta-s^\alpha)\)：相变潜热。</p></div></li>
+          <li class="step"><div class="step-title">汽化曲线</div><div class="step-body"><p>液→气：\(v_g>v_l\)、L>0，所以 dp/dT>0。</p></div></li>
+          <li class="step"><div class="step-title">熔解曲线</div><div class="step-body"><p>多数物质 \(v_l>v_s\)，dp/dT>0；水 \(v_l<v_s\)，dp/dT<0（加压熔化）。</p></div></li>
+          <li class="step"><div class="step-title">升华曲线</div><div class="step-body"><p>固→气，\(v_g\gg v_s\)，dp/dT>0，斜率通常更大。</p></div></li>
+          <li class="step"><div class="step-title">三相点</div><div class="step-body"><p>三条曲线交点，三相共存，自由度 0。</p></div></li>
+          <li class="step"><div class="step-title">蒸气压近似</div><div class="step-body"><p>\(v_g\gg v_l\)、理想气体 \(v_g=RT/p\)：</p><p>\[ \frac{\mathrm{d}p}{\mathrm{d}T}\approx\frac{Lp}{RT^2}. \]</p></div></li>
+          <li class="step"><div class="step-title">积分</div><div class="step-body"><p>L 常数：\(\ln p=-L/(RT)+A\)。</p></div></li>
+          <li class="step"><div class="step-title">相律</div><div class="step-body"><p>\(f=k+2-\pi\)；单元系 \(f=3-\pi\)：单相 2、两相 1、三相 0。</p></div></li>
+          <li class="step"><div class="step-title">相图</div><div class="step-body"><p>p–T 平面被三条曲线分成固/液/气三区；跨曲线发生相变。</p></div></li>
+          <li class="step"><div class="step-title">亚稳态</div><div class="step-body"><p>过冷/过热对应 μ 的局部极小；可短暂存在。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>相 1/2 写反导致斜率符号错；</li><li>临界点附近用蒸气压近似；</li><li>把潜热当显热；</li><li>相律用错。</li></ul></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>L：J/mol；v：m³/mol；dp/dT：Pa/K。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>相平衡 μ 相等 → 相曲线；Clapeyron 给斜率；蒸气压近似；相律给自由度。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否用 Clapeyron 解释水的熔解曲线斜率为负？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6512,6 +6545,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s35">
+      <summary>完整推导 · 20 步：临界点与气液转变</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用范德瓦耳斯等温线解释气液共存、麦克斯韦<a class="kp" data-kp="maxwell-equal-area">等面积法则</a>、临界点与<a class="kp" data-kp="corresponding-states">对应态定律</a>。
+          约定：1 mol 范氏气体；\(V_m\) 为摩尔体积。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">安德鲁斯实验</div><div class="step-body"><p>CO₂ 等温压缩：低温出现水平共存段；升温水平段缩短；到 \(T_c\) 缩成一点。</p></div></li>
+          <li class="step"><div class="step-title">范氏方程</div><div class="step-body"><p>\[ p=\frac{RT}{V_m-b}-\frac{a}{V_m^2}. \]</p></div></li>
+          <li class="step"><div class="step-title">S 形等温线</div><div class="step-body"><p>\(T<T_c\) 时曲线有极小 J、极大 N，中间 J–N 段 \((\partial p/\partial V)_T>0\)。</p></div></li>
+          <li class="step"><div class="step-title">不稳定段</div><div class="step-body"><p>J–N 段违反稳定条件，实际不存在，被水平共存线取代。</p></div></li>
+          <li class="step"><div class="step-title">亚稳段</div><div class="step-body"><p>N–B 过饱和蒸气、A–J 过热液体：局部稳定、全局不稳。</p></div></li>
+          <li class="step"><div class="step-title">共存条件</div><div class="step-body"><p>气液平衡：\(\mu_g=\mu_l\)、T、p 相等。</p></div></li>
+          <li class="step"><div class="step-title">等面积法则</div><div class="step-body"><p>由 \(\int v\,dp=0\) 分部积分：</p><p>\[ \int_{V_l}^{V_g}p\,\mathrm{d}V=p_s(V_g-V_l). \]</p></div></li>
+          <li class="step"><div class="step-title">几何意义</div><div class="step-body"><p>水平线上下两块面积相等；不是取 S 形中线。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="critical-point">临界点条件</a></div><div class="step-body"><p>\[ (\partial p/\partial V)_T=0,\qquad (\partial^2p/\partial V^2)_T=0. \]</p></div></li>
+          <li class="step"><div class="step-title">临界常数</div><div class="step-body"><p>\[ V_c=3b,\quad T_c=\frac{8a}{27Rb},\quad p_c=\frac{a}{27b^2}. \]</p></div></li>
+          <li class="step"><div class="step-title">反解 a、b</div><div class="step-body"><p>\[ a=\frac{27R^2T_c^2}{64p_c},\qquad b=\frac{RT_c}{8p_c}. \]</p></div></li>
+          <li class="step"><div class="step-title">压缩因子</div><div class="step-body"><p>范氏理论 \(p_cV_c/(RT_c)=3/8=0.375\)；实验约 0.27–0.29。</p></div></li>
+          <li class="step"><div class="step-title">对比变量</div><div class="step-body"><p>\(\pi=p/p_c\)、\(\phi=V_m/V_c\)、\(\tau=T/T_c\)。</p></div></li>
+          <li class="step"><div class="step-title">对应态方程</div><div class="step-body"><p>\[ \left(\pi+\frac{3}{\phi^2}\right)(3\phi-1)=8\tau. \]</p></div></li>
+          <li class="step"><div class="step-title">对应态定律</div><div class="step-body"><p>不含 a、b：所有范氏气体在相同 \(\pi,\tau\) 下有相同 \(\phi\)。</p></div></li>
+          <li class="step"><div class="step-title">临界指数</div><div class="step-body"><p>范氏理论给 \(\beta=1/2,\gamma=1,\delta=3\)；实验 \(\beta\approx0.32\)，说明平均场失效。</p></div></li>
+          <li class="step"><div class="step-title">临界点以上</div><div class="step-body"><p>气液不可区分，可连续转变（超临界流体）。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>只用一个偏导定临界点；</li><li>等面积法则当中线；</li><li>把亚稳当稳定；</li><li>用范氏指数当精确值。</li></ul></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>S 形线 → 共存线（等面积）→ 临界点（两偏导为零）→ 对应态定律。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否由范氏方程独立推出 \(V_c,T_c,p_c\)？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6563,6 +6628,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         </ol>
       </div>
     </div>
+    <details class="blk b-deriv b-full" id="full-s36">
+      <summary>完整推导 · 20 步：液滴形成与开尔文方程</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：由表面张力推出 Laplace 附加压强，再修变化学势，得到小液滴蒸气压升高的 Kelvin 方程与<a class="kp" data-kp="nucleation">成核</a>势垒。
+          约定：球形液滴、半径 r、表面张力 σ；气相近似理想气体。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">界面能</div><div class="step-body"><p>液滴表面有表面张力，界面面积 A 增加需做功 \(\sigma\mathrm{d}A\)。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="kelvin-equation">Laplace 压强</a></div><div class="step-body"><p>球形液滴内外压差：\[ \Delta p=p_l-p_g=\frac{2\sigma}{r}. \]</p></div></li>
+          <li class="step"><div class="step-title">肥皂泡</div><div class="step-body"><p>两个界面：\(\Delta p=4\sigma/r\)。</p></div></li>
+          <li class="step"><div class="step-title">化学势修正</div><div class="step-body"><p>等温 \(d\mu=v\,dp\)；液滴内部压强高，μ 比平液面高。</p></div></li>
+          <li class="step"><div class="step-title">积分</div><div class="step-body"><p>\(\Delta\mu=v_l\Delta p=2\sigma v_l/r\)。</p></div></li>
+          <li class="step"><div class="step-title">气液平衡</div><div class="step-body"><p>\(\mu_g(p_r)=\mu_l(p_l)\)；平液面 \(\mu_g(p_\infty)=\mu_l(p_\infty)\)。</p></div></li>
+          <li class="step"><div class="step-title">蒸气压关系</div><div class="step-body"><p>理想气体 \(d\mu_g=v_g dp=RT\,dp/p\)，积分得 Kelvin 方程：</p><p>\[ \ln\frac{p_r}{p_\infty}=\frac{2\sigma v_l}{RTr}. \]</p></div></li>
+          <li class="step"><div class="step-title">小液滴蒸气压高</div><div class="step-body"><p>r 越小，\(p_r/p_\infty\) 越大；小液滴更易蒸发。</p></div></li>
+          <li class="step"><div class="step-title">成核</div><div class="step-body"><p>气相凝聚要先形成小液滴；小液滴蒸气压高，不易稳定存在，需要过饱和度。</p></div></li>
+          <li class="step"><div class="step-title">临界半径</div><div class="step-body"><p>由过饱和度 S=p/p∞ 解出 \(r^*=2\sigma v_l/(RT\ln S)\)。</p></div></li>
+          <li class="step"><div class="step-title">成核势垒</div><div class="step-body"><p>形成临界液滴需克服表面能 \(\Delta G^*=4\pi r^{*2}\sigma/3\)。</p></div></li>
+          <li class="step"><div class="step-title">凝结核</div><div class="step-body"><p>尘埃/离子提供现成表面，降低势垒；云室、云雾形成依赖凝结核。</p></div></li>
+          <li class="step"><div class="step-title">曲率符号</div><div class="step-body"><p>凸液面（液滴）蒸气压升高；凹液面（毛细管）蒸气压降低。</p></div></li>
+          <li class="step"><div class="step-title">应用</div><div class="step-body"><p>云物理、毛细凝结、纳米颗粒稳定性、微乳液。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>Laplace 压强漏 2；</li><li>Kelvin 方程符号反；</li><li>把 r 当直径；</li><li>忽略 v_l 的压强依赖。</li></ul></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>σ：N/m；v_l：m³/mol；\(2\sigma v_l/(RTr)\)：无量纲。</p></div></li>
+          <li class="step"><div class="step-title">与相图关系</div><div class="step-body"><p>Kelvin 方程给「曲率修正的相平衡线」；平面相图是 r→∞ 极限。</p></div></li>
+          <li class="step"><div class="step-title">亚稳性</div><div class="step-body"><p>过饱和蒸气是亚稳态；成核是动力学势垒问题。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>Laplace \(2\sigma/r\) → μ 修正 → Kelvin \(\ln(p_r/p_\infty)=2\sigma v_l/(RTr)\) → 成核势垒。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否解释为什么云需要凝结核？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -7583,6 +7680,11 @@ applyFilter();
     'phase-rule': { title: '相律', def: 'f=c−p+2；单元两相 f=1，三相点 f=0。', card: 's33' },
     'clapeyron': { title: '克拉珀龙方程', def: 'dp/dT=L/[T(v2−v1)]；一级相变平衡曲线斜率。', card: 's33' },
     'first-order-transition': { title: '一级相变', def: '有潜热、比容/熵突变；两相 μ 相等但一阶导不连续。', card: 's33' },
+    'critical-point': { title: '临界点', def: '气液差别消失的点；(∂p/∂V)_T=(∂²p/∂V²)_T=0。范氏理论 Vc=3b,Tc=8a/27Rb,pc=a/27b²。', card: 's35' },
+    'maxwell-equal-area': { title: '麦克斯韦等面积法则', def: '气液共存压强使 ∫p dV=p_s(Vg−Vl)；水平线上下面积相等，等价于 μg=μl。', card: 's35' },
+    'corresponding-states': { title: '对应态定律', def: '用 π=p/pc,φ=V/Vc,τ=T/Tc 后范氏方程不含 a,b；相同 π,τ 下 φ 相同。', card: 's35' },
+    'kelvin-equation': { title: '开尔文方程', def: 'ln(p_r/p∞)=2σv_l/(RTr)；小液滴蒸气压高，凹液面低。', card: 's36' },
+    'nucleation': { title: '成核', def: '新相形成需先克服表面能势垒；凝结核降低势垒，临界半径 r*=2σv_l/(RT lnS)。', card: 's36' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
