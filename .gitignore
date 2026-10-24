@@ -1,0 +1,11 @@
+# 个人阅读状态（进度、书签、笔记、高亮）
+程序/edgeprofile/
+
+# 安装包超过 GitHub 单文件 100 MB 限制，改放到 Releases
+发布/安装版/*.exe
+
+# 日志与临时文件
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

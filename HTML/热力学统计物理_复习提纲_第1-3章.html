@@ -1,0 +1,3254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="热统复习提纲 构建脚本 build.py · 2026-10-22 20:16">
+<title>热力学·统计物理 · 复习提纲（第1–3章）</title>
+<style>
+  :root {
+    --bg:#f6f7f9; --card:#fff; --text:#22303c; --muted:#6b7785;
+    --line:#e2e6ea; --hover:#eef3f8;
+    --c1:#1e5a8a; --c1-bg:#eaf2f8; --c1-soft:#d4e6f3;
+    --c2:#14735f; --c2-bg:#e8f6f1; --c2-soft:#cdeade;
+    --key:#8a6d00; --key-bg:#fef9e7; --key-line:#e8d48b;
+    --warn:#b03a2e; --warn-bg:#fdecea; --warn-line:#f5c6c0;
+    --deriv:#5b4b8a; --deriv-bg:#f5f2fb; --deriv-line:#ddd4ee;
+    --img:#1f6f8b; --img-bg:#eef7fa; --img-line:#c9e4ee;
+  }
+  body.dark {
+    --bg:#161a1f; --card:#1e242b; --text:#dde3ea; --muted:#8b97a5;
+    --line:#2c343d; --hover:#263039;
+    --c1:#6fa8d6; --c1-bg:#1b2a38; --c1-soft:#24384a;
+    --c2:#5fbfa2; --c2-bg:#162a25; --c2-soft:#1e3a33;
+    --key:#e0c26a; --key-bg:#2a2517; --key-line:#4a4020;
+    --warn:#e88b80; --warn-bg:#2c1e1c; --warn-line:#4a2f2b;
+    --deriv:#b3a3dd; --deriv-bg:#231f2e; --deriv-line:#3a3350;
+    --img:#7fc4dc; --img-bg:#17262c; --img-line:#274049;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background:var(--bg); color:var(--text);
+    font-family:'Microsoft YaHei','PingFang SC','Segoe UI',system-ui,sans-serif;
+    line-height:1.75; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    background:linear-gradient(135deg,#1e5a8a 0%,#14735f 100%);
+    color:#fff; text-align:center; padding:38px 20px 26px;
+  }
+  .hero h1 { font-size:1.65em; font-weight:500; letter-spacing:.02em; }
+  .hero .sub { opacity:.88; font-size:.9em; margin-top:5px; }
+  .hero .info { margin-top:11px; font-size:.79em; opacity:.66; line-height:1.7; }
+
+  /* ============ TOOLBAR ============ */
+  .toolbar {
+    position:sticky; top:0; z-index:50;
+    background:var(--card);
+    background:color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:9px 16px;
+  }
+  .toolbar-in {
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+  }
+  .toolbar input[type=text] {
+    flex:1; min-width:170px; padding:8px 13px; font-size:.9em;
+    border:1px solid var(--line); border-radius:7px;
+    background:var(--bg); color:var(--text); outline:none;
+    font-family:inherit; transition:border-color .2s;
+  }
+  .toolbar input[type=text]:focus { border-color:var(--c1); }
+  .btn {
+    padding:7px 13px; font-size:.83em; font-family:inherit; cursor:pointer;
+    border:1px solid var(--line); border-radius:7px;
+    background:var(--card); color:var(--text);
+    transition:all .18s; white-space:nowrap;
+  }
+  .btn:hover { background:var(--hover); border-color:var(--c1); }
+  .btn.on { background:var(--c1); color:#fff; border-color:var(--c1); }
+  .prog {
+    font-size:.82em; color:var(--muted); padding:0 4px;
+    white-space:nowrap; font-variant-numeric:tabular-nums;
+  }
+  .prog b { color:var(--c2); font-weight:600; }
+
+  /* ============ LAYOUT ============ */
+  .wrap { max-width:1180px; margin:0 auto; display:flex; gap:26px; padding:22px 16px 70px; align-items:flex-start; }
+
+  nav.side {
+    position:sticky; top:62px; width:212px; flex-shrink:0;
+    max-height:calc(100vh - 84px); overflow-y:auto;
+    font-size:.845em; padding-right:4px;
+  }
+  nav.side::-webkit-scrollbar { width:5px; }
+  nav.side::-webkit-scrollbar-thumb { background:var(--line); border-radius:3px; }
+  .side-h {
+    font-size:.86em; font-weight:600; color:var(--muted);
+    letter-spacing:.08em; margin:14px 0 5px; padding-left:9px;
+  }
+  .side-h:first-child { margin-top:0; }
+  nav.side a {
+    display:block; padding:3px 9px; color:var(--muted);
+    text-decoration:none; border-radius:5px; border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  nav.side a:hover { background:var(--hover); color:var(--text); }
+  nav.side a.cur { color:var(--c1); background:var(--c1-bg); border-left-color:var(--c1); font-weight:600; }
+  nav.side a.done::after { content:'✓'; float:right; color:var(--c2); font-weight:700; font-size:.9em; }
+
+  main { flex:1; min-width:0; }
+
+  /* ============ CHAPTER BANNER ============ */
+  .chap {
+    margin:30px 0 14px; padding:13px 20px; border-radius:9px;
+    font-weight:600; font-size:1.06em;
+    display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  }
+  .chap:first-child { margin-top:0; }
+  .chap .cn { font-size:.74em; font-weight:700; opacity:.62; letter-spacing:.1em; }
+  .chap .cm { font-size:.76em; font-weight:400; opacity:.72; margin-left:auto; }
+  .chap1 { background:var(--c1-bg); color:var(--c1); }
+  .chap2 { background:var(--c2-bg); color:var(--c2); }
+
+  /* ============ CARD ============ */
+  .card {
+    background:var(--card); border:1px solid var(--line);
+    border-radius:10px; margin-bottom:11px; overflow:hidden;
+    transition:box-shadow .2s, border-color .2s;
+    scroll-margin-top:70px;
+  }
+  .card:hover { box-shadow:0 2px 12px rgba(0,0,0,.055); }
+  .card.done { border-color:var(--c2-soft); }
+  body.dark .card:hover { box-shadow:0 2px 12px rgba(0,0,0,.3); }
+
+  .chead {
+    padding:11px 17px; display:flex; align-items:center; gap:11px;
+    cursor:pointer; user-select:none;
+  }
+  .secnum {
+    font-size:.78em; font-weight:700; padding:2px 8px; border-radius:5px;
+    flex-shrink:0; font-variant-numeric:tabular-nums; letter-spacing:.02em;
+  }
+  .chap1 .secnum, .card.c1 .secnum { background:var(--c1-bg); color:var(--c1); }
+  .card.c2 .secnum { background:var(--c2-bg); color:var(--c2); }
+  .chead h3 { font-size:1em; font-weight:600; flex:1; }
+  .star { font-size:.72em; color:var(--key); font-weight:400; opacity:.85; }
+  .caret { color:var(--muted); font-size:.72em; transition:transform .22s; flex-shrink:0; }
+  .card.closed .caret { transform:rotate(-90deg); }
+  .card.closed .cbody { display:none; }
+
+  .mark {
+    width:19px; height:19px; border-radius:5px; flex-shrink:0;
+    border:1.5px solid var(--line); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all .16s; font-size:.72em; color:transparent;
+  }
+  .mark:hover { border-color:var(--c2); }
+  .card.done .mark { background:var(--c2); border-color:var(--c2); color:#fff; }
+
+  .cbody { padding:0 17px 15px; }
+
+  /* ============ BLOCKS ============ */
+  .blk { border-radius:8px; padding:11px 15px; margin-top:9px; border-left:3px solid; }
+  .blk h4 {
+    font-size:.78em; font-weight:700; letter-spacing:.09em;
+    margin-bottom:6px; opacity:.9; display:flex; align-items:center; gap:6px;
+  }
+  .blk p { font-size:.925em; }
+  .blk p + p { margin-top:7px; }
+  .blk ul, .blk ol { margin:6px 0 0 19px; font-size:.925em; }
+  .blk li { margin:3px 0; }
+  .blk li::marker { color:var(--muted); }
+
+  .b-img  { background:var(--img-bg);   border-color:var(--img-line);   color:var(--text); }
+  .b-img h4  { color:var(--img); }
+  .b-key  { background:var(--key-bg);   border-color:var(--key-line); }
+  .b-key h4  { color:var(--key); }
+  .b-warn { background:var(--warn-bg);  border-color:var(--warn-line); }
+  .b-warn h4 { color:var(--warn); }
+  .b-deriv{ background:var(--deriv-bg); border-color:var(--deriv-line); }
+  .b-deriv h4 { color:var(--deriv); }
+
+  /* derivation collapsible */
+  details.b-deriv { padding:0; }
+  details.b-deriv > summary {
+    list-style:none; cursor:pointer; padding:11px 15px;
+    font-size:.78em; font-weight:700; letter-spacing:.09em; color:var(--deriv);
+    display:flex; align-items:center; gap:7px; opacity:.95;
+  }
+  details.b-deriv > summary::-webkit-details-marker { display:none; }
+  details.b-deriv > summary::before {
+    content:'▸'; font-size:1em; transition:transform .2s; display:inline-block;
+  }
+  details.b-deriv[open] > summary::before { transform:rotate(90deg); }
+  details.b-deriv > summary::after {
+    content:attr(data-hint); margin-left:auto;
+    font-size:.88em; font-weight:400; letter-spacing:0; opacity:.52;
+  }
+  details.b-deriv[open] > summary::after { content:''; }
+  .dbody { padding:0 15px 13px; font-size:.925em; }
+  .dbody ol { margin-left:19px; }
+  .dbody li { margin:5px 0; }
+  .dbody p + p { margin-top:7px; }
+
+  /* conclusion masking */
+  .concl { position:relative; border-radius:6px; transition:filter .2s; }
+  .concl > * { font-size:.95em; }
+  body.mask .concl { min-height:34px; }
+  body.mask .concl::after {
+    content:'点击显示结论'; position:absolute; inset:0;
+    background:var(--key-bg); border:1px dashed var(--key-line);
+    border-radius:6px; display:flex; align-items:center; justify-content:center;
+    color:var(--key); font-size:.8em; letter-spacing:.05em; cursor:pointer;
+  }
+  body.mask .concl.shown::after { display:none; }
+
+  /* ============ MATH ============ */
+  .m {
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.06em; white-space:nowrap;
+  }
+  .m .up { font-style:normal; }
+  .eq {
+    display:block; text-align:center; margin:9px 0;
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.07em;
+    white-space:normal; line-height:2;
+  }
+  .eq-l {
+    display:block; margin:9px 0 9px 8px;
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.05em; line-height:2;
+  }
+  .frac {
+    display:inline-flex; flex-direction:column; vertical-align:middle;
+    text-align:center; margin:0 .18em; font-size:.94em; line-height:1.28;
+  }
+  .frac > .num { border-bottom:1px solid currentColor; padding:0 .28em; }
+  .frac > .den { padding:0 .28em; }
+  sub, sup { font-size:.7em; font-style:normal; }
+  .tag {
+    font-style:normal; font-size:.74em; padding:1px 6px; border-radius:4px;
+    background:var(--line); color:var(--muted); margin-left:5px;
+    font-family:'Microsoft YaHei',sans-serif; white-space:nowrap;
+  }
+  .tag.hot { background:var(--warn-bg); color:var(--warn); }
+  .tag.key { background:var(--key-bg); color:var(--key); }
+
+  /* ============ EXERCISE SECTION ============ */
+  .ex-type {
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--c1);
+    border-radius:9px; padding:12px 16px; margin-bottom:9px;
+    scroll-margin-top:70px;
+  }
+  .ex-type h4 { font-size:.94em; font-weight:600; margin-bottom:4px; color:var(--c1); }
+  .ex-type .feat { font-size:.86em; color:var(--muted); margin-bottom:5px; }
+  .ex-type .feat b { color:var(--text); font-weight:600; }
+  .ex-type ul { margin:4px 0 0 18px; font-size:.91em; }
+  .ex-type li { margin:2px 0; }
+
+  .note {
+    background:var(--card); border:1px solid var(--line); border-radius:9px;
+    padding:13px 17px; margin:14px 0; font-size:.89em; color:var(--muted);
+    line-height:1.8;
+  }
+  .note b { color:var(--text); }
+
+  footer {
+    text-align:center; color:var(--muted); font-size:.8em;
+    padding:26px 16px 40px; line-height:1.9;
+  }
+
+  .empty {
+    text-align:center; color:var(--muted); padding:36px; font-size:.9em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px) {
+    nav.side { display:none; }
+    .wrap { gap:0; }
+  }
+  @media (max-width:600px) {
+    body { font-size:14.5px; }
+    .hero h1 { font-size:1.3em; }
+    .cbody { padding:0 13px 13px; }
+    .chead { padding:10px 13px; gap:8px; }
+    .blk { padding:10px 12px; }
+    .eq { font-size:.98em; }
+    .prog { display:none; }
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    body { background:#fff; font-size:11pt; }
+    .toolbar, nav.side { display:none !important; }
+    .wrap { display:block; max-width:none; padding:0; }
+    .hero { background:#1e5a8a !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:20px; }
+    .card { break-inside:avoid; box-shadow:none; }
+    .card.closed .cbody { display:block !important; }
+    details.b-deriv > .dbody { display:block !important; }
+    details.b-deriv > summary::after { content:'' !important; }
+    .blk, .chap, .ex-type, .note { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body.mask .concl::after { display:none !important; }
+    .mark, .caret { display:none; }
+  }
+
+  /* ==================== CH.3 配色与新增组件 ==================== */
+  :root { --c3:#8b3a62; --c3-bg:#fbeef3; --c3-soft:#f2d5e2; --q:#5b4b8a; --q-bg:#f5f2fb; }
+  body.dark { --c3:#e08fae; --c3-bg:#2e1f26; --c3-soft:#432b36; --q:#b3a3dd; --q-bg:#231f2e; }
+
+  .chap3 { background:var(--c3-bg); color:var(--c3); }
+  .chapq { background:var(--q-bg); color:var(--q); }
+  .chapfx { background:var(--key-bg); color:var(--key); }
+  .card.c3 .secnum { background:var(--c3-bg); color:var(--c3); }
+  .card.c3.done { border-color:var(--c3-soft); }
+  .ex-type.c3 { border-left-color:var(--c3) !important; }
+  .ex-type.c3 h4 { color:var(--c3); }
+
+  /* ==================== 表格 ==================== */
+  .tab { width:100%; border-collapse:collapse; font-size:.9em; margin-top:6px; }
+  .tab th, .tab td { border:1px solid var(--line); padding:5px 9px; text-align:left; vertical-align:middle; }
+  .tab th { background:var(--hover); font-weight:600; }
+  .tab td.m, .tab td .m { white-space:normal; }
+  .tab tr:nth-child(even) td { background:color-mix(in srgb, var(--hover) 40%, transparent); }
+  .b-key .tab th, .b-key .tab td { border-color:var(--key-line); }
+
+  /* ==================== 公式速查 ==================== */
+  .fsheet {
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:6px 16px 14px; margin-bottom:12px; scroll-margin-top:70px;
+  }
+  .fgroup-h {
+    font-size:.92em; font-weight:600; color:var(--c1);
+    margin:14px 0 2px; padding-left:9px; border-left:3px solid var(--c1);
+  }
+  .fgroup-h.c2 { color:var(--c2); border-left-color:var(--c2); }
+  .fgroup-h.c3 { color:var(--c3); border-left-color:var(--c3); }
+  .frow.hide { display:none; }
+  .fml {
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.02em; line-height:1.8; white-space:normal;
+  }
+  .fml sub, .fml sup { font-style:normal; }
+  .fname { font-weight:600; font-size:.95em; white-space:nowrap; }
+  .fnote { color:var(--muted); font-size:.86em; }
+  body.maskf .fml { filter:blur(5px); cursor:pointer; user-select:none; }
+  body.maskf .fml.shown { filter:none; user-select:auto; }
+
+  /* ==================== 自测题 ==================== */
+  .q-card {
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--q);
+    border-radius:9px; margin-bottom:9px; scroll-margin-top:70px;
+  }
+  .q-card > summary {
+    list-style:none; cursor:pointer; padding:11px 16px; font-size:.93em;
+    display:flex; gap:10px; align-items:baseline;
+  }
+  .q-card > summary::-webkit-details-marker { display:none; }
+  .q-card > summary::before {
+    content:'▸'; color:var(--q); transition:transform .2s; flex-shrink:0;
+  }
+  .q-card[open] > summary::before { transform:rotate(90deg); }
+  .qnum {
+    font-size:.76em; font-weight:700; color:var(--q); background:var(--q-bg);
+    padding:1px 7px; border-radius:5px; flex-shrink:0; font-variant-numeric:tabular-nums;
+  }
+  .q-tag {
+    margin-left:auto; font-size:.72em; color:var(--muted);
+    background:var(--hover); border-radius:4px; padding:1px 6px; flex-shrink:0;
+  }
+  .q-ans {
+    margin:0 16px; padding:9px 0 13px; font-size:.92em; line-height:1.85;
+    border-top:1px dashed var(--line);
+  }
+  .q-ans b { color:var(--q); }
+
+  /* ==================== 工具栏增强 ==================== */
+  .toolbar { overflow:visible; }
+  .pbar { position:absolute; left:0; right:0; bottom:0; height:3px; background:transparent; }
+  .pbar > i {
+    display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));
+    transition:width .35s ease;
+  }
+  .hits { font-size:.78em; color:var(--muted); min-width:4em; text-align:center; font-variant-numeric:tabular-nums; }
+  .modes { display:inline-flex; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .modes .btn { border:0; border-radius:0; padding:6px 11px; font-size:.8em; }
+  .modes .btn + .btn { border-left:1px solid var(--line); }
+  mark.hl { background:#ffe9a8; color:inherit; border-radius:2px; padding:0 1px; }
+  body.dark mark.hl { background:#7a5f00; color:#fff; }
+  .to-top {
+    position:fixed; right:20px; bottom:22px; z-index:60;
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line); background:var(--card); color:var(--muted);
+    cursor:pointer; font-size:1em; display:none; box-shadow:0 3px 12px rgba(0,0,0,.12);
+  }
+  .to-top.show { display:block; }
+  .to-top:hover { color:var(--c1); border-color:var(--c1); }
+  #empty { display:none; }
+  body.no-hits #empty { display:block; }
+
+  /* ==================== 阅读模式 ==================== */
+  body[data-mode="warn"] .card .blk:not(.b-warn) { display:none; }
+  body[data-mode="key"] .card .blk:not(.b-key) { display:none; }
+  body[data-mode="warn"] .card:not(:has(.b-warn)),
+  body[data-mode="key"] .card:not(:has(.b-key)) { display:none !important; }
+
+  /* ==================== 打印补充 ==================== */
+  @media print {
+    .pbar, .modes, .hits, .to-top { display:none !important; }
+    .q-card > .q-ans { display:block !important; }
+    .fml { filter:none !important; }
+    .tab { font-size:9pt; }
+    .chap, .fgroup-h { break-after:avoid; }
+  }
+
+  @media (max-width:600px) {
+    .modes { display:none; }
+    .hits { display:none; }
+    .fname { white-space:normal; }
+  }
+</style>
+</head>
+<body data-mode="all">
+
+<div class="hero">
+  <h1>热力学·统计物理 · 复习提纲</h1>
+  <p class="sub">第一章 热力学的基本规律 &nbsp;·&nbsp; 第二章 均匀物质的热力学性质 &nbsp;·&nbsp; 第三章 单元系的相变</p>
+  <p class="info">
+    汪志诚《热力学·统计物理》（第六版）· 高等教育出版社 · ISBN 978-7-04-052040-8<br>
+    按「物理图像 → 推导脉络 → 关键结论 → 易错点」组织 · 覆盖第 1–3 章课堂内容，含公式速查与自测题
+  </p>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-in">
+    <input type="text" id="q" placeholder="🔍 搜索概念、公式或关键词……" oninput="applyFilter()">
+    <span class="hits" id="hits"></span>
+    <div class="modes">
+      <button class="btn on" id="bModeAll" onclick="setMode('all')" title="显示全部内容">全部</button>
+      <button class="btn" id="bModeWarn" onclick="setMode('warn')" title="只看易错点（考前突击）">易错点</button>
+      <button class="btn" id="bModeKey" onclick="setMode('key')" title="只看关键结论">结论</button>
+    </div>
+    <button class="btn" id="bMask" onclick="toggleMask()" title="遮挡关键结论（自测，快捷键 M）">👁 遮挡结论</button>
+    <button class="btn" id="bMaskF" onclick="toggleMaskF()" title="模糊公式速查表（快捷键 F）">遮住公式</button>
+    <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
+    <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
+    <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
+    <span class="prog" id="prog"></span>
+  </div>
+  <div class="pbar"><i id="pbarIn"></i></div>
+</div>
+
+<div class="wrap">
+
+<nav class="side" id="side">
+  <div class="side-h">CH.1 热力学的基本规律</div>
+  <a href="#s11">1.1 热力学系统的平衡状态及其描述</a>
+  <a href="#s12">1.2 热平衡定律和温度</a>
+  <a href="#s13">1.3 物态方程</a>
+  <a href="#s14">1.4 功</a>
+  <a href="#s15">1.5 热力学第一定律</a>
+  <a href="#s16">1.6 热容和焓</a>
+  <a href="#s17">1.7 理想气体的内能</a>
+  <a href="#s18">1.8 理想气体的绝热过程</a>
+  <a href="#s19">1.9 理想气体的卡诺循环</a>
+  <a href="#s110">1.10 热力学第二定律</a>
+  <a href="#s111">1.11 卡诺定理</a>
+  <a href="#s112">1.12 热力学温标</a>
+  <a href="#s113">1.13 克劳修斯等式和不等式</a>
+  <a href="#s114">1.14 熵和热力学基本方程</a>
+  <a href="#s115">1.15 理想气体的熵</a>
+  <a href="#s116">1.16 热力学第二定律的数学表述</a>
+  <a href="#s117">1.17 熵增加原理的简单应用</a>
+  <a href="#s118">1.18 自由能和吉布斯函数</a>
+  <div class="side-h">CH.2 均匀物质的热力学性质</div>
+  <a href="#s21">2.1 内能、焓、自由能和吉布斯函数的全微分</a>
+  <a href="#s22">2.2 麦克斯韦关系的简单应用</a>
+  <a href="#s23">2.3 气体的节流过程和绝热膨胀过程</a>
+  <a href="#s24">2.4 基本热力学函数的确定</a>
+  <a href="#s25">2.5 特性函数</a>
+  <a href="#s26">2.6 热辐射的热力学理论</a>
+  <a href="#s27">2.7 磁介质的热力学</a>
+  <a href="#s28">2.8 获得低温的方法</a>
+  <div class="side-h">CH.3 单元系的相变</div>
+  <a href="#s30">3.0 热动平衡的条件</a>
+  <a href="#s31">3.1 热动平衡判据</a>
+  <a href="#s32">3.2 开系的热力学基本方程</a>
+  <a href="#s33">3.3 单元系的复相平衡条件</a>
+  <a href="#s34">3.4 单元复相系的平衡性质</a>
+  <a href="#s35">3.5 临界点和气液两相的转变</a>
+  <a href="#s36">3.6 液滴的形成</a>
+  <a href="#s37">3.7 相变的分类</a>
+  <a href="#s38">3.8 临界现象和临界指数</a>
+  <a href="#s39">3.9 朗道连续相变理论</a>
+  <div class="side-h">速查 · 习题 · 自测</div>
+  <a href="#fx">公式速查表</a>
+  <a href="#ex">课后习题题型分类与解题要点</a>
+  <a href="#quiz">自测题 · 24 题</a>
+</nav>
+
+<main id="main">
+
+<!-- ══════════════ 第一章 ══════════════ -->
+<div class="chap chap1" id="ch1">
+  <span class="cn">CH.1</span> 热力学的基本规律
+  <span class="cm">18 节 · 从平衡态到熵判据</span>
+</div>
+
+<!-- 1.1 -->
+<article class="card c1" id="s11">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.1</span>
+    <h3>热力学系统的平衡状态及其描述</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>热力学做的事叫「降维」：不追踪 10²³ 个分子各自的运动，只用少数几个宏观量把系统描述清楚。这种降维能成立，前提是系统处在<span class="m">平衡态</span> —— 此时宏观量有确定值、不随时间变化。</p>
+      <p>但微观上分子仍在剧烈运动、不断碰撞，只是各种运动的平均效果相互抵消。所以这叫<span class="m">热动平衡</span>，是「动的平衡」而非「死的静止」。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>要点梳理</h4>
+      <ul>
+        <li><b>系统 / 外界 / 边界</b>：按与外界的关系分孤立系、封闭系、开放系。</li>
+        <li><b>平衡态的定义</b>：在不受外界影响的条件下，系统的宏观性质不随时间变化。四项必须同时满足 —— 力学平衡、热平衡、相平衡、化学平衡。</li>
+        <li><b>平衡态的四个特征</b>：单一性（宏观量处处相等）、稳定性（与时间无关）、作为自发过程的终点、热动平衡（存在微小涨落）。注意这是理想化模型，绝对孤立系并不存在。</li>
+        <li><b>弛豫时间</b>：系统由初态过渡到平衡态所经历的时间，由系统尺度与分子运动速度决定。观测时间远大于弛豫时间，才能把系统当作平衡态处理。</li>
+        <li><b>状态参量</b>：几何参量（V）、力学参量（p）、电磁参量、化学参量（n）。单位：p 用 Pa（1 atm = 101325 Pa），V 用 m³（1 m³ = 10³ L），T 用 K。</li>
+        <li><b>广延量 vs 强度量</b>：广延量与系统大小成正比（V、U、S、N），强度量与大小无关（p、T、μ）。广延量除以质量即得强度量（如比容 v = V/m）。</li>
+        <li><b>简单系统</b>：只需两个独立参量即可确定状态，通常取 (p, V) 或 (p, T)；多于两个参量的叫复杂系统。</li>
+        <li><b>状态函数</b>：能表为状态参量函数的宏观量，如 U、S、H、F、G。</li>
+        <li><b>单相系 / 复相系</b>：同一化学组分、同一凝聚状态是一相；水–汽–冰共存就是单元三相系（「相」的概念第三章展开）。</li>
+      </ul>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>热力学用少数宏观量描述系统，前提是系统处于<b>平衡态</b>：不受外界影响时宏观性质不随时间变化，且力学、热、相、化学四类平衡同时成立。</p>
+        <p style="margin-top:6px">平衡态由<b>状态参量</b>确定：广延量（V、U、S、N）随系统大小累加，强度量（p、T、μ）与大小无关；简单系统只需两个独立参量，如 (p, V)。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「不随时间变化」是针对<b>宏观量</b>说的。说「微观运动停止」就错了。</li>
+        <li>宏观量暂时不变 ≠ 平衡态。例如稳定流动中各处密度、流速恒定，但系统并不处于热力学平衡态。</li>
+        <li>平衡态要求四项平衡齐全。只有力学平衡（如两相共存但温度不同的瞬间）不叫平衡态。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.2 -->
+<article class="card c1" id="s12">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.2</span>
+    <h3>热平衡定律和温度</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>温度是怎么被「定义」出来的？靠的是热平衡的<span class="m">传递性</span>。这是一条实验事实，逻辑上推不出来，所以把它列为一条定律 —— 由于它比第一、第二定律更基本，习惯称「第零定律」。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>实验事实：若 A 与 C 热平衡、B 与 C 热平衡，则 A 与 B 也热平衡。这就是<b>热平衡定律（第零定律）</b>。</li>
+        <li>于是「与 C 热平衡」这个性质，把所有系统划分成了若干个<b>等价类</b>。</li>
+        <li>给每个等价类标上一个数 —— 这个数就是<b>温度</b>。</li>
+        <li>结论：<span class="m">A、B 热平衡 ⟺ T<sub>A</sub> = T<sub>B</sub></span>。</li>
+      </ol>
+      <p style="margin-top:8px">这一步的关键在于：温度之所以存在，是因为热平衡有传递性。没有第零定律，就没有「温度」这个态函数。</p>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>温度是<b>强度量</b>；温度相等是热平衡的充要条件。</p>
+        <p>微观上，温度是热平衡系统内微观粒子热运动强弱程度的度量 —— 这也解释了为什么温度必须由第零定律定义、而不能从单个粒子的动力学推出。</p>
+        <p>两个系统通过<b>透热壁</b>接触（热接触）会交换热量而不交换粒子，最终达到共同平衡态，这就是<b>热平衡</b>。</p>
+        <p>温标三要素：测温物质、测温属性、固定点。教材里的三类温标：<b>经验温标</b>（如水银摄氏温标，依赖具体物质）、<b>理想气体温标</b>（定容气体温度计 T = 273.16 K × lim(p/p<sub>tr</sub>)，p<sub>tr</sub> 为水三相点压强）、<b>热力学温标</b>（由卡诺定理导出，不依赖物质，见 §1.12）。</p>
+        <p>摄氏温度与热力学温度：<span class="m">t/°C = T/K − 273.15</span>。水的三相点 T<sub>tr</sub> = 273.16 K。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>第零定律是<b>独立</b>的实验事实，不能由第一、第二定律推出 —— 考试若问「为什么需要第零定律」，答「因为它是定义温度的前提」。</li>
+        <li>不同经验温标对同一状态读数不同（水银温标 100 格、酒精温标不等分），这是经验温标的固有缺陷。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.3 -->
+<article class="card c1" id="s13">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.3</span>
+    <h3>物态方程</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>p、V、T 三个参量并不自由 —— 它们被一个约束绑住，这就是物态方程 <span class="m">f(p, V, T) = 0</span>。它把三维参量空间压缩成一张二维曲面，状态只能落在曲面上。</p>
+      <p>物态方程<b>必须由实验测定</b>（或由统计物理导出），热力学本身给不出来 —— 这是热力学框架的边界。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>目标：由循环关系导出三个响应系数之间的联系</b> <span class="m up">α = κ<sub>T</sub> β p</span></p>
+      <ol>
+        <li>把 V 视为 (p, T) 的函数，取全微分：
+          <span class="eq-l m">dV = (∂V/∂p)<sub>T</sub> dp + (∂V/∂T)<sub>p</sub> dT</span></li>
+        <li>令 dV = 0（沿等容线走），解出
+          <span class="eq-l m">(∂p/∂T)<sub>V</sub> = − (∂V/∂T)<sub>p</sub> / (∂V/∂p)<sub>T</sub></span>
+          这就是三个偏导数之间的<b>循环关系</b>。</li>
+        <li>把右侧上下同乘 1/V，凑出系数的定义式：
+          <span class="eq-l m">(∂p/∂T)<sub>V</sub> = − <span class="frac"><span class="num">(1/V)(∂V/∂T)<sub>p</sub></span><span class="den">(1/V)(∂V/∂p)<sub>T</sub></span></span> = <span class="frac"><span class="num">α</span><span class="den">κ<sub>T</sub></span></span></span>
+          注意分母带负号后正好变成 κ<sub>T</sub> 的定义。</li>
+        <li>两端乘 p，得 <span class="m up">α = κ<sub>T</sub> β p</span>。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>三个热性系数</b>（体胀系数 α、压强系数 β、等温压缩系数 κ<sub>T</sub>）</p>
+        <span class="eq-l m">α = (1/V)(∂V/∂T)<sub>p</sub></span>
+        <span class="eq-l m">β = (1/p)(∂p/∂T)<sub>V</sub></span>
+        <span class="eq-l m">κ<sub>T</sub> = − (1/V)(∂V/∂p)<sub>T</sub></span>
+        <p style="margin-top:6px"><b>关系</b> &nbsp; α = κ<sub>T</sub> β p　（三个系数只有两个独立）</p>
+        <p style="margin-top:8px"><b>理想气体</b> &nbsp; 由玻意耳定律（等温下 pV = C）配合理想气体温标得 <span class="m">pV = νRT</span>，可算出 α = 1/T，κ<sub>T</sub> = 1/p，β = 1/T。</p>
+        <p><b>范德瓦耳斯方程</b>（1 mol）</p>
+        <span class="eq-l m">(p + a/V²)(V − b) = RT</span>
+        <p>a/V² 修正分子间引力，使压强比理想气体小；b 修正分子自身体积，使可压缩空间比 V 小。</p>
+        <p style="margin-top:8px"><b>混合理想气体</b>：各组分分压之和 p = Σp<sub>i</sub>，即 pV = (Σν<sub>i</sub>)RT；平均摩尔质量 M = Σν<sub>i</sub>M<sub>i</sub> / Σν<sub>i</sub>。</p>
+        <p><b>昂尼斯方程</b>（位力展开）pV<sub>m</sub> = RT(1 + B/V<sub>m</sub> + C/V<sub>m</sub>² + ⋯)，B、C 称第二、第三位力系数，可由分子间作用解释。</p>
+        <p><b>固体与液体</b>：dV/V = α dT − κ<sub>T</sub> dp，即 V ≈ V₀[1 + α(T − T₀) − κ<sub>T</sub>(p − p₀)]，α 很小故低压下近似不可压缩。</p>
+        <p><b>顺磁固体</b>：居里定律 M = CH/T；更一般的居里-外斯定律 M = CH/(T − θ<sub>C</sub>)。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>κ<sub>T</sub> 定义里的<b>负号不能漏</b>：加压体积减小，(∂V/∂p)<sub>T</sub> 本身为负，不加负号则系数恒负，不便使用。</li>
+        <li>算完三个系数后，可用 α = κ<sub>T</sub> β p 自查 —— 对 ideal gas：κ<sub>T</sub>βp = (1/p)(1/T)p = 1/T = α ✓。这是考场上的快速验算手段。</li>
+        <li>范德瓦耳斯方程中的 a、b 是<b>经验常数</b>，随气体种类而变。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.4 -->
+<article class="card c1" id="s14">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.4</span>
+    <h3>功</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>能量传递有两种方式：<b>功</b>（有序的、宏观的）和<b>热</b>（无序的、微观的）。两者都不是「系统拥有的量」，而是过程量 —— 离开具体过程谈「这个系统有多少功」是没意义的。</p>
+      <p>功对应「力乘位移」这种有序的能量转移；热对应分子无规碰撞导致的能量转移。这个区分贯穿整个热力学。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>准静态过程中，系统内部压强处处均匀，可以用系统自身的压强 p 来描述外界对系统的力。</li>
+        <li>活塞位移 dx，面积 A，则体积变化 dV = A dx，外力做功 dW = (pA)·dx = p dV。</li>
+        <li>但<b>外界对系统</b>做功的符号约定为：外界推系统（压缩，dV &lt; 0）时做功为正。故
+          <span class="eq-l m">dW = − p dV</span></li>
+        <li>推广到一般情形：<span class="m">dW = Σ Y<sub>i</sub> dy<sub>i</sub></span>，Y<sub>i</sub> 为广义力，y<sub>i</sub> 为广义位移。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>符号约定（汪志诚书）</b>：外界对系统做功<b>为正</b>，记作 dW。</p>
+        <span class="eq m">dW = − p dV</span>
+        <p style="margin-top:4px">dV &gt; 0（膨胀）⟹ dW &lt; 0，外界对系统做负功，即系统对外做功。</p>
+        <p style="margin-top:8px"><b>广义功</b></p>
+        <span class="eq m">dW = Σ Y<sub>i</sub> dy<sub>i</sub></span>
+        <p>体积功：Y = −p，y = V。磁介质：广义力与广义位移换成磁场与磁矩（见 §2.7）。</p>
+        <p>其它形式：表面张力功 dW = −σ dA（σ 为表面张力系数，A 为面积）；可逆电池功 dW = ε dq（ε 为电动势）。电介质、磁介质都适用同一套写法。</p>
+        <p style="margin-top:8px"><b>功与路径有关</b>：从同一初态到同一末态，不同过程做功不同，故 dW 不是全微分。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点 <span class="tag hot">第一章最高频错误来源</span></h4>
+      <ul>
+        <li><b>两套符号约定不能混用。</b>汪志诚书：<span class="m">dU = dQ + dW</span>，dW 是<b>外界对系统</b>做功。国内不少其他教材用 <span class="m">dU = đQ − đW</span>，W 是<b>系统对外</b>做功。做题时先确认用哪套，中途换约定必错。</li>
+        <li>准静态条件不能丢：只有过程足够慢、系统内部压强处处均匀，才能写成 −p dV。爆炸、自由膨胀这类非准静态过程不能用。</li>
+        <li>做功的正负判断建议固定一个习惯：<b>先判膨胀还是压缩，再由 dV 的符号定 dW</b>。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.5 -->
+<article class="card c1" id="s15">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.5</span>
+    <h3>热力学第一定律</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>焦耳的实验确立了「热是能量的一种形式，可以和功相互转化」。把普通的能量守恒定律应用到热力学系统上，就得到第一定律。</p>
+      <p>第一定律管的是「能量总量」：你不可能凭空造出能量。它划出的边界是 —— <b>第一类永动机</b>（不消耗能量而持续对外做功）不可能。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p>设系统从初态经某过程到末态。外界对系统做功 W，系统从外界吸热 Q，则内能增量</p>
+      <span class="eq-l m">ΔU = Q + W</span>
+      <p>微分形式：</p>
+      <span class="eq-l m">dU = dQ + dW</span>
+      <p style="margin-top:7px">这里 U 是<b>态函数</b> —— 它的变化只取决于初末态；而 Q 和 W 是<b>过程量</b>，同一对初末态，路径不同则 Q、W 各自不同，但 <b>Q + W 恒等于 ΔU</b>。这正是第一定律的内容。</p>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq m">dU = dQ + dW</span>
+        <p>积分形式（也常写成求吸热的形式）：</p>
+        <span class="eq m">Q = ΔU − W</span>
+        <p style="margin-top:6px">第一类永动机不可能。</p>
+        <p style="margin-top:8px"><b>状态函数判据</b>：若某个量沿任意闭合路径的积分恒为零（∮ = 0），它就是态函数。U 满足，Q、W 不满足。</p>
+        <p style="margin-top:8px"><b>内能的几条性质</b>（课件强调）：内能 = 分子无规运动动能 + 分子内部能量 + 分子间势能（无外场）；它是<b>相对量</b>（可任选参考态）；<b>不包括</b>物体整体运动的机械能；可按广延性把非平衡系统分成许多局部平衡的小块求和；能量守恒的深层原因是物理规律的时间平移不变性。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>dU 是全微分，dQ、dW <b>不是</b>。有些书写成 đQ、δW 就是为了提醒这一点。</li>
+        <li>「内能是态函数」不等于「内能可以随便算」—— 实际气体 U 依赖 T 和 V 两个变量，只有在理想气体极限下才只依赖 T（见 §1.7）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.6 -->
+<article class="card c1" id="s16">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.6</span>
+    <h3>热容和焓</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>热容量（热容）回答的是「加多少热、温度升多少」。但它依赖过程 —— 同一个系统，定容加热和定压加热，升温效果不一样。</p>
+      <p>麻烦在于：定容热容能直接由 dQ = dU 定义得很干净，而定压热容写成 dQ = dU + p dV 就很别扭。于是<b>人为凑出一个态函数 H = U + pV</b>，让定压过程也能有干净的表达式。焓就是为这个目的被引进来的。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>定容</b>（dV = 0）：此时 dW = −p dV = 0，第一定律给出 dQ = dU。
+          <span class="eq-l m">C<sub>V</sub> = (∂U/∂T)<sub>V</sub></span></li>
+        <li><b>定压</b>（dp = 0）：dQ = dU + p dV = d(U + pV)。括号里这一坨只依赖状态，是态函数。</li>
+        <li>定义它：<span class="m">H ≡ U + pV</span>，称<b>焓</b>。于是
+          <span class="eq-l m">C<sub>p</sub> = (∂H/∂T)<sub>p</sub></span></li>
+        <li>焓的物理意义由此明确：<b>定压过程中系统吸收的热量等于焓的增量</b>。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq-l m">C<sub>V</sub> = (∂U/∂T)<sub>V</sub>　　C<sub>p</sub> = (∂H/∂T)<sub>p</sub>　　H ≡ U + pV</span>
+        <p style="margin-top:8px"><b>两者的普遍关系</b>（第二章会用麦克斯韦关系推出）</p>
+        <span class="eq-l m">C<sub>p</sub> − C<sub>V</sub> = T (∂p/∂T)<sub>V</sub> (∂V/∂T)<sub>p</sub></span>
+        <p>对理想气体：<span class="m">C<sub>p</sub> − C<sub>V</sub> = νR</span>，定义绝热指数 <span class="m">γ = C<sub>p</sub>/C<sub>V</sub></span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>H 是态函数，但它的「物理意义（等于定压吸热）」只在<b>定压过程</b>中成立，别推广到任意过程。</li>
+        <li>C<sub>p</sub> 恒大于 C<sub>V</sub>（右边恒为非负），除非是 T = 0 或该物质有反常行为。若算出 C<sub>p</sub> &lt; C<sub>V</sub>，回去查符号。</li>
+        <li>注意 C<sub>V</sub>、C<sub>p</sub> 是<b>摩尔热容</b>还是总热容，与 ν（摩尔数）的关系要统一。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.7 -->
+<article class="card c1" id="s17">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.7</span>
+    <h3>理想气体的内能</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>焦耳的自由膨胀实验：气体向真空膨胀，既不对外做功也不吸热，结果温度不变。这说明<b>理想气体的内能与体积无关</b>，只依赖温度。</p>
+      <p>这个结论有点反直觉 —— 一般实际气体膨胀时要克服分子间引力做功，内能会变。理想气体忽略分子间引力，所以膨胀不消耗内能。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>焦耳实验</b>：气体向真空自由膨胀。因为是向真空，气体不对外做功，W = 0；过程很快且绝热，Q = 0。</li>
+        <li>由第一定律：<span class="m">ΔU = Q + W = 0</span>，即内能不变。</li>
+        <li>实验观测到膨胀后<b>温度不变</b>。既然 U 不变而 T 也不变，说明 U 与 V 无关：
+          <span class="eq-l m">(∂U/∂V)<sub>T</sub> = 0</span></li>
+        <li>于是 <span class="m">U = U(T)</span> —— 这就是<b>焦耳定律</b>。</li>
+        <li>进而 <span class="m">H = U + pV = U(T) + νRT</span>，也只依赖 T。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>理想气体：<span class="m">U = U(T)</span>，焓 <span class="m">H = U + pV = H(T)</span>，二者都只是温度的函数。</p>
+        <p style="margin-top:6px">推论：理想气体的 <span class="m">C<sub>V</sub></span>、<span class="m">C<sub>p</sub></span> 也只是 T 的函数；若再假设 C<sub>V</sub> 为常数，则 U = C<sub>V</sub>T + U₀。</p>
+        <p style="margin-top:8px"><b>交叉验证</b>：第二章由麦克斯韦关系得到的普遍式
+          <span class="m">(∂U/∂V)<sub>T</sub> = T(∂p/∂T)<sub>V</sub> − p</span>，
+        代入理想气体 p = νRT/V 得 T·νR/V − p = p − p = 0 ✓，与焦耳定律完全一致。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「内能与体积无关」是<b>理想气体</b>的性质，(∂U/∂V)<sub>T</sub> = 0 对实际气体不成立。</li>
+        <li>焦耳实验本身精度很粗糙（水的热容比气体大得多，温度变化极难测准），但结论被后续的焦耳-汤姆孙实验所支持。要知道这个实验是「结论对、手段糙」。</li>
+        <li>自由膨胀是<b>不可逆</b>过程，但不能说是「绝热准静态」—— 它压根不是准静态过程。§1.17 会用它做熵变计算的典型例子。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.8 -->
+<article class="card c1" id="s18">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.8</span>
+    <h3>理想气体的绝热过程</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>绝热过程中系统与外界无热交换，所以内能的减少完全来自对外做功。膨胀要消耗内能，温度必然下降 —— 这就是「绝热膨胀降温」的根源，也是获得低温的基本手段之一。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>绝热条件：dQ = 0。第一定律退化为
+          <span class="eq-l m">dU = dW = − p dV</span></li>
+        <li>理想气体：<span class="m">dU = C<sub>V</sub> dT</span> 代入，得
+          <span class="eq-l m">C<sub>V</sub> dT = − p dV</span></li>
+        <li>再用物态方程 <span class="m">pV = νRT</span> 消去 p 或 T，分离变量后积分。</li>
+        <li>利用 <span class="m">C<sub>p</sub> − C<sub>V</sub> = νR</span> 与 <span class="m">γ = C<sub>p</sub>/C<sub>V</sub></span> 化简，即得三个过程方程。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>三个等价的绝热过程方程</b>（γ 为常数时）</p>
+        <span class="eq-l m">pV<sup>γ</sup> = const</span>
+        <span class="eq-l m">TV<sup>γ−1</sup> = const</span>
+        <span class="eq-l m">p<sup>1−γ</sup> T<sup>γ</sup> = const</span>
+        <p style="margin-top:8px"><b>在 p–V 图上的形状</b>：绝热线比等温线<b>更陡</b>。</p>
+        <p>直观理解：同样从一点出发膨胀 ΔV，等温过程靠吸热维持温度、压强只按 1/V 降；绝热过程没有热源补充，还得消耗内能降温，压强下降得更快。数学上比较斜率：等温线斜率 −p/V，绝热线斜率 −γp/V，因 γ &gt; 1 故更陡。</p>
+        <p style="margin-top:8px"><b>应用：牛顿声速公式</b>。声波是纵波，压缩—稀疏过程极快、来不及与周围交换热量，故按<b>绝热</b>处理。由 v = √(dp/dρ) 与绝热过程方程可得
+          <span class="eq m">v = √(γp/ρ) = √(γRT/M)</span>
+          这就是为什么声速只与气体的 γ、T、摩尔质量有关 —— 也是「绝热假设」最经典的应用。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>三个过程方程只在<b>可逆（准静态）绝热</b>下成立，且要求 γ 为常数（即 C<sub>V</sub> 不随 T 变）。</li>
+        <li>「绝热」不等于「等温」—— 绝热容器只是不交换热，内部温度照样变。</li>
+        <li>不可逆绝热过程（如真空自由膨胀）<b>不能</b>套用 pV<sup>γ</sup> = const。这是高频陷阱。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.9 -->
+<article class="card c1" id="s19">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.9</span>
+    <h3>理想气体的卡诺循环</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>先补两个定义：<b>循环过程</b>是系统从某平衡态出发、经过一系列过程又回到原态，p–V 图上闭合曲线所围面积就是净功；顺时针为正循环（热机），逆时针为逆循环（制冷机）。<b>热机效率</b> η = W<sub>净</sub>/Q<sub>吸</sub> = 1 − |Q<sub>放</sub>|/Q<sub>吸</sub>。</p>
+      <p>卡诺循环是最理想化的循环：两个等温 + 两个绝热，没有摩擦、没有漏热、过程无限缓慢。它不是实际热机的工作方式，而是「两个热源之间能做到的最好水平」的标尺。</p>
+      <p>卡诺的洞察在于：既然热机必须在两个温度之间工作，那么<b>效率的极限应当只由这两个温度决定</b>，而与用什么工质无关。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>循环四步</b>（工作于高温热源 T₁、低温热源 T₂ 之间）</p>
+      <ol>
+        <li><b>等温膨胀</b>（T₁）：从高温热源吸热 Q₁</li>
+        <li><b>绝热膨胀</b>：温度从 T₁ 降到 T₂</li>
+        <li><b>等温压缩</b>（T₂）：向低温热源放热 Q₂</li>
+        <li><b>绝热压缩</b>：温度从 T₂ 升回 T₁</li>
+      </ol>
+      <p style="margin-top:9px"><b>计算效率</b></p>
+      <ol>
+        <li>两个等温过程的吸放热（理想气体）：
+          <span class="eq-l m">Q₁ = νRT₁ ln(V₂/V₁)　　Q₂ = νRT₂ ln(V₃/V₄)</span></li>
+        <li>关键一步：两个绝热过程给出
+          <span class="eq-l m">V₂/V₁ = V₃/V₄</span>
+          由 TV<sup>γ−1</sup> = const，对第 2 步有 T₁V₂<sup>γ−1</sup> = T₂V₃<sup>γ−1</sup>，对第 4 步有 T₁V₁<sup>γ−1</sup> = T₂V₄<sup>γ−1</sup>，两式相除即得。这一步让两个对数项相等、体积被约掉。</li>
+        <li>于是
+          <span class="eq-l m">η = (Q₁ − Q₂)/Q₁ = 1 − T₂/T₁</span></li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq m">η<sub>卡诺</sub> = 1 − <span class="frac"><span class="num">T₂</span><span class="den">T₁</span></span></span>
+        <p style="margin-top:8px">效率只依赖两个热源的温度，与工质无关。</p>
+        <p>这里是用理想气体算出来的 —— 要推广到任意工质，靠的是下一节的卡诺定理。</p>
+        <p style="margin-top:7px"><b>热机</b>：η = W<sub>净</sub>/Q<sub>吸</sub>，且有恒等式 |Q<sub>吸</sub>| − |Q<sub>放</sub>| = |W<sub>净</sub>|。</p>
+        <p style="margin-top:7px"><b>卡诺制冷机</b>（逆循环）：从低温热源 T₂ 吸热 Q₂，外界做功 W，向高温热源 T₁ 放热 Q₁ = Q₂ + W。制冷系数</p>
+        <span class="eq m">ω = Q₂/W = <span class="frac"><span class="num">T₂</span><span class="den">T₁ − T₂</span></span></span>
+        <p>ω 可以大于 1 —— 制冷机「搬运」的热量比消耗的功多，与效率不同，别用 η 的直觉去套。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>「V₂/V₁ = V₃/V₄」这一步不能漏。</b>它是体积被约掉、效率只含温度的先决条件。写解答时省掉这步会被扣分。</li>
+        <li>Q₂ 是「放出的热」，代入时取正值，公式 η = 1 − Q₂/Q₁ 中的减号已经体现了放热。</li>
+        <li>温度必须用<b>热力学温标</b>（K），用摄氏温度代入必错。</li>
+        <li>η &lt; 1 恒成立：只有 T₂ = 0 K 或 T₁ → ∞ 才有 η → 1，两者都不可达。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.10 -->
+<article class="card c1" id="s110">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.10</span>
+    <h3>热力学第二定律</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>第一定律只禁止「凭空造能量」，却不禁止「把热全部变成功」。第二定律负责划出第二条边界：<b>热与功之间的转化是不对称的</b>。</p>
+      <p>功可以百分之百变成热（摩擦生热），但热不能百分之百变成功而不留下痕迹。这种「方向性」是第二定律的核心，也是「熵」这个概念的来源。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>两种表述</h4>
+      <div class="dbody" style="padding:0">
+        <p><b>开尔文表述</b>：不可能从单一热源吸取热量，把它完全变为有用功而<b>不产生其他影响</b>。等价说法：第二类永动机不可能。</p>
+        <p style="margin-top:8px"><b>克劳修斯表述</b>：不可能把热量从低温物体传到高温物体而<b>不引起其他变化</b>。</p>
+        <p style="margin-top:10px"><b>等价性证明（反证法）</b></p>
+        <ol>
+          <li>设开尔文表述不成立：存在一台机器，从单一热源 T₁ 吸热 Q，把它全部变成功 W = Q，无其他影响。</li>
+          <li>用这个功 W 去驱动一台制冷机，让它从低温热源 T₂ 吸热 Q₂、向高温热源 T₁ 放热 Q₂ + W。</li>
+          <li>组合起来看：高温热源净收到 (Q₂ + W) − Q = Q₂，低温热源净放出 Q₂ —— 净效果是热量从低温自动流向高温，无其他变化。</li>
+          <li>这违反克劳修斯表述。故开尔文表述不成立 ⟹ 克劳修斯表述不成立。反向同理。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>两种表述<b>完全等价</b>，只是从不同侧面描述同一条实验规律。</p>
+        <p>它们共同的本质：<b>过程有方向性</b>。存在一类过程可以自发进行，其逆过程不能自发进行。</p>
+        <p style="margin-top:7px"><b>可逆过程</b>：过程进行后，系统和外界都能沿相反方向恢复原状，<b>不留下任何影响</b>。判据：准静态（每一步都是平衡态，p–V 图上是一条确定曲线）+ 无摩擦、无耗散。<b>不可逆过程</b>则是无论用什么办法都无法把后果完全消除。</p>
+        <p>据此，一切实际过程都是不可逆的；可逆过程只是理想化的极限。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「<b>不产生其他影响</b>」这个限定词绝对不能丢。理想气体等温膨胀确实把热全部变成了功，但代价是体积改变了 —— 那正是「其他影响」。</li>
+        <li>第二定律是<b>独立的实验规律</b>，不能由第一定律推出，也不能由力学定律推出。</li>
+        <li>注意开尔文表述限制的是「单一热源」，两个热源之间的循环不受此限（那正是热机的原理）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.11 -->
+<article class="card c1" id="s111">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.11</span>
+    <h3>卡诺定理</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>卡诺定理把上一节只对理想气体成立的结论，推广到了<b>任意工质</b>：所有工作于相同两热源之间的可逆热机，效率完全相同，与用什么物质无关。</p>
+      <p>这个「与工质无关」的性质极其重要 —— 它意味着效率公式里只含温度，因而可以用它来<b>反过来定义温度</b>（下一节）。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（反证法）</summary>
+    <div class="dbody">
+      <ol>
+        <li>假设存在不可逆热机 I，其效率高于工作于同样两热源间的可逆热机 R：η<sub>I</sub> &gt; η<sub>R</sub>。</li>
+        <li>让 I 驱动 R 反向运转（R 作制冷机）。调节 I 的输出功，使之恰好全部用于驱动 R。</li>
+        <li>计算组合体的净效果：
+          <ul style="margin-top:4px">
+            <li>R 反向工作时，相当于把 I 排给低温热源的热又搬回高温热源，而且搬得更多；</li>
+            <li>净结果是热量从低温热源流向高温热源，此外无任何其他变化。</li>
+          </ul></li>
+        <li>这违反克劳修斯表述。故假设不成立，必 η<sub>I</sub> ≤ η<sub>R</sub>。</li>
+        <li>再令 I 也是可逆的，正反两次比较即得 η<sub>I</sub> = η<sub>R</sub>。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>卡诺定理</b></p>
+        <ul style="margin-top:4px">
+          <li>工作于相同两热源间，<b>可逆热机效率 ≥ 不可逆热机效率</b>；</li>
+          <li>所有可逆热机的效率都相同，且都等于
+            <span class="m">η = 1 − T₂/T₁</span>。</li>
+        </ul>
+        <p style="margin-top:8px"><b>推论（本节最重要的产物）</b>：可逆热机效率与工质无关，只由两个热源的温度决定。这就是热力学温标的基础。</p>
+        <p>同时给出提高热机效率的两条实践途径：<b>提高高温热源温度</b>、<b>降低低温热源温度</b>。</p>
+        <p style="margin-top:8px"><b>对制冷机</b>（逆循环）同样成立：相同两热源间，可逆制冷机的制冷系数最大且相等，
+          <span class="m">ω<sub>可逆</sub> = T₂/(T₁ − T₂)</span>；不可逆制冷机的 ω 不可能大于它。所以「卡诺定理」对热机和制冷机是同一句话的两种说法。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>反证法里「让可逆热机<b>反向</b>运转」是关键 —— 只有可逆机才能反向当制冷机用。不可逆热机不能这样反向。</li>
+        <li>卡诺定理说的是「不可能超过」，不是「一定等于」。实际热机效率总小于卡诺效率，摩擦、漏热都会拉低效率。</li>
+        <li>卡诺定理的成立<b>不依赖</b>理想气体假设，因此它的普适性远高于 §1.9 的结论。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.12 -->
+<article class="card c1" id="s112">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.12</span>
+    <h3>热力学温标</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>经验温标有个致命缺陷：换一种测温物质，读数就不一样。热力学温标要解决的就是「确定一个不依赖任何具体物质的温标」。</p>
+      <p>卡诺定理恰好提供了这个工具：可逆热机效率只依赖两个热源的温度，与工质无关 —— 那么反过来，就可以用这个效率关系<b>来定义温度</b>。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>由卡诺定理，可逆热机效率只依赖两个热源温度，可写成
+          <span class="eq-l m">η = 1 − f(T₁, T₂)</span>
+          其中 f 的具体形式与测温物质无关。</li>
+        <li>对可逆热机，Q₁/Q₂ 也只依赖两个温度，即 Q₁/Q₂ = F(T₁, T₂)。</li>
+        <li>把两个可逆热机串联，可证明 F 必须写成<b>两个温度之比</b>的形式（否则串联会自相矛盾）。</li>
+        <li>于是定义
+          <span class="eq-l m">Q₁/Q₂ = T₁/T₂</span>
+          这就给出了一个完全不依赖测温物质的温标。</li>
+        <li>再规定一个固定点（水的三相点取 273.16 K）即可标定刻度。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>热力学温标由 <span class="m">Q₁/Q₂ = T₁/T₂</span> 定义，只涉及热量比，<b>不涉及任何具体物质的性质</b>。</p>
+        <p style="margin-top:8px">可以证明：热力学温标与理想气体温标<b>在理想气体温标适用范围内完全一致</b>。所以日常使用时两者数值可以通用。</p>
+        <p style="margin-top:8px">温度零点（绝对零度）是外推的极限，不可到达（第三章的热力学第三定律会从另一角度表述这一点）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>热力学温标的「绝对性」来源于卡诺定理的普适性，而不是来自任何实验测量。这一点是常考点。</li>
+        <li>「热力学温标与理想气体温标一致」是有条件的 —— 在理想气体能用的范围内。不能反过来说热力学温标依赖理想气体。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.13 -->
+<article class="card c1" id="s113">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.13</span>
+    <h3>克劳修斯等式和不等式</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>这一节把卡诺定理「翻译」成数学形式，是整章的技术枢纽。它的价值在于：等式的情形告诉我们 ∮dQ/T = 0，而「闭合路径积分为零」正是判断态函数的标志 —— 于是熵呼之欲出。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>取任意循环，把它分割成无穷多个微小的卡诺循环（相邻分界线上的路径相互抵消）。</li>
+        <li>对每个小卡诺循环应用卡诺定理：η ≤ 1 − T₂/T₁，即 Q₁/T₁ + Q₂/T₂ ≤ 0（统一起见把放热记为负）。</li>
+        <li>对所有小循环求和，取极限，即得
+          <span class="eq-l m">∮ <span class="frac"><span class="num">dQ</span><span class="den">T</span></span> ≤ 0</span></li>
+        <li>其中<b>可逆循环取等号，不可逆循环取小于号</b>。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq m">∮ <span class="frac"><span class="num">dQ</span><span class="den">T</span></span> ≤ 0　　（可逆取等号）</span>
+        <p style="margin-top:8px"><b>下一步的跳板</b>：可逆情形 ∮dQ/T = 0 意味着 <span class="m">∫<sub>A</sub><sup>B</sup>dQ/T</span> 与路径无关，只取决于初末态 —— 这正是存在一个态函数的标志。下一节就据此定义熵。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>式中的 dQ 是<b>系统吸收的热量</b>，放热时代负值。</li>
+        <li>分割卡诺循环的方法要求每个小循环都与两个热源接触 —— 微小循环的温度差趋于零，这时 T 就是系统自身的温度。</li>
+        <li>「等号对应可逆」是后面反复要用的判据，务必记牢。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.14 -->
+<article class="card c1" id="s114">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.14</span>
+    <h3>熵和热力学基本方程 <span class="tag key">全章核心</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>熵是热力学中最重要的态函数。它的意义来自第二定律：不可逆过程总是朝某个方向进行，而熵就是那个「只增不减」的量（对孤立系而言）。</p>
+      <p>作为态函数，熵的变化只取决于初末态；但它的<b>定义式却只对可逆路径有效</b> —— 这个「定义」与「性质」的错位，是理解熵的最大难点。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>由上一节，可逆循环满足 ∮dQ/T = 0。</li>
+        <li>把可逆循环拆成 A→B 和 B→A 两段：
+          <span class="eq-l m">∫<sub>A</sub><sup>B</sup>dQ/T + ∫<sub>B</sub><sup>A</sup>dQ/T = 0</span></li>
+        <li>这说明从 A 到 B 的 ∫dQ/T <b>与路径无关</b>，只取决于 A、B 两点。</li>
+        <li>于是可以定义一个新的态函数 —— <b>熵</b>：
+          <span class="eq-l m">S<sub>B</sub> − S<sub>A</sub> = ∫<sub>A</sub><sup>B</sup> <span class="frac"><span class="num">dQ</span><span class="den">T</span></span>　（沿可逆路径）</span></li>
+        <li>取微元形式：<span class="m">dS = dQ/T</span>（可逆）。</li>
+        <li>把它代入第一定律 dQ = dU − dW = dU + p dV，即得<b>热力学基本方程</b>：
+          <span class="eq-l m">dU = T dS − p dV</span></li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>熵的定义</b>（仅沿可逆路径）</p>
+        <span class="eq m">dS = <span class="frac"><span class="num">dQ</span><span class="den">T</span></span>　⟺　S<sub>B</sub> − S<sub>A</sub> = ∫<sub>A</sub><sup>B</sup> dQ/T</span>
+        <p style="margin-top:10px"><b>热力学基本方程（整章最重要的一个式子）</b></p>
+        <span class="eq m">dU = T dS − p dV</span>
+        <p style="margin-top:8px">它把第一定律和第二定律合二为一，是第二章所有推演的出发点。</p>
+        <p>由它可直接读出两个偏导数：</p>
+        <span class="eq-l m">T = (∂U/∂S)<sub>V</sub>　　p = − (∂U/∂V)<sub>S</sub></span>
+        <p style="margin-top:8px"><b>用熵表示热容</b>：
+          <span class="m">C<sub>V</sub> = T(∂S/∂T)<sub>V</sub>，　C<sub>p</sub> = T(∂S/∂T)<sub>p</sub></span>
+          —— 这一对式子在第二章、第三章反复出现。</p>
+        <p><b>参考态</b>：熵可写成 S = S₀ + ∫<sub>参考态</sub><sup>末态</sup> dQ<sub>rev</sub>/T，S₀ 是积分常数，只影响熵的「绝对值」，不影响任何熵变。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点 <span class="tag hot">高频</span></h4>
+      <ul>
+        <li>熵是<b>态函数</b>，但 dS = dQ/T 只在<b>可逆路径</b>上成立。要求不可逆过程的熵变，必须<b>另设计一条连接同样初末态的可逆路径</b>再积分。</li>
+        <li>基本方程中的 T dS 项代表<b>可逆</b>热传递。对不可逆过程，dQ &lt; T dS。</li>
+        <li>不要把 dS = dQ/T 当成 dS 的定义式来对不可逆过程直接用 —— 这是第一章最典型的错误。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.15 -->
+<article class="card c1" id="s115">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.15</span>
+    <h3>理想气体的熵</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>熵是态函数，但它的「绝对值」依赖参考态（积分常数 S₀）。对理想气体，只要知道 C<sub>V</sub> 和物态方程，就能把熵写成 (T, V) 或 (T, p) 的函数 —— 两种写法是同一张曲面的不同投影。</p>
+      <p>直观上：等温膨胀（V 增大）熵增大，等温压缩（p 增大）熵减小，这与「体积越大、可占据的微观状态越多」的统计图像一致。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>沿一条<b>可逆路径</b>积分 dS = dQ/T。</li>
+        <li>用第一定律：<span class="m">dQ = dU + p dV = C<sub>V</sub> dT + νRT dV/V</span>。</li>
+        <li>除以 T：<span class="m">dS = C<sub>V</sub> dT/T + νR dV/V</span>（设 C<sub>V</sub> 为常数）。</li>
+        <li>积分得第一个结果。</li>
+        <li>若改以 (T, p) 为自变量，由 pV = νRT 消去 V，即得第二个结果。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq-l m">S = C<sub>V</sub> ln T + νR ln V + S₀</span>
+        <span class="eq-l m">S = C<sub>p</sub> ln T − νR ln p + S₀</span>
+        <p style="margin-top:8px">两个式子完全等价，区别只在自变量选取，用哪个取决于题目给了什么条件。</p>
+        <p><b>选式原则</b>：给 (T, V) 用第一式，给 (T, p) 用第二式。若给 (p, V)，先由物态方程换算。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>积分必须<b>沿可逆路径</b>。若题目给的是不可逆过程（如自由膨胀），要用初末态相同的一条可逆路径代替 —— 上式的形式只依赖初末态，所以可以直接代初末态数值。</li>
+        <li>S₀ 是积分常数，比较两个状态时通常约掉，只在需要绝对熵时才涉及。</li>
+        <li>熵是<b>广延量</b>，与物质的量成正比。含 ν 的因子别漏。</li>
+        <li>ln 里的量必须有量纲一致性 —— 严格写法应对 T/T₀、V/V₀ 取对数，做题时用差值可回避这个问题。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.16 -->
+<article class="card c1" id="s116">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.16</span>
+    <h3>热力学第二定律的数学表述</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>第二定律有两副面孔：<b>微分形式</b> dS ≥ đQ/T 管任意微小过程的不等式；<b>积分形式</b>（克劳修斯不等式）∮đQ/T ≤ 0 管整条循环。把它们用在孤立系上，就得到最常用的「熵增加原理」。</p>
+      <p>三句话说的是同一件事：孤立系的熵永不减少，平衡时取极大。注意「孤立」这个前提 —— 非孤立系的熵完全可能减少。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>由克劳修斯不等式，对任意循环 ∮dQ/T ≤ 0。</li>
+        <li>取一个可逆路径 r 连接 A、B，再取任意路径 i 从 B 回到 A，组成循环：
+          <span class="eq-l m">∫<sub>A</sub><sup>B</sup>(dQ/T)<sub>r</sub> + ∫<sub>B</sub><sup>A</sup>(dQ/T)<sub>i</sub> ≤ 0</span></li>
+        <li>第一项就是 S<sub>B</sub> − S<sub>A</sub>，移项得
+          <span class="eq-l m">S<sub>B</sub> − S<sub>A</sub> ≥ ∫<sub>A</sub><sup>B</sup>(dQ/T)<sub>i</sub></span>
+          即 <span class="m">dS ≥ dQ/T</span>（可逆取等号）。</li>
+        <li>取孤立系（绝热，dQ = 0），立即得
+          <span class="eq-l m">dS ≥ 0</span></li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>第二定律的数学表述</b></p>
+        <span class="eq m">dS ≥ <span class="frac"><span class="num">dQ</span><span class="den">T</span></span>　　（可逆取等号，不可逆取大于号）</span>
+        <p style="margin-top:10px"><b>熵增加原理</b>（孤立系 dQ = 0）</p>
+        <span class="eq m">dS ≥ 0</span>
+        <p style="margin-top:6px">孤立系的熵永不减少；达到平衡态时熵最大。</p>
+        <p style="margin-top:8px"><b>三种等价说法</b>：熵增加原理 ⟺ 第二定律的数学表述 ⟺ 克劳修斯不等式。</p>
+        <p style="margin-top:8px"><b>熵的两层意义</b>：微观上熵反映热运动的无序度，平衡态熵极大对应「最无序、宏观定向流动全部消失」；宏观上熵表征能量的<b>不可用度</b>，熵越大能量品质越低。</p>
+        <p><b>适用范围</b>：只适用于由大量粒子组成的宏观系统（少数粒子的系统有显著涨落）；且不能把整个宇宙当成孤立系去套用第二定律。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点 <span class="tag hot">高频</span></h4>
+      <ul>
+        <li>熵增加原理只适用于<b>孤立系或绝热过程</b>。<b>不能</b>把它用到一个非孤立系上，说「系统的熵一定会增加」。</li>
+        <li>不能理解成「熵永远不会减少」—— 非孤立系的熵完全可以减少（冰箱内就是）。减少的代价是外界熵增加得更多。</li>
+        <li>「不可逆过程熵增加」这句话要小心：只有对<b>孤立系</b>才必然成立。非孤立系的不可逆过程，熵也可能减少。</li>
+        <li>熵增加原理只给出<b>方向</b>，不给出速率 —— 这是热力学（平衡态）的固有局限，第十一章非平衡态统计才涉及速率。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.17 -->
+<article class="card c1" id="s117">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.17</span>
+    <h3>熵增加原理的简单应用</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>要判断一个过程能否自发进行，就把系统加上与它相互作用的部分，凑成一个孤立系，再看总熵是否增加。这个「<b>扩大系统直到孤立</b>」的套路是本章判据类题目的通用解法。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己做一遍再看">
+      <summary>典型例子</summary>
+    <div class="dbody">
+      <p><b>① 理想气体自由膨胀</b>（不可逆）</p>
+      <ol>
+        <li>过程不可逆，不能直接积分 ∫dQ/T（而且实际 dQ = 0，积出来是 0，显然不对）。</li>
+        <li>设计可逆路径：让气体沿<b>等温可逆膨胀</b>从 V₁ 到 V₂。初末态相同，故 ΔS 相同。</li>
+        <li>等温可逆过程中 dQ = dW = νRT dV/V，故
+          <span class="eq-l m">ΔS = νR ln(V₂/V₁) &gt; 0</span></li>
+        <li>气体是孤立系（绝热且无功），ΔS &gt; 0 表明过程可以自发进行 ✓</li>
+      </ol>
+      <p style="margin-top:10px"><b>② 热传导</b>（T₁ &gt; T₂，传递热量 |Q|）</p>
+      <ol>
+        <li>把两物体合起来看成一个孤立系。</li>
+        <li>高温物体放热：ΔS₁ = −|Q|/T₁；低温物体吸热：ΔS₂ = +|Q|/T₂。（物体自身温度变化不计，或用微元积分）</li>
+        <li>总熵变
+          <span class="eq-l m">ΔS = |Q|(1/T₂ − 1/T₁) &gt; 0</span></li>
+        <li>因为 T₁ &gt; T₂，ΔS &gt; 0，故热传导可自发进行 ✓</li>
+      </ol>
+      <p style="margin-top:10px"><b>③ 两种理想气体等温等压混合</b>（课件例 2）</p>
+      <ol>
+        <li>内能不变、温度不变，只有「互相扩散」带来熵变。对每种气体各自看：它从体积 V<sub>i</sub> 膨胀到总体积 V。</li>
+        <li>各自沿等温可逆膨胀设计路径：
+          <span class="eq-l m">ΔS = ν₁R ln(V/V₁) + ν₂R ln(V/V₂) &gt; 0</span></li>
+        <li>这是<b>吉布斯佯谬</b>的雏形：若两种气体<b>相同</b>，混合前后不可区分，ΔS 必须为 0 —— 所以上式只对「不同气体」成立。</li>
+      </ol>
+      <p style="margin-top:10px"><b>④ 两杯等质量、等压热容的水混合</b>（课件例 4）</p>
+      <ol>
+        <li>等压绝热混合，终温
+          <span class="eq-l m">T<sub>f</sub> = (T₁ + T₂)/2</span></li>
+        <li>每杯水的熵变用 dS = C<sub>p</sub> dT/T 积分，总熵变
+          <span class="eq-l m">ΔS = C<sub>p</sub> ln(T<sub>f</sub>/T₁) + C<sub>p</sub> ln(T<sub>f</sub>/T₂) = 2C<sub>p</sub> ln( T<sub>f</sub>/√(T₁T₂) ) &gt; 0</span></li>
+        <li>因为算术平均大于几何平均，ΔS &gt; 0，故混合可自发进行 ✓</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>判据类题目的通用步骤</b></p>
+        <ol style="margin-top:4px">
+          <li>把系统与相关部分合起来，构成<b>孤立系</b>；</li>
+          <li>对每个部分分别计算 ΔS（不可逆部分要另设计可逆路径）；</li>
+          <li>求和：ΔS<sub>总</sub> ≥ 0 ⟹ 过程可自发；ΔS<sub>总</sub> &lt; 0 ⟹ 不可自发。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>自由膨胀中<b>实际</b>的 dQ = 0，但 ΔS ≠ 0 —— 因为实际过程不可逆。千万不要把实际路径的 dQ/T 当作熵变。</li>
+        <li>计算热传导熵变时，如果两物体温度变化显著，要用微元积分 ∫dQ/T，不能直接用 |Q|/T。</li>
+        <li>判断「能否自发」永远看<b>总熵</b>，不能只看某一分系统的熵。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.18 -->
+<article class="card c1" id="s118">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.18</span>
+    <h3>自由能和吉布斯函数</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>熵判据只适用于孤立系，可实验往往在<b>等温等容</b>或<b>等温等压</b>下做（恒温槽、大气压下）。这时候用熵判据就得把环境也算进去，很麻烦。</p>
+      <p>解决办法：用勒让德变换把「环境的熵变」折算进一个新的态函数里，得到只涉及系统自身的判据。这就产生了自由能 F 和吉布斯函数 G。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 等温等容过程 → 自由能 F</b></p>
+      <ol>
+        <li>等容 ⟹ dW = −p dV = 0，第一定律给出 dQ = dU。</li>
+        <li>代入第二定律 dS ≥ dQ/T，且等温（T 不变）：T dS ≥ dU，即 d(U − TS) ≤ 0。</li>
+        <li>定义 <b>自由能</b> <span class="m">F ≡ U − TS</span>。结论：
+          <span class="eq-l m">dF ≤ 0</span>
+          等温等容过程自发朝 F 减小的方向，平衡时 F 取极小。</li>
+      </ol>
+      <p style="margin-top:10px"><b>② 等温等压过程 → 吉布斯函数 G</b></p>
+      <ol>
+        <li>等压 ⟹ d(pV) = 0，故 dQ = dU + p dV = d(U + pV) = dH。</li>
+        <li>代入 dS ≥ dQ/T 并等温：T dS ≥ d(H)，即 d(H − TS) ≤ 0。</li>
+        <li>定义 <b>吉布斯函数</b> <span class="m">G ≡ H − TS = U − TS + pV</span>。结论：
+          <span class="eq-l m">dG ≤ 0</span>
+          等温等压过程自发朝 G 减小的方向，平衡时 G 取极小。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <table style="width:100%; border-collapse:collapse; font-size:.92em; margin-top:4px">
+          <tr style="border-bottom:1px solid var(--key-line)">
+            <th style="text-align:left; padding:5px 4px; font-weight:600">条件</th>
+            <th style="text-align:left; padding:5px 4px; font-weight:600">判据函数</th>
+            <th style="text-align:left; padding:5px 4px; font-weight:600">自发方向</th>
+          </tr>
+          <tr><td style="padding:5px 4px">孤立系</td><td style="padding:5px 4px">S</td><td style="padding:5px 4px">S 增大（dS ≥ 0）</td></tr>
+          <tr><td style="padding:5px 4px">等温等容</td><td style="padding:5px 4px">F = U − TS</td><td style="padding:5px 4px">F 减小（dF ≤ 0）</td></tr>
+          <tr><td style="padding:5px 4px">等温等压</td><td style="padding:5px 4px">G = U − TS + pV</td><td style="padding:5px 4px">G 减小（dG ≤ 0）</td></tr>
+        </table>
+        <p style="margin-top:10px"><b>最大功原理</b></p>
+        <p>等温过程中，系统对外所做的功不超过自由能的减少量，可逆时取等号：</p>
+        <span class="eq-l m">W<sub>对外</sub> ≤ − ΔF</span>
+        <p>即：自由能是等温过程中能转化为功的那部分能量。这也是「自由能」这个名字的由来 —— 它是「自由的」能量，另一部分 TS 被「束缚」住了。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>F 和 G 都是<b>态函数</b>，可以在任意两态之间求差，不要求过程可逆。</li>
+        <li><b>判据的适用条件不能张冠李戴</b>：孤立系用 S，等温等容用 F，等温等压用 G。把 F 用到非等容过程上就错了。</li>
+        <li>G = F + pV = H − TS，两个表达式都要熟，看题目给什么。</li>
+        <li>最大功原理中 W<sub>对外</sub> 的符号：系统对外做功取正时才是「≤ −ΔF」。若用汪志诚的外界做功为正约定，就是 −W ≤ −ΔF，即 W ≥ ΔF。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 第二章 ══════════════ -->
+<div class="chap chap2" id="ch2">
+  <span class="cn">CH.2</span> 均匀物质的热力学性质
+  <span class="cm">8 节 · 用麦克斯韦关系把不可测量换成可测量</span>
+</div>
+
+<!-- 2.1 -->
+<article class="card c2" id="s21">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.1</span>
+    <h3>内能、焓、自由能和吉布斯函数的全微分</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>第一章末尾得到了热力学基本方程 dU = T dS − p dV。它有两个自变量 (S, V)。但实验上直接控制<b>熵</b>是很困难的 —— 我们更容易控制温度。</p>
+      <p>于是用<b>勒让德变换</b>换自变量：把 S 换成 T，或把 V 换成 p，就得到另外三个函数。四个函数是一家人，只是「自然变量」不同。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（勒让德变换）</summary>
+    <div class="dbody">
+      <ol>
+        <li>出发点：<span class="m">dU = T dS − p dV</span>，自然变量为 (S, V)。</li>
+        <li><b>把 V 换成 p</b>：注意到 d(pV) = p dV + V dp，故
+          <span class="eq-l m">d(U + pV) = T dS − p dV + p dV + V dp = T dS + V dp</span>
+          定义 H ≡ U + pV，得 <span class="m">dH = T dS + V dp</span>。</li>
+        <li><b>把 S 换成 T</b>：d(TS) = T dS + S dT，故
+          <span class="eq-l m">d(U − TS) = − S dT − p dV</span>
+          定义 F ≡ U − TS，得 <span class="m">dF = − S dT − p dV</span>。</li>
+        <li><b>两个都换</b>：<span class="m">G ≡ U − TS + pV</span>，得 <span class="m">dG = − S dT + V dp</span>。</li>
+      </ol>
+      <p style="margin-top:9px"><b>记忆规律</b>：每换掉一个自变量，被换掉的变量的微分项<b>符号翻转</b>；S → T 时 −S dT，V → p 时 +V dp。</p>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论 <span class="tag key">必须背熟</span></h4>
+      <div class="concl">
+        <span class="eq-l m">dU = T dS − p dV　　（自然变量 S, V）</span>
+        <span class="eq-l m">dH = T dS + V dp　　（自然变量 S, p）</span>
+        <span class="eq-l m">dF = − S dT − p dV　（自然变量 T, V）</span>
+        <span class="eq-l m">dG = − S dT + V dp　（自然变量 T, p）</span>
+        <p style="margin-top:8px"><b>四个函数的相互关系</b></p>
+        <span class="eq m">H = U + pV　　F = U − TS　　G = U − TS + pV = H − TS = F + pV</span>
+        <p style="margin-top:8px"><b>顺带得到麦氏关系</b>：对每个全微分用「交叉导数相等」<span class="m">(∂M/∂y)<sub>x</sub> = (∂N/∂x)<sub>y</sub></span>，立即给出四条麦克斯韦关系（课件 §2.1 第三部分讲的就是这件事，推导与用法见 §2.2）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>四个式子只能对<b>可逆过程</b>（或两平衡态之间）使用。</li>
+        <li>偏导数与自变量的配对不能错：从 dU = T dS − p dV 读出的是 T = (∂U/∂S)<sub>V</sub> 和 p = −(∂U/∂V)<sub>S</sub>。<b>下标（即另一个自变量）是易丢的分</b>。</li>
+        <li>把 dF 的表达式错记成 dF = −S dT + V dp 是典型的混淆（那是 dG）。记法：F 的自然变量是 (T, V)，G 的是 (T, p)。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.2 -->
+<article class="card c2" id="s22">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.2</span>
+    <h3>麦克斯韦关系的简单应用 <span class="tag key">全章核心</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>麦克斯韦关系的全部价值，可以一句话概括：<b>把测不出来的量，换成测得出的量。</b></p>
+      <p>熵对 p、V 的偏导数没法直接测量，但 p、V、T 之间的偏导数是可以用压力表、温度计、量筒测出来的。麦克斯韦关系就是这两类量之间的桥梁。第二章后面每一节，本质上都在用这个套路。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>第一步：全微分的交叉导数相等</b></p>
+      <p>若 dZ = M dx + N dy 是全微分，则必有</p>
+      <span class="eq-l m">(∂M/∂y)<sub>x</sub> = (∂N/∂x)<sub>y</sub></span>
+      <p>这就是数学上的判断条件，直接拿来用即可。</p>
+      <p style="margin-top:10px"><b>第二步：对四个全微分逐一应用</b></p>
+      <ol>
+        <li>由 dU = T dS − p dV（M = T 对 V 求导 = N = −p 对 S 求导）：
+          <span class="eq-l m">(∂T/∂V)<sub>S</sub> = − (∂p/∂S)<sub>V</sub></span></li>
+        <li>由 dH = T dS + V dp：
+          <span class="eq-l m">(∂T/∂p)<sub>S</sub> = (∂V/∂S)<sub>p</sub></span></li>
+        <li>由 dF = −S dT − p dV：
+          <span class="eq-l m">(∂S/∂V)<sub>T</sub> = (∂p/∂T)<sub>V</sub></span></li>
+        <li>由 dG = −S dT + V dp：
+          <span class="eq-l m">(∂S/∂p)<sub>T</sub> = − (∂V/∂T)<sub>p</sub></span></li>
+      </ol>
+      <p style="margin-top:10px"><b>第三步：用它们推两个最重要的公式</b></p>
+      <p>① 对 dU = T dS − p dV，两边在等温下除以 dV：</p>
+      <span class="eq-l m">(∂U/∂V)<sub>T</sub> = T (∂S/∂V)<sub>T</sub> − p</span>
+      <p>把第 3 条麦克斯韦关系代入第一项：</p>
+      <span class="eq-l m">(∂U/∂V)<sub>T</sub> = T (∂p/∂T)<sub>V</sub> − p</span>
+      <p style="margin-top:8px">② 同理，由 dH = T dS + V dp：</p>
+      <span class="eq-l m">(∂H/∂p)<sub>T</sub> = V − T (∂V/∂T)<sub>p</sub></span>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>四个麦克斯韦关系</b></p>
+        <span class="eq-l m">(∂T/∂V)<sub>S</sub> = − (∂p/∂S)<sub>V</sub></span>
+        <span class="eq-l m">(∂T/∂p)<sub>S</sub> = (∂V/∂S)<sub>p</sub></span>
+        <span class="eq-l m">(∂S/∂V)<sub>T</sub> = (∂p/∂T)<sub>V</sub></span>
+        <span class="eq-l m">(∂S/∂p)<sub>T</sub> = − (∂V/∂T)<sub>p</sub></span>
+        <p style="margin-top:10px"><b>两个核心应用公式</b>（右边全是可测量）</p>
+        <span class="eq-l m">(∂U/∂V)<sub>T</sub> = T (∂p/∂T)<sub>V</sub> − p</span>
+        <span class="eq-l m">(∂H/∂p)<sub>T</sub> = V − T (∂V/∂T)<sub>p</sub></span>
+        <p style="margin-top:10px"><b>熵的三种自变量写法</b>（课件主线）：S(T,V) 用 (∂S/∂V)<sub>T</sub>；S(T,p) 用 (∂S/∂p)<sub>T</sub>；S(p,V) 用 (∂S/∂p)<sub>V</sub> —— 取决于题目给的是哪一对参量，套路都是「用麦氏关系把含 S 的偏导换成可测量」。</p>
+        <p><b>任意系统的热容差</b>（本节第四个重点，课件用体胀系数 α、等温压缩系数 κ<sub>T</sub> 表述）：</p>
+        <span class="eq-l m">C<sub>p</sub> − C<sub>V</sub> = −T (∂p/∂T)<sub>V</sub>² / (∂p/∂V)<sub>T</sub> = TVα²/κ<sub>T</sub></span>
+        <p>因 κ<sub>T</sub> &gt; 0、α² ≥ 0，故恒有 C<sub>p</sub> ≥ C<sub>V</sub>。固体的 C<sub>V</sub> 很难直接测，常用测得的 C<sub>p</sub> 反推。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>别背四个式子，背推法。</b>记住 dU/dH/dF/dG 四个全微分，临场用「交叉导数相等」现推，比死记符号更可靠。</li>
+        <li>带负号的两个是 dU 和 dG 对应的（因为它们的第二个偏导前有负号），容易记反。</li>
+        <li>麦克斯韦关系来自热力学基本方程，只适用于<b>均匀系的平衡态</b>，不能用到非平衡态或非均匀系上。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.3 -->
+<article class="card c2" id="s23">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.3</span>
+    <h3>气体的节流过程和绝热膨胀过程</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>气体通过多孔塞缓慢流过，两边维持恒定压强差。这是<b>焦耳-汤姆孙效应</b>，也叫节流过程。</p>
+      <p>为什么是等焓？多孔塞左边的气体被后面的气体推着走（外界对它做功 p₁V₁），右边的气体则推着前面的气体走（它对外做功 p₂V₂）。总起来净功等于 −p₂V₂ + p₁V₁，而这个功又全部来自内能变化，最后整理出来正好是 H₁ = H₂。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 先证节流过程等焓</b></p>
+      <ol>
+        <li>过程绝热：Q = 0（管壁绝热，过程又快）。</li>
+        <li>外界对系统做功：左边推入体积 V₁ 的功为 p₁V₁，右边推出体积 V₂ 时系统对外做功 p₂V₂。</li>
+        <li>净功 W = p₁V₁ − p₂V₂。</li>
+        <li>由第一定律：U₂ − U₁ = Q + W = p₁V₁ − p₂V₂。</li>
+        <li>移项：U₂ + p₂V₂ = U₁ + p₁V₁，即 <span class="m">H₁ = H₂</span> ✓ 等焓过程。</li>
+      </ol>
+      <p style="margin-top:10px"><b>② 再求焦耳-汤姆孙系数 μ</b></p>
+      <ol>
+        <li>定义 <span class="m">μ ≡ (∂T/∂p)<sub>H</sub></span> —— 压强降一点、温度变多少。</li>
+        <li>用轮换关系把 H 不变的偏导换成 T 不变的偏导：
+          <span class="eq-l m">(∂T/∂p)<sub>H</sub> = − (∂H/∂p)<sub>T</sub> / (∂H/∂T)<sub>p</sub></span></li>
+        <li>分母就是 C<sub>p</sub>；分子用上一节的公式 (∂H/∂p)<sub>T</sub> = V − T(∂V/∂T)<sub>p</sub>。</li>
+        <li>得
+          <span class="eq-l m">μ = <span class="frac"><span class="num">T (∂V/∂T)<sub>p</sub> − V</span><span class="den">C<sub>p</sub></span></span></span>
+          右边全是可测量 ✓</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>节流过程是等焓过程</b>：H₁ = H₂。</p>
+        <p style="margin-top:8px"><b>焦耳-汤姆孙系数</b></p>
+        <span class="eq m">μ = (∂T/∂p)<sub>H</sub> = [T (∂V/∂T)<sub>p</sub> − V] / C<sub>p</sub></span>
+        <p style="margin-top:8px"><b>三种情况</b></p>
+        <ul style="margin-top:4px">
+          <li><b>理想气体</b>：V = νRT/p ⟹ T(∂V/∂T)<sub>p</sub> = V ⟹ <b>μ = 0</b>，节流后温度不变，不能用作致冷。</li>
+          <li><b>实际气体 μ &gt; 0</b>：节流后降温（致冷区）。</li>
+          <li><b>实际气体 μ &lt; 0</b>：节流后升温（致热区）。</li>
+        </ul>
+        <p style="margin-top:6px"><b>转化温度</b>：μ = 0 时的温度，即 T(∂V/∂T)<sub>p</sub> = V 的温度。只有温度低于转化温度，节流才能致冷。</p>
+        <p style="margin-top:8px"><b>用位力系数看反转</b>（课件补充）：把昂尼斯方程 pV<sub>m</sub> = RT(1 + B/V<sub>m</sub>) 近似写成 V = RT/p + B，代入 μ 的表达式得 μ = (T dB/dT − B)/C<sub>p</sub>。低温时 B &lt; 0（分子间引力主导）且 T dB/dT &gt; 0，故 μ &gt; 0；高温时 B &gt; 0（分子体积主导）、dB/dT &lt; 0，故 μ &lt; 0。由 T dB/dT = B 解出<b>反转温度</b>，在 p–T 图上画出反转曲线：曲线以内（温度较低）是致冷区，曲线以外 μ &lt; 0 反而升温。范德瓦耳斯气体与氮气的反转曲线形状相似，这正是范氏模型能定性解释焦汤效应的原因。</p>
+        <p style="margin-top:8px"><b>绝热膨胀</b>：等熵过程，效应由 (∂T/∂p)<sub>S</sub> 描述。</p>
+        <p>理想气体绝热膨胀必降温（Tp<sup>(1−γ)/γ</sup> = const，压强降则温度降）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>节流是等焓，绝热膨胀是等熵</b> —— 两者绝不能混。这是本章最爱考的一个区分点。</li>
+        <li>理想气体 μ = 0（节流温度不变），但<b>绝热膨胀会降温</b>（因为对外做功消耗内能）。不要因为「理想气体节流不降温」就以为理想气体绝热膨胀也不降温。</li>
+        <li>节流过程本身是<b>不可逆</b>的（有摩擦、湍流），但因为是等焓，用 H 的差分计算仍然方便。</li>
+        <li>μ 的符号是「μ 乘 dp」决定 ΔT，而节流中 dp &lt; 0，所以 μ &gt; 0 对应降温。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.4 -->
+<article class="card c2" id="s24">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.4</span>
+    <h3>基本热力学函数的确定</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>这一节展示热力学「以少驭多」的威力：只要知道<b>物态方程</b>和<b>一个热容</b>，就能把 U、H、S、F、G 全部推出来。</p>
+      <p>这在历史上非常重要 —— 19 世纪的物理学家只能测 p、V、T 和热容，却能据此算出所有热力学量。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（标准套路）</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>已知</b>：物态方程 p = p(T, V)，以及 C<sub>V</sub> = C<sub>V</sub>(T, V)。</li>
+        <li><b>求 U</b>：用
+          <span class="eq-l m">(∂U/∂V)<sub>T</sub> = T (∂p/∂T)<sub>V</sub> − p</span>
+          对 V 积分（T 视为参数），得 U = ∫[...]dV + φ(T)。其中的 φ(T) 用 C<sub>V</sub> = (∂U/∂T)<sub>V</sub> 定出。</li>
+        <li><b>求 S</b>：由 <span class="m">dS = (dU + p dV)/T</span> 积分，或直接用
+          <span class="eq-l m">(∂S/∂V)<sub>T</sub> = (∂p/∂T)<sub>V</sub></span>
+          对 V 积分后再对 T 积分补上依赖 T 的部分。</li>
+        <li><b>求其余</b>：由定义式
+          <span class="eq-l m">H = U + pV　　F = U − TS　　G = H − TS</span></li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>核心命题</b>：物态方程 + 一个热容 ⟹ 全部热力学函数。</p>
+        <p style="margin-top:8px"><b>解题套路</b></p>
+        <ol style="margin-top:4px">
+          <li>先用 (∂U/∂V)<sub>T</sub> = T(∂p/∂T)<sub>V</sub> − p 求 U（积分常数由 C<sub>V</sub> 定）；</li>
+          <li>再用 dS = (dU + p dV)/T 求 S；</li>
+          <li>最后由定义式得 H、F、G。</li>
+        </ol>
+        <p style="margin-top:8px"><b>课件三个标准例题</b>：① 理想气体，以 (T, p) 为参量求 H、S、G（结果含 C<sub>p</sub>lnT − R ln p 型项）；② 范德瓦耳斯气体，求 U 与 S（会出现 −a/V 的吸引能项）；③ 简单固体，由 dV/V = αdT − κ<sub>T</sub>dp 求 U、S。三者都是上面套路，差别只在积分常数怎么定。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>积分求 U 时，「对 V 积分」产生的积分常数是 <b>T 的任意函数 φ(T)</b>，不是常数。这一步最容易漏。</li>
+        <li>φ(T) 必须用 <b>C<sub>V</sub></b> 确定，不要和 C<sub>p</sub> 混。</li>
+        <li>计算过程中注意区分「求偏导时保持哪个量不变」。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.5 -->
+<article class="card c2" id="s25">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.5</span>
+    <h3>特性函数</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>上一节说「物态方程 + 一个热容」能定出全部热力学函数。特性函数把这个结论推得更远：<b>只要一个函数</b>，配上正确的自变量，就够了。</p>
+      <p>关键在于「配上正确的自变量」—— 同一个 U，写成 U(S, V) 就是特性函数，写成 U(T, V) 就不是。区别在于自变量是否与函数「匹配」（是否是它的自然变量）。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（以 F(T, V) 为例）</summary>
+    <div class="dbody">
+      <ol>
+        <li>已知 <span class="m">dF = − S dT − p dV</span>，自变量是 (T, V)，正好匹配。</li>
+        <li>直接读出两个偏导：
+          <span class="eq-l m">S = − (∂F/∂T)<sub>V</sub>　　p = − (∂F/∂V)<sub>T</sub></span></li>
+        <li>于是由 F 可得 S 和 p —— 而 p 就是<b>物态方程</b>！</li>
+        <li>再由 U = F + TS 得内能：<span class="m">U = F − T(∂F/∂T)<sub>V</sub></span>（吉布斯-亥姆霍兹方程）。</li>
+        <li>最后由 H = U + pV、G = F + pV 得全部函数。</li>
+      </ol>
+      <p style="margin-top:9px">→ 结论：一个 F(T, V) 就包含了系统的全部热力学信息。</p>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>四个特性函数及其自然变量</b></p>
+        <table style="width:100%; border-collapse:collapse; font-size:.92em; margin-top:4px">
+          <tr style="border-bottom:1px solid var(--key-line)">
+            <th style="text-align:left; padding:4px">函数</th>
+            <th style="text-align:left; padding:4px">自然变量</th>
+            <th style="text-align:left; padding:4px">全微分</th>
+          </tr>
+          <tr><td style="padding:4px">U（内能）</td><td style="padding:4px">S, V</td><td style="padding:4px">T dS − p dV</td></tr>
+          <tr><td style="padding:4px">H（焓）</td><td style="padding:4px">S, p</td><td style="padding:4px">T dS + V dp</td></tr>
+          <tr><td style="padding:4px">F（自由能）</td><td style="padding:4px">T, V</td><td style="padding:4px">−S dT − p dV</td></tr>
+          <tr><td style="padding:4px">G（吉布斯函数）</td><td style="padding:4px">T, p</td><td style="padding:4px">−S dT + V dp</td></tr>
+        </table>
+        <p style="margin-top:10px"><b>由 F(T, V) 导出全部热力学量</b></p>
+        <span class="eq-l m">S = − (∂F/∂T)<sub>V</sub>　　p = − (∂F/∂V)<sub>T</sub></span>
+        <span class="eq-l m">U = F − T (∂F/∂T)<sub>V</sub>　　G = F + pV</span>
+        <p style="margin-top:8px"><b>常见例子</b>：表面系统的特性函数是 F = σA（σ 为表面张力，A 为面积）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「特性函数」的关键在<b>自变量的选取</b>。题目若给 U(T, V)，它<b>不是</b>特性函数，必须先做勒让德变换换成 F(T, V) 或 U(S, V)。</li>
+        <li>判断是否匹配的方法：看该函数的全微分里，微分号前面是不是那两个变量。</li>
+        <li>吉布斯-亥姆霍兹方程 U = F − T(∂F/∂T)<sub>V</sub> 要记牢，它是由 F 求 U 的通道。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.6 -->
+<article class="card c2" id="s26">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.6</span>
+    <h3>热辐射的热力学理论</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>把空腔内的电磁辐射当作一种「光子气体」来处理。这一节最漂亮的地方在于：<b>完全不需要任何量子假设</b>，只用经典热力学 + 一条电动力学结论，就能推出斯特藩-玻尔兹曼定律 u = aT⁴。</p>
+      <p>这是热力学普适性的绝佳例证 —— 它甚至不知道辐射是由光子组成的。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>由电动力学给出：各向同性辐射对腔壁的压强
+          <span class="eq-l m">p = u/3</span>
+          其中 u 是辐射能量密度。这是推导的<b>输入</b>，来自电动力学，不是热力学结论。</li>
+        <li>热力学认为辐射总内能 U = u(T)·V。由基尔霍夫定律，u 只依赖 T，与腔的形状、材料无关。</li>
+        <li>于是 p = u(T)/3 <b>只是 T 的函数，与 V 无关</b>。</li>
+        <li>代入普遍关系式 (∂U/∂V)<sub>T</sub> = T(∂p/∂T)<sub>V</sub> − p：
+          <span class="eq-l m">u = T · <span class="frac"><span class="num">1</span><span class="den">3</span></span> <span class="frac"><span class="num">du</span><span class="den">dT</span></span> − <span class="frac"><span class="num">u</span><span class="den">3</span></span></span></li>
+        <li>整理：<span class="m">4u = T du/dT</span>，分离变量 <span class="m">du/u = 4 dT/T</span>，积分得
+          <span class="eq-l m">u = aT⁴</span></li>
+        <li>辐射通量密度（单位时间从单位面积射出的能量）：
+          <span class="eq-l m">J = (c/4) u = σT⁴</span>
+          这就是<b>斯特藩-玻尔兹曼定律</b>。</li>
+        <li>熵：由 dS = (dU + p dV)/T 积分，得 <span class="m">S = (4/3)aT³V</span>。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <span class="eq-l m">p = u/3　　（辐射压强，来自电动力学）</span>
+        <span class="eq-l m">u = aT⁴　　（能量密度，斯特藩-玻尔兹曼定律）</span>
+        <span class="eq-l m">J = σT⁴ = (c/4)u　　（辐射通量密度）</span>
+        <span class="eq-l m">S = (4/3) aT³V</span>
+        <p style="margin-top:8px">其中 σ = ac/4 是斯特藩常数。</p>
+        <p style="margin-top:6px"><b>推导的关键节点</b>：正因为 p 只依赖 T、与 V 无关，才能把 (∂U/∂V)<sub>T</sub> = u 和 (∂p/∂T)<sub>V</sub> = du/3dT 都写成常微分。</p>
+        <p style="margin-top:8px"><b>黑体与基尔霍夫定律</b>：物体的面辐射强度 e<sub>ω</sub> 与吸收因数 α<sub>ω</sub> 之比 <span class="m">e<sub>ω</sub>/α<sub>ω</sub> = J<sub>ω</sub></span> 对所有物体都相同，只与 T、ω 有关（J<sub>ω</sub> 即黑体辐射）。吸收因数 α<sub>ω</sub> = 1 的物体叫<b>绝对黑体</b>；空窖的小孔因多重反射几乎完全吸收，是很好的黑体近似 —— 所以平衡辐射也叫黑体辐射。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>p = u/3 是输入，不是结论。</b>它来自电动力学（各向同性辐射的动量通量），如果被问「这个 1/3 从哪来」，答案不在热力学里。</li>
+        <li>通量密度 J 要除以 4，不是乘以 c 就完了。原因：各向同性辐射向各个方向射出，射向某个方向的平均通量只占 (c/4)u。</li>
+        <li>u 是能量密度（单位体积能量），J 是通量密度（单位面积单位时间能量），两者量纲不同，别混。</li>
+        <li>这里推不出 u 的绝对数值 a —— 那需要普朗克公式（第八章玻色统计）。热力学只能给出 T⁴ 这个规律。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.7 -->
+<article class="card c2" id="s27">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.7</span>
+    <h3>磁介质的热力学</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>磁介质的热力学几乎是气体情形的「翻译版」：把 (p, V) 换成 (−μ₀H, M)，公式结构完全平行。</p>
+      <p>最有价值的产物是<b>磁致冷</b>：先把顺磁盐等温磁化（放热），再绝热去磁（降温）。绝热去磁能获得极低温，是实验室常规手段。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>写出磁介质的热力学基本方程（对应气体情形的 dU = T dS − p dV）：
+          <span class="eq-l m">dU = T dS + μ₀ H dM</span>
+          这里 H 是外磁场，M 是总磁矩。</li>
+        <li>作勒让德变换换成 G 形式（对应 dG = −S dT + V dp）：
+          <span class="eq-l m">dG = − S dT − μ₀ M dH</span></li>
+        <li>由交叉导数相等，得麦克斯韦关系：
+          <span class="eq-l m">(∂S/∂H)<sub>T</sub> = μ₀ (∂M/∂T)<sub>H</sub></span></li>
+        <li>顺磁体的居里定律给出 <span class="m">M = CH/T</span>，故
+          <span class="eq-l m">(∂M/∂T)<sub>H</sub> = − CH/T² &lt; 0</span></li>
+        <li>于是 <span class="m">(∂S/∂H)<sub>T</sub> &lt; 0</span>：<b>等温加磁场使熵减小</b>。</li>
+        <li>对应关系：等温磁化 → 熵减 → 必须放热；绝热去磁 → 熵不变 → 温度必降。</li>
+      </ol>
+    </div>
+  
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>基本方程与对应关系</b></p>
+        <span class="eq-l m">dU = T dS + μ₀ H dM</span>
+        <p>与气体的对应：<span class="m">p ↔ −μ₀H</span>，<span class="m">V ↔ M</span>。</p>
+        <p style="margin-top:8px"><b>麦克斯韦关系</b></p>
+        <span class="eq m">(∂S/∂H)<sub>T</sub> = μ₀ (∂M/∂T)<sub>H</sub></span>
+        <p style="margin-top:8px"><b>顺磁体的居里定律</b>（实验规律）</p>
+        <span class="eq m">M = <span class="frac"><span class="num">CH</span><span class="den">T</span></span></span>
+        <p style="margin-top:8px"><b>磁致冷原理（两步循环）</b></p>
+        <ol style="margin-top:4px">
+          <li><b>等温磁化</b>：加磁场，磁矩趋于有序排列，熵减小，系统向外界放热（热量被恒温浴带走）；</li>
+          <li><b>绝热去磁</b>：撤去磁场，总熵不变，磁矩重新趋于无序，温度必然降低。</li>
+        </ol>
+        <p style="margin-top:8px"><b>磁致伸缩与压磁效应</b>：把 p、V 也留作变量，由麦氏关系可得
+          <span class="m">(∂V/∂H)<sub>T,p</sub> = −μ₀(∂M/∂p)<sub>T,H</sub></span>
+          左边是「加磁场使样品长度变化」的<b>磁致伸缩</b>，右边是「加压使磁化强度变化」的<b>压磁效应</b> —— 两者互为镜像。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>去磁降温必须是<b>绝热</b>去磁，不是等温去磁。等温去磁只是可逆的逆向过程，不产生净降温。</li>
+        <li>居里定律 M = CH/T 是<b>实验规律</b>，不是热力学推出来的。热力学推不出 M 与 H 的关系。</li>
+        <li>磁介质做功能有两种约定（用 M dH 还是 H dM），取决于把哪个当广义位移。做题时看清教材写法，<b>保持全书一致</b>。</li>
+        <li>磁致冷降温的物理机制是「无序度」：磁场使磁矩有序化（熵减），绝热撤场时磁矩无序化要从<b>热运动</b>里借熵，于是温度下降。这是熵的重新分配，不是能量凭空消失。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.8 -->
+<article class="card c2" id="s28">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.8</span>
+    <h3>获得低温的方法 <span class="star">（补充材料）</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>各种获得低温的方法，背后是同一个思想：<b>让系统的某些自由度有序化，把「无序」推给温度</b>。气体膨胀做功消耗内能，磁矩在磁场中有序化消耗热运动 —— 都是把熵转移出去，剩下的就冷了。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>三种主要方法</h4>
+      <div class="dbody" style="padding:0">
+        <p><b>① 节流致冷（焦耳-汤姆孙效应）</b></p>
+        <ul style="margin-top:4px">
+          <li>原理：实际气体在 μ &gt; 0 的区域节流后降温。</li>
+          <li>适用：常温附近制备液氮、液氧等。需要预冷到转化温度以下才有效。</li>
+          <li>局限：理想气体 μ = 0，无法用此法；对氢、氦须先预冷到各自的转化温度以下。</li>
+        </ul>
+        <p style="margin-top:10px"><b>② 绝热去磁致冷</b></p>
+        <ul style="margin-top:4px">
+          <li>原理：顺磁盐的磁矩在磁场中有序化（等温磁化放热），绝热撤场后磁矩无序化，温度骤降。</li>
+          <li>适用：液氦温度以下，可获得 mK 量级的极低温。</li>
+          <li>局限：无法到达绝对零度（热力学第三定律的限制）。</li>
+        </ul>
+        <p style="margin-top:10px"><b>③ 其他方法</b></p>
+        <ul style="margin-top:4px">
+          <li><b>稀释致冷机</b>：利用 ³He/⁴He 混合液中 ³He 的相分离，可获得 mK 级连续致冷。</li>
+          <li><b>绝热膨胀</b>：等熵膨胀做功，同样降温（与节流的区别见 §2.3）。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>所有致冷方法的共同本质：<b>让系统有序化（熵减），并通过放热把熵排出去</b>。</p>
+        <p style="margin-top:8px"><b>方法选择</b></p>
+        <ul style="margin-top:4px">
+          <li>常温 → 液氮温度：节流致冷</li>
+          <li>液氦温度 → mK：绝热去磁致冷</li>
+          <li>mK 以下：稀释致冷机等</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>绝热去磁降温的极限是<b>绝对零度不可达</b>，这是第三定律的内容，不能说「只要一直去磁就能到 0 K」。</li>
+        <li>节流致冷和绝热膨胀是<b>两种不同</b>的降温机制（等焓 vs 等熵），不要混为一谈。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 第三章 ══════════════ -->
+<div class="chap chap3" id="ch3">
+  <span class="cn">CH.3</span> 单元系的相变
+  <span class="cm">10 节 · 从平衡判据到朗道理论</span>
+</div>
+
+<!-- 3.0 -->
+<article class="card c3" id="s30">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.0</span>
+    <h3>热动平衡的条件</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>前两章一直在用「平衡态」，却从没论证过它<b>为什么</b>存在、又该怎么<b>判断</b>。这一章第一件事，就是把「平衡」从口头约定变成可以计算的判据。</p>
+      <p>关键一步：把系统切成两半 —— 让一小部分（子系统）任意<b>虚变动</b>，其余部分（媒质）被动补偿，保证整个孤立系的总内能、总体积不变。若<b>所有</b>这样的虚变动都让总熵变小，系统才真的处在稳定平衡。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>要点梳理</h4>
+      <ul>
+        <li><b>四种平衡</b>：热平衡（T 相同）、力学平衡（p 相同）、相平衡（μ 相同）、化学平衡（各组元 μ 相同）。平衡态要求它们<b>同时</b>成立。</li>
+        <li><b>虚变动 ≠ 真实过程</b>：虚变动是设想中、不满足动力学方程的无限小变动，只用来做极值判断；它不受过程速率、路径的限制。</li>
+        <li><b>判据的函数随外界条件变</b>：孤立系看熵，等温等容看自由能，等温等压看吉布斯函数 —— 判据函数必须与「什么被固定」匹配。</li>
+        <li><b>平衡与稳定是两件事</b>：一阶变分为零只说明「站住了」（平衡）；二阶变分的符号才说明「站得稳」（稳定）。</li>
+      </ul>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>平衡态 = 在给定外界条件下、相应热力学函数取极值的状态。</p>
+        <p style="margin-top:6px">本章的全部内容都建立在这个思想上：3.1 把它写成数学判据，3.3 用它推出相平衡条件，3.5 用它解释过冷、过热与临界点。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「宏观量不随时间变化」只是<b>现象</b>，不是判据。稳定流动、稳态导热都能做到宏观量不变，但不是热力学平衡态。</li>
+        <li>亚稳状态同样满足平衡条件（δS = 0 且 δ²S &lt; 0），却<b>不是</b>全局最稳定 —— 过冷液体、过饱和蒸气就是例子，§3.5 会用到这一点。</li>
+        <li>虚变动中「总内能、总体积不变」是<b>孤立系</b>的前提；换成等温等压系统，约束条件就变成 T、p 不变，判据函数也要跟着换成 G。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.1 -->
+<article class="card c3" id="s31">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.1</span>
+    <h3>热动平衡判据</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>「熵最大」这句话只是定性的。要能算，必须写成变分形式：把熵按参量的虚变动展开，<b>一阶项为零</b>给出平衡条件，<b>二阶项为负</b>给出稳定条件。</p>
+      <p>判据函数由约束决定：约束了 U、V，就用 S；约束了 T、V，就用 F；约束了 T、p，就用 G。数学上这是同一条极值原理，只是自变量换了、勒让德变换过了。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 熵判据的变分形式</b></p>
+      <ol>
+        <li>把熵按虚变动展开：<span class="eq-l m">ΔS = δS + ½ δ²S + ⋯</span></li>
+        <li>孤立系平衡要求对<b>任意</b>虚变动都有 ΔS &lt; 0，故必须
+          <span class="eq-l m">δS = 0（平衡）　且　δ²S &lt; 0（稳定）</span></li>
+        <li>若 δ²S &gt; 0 → 不稳；若 δ²S = 0 但 δ³S = 0、更高阶为负 → 中性（随遇）平衡。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 其它约束下的判据</b></p>
+      <ol>
+        <li>等温等容（T、V 不变）：从 F = U − TS 得 ΔF = ΔU − TΔS，把 ΔU = TΔS − pΔV 型的关系代进去，可证 ΔS &gt; 0 与 ΔF &lt; 0 等价。</li>
+        <li>等温等压（T、p 不变）：同理得到 ΔG &lt; 0，G = U − TS + pV。</li>
+        <li>等熵等压（S、p 不变）：得到 H 极小，H = U + pV。</li>
+      </ol>
+      <p style="margin-top:8px"><b>③ 均匀系统的平衡条件</b>（子系统 1 + 媒质 0）</p>
+      <ol>
+        <li>孤立系总内能、总体积不变：<span class="m">δU₁ + δU₀ = 0，δV₁ + δV₀ = 0</span>。</li>
+        <li>一阶变分
+          <span class="eq-l m">δS = (1/T₁ − 1/T₀)δU₁ + (p₁/T₁ − p₀/T₀)δV₁ = 0</span></li>
+        <li>δU₁、δV₁ 任意 ⟹ <span class="m up">T₁ = T₀，p₁ = p₀</span>。即平衡时整个系统的<b>温度和压强均匀</b>。</li>
+        <li>二阶变分（取 T、V 为自变量，用 <span class="m">U = U(T,V)</span> 展开）化为
+          <span class="eq-l m">δ²S = − <span class="frac"><span class="num">C<sub>V</sub></span><span class="den">T²</span></span> (δT)² + <span class="frac"><span class="num">1</span><span class="den">T</span></span> (∂p/∂V)<sub>T</sub> (δV)² &lt; 0</span>
+          因 (∂p/∂V)<sub>T</sub> 为负，两项同为负。</li>
+        <li>δT、δV 相互独立，故稳定条件为
+          <span class="eq-l m up">C<sub>V</sub> &gt; 0　且　(∂p/∂V)<sub>T</sub> &lt; 0</span></li>
+      </ol>
+      <p style="margin-top:8px"><b>④ 稳定条件的物理意义</b>：子系统温度被抬高 → 它放热、温度回落（要求 C<sub>V</sub> &gt; 0）；子系统体积被压缩 → 压强升高、把它推回去（要求 (∂p/∂V)<sub>T</sub> &lt; 0，即 κ<sub>T</sub> &gt; 0）。两者本质上都是<b>勒夏特列原理</b>。</p>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <table class="tab">
+          <thead><tr><th>外界条件</th><th>判据函数</th><th>平衡（一阶）</th><th>稳定（二阶）</th></tr></thead>
+          <tbody>
+            <tr><td>孤立系（U, V, n 固定）</td><td class="m">S</td><td>δS = 0，极大</td><td>δ²S &lt; 0</td></tr>
+            <tr><td>等温等容（T, V 固定）</td><td class="m">F</td><td>δF = 0，极小</td><td>δ²F &gt; 0</td></tr>
+            <tr><td>等温等压（T, p 固定）</td><td class="m">G</td><td>δG = 0，极小</td><td>δ²G &gt; 0</td></tr>
+            <tr><td>等熵等压（S, p 固定）</td><td class="m">H</td><td>δH = 0，极小</td><td>δ²H &gt; 0</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:9px">均匀系统：<b>T、p 处处相等</b>；稳定条件：<b>C<sub>V</sub> &gt; 0，(∂p/∂V)<sub>T</sub> &lt; 0</b>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>δ²S &lt; 0 与 δ²F &gt; 0 符号相反</b>：熵取极大，自由能取极小。别把二阶条件一概写成「小于零」。</li>
+        <li>判据函数选错 = 全错。等温等压的实验（如两相共存）必须用 G；用熵判据算出来的极值方向会反。</li>
+        <li>δ 是<b>变分</b>，不是微分；虚变动的「路径」不必满足动力学方程，所以不能套用 dQ = T dS 的准静态关系去做整段积分。</li>
+        <li>(∂p/∂V)<sub>T</sub> &lt; 0 排除了范德瓦耳斯等温线的上升段（NDJ），这正是 §3.5 里那段「不稳定、实际不存在」的区间。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.2 -->
+<article class="card c3" id="s32">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.2</span>
+    <h3>开系的热力学基本方程</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>相变就是物质从一相跑到另一相，系统与外界（或另一相）交换了粒子。原来那套「封闭系」基本方程不够用了，必须把摩尔数 n 也当成独立参量，额外引出一个新的强度量 —— <b>化学势 μ</b>。</p>
+      <p>化学势可以理解为「往系统里加 1 mol 物质要花的能量」。相变的方向，就是物质从 μ 高的地方流向 μ 低的地方 —— 和热量从高温流向低温、体积向压强大的地方让路，完全同构。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 把 n 放进基本方程</b></p>
+      <ol>
+        <li>单元系 G = G(T, p, n)，G 是广延量、T、p 是强度量，故 G 必须正比于 n：
+          <span class="eq-l m">G(T, p, n) = n g(T, p)</span></li>
+        <li>于是 <span class="m">(∂G/∂n)<sub>T,p</sub> = g(T, p)</span>，记作化学势 μ。</li>
+        <li>由 <span class="m">dG = −S dT + V dp</span> 补上 μ 项：
+          <span class="eq-l m up">dG = −S dT + V dp + μ dn</span></li>
+      </ol>
+      <p style="margin-top:8px"><b>② 其它三个基本方程</b>（由 H = U + pV，F = U − TS 逐一代换）</p>
+      <ol>
+        <li><span class="eq-l m">dU = T dS − p dV + μ dn</span></li>
+        <li><span class="eq-l m">dH = T dS + V dp + μ dn</span></li>
+        <li><span class="eq-l m">dF = −S dT − p dV + μ dn</span></li>
+        <li>四式给出化学势的四种面孔：
+          <span class="eq-l m up">μ = (∂U/∂n)<sub>S,V</sub> = (∂H/∂n)<sub>S,p</sub> = (∂F/∂n)<sub>T,V</sub> = (∂G/∂n)<sub>T,p</sub></span></li>
+      </ol>
+      <p style="margin-top:8px"><b>③ 吉布斯–杜安方程（Gibbs–Duhem）</b></p>
+      <ol>
+        <li>由广延性 <span class="m">U = TS − pV + μn</span>（把 μn 补进去才是开系的欧拉关系）。</li>
+        <li>对它取全微分，再与 dU 的表达式相减，得
+          <span class="eq-l m up">S dT − V dp + n dμ = 0　⟹　dμ = −s<sub>m</sub> dT + v<sub>m</sub> dp</span></li>
+        <li>结论：单元系的 T、p、μ <b>三者只有两个独立</b>；μ 可看成 (T, p) 的函数。</li>
+      </ol>
+      <p style="margin-top:8px"><b>④ 巨热力势</b>：J = F − μn，其微分为 dJ = −S dT − p dV − n dμ；由 J 的广延性可得 J = −pV，在统计物理里很好用。</p>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>开系基本方程：<span class="m up">dU = T dS − p dV + μ dn</span>（化学势是「进入系统的能量」的一部分）。</p>
+        <p style="margin-top:6px">对单元系，化学势就是<b>摩尔吉布斯函数</b>：<span class="m up">μ = G<sub>m</sub> = g(T, p)</span>。</p>
+        <p style="margin-top:6px">吉布斯–杜安：<span class="m up">dμ = −s<sub>m</sub> dT + v<sub>m</sub> dp</span> —— 沿相平衡曲线积分它，就得到 §3.4 的克拉珀龙方程。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>μ 是<b>强度量</b>（J/mol），不随物质的量变；G 是广延量。写 <span class="m">G = μn</span> 时别把 μ 当成广延量。</li>
+        <li>四个偏导数的下标不能丢：<span class="m">(∂U/∂n)<sub>S,V</sub></span> 与 <span class="m">(∂G/∂n)<sub>T,p</sub></span> 都是 μ，但求导时固定的量不同。</li>
+        <li>吉布斯–杜安是<b>恒等式</b>，说明 T、p、μ 不独立，不能把三者当独立变量去求偏导。</li>
+        <li>四式只对单元系或组成不变的复相系成立；多元系的化学势要按组元分别写出（第四章内容）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.3 -->
+<article class="card c3" id="s33">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.3</span>
+    <h3>单元系的复相平衡条件</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>两相共存时，物质可以在两相之间来回跑。若某个量在两侧不相等，就会推动物质往一个方向迁移 —— 好比两杯水位不同的水用管子连通。平衡的标志是「势」处处相等：温度、压强、化学势三杆秤都放平。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>设单元系由 α、β 两相组成，总内能、总体积、总摩尔数不变：
+          <span class="eq-l m">δU = δU<sup>α</sup> + δU<sup>β</sup> = 0，　δV = δV<sup>α</sup> + δV<sup>β</sup> = 0，　δn = δn<sup>α</sup> + δn<sup>β</sup> = 0</span></li>
+        <li>总熵变（每相用开系基本方程，T、p 视为该相自身值）：
+          <span class="eq-l m">δS = (1/T<sup>α</sup> − 1/T<sup>β</sup>)δU<sup>α</sup> + (p<sup>α</sup>/T<sup>α</sup> − p<sup>β</sup>/T<sup>β</sup>)δV<sup>α</sup> − (μ<sup>α</sup>/T<sup>α</sup> − μ<sup>β</sup>/T<sup>β</sup>)δn<sup>α</sup></span></li>
+        <li>δS = 0 对任意 δU<sup>α</sup>、δV<sup>α</sup>、δn<sup>α</sup> 成立，故三个系数都为零：
+          <span class="eq-l m up">T<sup>α</sup> = T<sup>β</sup>，　p<sup>α</sup> = p<sup>β</sup>，　μ<sup>α</sup> = μ<sup>β</sup></span></li>
+        <li>相平衡条件 μ<sup>α</sup>(T,p) = μ<sup>β</sup>(T,p) 把 (T, p) 约束到一条曲线上：<b>p = p(T)</b>，这就是相平衡曲线。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>三条平衡条件</b>：热平衡 T<sup>α</sup> = T<sup>β</sup>；力学平衡 p<sup>α</sup> = p<sup>β</sup>；相变平衡 μ<sup>α</sup> = μ<sup>β</sup>。</p>
+        <p style="margin-top:7px"><b>趋向平衡的方向</b>（记忆：总是从「高」流向「低」）</p>
+        <ul style="margin-top:3px">
+          <li>热量：从高温相 → 低温相。</li>
+          <li>体积：压强大的相膨胀，压强小的相被压缩。</li>
+          <li>物质：从化学势高的相 → 化学势低的相。μ<sup>α</sup> &gt; μ<sup>β</sup> 时 α 相会不断转化为 β 相。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>只有 T、p 相等<b>不算</b>平衡；还必须 μ 相等。三个条件缺一不可。</li>
+        <li>化学势差是<b>相变</b>的驱动力，不是温度差。两相温度相同仍有相变，这正是潜热的来源。</li>
+        <li>单元系两相共存时 (T, p) 并非自由：p 由 T 唯一确定（相平衡曲线）。自由度只剩 1（见 §3.4 相律）。</li>
+        <li>若两相之间有界面能、曲率（小液滴），μ 的平衡条件要被修正 —— 这就是 §3.6 的内容。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.4 -->
+<article class="card c3" id="s34">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.4</span>
+    <h3>单元复相系的平衡性质</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>把 μ<sup>α</sup> = μ<sup>β</sup> 画到 p–T 平面上，就是相图：三条曲线（汽化、熔解、升华）把平面分成固、液、气三块；三条曲线的交点叫三相点，那里自由度为零。沿曲线走，就得到克拉珀龙方程 —— 它把「相变潜热」「体积变化」和「曲线的斜率」绑在一起。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 相平衡曲线</b></p>
+      <ol>
+        <li>两相平衡时 μ<sup>α</sup>(T, p) = μ<sup>β</sup>(T, p)，解得 p = p(T)，即汽化/熔解/升华曲线。</li>
+        <li>三条曲线的交点满足三对相平衡 → 三相点（水的三相点：273.16 K，611 Pa）。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 克拉珀龙方程</b></p>
+      <ol>
+        <li>沿曲线微移 dT、dp，两相仍平衡：μ<sup>α</sup> 与 μ<sup>β</sup> 的增量相等：
+          <span class="eq-l m">−s<sup>α</sup> dT + v<sup>α</sup> dp = −s<sup>β</sup> dT + v<sup>β</sup> dp</span></li>
+        <li>整理得
+          <span class="eq-l m up">dp/dT = (s<sup>β</sup> − s<sup>α</sup>)/(v<sup>β</sup> − v<sup>α</sup>) = L/[T(v<sup>β</sup> − v<sup>α</sup>)]</span></li>
+        <li>其中 L = T(s<sup>β</sup> − s<sup>α</sup>) 为<b>摩尔潜热</b>。它由「潜热 + 比容差」两类可测量给出曲线斜率。</li>
+      </ol>
+      <p style="margin-top:8px"><b>③ 蒸气压方程</b></p>
+      <ol>
+        <li>气液平衡时 v<sub>g</sub> ≫ v<sub>l</sub>，且气相近似为理想气体 v<sub>g</sub> ≈ RT/p：</li>
+        <li><span class="eq-l m">dp/dT ≈ L p/(R T²)</span></li>
+        <li>L 近似为常数时积分：<span class="eq-l m up">ln p = − L/(R T) + A</span>，即蒸气压随 1/T 指数变化。</li>
+      </ol>
+      <p style="margin-top:8px"><b>④ 相律</b>：f = k + 2 − π。单元系 k = 1，故 f = 3 − π：单相 f = 2，两相 f = 1，三相 f = 0（三相点是一个确定的状态点）。</p>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>相图三曲线</b>：汽化曲线（液–气）、熔解曲线（固–液）、升华曲线（固–气），交于三相点。</p>
+        <p style="margin-top:6px"><b>克拉珀龙方程</b>：<span class="m up">dp/dT = L/[T(v<sub>2</sub> − v<sub>1</sub>)]</span>。水的熔解曲线斜率为负 —— 因为冰的比容比水大。</p>
+        <p style="margin-top:6px"><b>等温等压下的平衡相</b>是化学势（摩尔吉布斯函数）最小的那一相；过冷、过热等亚稳态则对应 μ 的<b>局部</b>极小。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>分子、分母要<b>同向</b>：dp/dT = (s₂ − s₁)/(v₂ − v₁)，若把相 1、2 写反，符号就全反。</li>
+        <li>蒸气压方程用了「v<sub>g</sub> ≫ v<sub>l</sub> + 理想气体」两个近似，临界点附近（v<sub>g</sub> 与 v<sub>l</sub> 接近）不能用。</li>
+        <li>水的反常：4 °C 以下随温度升高体积收缩；冰的熔解曲线斜率为负，加压使冰熔化。</li>
+        <li>潜热 L = TΔs 是<b>相变</b>的热，不是热容积分出来的显热，别混。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+<!-- 3.5 -->
+<article class="card c3" id="s35">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.5</span>
+    <h3>临界点和气液两相的转变</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>安德鲁斯的 CO₂ 等温线实验：温度低时，压缩气体到某一压强就出现水平段 —— 气液共存，继续压缩只是液相比例 x 变大；温度升到临界温度 T<sub>c</sub>，水平段缩成一点；T &gt; T<sub>c</sub> 时再也分不出液与气，气体连续地变成「超临界流体」。</p>
+      <p>范德瓦耳斯方程能定性复现这一切：它给出的等温线是 S 形的，中间向上翘的那一段违反稳定条件 (∂p/∂V)<sub>T</sub> &lt; 0，实际被一条水平段取代。水平段的高度，由化学势相等（等价于<b>麦克斯韦等面积法则</b>）确定。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 范氏等温线的三段</b></p>
+      <ol>
+        <li>范氏方程（1 mol）：
+          <span class="eq-l m">p = <span class="frac"><span class="num">RT</span><span class="den">V<sub>m</sub> − b</span></span> − <span class="frac"><span class="num">a</span><span class="den">V<sub>m</sub>²</span></span></span></li>
+        <li>T &lt; T<sub>c</sub> 时曲线有极小、极大两点 J、N：<br>
+          <b>N–B 段</b>：(∂p/∂V)<sub>T</sub> &lt; 0，但 p 比共存压强<b>高</b> → 气体早该凝结却仍存在 → <b>过饱和蒸气</b>（亚稳）；<br>
+          <b>A–J 段</b>：(∂p/∂V)<sub>T</sub> &lt; 0，但 p 比共存压强<b>低</b> → 液体早该汽化却仍存在 → <b>过热液体</b>（亚稳）；<br>
+          <b>J–N 段</b>：(∂p/∂V)<sub>T</sub> &gt; 0 → <b>不稳定</b>，实际不可能出现。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 麦克斯韦等面积法则</b></p>
+      <ol>
+        <li>气液共存时两相化学势相等：μ<sub>g</sub> = μ<sub>l</sub>。用 dμ = −s dT + v dp，沿等温线积分：
+          <span class="eq-l m">∫<sub>l</sub><sup>g</sup> v dp = 0</span></li>
+        <li>分部积分并整理，得
+          <span class="eq-l m up">∫<sub>V<sub>l</sub></sub><sup>V<sub>g</sub></sup> p dV = p<sub>s</sub>(V<sub>g</sub> − V<sub>l</sub>)</span>
+          意思是：水平线之上、S 形曲线之下的两块面积相等。</li>
+        <li>由此可定出给定 T 下的共存压强 p<sub>s</sub>(T) 与共存比容 V<sub>l</sub>、V<sub>g</sub>。</li>
+      </ol>
+      <p style="margin-top:8px"><b>③ 临界点</b></p>
+      <ol>
+        <li>水平段缩成一点时，等温线出现拐点，且该点处曲线斜率为零：
+          <span class="eq-l m up">(∂p/∂V)<sub>T</sub> = 0，　(∂²p/∂V²)<sub>T</sub> = 0</span></li>
+        <li>代入范氏方程联立求解：
+          <span class="eq-l m up">V<sub>c</sub> = 3b，　T<sub>c</sub> = <span class="frac"><span class="num">8a</span><span class="den">27Rb</span></span>，　p<sub>c</sub> = <span class="frac"><span class="num">a</span><span class="den">27b²</span></span></span></li>
+        <li>反过来，由实验测得的临界参数可定出 a、b：
+          <span class="eq-l m">a = 27R²T<sub>c</sub>²/(64p<sub>c</sub>)，　b = RT<sub>c</sub>/(8p<sub>c</sub>)</span></li>
+      </ol>
+      <p style="margin-top:8px"><b>④ 对比变量与对应态定律</b></p>
+      <ol>
+        <li>引入 <span class="m">π = p/p<sub>c</sub>，φ = V<sub>m</sub>/V<sub>c</sub>，τ = T/T<sub>c</sub></span>，范氏方程化为
+          <span class="eq-l m up">(π + 3/φ²)(3φ − 1) = 8τ</span></li>
+        <li>式中不再含 a、b —— 一切满足范氏方程的物质用同一张对比方程描述，这就是<b>对应态定律</b>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>临界点</b>：液相与气相的差别消失，(∂p/∂V)<sub>T</sub> = (∂²p/∂V²)<sub>T</sub> = 0；范氏理论给出 p<sub>c</sub>V<sub>c</sub>/(RT<sub>c</sub>) = 3/8（实验值约 0.27–0.29）。</p>
+        <p style="margin-top:6px"><b>等面积法则</b>：<span class="m up">∫<sub>V<sub>l</sub></sub><sup>V<sub>g</sub></sup> p dV = p<sub>s</sub>(V<sub>g</sub> − V<sub>l</sub>)</span>，本质是 μ<sub>l</sub> = μ<sub>g</sub>。</p>
+        <p style="margin-top:6px"><b>对应态定律</b>：相同 τ、π 下各种物质的 φ 相同。经典范氏理论给出的临界指数是 β = 1/2、γ = 1、δ = 3（§3.8 会看到它们与实验不符）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>等面积法则是「两块面积相等」，不是「取 S 形段的水平中线」；直接用中点压强会得到错误的 p<sub>s</sub>。</li>
+        <li>临界点要<b>两个</b>偏导同时为零：只有 (∂p/∂V)<sub>T</sub> = 0 是极小/极大点，不是拐点。</li>
+        <li>过饱和蒸气、过热液体是<b>亚稳态</b>，能短暂存在（云室、过热沸腾），但不是平衡态。</li>
+        <li>范氏方程只是定性模型：它给出的临界指数是经典的，与实验（β ≈ 0.32）不符；不能拿它去精确算临界指数。</li>
+        <li>气液在临界点以上可以<b>连续</b>转变（绕开相变点），所以临界点处的气液相变是连续相变（§3.7）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.6 补充 -->
+<article class="card c3" id="s36">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.6</span>
+    <h3>液滴的形成 <span class="star">（补充材料）</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>前面把相界面当成「无厚度、无能量」的几何面。真实液滴的界面有表面张力，把液体往里拉，使液滴内部压强高于外部蒸气。压强一变，化学势就跟着变 —— 于是<b>小液滴的饱和蒸气压比平液面高</b>，这解释了为什么云要凝结核才能形成。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>推导脉络</h4>
+      <div class="dbody" style="padding:0">
+        <ol>
+          <li><b>拉普拉斯附加压强</b>：球形液滴内外压差
+            <span class="eq-l m">Δp = p<sub>l</sub> − p<sub>g</sub> = 2σ/r</span>
+            （σ 为表面张力系数，r 为曲率半径；肥皂泡有内外两个面，为 4σ/r）。</li>
+          <li><b>曲面对化学势的修正</b>：由 dμ = −s dT + v dp，等温下
+            <span class="eq-l m">μ<sub>l</sub>(p<sub>l</sub>) − μ<sub>l</sub>(p<sub>g</sub>) = ∫ v<sub>l</sub> dp ≈ v<sub>l</sub>·(2σ/r)</span></li>
+          <li><b>开尔文公式</b>：令液滴与蒸气平衡 μ<sub>l</sub> = μ<sub>g</sub>，气相视为理想气体，得
+            <span class="eq-l m up">ln(p<sub>r</sub>/p<sub>∞</sub>) = <span class="frac"><span class="num">2σ v<sub>m</sub></span><span class="den">r R T</span></span></span>
+            p<sub>r</sub> 为半径 r 的液滴的饱和蒸气压，p<sub>∞</sub> 为平液面的饱和蒸气压。</li>
+          <li><b>临界半径</b>：环境蒸气压强 p 一定时，只有 r &gt; r<sub>c</sub> 的液滴才能继续长大：
+            <span class="eq-l m">r<sub>c</sub> = <span class="frac"><span class="num">2σ v<sub>m</sub></span><span class="den">R T ln(p/p<sub>∞</sub>)</span></span></span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>小液滴蒸气压高 → 曲率越大越难稳定存在 → <b>凝结需要凝结核</b>（尘埃、离子）。过饱和度越大，临界半径越小，越容易成核。</p>
+        <p style="margin-top:6px">同一道理反过来：液体中的小气泡（p<sub>g</sub> = p<sub>l</sub> + 2σ/r）也更容易消失，而大空腔却能稳定存在 —— 这是<b>过热液体暴沸</b>的原因。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>开尔文公式里是 ln(p<sub>r</sub>/p<sub>∞</sub>) &gt; 0：曲率使蒸气压<b>升高</b>，不是降低。凹液面（毛细管中的液体）则相反。</li>
+        <li>液滴与气泡的曲率方向相反：液滴是「凸液面」，气泡是「凹液面」，符号别套错。</li>
+        <li>v<sub>m</sub> 用<b>液体</b>的摩尔体积，不是气体的。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.7 -->
+<article class="card c3" id="s37">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.7</span>
+    <h3>相变的分类</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>固–液、液–气这类相变有潜热、有体积跃变；但气–液经过临界点、铁磁–顺磁、超导转变却既没有潜热、也没有体积突变。Ehrenfest（1933）按<b>化学势导数的连续性</b>把相变分级：一阶导数（S、V）不连续的是<b>一级相变</b>，二阶导数（C<sub>p</sub>、κ<sub>T</sub>、α）不连续的是<b>二级相变</b>。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>推导脉络</h4>
+      <div class="dbody" style="padding:0">
+        <p>化学势 μ(T, p) 在两相相等的曲线上，两侧的导数就是熵与比容：</p>
+        <span class="eq-l m">(∂μ/∂T)<sub>p</sub> = −s<sub>m</sub>，　(∂μ/∂p)<sub>T</sub> = v<sub>m</sub></span>
+        <ol style="margin-top:6px">
+          <li><b>一级相变</b>：μ 连续，但 (∂μ/∂T)<sub>p</sub>、(∂μ/∂p)<sub>T</sub> 发生跃变 → s<sub>m</sub>、v<sub>m</sub> 不连续 → 有<b>潜热</b> L = TΔs 和<b>体积变化</b>。两相共存时自由度减少，相变在确定的 T、p 下发生。</li>
+          <li><b>二级相变</b>：一阶导数连续（s<sub>m</sub>、v<sub>m</sub> 连续，无潜热、无体积变化），但二阶导数不连续 → <b>热容、压缩系数、体胀系数</b>有突变或发散。</li>
+          <li>二级及更高阶的相变统称<b>连续相变</b>：序参量在临界点连续地由零变为非零。</li>
+        </ol>
+        <table class="tab" style="margin-top:9px">
+          <thead><tr><th>特征</th><th>一级相变</th><th>连续（二级）相变</th></tr></thead>
+          <tbody>
+            <tr><td>化学势 μ</td><td>连续</td><td>连续</td></tr>
+            <tr><td>熵 s、比容 v</td><td>不连续（跃变）</td><td>连续</td></tr>
+            <tr><td>潜热 L = TΔs</td><td>有</td><td>无</td></tr>
+            <tr><td>体积变化</td><td>有</td><td>无</td></tr>
+            <tr><td>热容 C<sub>p</sub></td><td>有限跃变</td><td>发散或有限突变（λ 形）</td></tr>
+            <tr><td>典型例子</td><td>冰–水、水–汽、固–液</td><td>铁磁–顺磁、超导、超流、有序–无序、临界点</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>判级看<b>导数</b>：μ 的一阶导数不连续 → 一级；一阶连续、二阶不连续 → 二级；更高阶类推。</p>
+        <p style="margin-top:6px">一级相变的平衡曲线由克拉珀龙方程描述（§3.4）；连续相变不能用克拉珀龙方程（分母 Δv → 0），要用 §3.9 的序参量理论。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>「二级相变」不是说相变「不重要」或「程度小」，而是指 μ 的二阶导数不连续。</li>
+        <li>气相–液相可以是<b>一级</b>（有潜热，如 100 °C 沸腾），也可以是<b>连续</b>（绕过临界点），取决于路径。</li>
+        <li>Ehrenfest 分类只是形式定义；在临界点附近，实际的热容是幂律发散而不是有限跃变，分类会「失效」。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.8 补充 -->
+<article class="card c3" id="s38">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.8</span>
+    <h3>临界现象和临界指数 <span class="star">（补充材料）</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>在临界点附近，气液两相的差别趋于零，系统的<b>关联长度</b>发散 —— 一小块区域的决定会影响很远的地方，涨落变得宏观可见（临界乳光）。物理量随 |T − T<sub>c</sub>| 按幂律趋于零或发散，指数就叫<b>临界指数</b>。</p>
+      <p>最惊人的是<b>普适性</b>：水、CO₂、磁体、合金的临界指数几乎完全相同，只依赖空间维数与序参量的对称性，与微观细节无关。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>六个常用临界指数</h4>
+      <div class="dbody" style="padding:0">
+        <p>令 <span class="m">t = (T − T<sub>c</sub>)/T<sub>c</sub></span>：</p>
+        <table class="tab" style="margin-top:7px">
+          <thead><tr><th>指数</th><th>定义</th><th>平均场（朗道/范氏）</th><th>三维实验</th></tr></thead>
+          <tbody>
+            <tr><td class="m">α</td><td>C<sub>V</sub> ∝ |t|<sup>−α</sup></td><td>0（有限跃变）</td><td>≈ 0.11</td></tr>
+            <tr><td class="m">β</td><td>ρ<sub>l</sub> − ρ<sub>g</sub> ∝ (−t)<sup>β</sup>（t &lt; 0）</td><td>1/2</td><td>≈ 0.32</td></tr>
+            <tr><td class="m">γ</td><td>κ<sub>T</sub> ∝ |t|<sup>−γ</sup></td><td>1</td><td>≈ 1.24</td></tr>
+            <tr><td class="m">δ</td><td>p − p<sub>c</sub> ∝ |ρ − ρ<sub>c</sub>|<sup>δ</sup>（t = 0）</td><td>3</td><td>≈ 4.8</td></tr>
+            <tr><td class="m">ν</td><td>ξ ∝ |t|<sup>−ν</sup>（关联长度）</td><td>1/2</td><td>≈ 0.63</td></tr>
+            <tr><td class="m">η</td><td>关联函数 G(r) ∝ r<sup>−(d−2+η)</sup></td><td>0</td><td>≈ 0.04</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:9px"><b>标度关系</b>（可用来自查）：α + 2β + γ = 2；β(δ − 1) = γ；dν = 2 − α（超标度）。</p>
+      </div>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>临界指数是「临界现象」的定量语言；平均场理论给出 β = 1/2、γ = 1、δ = 3，与三维实验明显不符，因为它在临界点附近忽略了涨落。</p>
+        <p style="margin-top:6px">普适性把液体、磁体、超流放在同一张表里 —— 这是 20 世纪统计物理最重要的发现之一（Wilson 重整化群）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>t 的定义带不带 T<sub>c</sub> 都不影响临界指数，但写定义时要统一。</li>
+        <li>β 描述的是<b>序参量</b>（密度差、磁化强度）趋于零的慢慢程度，不是热容。</li>
+        <li>平均场值在四维以上才正确；三维、二维要用标度理论或重整化群。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.9 -->
+<article class="card c3" id="s39">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.9</span>
+    <h3>朗道连续相变理论</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>朗道（1937）想用一套统一的语言描述所有连续相变：定义一个<b>序参量</b> M —— 无序相 M = 0，有序相 M ≠ 0，且在 T<sub>c</sub> 处连续地由零变到非零。于是把自由能在 M = 0 附近做泰勒展开，只保留对称性允许的最低阶项，就能定量算出临界行为。</p>
+      <p>以单轴铁磁体为例：温度高时原子磁矩杂乱（顺磁，M = 0，各向同性）；温度降到 T<sub>c</sub> 以下，磁矩沿某一方向有序排列（铁磁，M ≠ 0），系统「选定」了一个方向 —— 这就是<b>对称破缺</b>。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>朗道自由能</b>（无外场，忽略体积变化）：
+          <span class="eq-l m up">F(T, M) = F₀(T) + a(T) M² + b(T) M⁴ + ⋯</span>
+          不含 M 的奇次幂，因为 M → −M 对称（磁矩上下翻转能量不变）。</li>
+        <li><b>平衡条件</b>：T、V 不变，F 取极小 → ∂F/∂M = 0：
+          <span class="eq-l m">2aM + 4bM³ = 0　⟹　M(2a + 4bM²) = 0</span>
+          两个解：M = 0（无序相），或 M² = −a/(2b)（有序相）。</li>
+        <li><b>系数假设</b>：在 T<sub>c</sub> 附近
+          <span class="eq-l m">a(T) = a₀(T − T<sub>c</sub>)，　b(T) ≈ b &gt; 0</span>
+          a₀ &gt; 0；b &gt; 0 保证 F 有下界（否则 M 会无限增大）。</li>
+        <li><b>分情况</b>：
+          <br>T &gt; T<sub>c</sub>：a &gt; 0，极小在 M = 0；
+          <br>T &lt; T<sub>c</sub>：a &lt; 0，M = 0 变成极大，由对称性取
+          <span class="eq-l m up">M = ± √(a₀(T<sub>c</sub> − T)/(2b)) ∝ (T<sub>c</sub> − T)<sup>1/2</sup></span>
+          于是 <b>β = 1/2</b>（经典值）。</li>
+        <li><b>自由能与比热</b>：把 M² 代回 F，T &lt; T<sub>c</sub> 时
+          <span class="eq-l m">F = F₀ − a₀²(T<sub>c</sub> − T)²/(4b)</span>
+          再由 C = −T ∂²F/∂T²，得热容跃变
+          <span class="eq-l m up">ΔC = a₀² T<sub>c</sub>/(2b)</span>
+          即比热在 T<sub>c</sub> 处有<b>有限跳变</b>（α = 0）。</li>
+        <li><b>加外场</b>：F = F₀ + aM² + bM⁴ − μ₀HM。T = T<sub>c</sub> 时由 ∂F/∂M = 0 得 M ∝ H<sup>1/3</sup> → <b>δ = 3</b>；磁化率 χ ∝ |t|<sup>−1</sup> → <b>γ = 1</b>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p>朗道理论的三个要点：<b>序参量</b>（刻画有序程度）、<b>对称破缺</b>（有序相选定了方向）、<b>自由能的幂级数展开</b>（只保留对称性允许的项）。</p>
+        <p style="margin-top:6px">它能一口气给出 β = 1/2、γ = 1、δ = 3、α = 0，与范德瓦耳斯理论（§3.5）的结果一致 —— 说明两者属于同一类<b>平均场理论</b>。</p>
+        <p style="margin-top:6px"><b>局限</b>：把序参量当成均匀无涨落的量，在临界点附近涨落极强而失效（d &lt; 4 时平均场指数不对）；但「序参量、对称破缺、普适性」这些概念仍在现代临界现象理论中沿用。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>展开式中不出现 M³ 项，是因为对称性，不是因为「项太小」。若系统本身不对称（如有外场），就要保留奇次项。</li>
+        <li>b &gt; 0 是稳定性的前提；若 b &lt; 0，就要保留 M⁶ 项，否则自由能没有下界。</li>
+        <li>M ∝ (T<sub>c</sub> − T)<sup>1/2</sup> 是平均场结果；实验 β ≈ 0.32，别把它当普适真理。</li>
+        <li>比热是「有限跃变」，不是发散；真实系统的 λ 型尖峰来自涨落，朗道理论给不出来。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 公式速查 ══════════════ -->
+<div class="chap chapfx" id="fx">
+  <span class="cn">FX</span> 公式速查表
+  <span class="cm">按章分组 · 支持搜索与模糊自测</span>
+</div>
+<div class="note"><b>用法</b>：点工具栏「遮住公式」，先凭名称回忆公式再看答案；也可以直接用搜索框按符号找，例如「克拉珀龙」「∂p/∂V」「潜热」「临界」。带 <b>—</b> 的备注表示该项只需记住形式，不必深究。</div>
+<div class="fsheet">
+  <h4 class="fgroup-h ">第一章 热力学的基本规律</h4>
+  <table class="tab">
+    <thead><tr><th style="width:16%">名称</th><th style="width:54%">公式</th><th>关键点</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="1"><td class="fname">体胀系数</td><td class="fml">α = (1/V)(∂V/∂T)<sub>p</sub></td><td class="fnote">等压下体积的相对变化率</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">压强系数</td><td class="fml">β = (1/p)(∂p/∂T)<sub>V</sub></td><td class="fnote">等容下压强的相对变化率</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">等温压缩系数</td><td class="fml">κ<sub>T</sub> = −(1/V)(∂V/∂p)<sub>T</sub></td><td class="fnote">负号保证 κ<sub>T</sub> &gt; 0</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">循环关系</td><td class="fml">α = κ<sub>T</sub> β p</td><td class="fnote">三个响应系数只有两个独立</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">理想气体方程</td><td class="fml">pV = νRT</td><td class="fnote">R = 8.31 J/(mol·K)</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">范德瓦耳斯方程</td><td class="fml">(p + a/V<sub>m</sub>²)(V<sub>m</sub> − b) = RT</td><td class="fnote">a 分子引力，b 分子体积</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">昂尼斯方程</td><td class="fml">pV<sub>m</sub> = RT(1 + B/V<sub>m</sub> + C/V<sub>m</sub>² + ⋯)</td><td class="fnote">B、C 为第二、第三位力系数</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">混合理想气体</td><td class="fml">p = Σp<sub>i</sub>，　M̄ = Σν<sub>i</sub>M<sub>i</sub>/Σν<sub>i</sub></td><td class="fnote">分压之和，平均摩尔质量</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">固体/液体物态方程</td><td class="fml">dV/V = α dT − κ<sub>T</sub> dp</td><td class="fnote">α 很小，低压下近似不可压缩</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">外界对系统作功</td><td class="fml">đW = −p dV</td><td class="fnote">汪志诚约定：压缩时外界作正功</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">第一定律</td><td class="fml">dU = đQ + đW = đQ − p dV</td><td class="fnote">内能是态函数，Q、W 不是</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">焓</td><td class="fml">H = U + pV，　dH = đQ<sub>p</sub></td><td class="fnote">等压过程中吸热等于焓增</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">定容与定压热容</td><td class="fml">C<sub>V</sub> = (∂U/∂T)<sub>V</sub>，　C<sub>p</sub> = (∂H/∂T)<sub>p</sub></td><td class="fnote">—</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">热容差</td><td class="fml">C<sub>p</sub> − C<sub>V</sub> = T(∂p/∂T)<sub>V</sub>(∂V/∂T)<sub>p</sub> = νR</td><td class="fnote">后一等号只对理想气体</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">绝热过程</td><td class="fml">pV<sup>γ</sup> = C，　TV<sup>γ−1</sup> = C，　T<sup>γ</sup>p<sup>1−γ</sup> = C</td><td class="fnote">γ = C<sub>p</sub>/C<sub>V</sub>；绝热线比等温线陡</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">卡诺效率</td><td class="fml">η<sub>C</sub> = 1 − T<sub>2</sub>/T<sub>1</sub></td><td class="fnote">与工作物质无关，只取决于两热源温度</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">热机效率</td><td class="fml">η = W<sub>净</sub>/Q<sub>吸</sub> = 1 − |Q<sub>放</sub>|/Q<sub>吸</sub></td><td class="fnote">Q<sub>吸</sub>、Q<sub>放</sub> 只取正数</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">卡诺制冷系数</td><td class="fml">ω = Q<sub>2</sub>/W = T<sub>2</sub>/(T<sub>1</sub> − T<sub>2</sub>)</td><td class="fnote">可逆制冷机最大，ω 可大于 1</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">牛顿声速公式</td><td class="fml">v = √(γp/ρ) = √(γRT/M)</td><td class="fnote">声波传播极快，按绝热过程处理</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">摄氏温度换算</td><td class="fml">t/°C = T/K − 273.15</td><td class="fnote">水的三相点 T<sub>tr</sub> = 273.16 K</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">克劳修斯等式/不等式</td><td class="fml">∮ đQ/T ≤ 0</td><td class="fnote">可逆取等号</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">熵的定义</td><td class="fml">dS = (dU + p dV)/T = đQ<sub>rev</sub>/T</td><td class="fnote">沿可逆路径积分</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">第二定律数学表述</td><td class="fml">dS ≥ đQ/T</td><td class="fnote">等号仅对可逆过程</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">理想气体熵变</td><td class="fml">ΔS = C<sub>V</sub>ln(T<sub>2</sub>/T<sub>1</sub>) + νR ln(V<sub>2</sub>/V<sub>1</sub>)</td><td class="fnote">只依赖初末态</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">自由能</td><td class="fml">F = U − TS，　dF = −S dT − p dV</td><td class="fnote">等温等容判据：F 极小</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">吉布斯函数</td><td class="fml">G = H − TS，　dG = −S dT + V dp</td><td class="fnote">等温等压判据：G 极小</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">最大功</td><td class="fml">W<sub>对外</sub> ≤ −ΔF（等温）</td><td class="fnote">可逆时取等号</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="fsheet">
+  <h4 class="fgroup-h c2">第二章 均匀物质的热力学性质</h4>
+  <table class="tab">
+    <thead><tr><th style="width:16%">名称</th><th style="width:54%">公式</th><th>关键点</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="2"><td class="fname">四个基本方程</td><td class="fml">dU = TdS − pdV ｜ dH = TdS + Vdp ｜ dF = −SdT − pdV ｜ dG = −SdT + Vdp</td><td class="fnote">自变量各不同</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">麦克斯韦关系（一）</td><td class="fml">(∂T/∂V)<sub>S</sub> = −(∂p/∂S)<sub>V</sub></td><td class="fnote">由 dU 交叉求导</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">麦克斯韦关系（二）</td><td class="fml">(∂T/∂p)<sub>S</sub> = (∂V/∂S)<sub>p</sub></td><td class="fnote">由 dH</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">麦克斯韦关系（三）</td><td class="fml">(∂S/∂V)<sub>T</sub> = (∂p/∂T)<sub>V</sub></td><td class="fnote">由 dF，最常用</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">麦克斯韦关系（四）</td><td class="fml">(∂S/∂p)<sub>T</sub> = −(∂V/∂T)<sub>p</sub></td><td class="fnote">由 dG</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">内能对体积的偏导</td><td class="fml">(∂U/∂V)<sub>T</sub> = T(∂p/∂T)<sub>V</sub> − p</td><td class="fnote">理想气体 = 0（焦耳定律）</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">焓对压强的偏导</td><td class="fml">(∂H/∂p)<sub>T</sub> = V − T(∂V/∂T)<sub>p</sub></td><td class="fnote">理想气体 = 0</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">焦耳-汤姆孙系数</td><td class="fml">μ = (∂T/∂p)<sub>H</sub> = [T(∂V/∂T)<sub>p</sub> − V]/C<sub>p</sub></td><td class="fnote">μ &gt; 0 节流降温</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">绝热膨胀系数</td><td class="fml">(∂T/∂p)<sub>S</sub> = T(∂V/∂T)<sub>p</sub>/C<sub>p</sub></td><td class="fnote">恒 &gt; 0，绝热膨胀必降温</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">热容差（任意系统）</td><td class="fml">C<sub>p</sub> − C<sub>V</sub> = −T(∂p/∂T)<sub>V</sub>²/(∂p/∂V)<sub>T</sub></td><td class="fnote">用 κ<sub>T</sub>、α 表示：C<sub>p</sub> − C<sub>V</sub> = TVα²/κ<sub>T</sub></td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">吉布斯-亥姆霍兹方程</td><td class="fml">U = F − T(∂F/∂T)<sub>V</sub></td><td class="fnote">已知 F 求 U</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">吉布斯-亥姆霍兹方程（G）</td><td class="fml">H = G − T(∂G/∂T)<sub>p</sub></td><td class="fnote">已知 G 求 H</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">空窖辐射</td><td class="fml">p = u/3，　u = aT⁴，　S = (4/3)aT³V</td><td class="fnote">光子气体，μ = 0</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">辐射通量密度</td><td class="fml">J = (c/4)u = σT⁴</td><td class="fnote">σ = ac/4 为斯忒藩常数</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">磁介质基本方程</td><td class="fml">dU = T dS + μ₀H dM</td><td class="fnote">与气体类比：(p,V) → (−μ₀H, M)</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">绝热去磁</td><td class="fml">(∂T/∂H)<sub>S</sub> = −(μ₀T/C<sub>H</sub>)(∂M/∂T)<sub>H</sub></td><td class="fnote">居里定律 M = CH/T 时为负</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="fsheet">
+  <h4 class="fgroup-h c3">第三章 单元系的相变</h4>
+  <table class="tab">
+    <thead><tr><th style="width:16%">名称</th><th style="width:54%">公式</th><th>关键点</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="3"><td class="fname">开系基本方程</td><td class="fml">dU = T dS − p dV + μ dn</td><td class="fnote">μ 为化学势</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">化学势的四种面孔</td><td class="fml">μ = (∂U/∂n)<sub>S,V</sub> = (∂G/∂n)<sub>T,p</sub> = g(T,p)</td><td class="fnote">单元系 μ = G<sub>m</sub></td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">吉布斯-杜安方程</td><td class="fml">dμ = −s<sub>m</sub> dT + v<sub>m</sub> dp</td><td class="fnote">T、p、μ 只有两个独立</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">巨热力势</td><td class="fml">J = F − μn = −pV</td><td class="fnote">dJ = −S dT − p dV − n dμ</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">复相平衡条件</td><td class="fml">T<sup>α</sup> = T<sup>β</sup>，　p<sup>α</sup> = p<sup>β</sup>，　μ<sup>α</sup> = μ<sup>β</sup></td><td class="fnote">缺一不可</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">克拉珀龙方程</td><td class="fml">dp/dT = L/[T(v<sub>2</sub> − v<sub>1</sub>)]</td><td class="fnote">L = T(s₂ − s₁) 为摩尔潜热</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">蒸气压方程</td><td class="fml">dp/dT = Lp/(RT²)　⟹　ln p = −L/(RT) + A</td><td class="fnote">近似 v<sub>g</sub> ≫ v<sub>l</sub> + 理想气体</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">相律</td><td class="fml">f = k + 2 − π</td><td class="fnote">单元系 f = 3 − π</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">范氏临界参数</td><td class="fml">V<sub>c</sub> = 3b，　T<sub>c</sub> = 8a/(27Rb)，　p<sub>c</sub> = a/(27b²)</td><td class="fnote">p<sub>c</sub>V<sub>c</sub>/(RT<sub>c</sub>) = 3/8</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">对比方程</td><td class="fml">(π + 3/φ²)(3φ − 1) = 8τ</td><td class="fnote">π = p/p<sub>c</sub>，φ = V/V<sub>c</sub>，τ = T/T<sub>c</sub></td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">麦克斯韦等面积法则</td><td class="fml">∫<sub>V<sub>l</sub></sub><sup>V<sub>g</sub></sup> p dV = p<sub>s</sub>(V<sub>g</sub> − V<sub>l</sub>)</td><td class="fnote">等价于 μ<sub>l</sub> = μ<sub>g</sub></td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">临界点条件</td><td class="fml">(∂p/∂V)<sub>T</sub> = 0，　(∂²p/∂V²)<sub>T</sub> = 0</td><td class="fnote">等温线出现拐点与水平零斜率</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">拉普拉斯附加压强</td><td class="fml">Δp = 2σ/r</td><td class="fnote">液滴内压高于外压</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">开尔文公式</td><td class="fml">ln(p<sub>r</sub>/p<sub>∞</sub>) = 2σv<sub>m</sub>/(rRT)</td><td class="fnote">小液滴蒸气压高</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">一级相变</td><td class="fml">s、v 跃变，L = TΔs ≠ 0</td><td class="fnote">μ 连续，一阶导数不连续</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">朗道自由能</td><td class="fml">F = F₀ + aM² + bM⁴，　a = a₀(T − T<sub>c</sub>)</td><td class="fnote">无外场，M → −M 对称</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">序参量</td><td class="fml">M = √(a₀(T<sub>c</sub> − T)/(2b)) ∝ (T<sub>c</sub> − T)<sup>1/2</sup></td><td class="fnote">平均场 β = 1/2</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">比热跃变</td><td class="fml">ΔC = a₀²T<sub>c</sub>/(2b)</td><td class="fnote">有限跳变，平均场 α = 0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════ 习题 ══════════════ -->
+<div class="chap chap1" id="ex" style="background:var(--key-bg); color:var(--key)">
+  <span class="cn">EX</span> 课后习题题型分类与解题要点
+  <span class="cm">按解法范式归并，便于按类型突破</span>
+</div>
+
+<div class="note">
+  <b>使用说明</b>：下面按<b>解法范式</b>而不是按题号归类。你手上第六版的习题，每道题基本都能归入其中一类 —— 做题时先判断它属于哪一类，再调用对应的解题套路，比一道一道盲做效率高得多。题目编号请对照书后习题自行对应。
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 H：麦克斯韦关系的应用 <span class="tag key">本章第一重点</span></h4>
+  <div class="feat">识别特征：题目要求<b>证明某个偏导数关系式</b>，或要求把某个含 S 的偏导化为可测量。题干常出现「试证明」「试求」。</div>
+  <ul>
+    <li><b>核心套路</b>：把待求的偏导数，通过麦克斯韦关系换成 p、V、T 的偏导数。目标是把含 S 的量全部消掉。</li>
+    <li><b>常用工具</b>：四个麦克斯韦关系 + 轮换关系 (∂x/∂y)<sub>z</sub>(∂y/∂z)<sub>x</sub>(∂z/∂x)<sub>y</sub> = −1 + 循环关系。</li>
+    <li><b>策略</b>：先看待求式里哪些是「可测量」（p、V、T 的偏导），哪些是「不可测量」（S 的偏导）。用麦克斯韦关系定向替换不可测量的那部分。</li>
+    <li><b>自查</b>：推完后检查量纲；对理想气体代入检验是否得到已知结果。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 I：内能、焓对 V、p 的偏导</h4>
+  <div class="feat">识别特征：题目给一个物态方程，要求 (∂U/∂V)<sub>T</sub> 或 (∂H/∂p)<sub>T</sub>，或判断某气体是否满足焦耳定律。</div>
+  <ul>
+    <li>直接套 <span class="m">(∂U/∂V)<sub>T</sub> = T(∂p/∂T)<sub>V</sub> − p</span> 或 <span class="m">(∂H/∂p)<sub>T</sub> = V − T(∂V/∂T)<sub>p</sub></span>。</li>
+    <li>得到的结果若恒为 0，说明该气体满足焦耳定律（内能只依赖 T）。</li>
+    <li><b>注意</b>：算偏导时保持哪个量不变，别搞错下标。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 J：由物态方程 + 热容求全部热力学函数</h4>
+  <div class="feat">识别特征：给出 p(T, V) 与 C<sub>V</sub>，要求 U、S、H、F、G。</div>
+  <ul>
+    <li>严格按 §2.4 的三步套路走：先求 U（注意积分常数是 <b>T 的函数</b>，用 C<sub>V</sub> 定），再由 dS = (dU + p dV)/T 求 S，最后由定义式得 H、F、G。</li>
+    <li>范德瓦耳斯气体是这类题的常客，要熟悉它的 (∂p/∂T)<sub>V</sub> = R/(V − b)。</li>
+    <li><b>易错</b>：积分常数 φ(T) 忘了写，或误当成常数。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 K：节流过程与绝热膨胀</h4>
+  <div class="feat">识别特征：题目给出实际气体的物态方程，问节流后温度如何变化、求转化温度。</div>
+  <ul>
+    <li>算出 <span class="m">μ = [T(∂V/∂T)<sub>p</sub> − V]/C<sub>p</sub></span>，判断符号。</li>
+    <li>求转化温度：令 μ = 0，即解 T(∂V/∂T)<sub>p</sub> = V。</li>
+    <li>若问绝热膨胀，改用等熵过程 (∂T/∂p)<sub>S</sub>，或直接用 TV<sup>γ−1</sup> = const（理想气体）。</li>
+    <li><b>易错</b>：把节流（等焓）和绝热膨胀（等熵）搞混。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 L：特性函数</h4>
+  <div class="feat">识别特征：题目直接给出某个热力学函数（如 F(T, V) 或 G(T, p)），要求导出全部热力学量。</div>
+  <ul>
+    <li>先确认自变量是否与该函数<b>匹配</b>（是否为其自然变量）。不匹配则先做勒让德变换。</li>
+    <li>匹配时：由全微分读出 S 和 p（或 V），再由吉布斯-亥姆霍兹方程求 U，最后得 H、G。</li>
+    <li>表面系统 F = σA 是经典例题，注意 σ 可能是 T 的函数。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 M：热辐射</h4>
+  <div class="feat">识别特征：涉及空腔辐射、辐射压强、能量密度、辐射通量。</div>
+  <ul>
+    <li>核心三式：<span class="m">p = u/3</span>、<span class="m">u = aT⁴</span>、<span class="m">J = σT⁴ = (c/4)u</span>。</li>
+    <li>求熵、内能等：用 dS = (dU + p dV)/T 积分。</li>
+    <li><b>易错</b>：J 与 u 差一个 c/4 的因子。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>第二章题型 N：磁介质</h4>
+  <div class="feat">识别特征：涉及磁介质的热力学量、磁致冷、居里定律。</div>
+  <ul>
+    <li>核心是<b>类比</b>：把气体公式里的 (p, V) 换成 (−μ₀H, M)，公式结构不变。</li>
+    <li>用居里定律 M = CH/T 时，注意对 T 求偏导要带负号：(∂M/∂T)<sub>H</sub> = −CH/T²。</li>
+    <li>磁致冷题的推理链：等温磁化熵减放热 → 绝热去磁降温。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 A：物态方程与响应系数</h4>
+  <div class="feat">识别特征：给定物态方程，求 α、β、κ<sub>T</sub>，或验证三者关系。</div>
+  <ul>
+    <li>按定义求偏导即可，注意 κ<sub>T</sub> 定义中的负号。</li>
+    <li>求出后<b>用 α = κ<sub>T</sub>βp 自查</b>。</li>
+    <li>常用结果：理想气体 α = 1/T，β = 1/T，κ<sub>T</sub> = 1/p。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 B：功、热与内能的计算</h4>
+  <div class="feat">识别特征：给出具体过程（等温、等压、等容、绝热、多方），求 W、Q、ΔU 中任意两个。</div>
+  <ul>
+    <li><b>第一步永远是判断过程类型</b>，特别是有没有 dV = 0 或 dQ = 0。</li>
+    <li>用 dU = dQ + dW，其中 dW = −p dV（汪志诚约定）。</li>
+    <li>理想气体：ΔU = C<sub>V</sub>ΔT（<b>任何过程都成立</b>，因为 U = U(T)），这是最常用的捷径。</li>
+    <li><b>易错</b>：符号约定不统一；把 W 当成系统对外做功。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 C：热容关系</h4>
+  <div class="feat">识别特征：求 C<sub>p</sub> − C<sub>V</sub>、γ，或求多方过程的摩尔热容。</div>
+  <ul>
+    <li>普遍式：<span class="m">C<sub>p</sub> − C<sub>V</sub> = T(∂p/∂T)<sub>V</sub>(∂V/∂T)<sub>p</sub></span>。</li>
+    <li>理想气体：C<sub>p</sub> − C<sub>V</sub> = νR，γ = C<sub>p</sub>/C<sub>V</sub>。</li>
+    <li>多方过程（pV<sup>n</sup> = const）的摩尔热容：<span class="m">C<sub>n</sub> = C<sub>V</sub> + νR/(1 − n)</span>。特例：n = 0 等压，n = ∞ 等容，n = 1 等温，n = γ 绝热。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 D：循环效率</h4>
+  <div class="feat">识别特征：给出 p–V 图上的循环（常是卡诺循环或它的变体），求效率。</div>
+  <ul>
+    <li>逐段计算吸放热，判断哪段吸热（Q &gt; 0）、哪段放热。</li>
+    <li>效率 <span class="m">η = 1 − |Q<sub>放</sub>|/Q<sub>吸</sub></span>，其中 Q<sub>吸</sub> 是各吸热段之和。</li>
+    <li>若是卡诺循环，直接用 η = 1 − T₂/T₁；若是其他循环，必须逐段算。</li>
+    <li><b>易错</b>：把 Q<sub>放</sub> 的符号弄错；漏掉某一段的吸热。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 E：熵变的计算 <span class="tag hot">高频且易错</span></h4>
+  <div class="feat">识别特征：过程不可逆，要求 ΔS。典型如自由膨胀、热传导、混合。</div>
+  <ul>
+    <li><b>核心原则</b>：熵是态函数，ΔS 只取决于初末态。因此可以<b>另设计一条可逆路径</b>连接同样初末态，沿它积分 dQ/T。</li>
+    <li>理想气体通用式：<span class="m">ΔS = C<sub>V</sub>ln(T₂/T₁) + νR ln(V₂/V₁)</span>，直接代初末态。</li>
+    <li>热传导类：对每个物体分别算 ΔS，再求和。物体温度显著变化时要用微元积分 ∫dQ/T = ∫C dT/T。</li>
+    <li><b>绝对禁止</b>：把不可逆过程实际路径的 dQ/T 当作 ΔS。自由膨胀的 dQ = 0，但 ΔS ≠ 0。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 F：熵增加原理判据</h4>
+  <div class="feat">识别特征：判断某过程能否自发进行。</div>
+  <ul>
+    <li><b>合成孤立系</b>：把系统与所有相关部分合起来，构成孤立系。</li>
+    <li>算总熵变 ΔS<sub>总</sub> ≥ 0 ⟹ 可自发；&lt; 0 ⟹ 不可自发。</li>
+    <li>平衡判据：孤立系中熵达极大时系统处于平衡态。</li>
+    <li><b>易错</b>：只看系统本身的熵变，忘了算环境。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c1)">
+  <h4>第一章题型 G：自由能与吉布斯函数判据</h4>
+  <div class="feat">识别特征：等温等容或等温等压条件下的自发方向、最大功计算。</div>
+  <ul>
+    <li>先看条件：等温等容用 F，等温等压用 G，孤立系用 S。选错判据函数全盘皆错。</li>
+    <li>最大功：等温过程中 <span class="m">W<sub>对外</sub> ≤ −ΔF</span>，可逆时取等号。</li>
+    <li>求 F、G 的值：F = U − TS，G = H − TS，各项都要算准。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c3)">
+  <h4>第三章题型 O：化学势的计算</h4>
+  <div class="feat">识别特征：要求 μ、证明 μ = g(T, p)、由 G(T, p) 求其它量，或沿相平衡曲线用 dμ。</div>
+  <ul>
+    <li>单元系永远有 <span class="m">μ = G<sub>m</sub> = g(T, p)</span>，这是最快的入口。</li>
+    <li>若已知 G(T, p)（如理想气体），先由 <span class="m">dG = −S dT + V dp</span> 求 S、V，再回到 μ。</li>
+    <li>沿相平衡曲线用 <span class="m">dμ = −s<sub>m</sub> dT + v<sub>m</sub> dp</span>，比从基本方程硬算省事。</li>
+    <li><b>易错</b>：把 μ 当广延量；忽略 G = μn 里的 n；混用 (∂U/∂n)<sub>S,V</sub> 与 (∂G/∂n)<sub>T,p</sub> 的固定下标。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c3)">
+  <h4>第三章题型 P：复相平衡与克拉珀龙方程 <span class="tag key">本章第一重点</span></h4>
+  <div class="feat">识别特征：求相平衡曲线的斜率、潜热、饱和蒸气压，或判断相变方向。</div>
+  <ul>
+    <li>先写三个平衡条件：T<sup>α</sup> = T<sup>β</sup>、p<sup>α</sup> = p<sup>β</sup>、μ<sup>α</sup> = μ<sup>β</sup>；方向判断统一用「高 → 低」。</li>
+    <li>求曲线斜率：<span class="m">dp/dT = L/[T(v<sub>2</sub> − v<sub>1</sub>)]</span>，L = T(s₂ − s₁) 为摩尔潜热。</li>
+    <li>气液平衡：v<sub>g</sub> ≫ v<sub>l</sub> + 理想气体 → <span class="m">dp/dT = Lp/(RT²)</span>，积分得 ln p = −L/(RT) + A。</li>
+    <li><b>易错</b>：Δv 的相序搞反；在临界点附近仍用蒸气压方程的近似；把潜热当成显热。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c3)">
+  <h4>第三章题型 Q：范德瓦耳斯气体与临界点</h4>
+  <div class="feat">识别特征：给范氏方程，求临界参数、对比方程、共存压强，或讨论等温线的稳定性。</div>
+  <ul>
+    <li>临界点两条件联立：<span class="m">(∂p/∂V)<sub>T</sub> = 0，(∂²p/∂V²)<sub>T</sub> = 0</span> → V<sub>c</sub> = 3b，T<sub>c</sub> = 8a/(27Rb)，p<sub>c</sub> = a/(27b²)。</li>
+    <li>共存压强用麦克斯韦等面积法则 <span class="m">∫ p dV = p<sub>s</sub>(V<sub>g</sub> − V<sub>l</sub>)</span> 求，不要取 S 形段中点。</li>
+    <li>判断稳定性只看 (∂p/∂V)<sub>T</sub> 的符号；上升段不稳定，两侧是亚稳。</li>
+    <li>对比变量 (π, φ, τ) 代入即得对比方程，可用来验证对应态定律。</li>
+  </ul>
+</div>
+
+<div class="ex-type" style="border-left-color:var(--c3)">
+  <h4>第三章题型 R：相变分类与朗道理论</h4>
+  <div class="feat">识别特征：判断一级/二级相变，或由朗道自由能求序参量、比热跃变、临界指数。</div>
+  <ul>
+    <li>判级看化学势的导数：s、v 跃变 → 一级；C<sub>p</sub>、κ<sub>T</sub> 异常 → 二级（连续）。</li>
+    <li>朗道套路：<span class="m">F = F₀ + aM² + bM⁴</span>，a = a₀(T − T<sub>c</sub>)，b &gt; 0；令 ∂F/∂M = 0 解出 M。</li>
+    <li>结论套用：M ∝ (T<sub>c</sub> − T)<sup>1/2</sup>（β = 1/2）、比热跃变 <span class="m">ΔC = a₀²T<sub>c</sub>/(2b)</span>、χ ∝ |t|<sup>−1</sup>（γ = 1）。</li>
+    <li><b>易错</b>：保留 M 的奇次项（无外场时不允许）；把平均场指数当成实验值。</li>
+  </ul>
+</div>
+
+<div class="note">
+  <b>复习建议</b>：第一章的真正主线是「<b>第一定律 → 第二定律 → 熵 → 判据</b>」；第二章是「<b>四个全微分 → 麦克斯韦关系 → 把不可测量换成可测量</b>」；第三章是「<b>极值判据 → 化学势 → 相平衡曲线 → 相变分类</b>」。做习题时先定位它落在哪条主线上，再调用对应工具，比记忆零散公式有效得多。
+</div>
+
+<!-- ══════════════ 自测题 ══════════════ -->
+<div class="chap chapq" id="quiz">
+  <span class="cn">QUIZ</span> 自测题 · 24 题
+  <span class="cm">先自己想，再点开答案</span>
+</div>
+<div class="note"><b>用法</b>：盖住答案逐题自问，答不上来再点开；每道题后面标注了所属章节和类型（概念 / 推理 / 计算），方便回查对应卡片。配合「遮挡结论」一起用效果更好。</div>
+<details class="q-card">
+  <summary><span class="qnum">Q01</span><span class="qtext">判断：系统的宏观量不随时间变化，系统就一定处于热力学平衡态。</span><span class="q-tag">第 1 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>错。平衡态要求在不受外界影响时宏观性质不变，但「宏观量不变」只是必要条件。反例：稳定流动中各处密度、流速恒定，稳态导热中温度分布固定，都不是热力学平衡态。此外平衡态还要求力学、热、相、化学四类平衡同时成立。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q02</span><span class="qtext">热力学第零定律为什么必须单独提出？它和第零、第一、第二定律是什么关系？</span><span class="q-tag">第 1 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>第零定律（热平衡的传递性：A 与 C、B 与 C 热平衡 ⟹ A 与 B 热平衡）是独立的实验事实，逻辑上不能由第一、第二定律推出。它保证「与 C 热平衡」把所有系统划分为等价类，从而可以定义温度这一态函数。没有它，就没有「温度相同」这个判断依据。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q03</span><span class="qtext">为什么卡诺循环的效率只取决于两个热源的温度？</span><span class="q-tag">第 1 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>由卡诺定理：工作在相同两热源之间的一切可逆热机效率相同，且 η = 1 − T₂/T₁。若不然，用两台效率不同的可逆热机反向组合，就能造出第二类永动机。效率与工作物质无关，正是因为可逆循环的 ∮đQ/T = 0，而 T 只取两值，于是 Q₁/T₁ + Q₂/T₂ = 0，效率只由温度决定。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q04</span><span class="qtext">理想气体向真空自由膨胀，Q = 0、W = 0、ΔU = 0、ΔT = 0，为什么熵仍然增加？</span><span class="q-tag">第 1 章 · 计算</span></summary>
+  <div class="q-ans"><b>答：</b>熵是态函数，ΔS 只由初末态决定。自由膨胀不可逆，不能沿实际路径积分 đQ/T（那会得到 0）。应另设计一条可逆等温膨胀路径连接同样初末态：ΔS = νR ln(V₂/V₁) &gt; 0。这正体现了「不可逆过程熵增」：过程没有吸热，但熵从别的自由度里涨出来了。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q05</span><span class="qtext">同一种理想气体，从同一初态出发分别做等温膨胀和绝热膨胀，膨胀到同一压强，哪个体积更大？为什么？</span><span class="q-tag">第 1 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>等温膨胀的体积更大。等温时 pV = 常量，p 降到同值时 V 按 1/p 增长；绝热时 pV^γ = 常量，V 增长得更慢（且温度同时下降）。等温线斜率 −p/V，绝热线斜率 −γp/V，因 γ &gt; 1，绝热线更陡，故同样降压时绝热线对应的体积较小。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q06</span><span class="qtext">怎样判断一个过程是否可逆？</span><span class="q-tag">第 1 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>可逆过程的充要条件是「无耗散、准静态」，等价地：过程后系统与外界都能沿原路复原，总熵变（系统 + 环境）为零。定量判据：∮đQ/T = 0，或熵产生 σ = ΔS_总 = 0；不可逆过程必然有 ΔS_总 &gt; 0。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q07</span><span class="qtext">麦克斯韦关系解决了什么问题？为什么说它是第二章的核心工具？</span><span class="q-tag">第 2 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>麦克斯韦关系把「不可测量的熵的偏导数」换成「可测量的 p、V、T 偏导数」。例如 (∂S/∂V)_T = (∂p/∂T)_V，右侧可由物态方程算出。所有「把含 S 的偏导化为可测量」的题目，套路都是先用四个麦氏关系定向替换，再配合循环关系、倒数关系化简。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q08</span><span class="qtext">节流过程为什么是等焓的？为什么绝热膨胀一定降温？</span><span class="q-tag">第 2 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>节流为绝热且不做功（节流阀两侧壁面固定、流动稳定），由 H 的定义可证过程前后焓相等，H₁ = H₂。绝热膨胀（等熵）时系统对外做功，内能减少：理想气体温度必降；实际气体还要加上分子势能变化，但 (∂T/∂p)_S = T(∂V/∂T)_p/C_p 恒大于 0，故一定降温。注意两者的判据不同：节流等焓，绝热膨胀等熵。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q09</span><span class="qtext">什么是特性函数？为什么 U(T, V) 不是特性函数？</span><span class="q-tag">第 2 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>特性函数是指：在选定其自然变量后，只要知道这一个函数，就能通过求导得到全部热力学函数与状态参量。U(S, V)、H(S, p)、F(T, V)、G(T, p) 都是。而 U(T, V) 不行：因为 F + T·g(V)（g 为 V 的任意函数）给出相同的 U(T, V)，信息不足，无法唯一确定系统。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q10</span><span class="qtext">空窖辐射（光子气体）为什么化学势为零？</span><span class="q-tag">第 2 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>光子的粒子数不守恒：腔壁可以随时吸收或发射光子，不存在约束光子总数守恒的条件。平衡要求自由能在 n 变化时取极值，(∂F/∂n)_{T,V} = μ = 0。由此可得 p = u/3、u = aT⁴，以及 G = 0（G = μn = 0）。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q11</span><span class="qtext">绝热去磁为什么能降到 mK 量级的低温？为什么该法达不到绝对零度？</span><span class="q-tag">第 2 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>顺磁盐的磁矩在磁场中有序化：等温加场时熵减小并放热；随后绝热撤场，磁矩重新无序化，需从晶格吸热，系统温度骤降。由 (∂T/∂H)_S = −(μ₀T/C_H)(∂M/∂T)_H，居里定律下为负，故降温。但温度越低，可被「磁有序化」夺走的熵越少，降温效率趋零；绝对零度不可达是热力学第三定律的直接结论。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q12</span><span class="qtext">为什么平衡辐射的压强 p = u/3（u 为辐射能量密度）？</span><span class="q-tag">第 2 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>光子气体无静止质量，其能量与动量的关系为 ε = cp，且各向同性。用压力 = 单位时间单位面积动量转移率可算得 p = u/3。热力学上也可由 dU = TdS − pdV 与 u = u(T) 推出：p = T(∂u/∂T) − u，代入 u = aT⁴ 得 p = aT⁴/3 = u/3。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q13</span><span class="qtext">为什么平衡判据不能一律用熵判据？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>判据函数由外界约束决定：孤立系（U、V、n 固定）用熵（极大）；等温等容用自由能 F（极小）；等温等压用吉布斯函数 G（极小）；等熵等压用焓 H（极小）。选错判据函数，极值方向会反，结论全错。数学上这些都是同一极值原理在不同自变量下的形式。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q14</span><span class="qtext">稳定条件 C_V &gt; 0 与 (∂p/∂V)_T &lt; 0 的物理意义是什么？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>两者都是勒夏特列原理的体现：C_V &gt; 0 表示温度被抬高后系统会吸热/放热自我回调（若 C_V &lt; 0，温度涨一点就不可收拾）；(∂p/∂V)_T &lt; 0（即 κ_T &gt; 0）表示体积被压缩后压强升高，会把体积推回去。若 (∂p/∂V)_T &gt; 0，压缩后压强降低，系统会继续塌缩，属不稳定。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q15</span><span class="qtext">两相平衡为什么必须要求 μ 相等？为什么说化学势差是相变的驱动力？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>两相之间可以交换粒子，粒子总是自发地从化学势高的相流向化学势低的相（与热量从高温到低温同构）。只有 μ^α = μ^β 时，任何方向的虚变动都不再降低总熵，两相才能共存。若 μ^α &gt; μ^β，α 相会不断转化为 β 相，直到化学势拉平。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q16</span><span class="qtext">水的熔解曲线为什么是负斜率（加压使冰熔点降低）？</span><span class="q-tag">第 3 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>由克拉珀龙方程 dp/dT = L/[T(v₂ − v₁)]：冰熔化成水时 v_液 − v_冰 &lt; 0（冰的比容比水大，冰浮在水面上），而 L &gt; 0、T &gt; 0，故 dp/dT &lt; 0。绝大多数物质则相反（熔化后体积膨胀），熔解曲线为正斜率。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q17</span><span class="qtext">临界点为什么必须同时满足 (∂p/∂V)_T = 0 和 (∂²p/∂V²)_T = 0？</span><span class="q-tag">第 3 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>临界点是气液共存水平段缩成一点的位置：此时等温线在共存点处的斜率与水平段一致，故一阶导数为零；同时该点是拐点（曲线从下凸转为上凸），故二阶导数也为零。只令一阶导数为零得到的是极小或极大点（如范氏等温线的 J、N 点），不是临界点。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q18</span><span class="qtext">过饱和蒸气和过热液体为什么能短暂存在？为什么加凝结核就会迅速凝结？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>它们是亚稳态：满足 δS = 0 与二阶条件，但只是化学势的局部极小，不是全局最小，故能存在一段时间，直到涨落催生出新相核心。加凝结核降低了新相形成的表面能势垒，临界半径 r_c = 2σv_m/(RT ln(p/p∞)) 变得更小，凝结便迅速发生。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q19</span><span class="qtext">如何用化学势的导数判断一级相变与二级相变？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>看 μ 的导数：一级相变时 μ 连续，但 (∂μ/∂T)_p = −s_m 与 (∂μ/∂p)_T = v_m 跃变，故有潜热与体积变化；二级相变时 s_m、v_m 连续（无潜热、无体积变化），但二阶导数（C_p、κ_T、α）不连续或发散。二级及更高阶统称连续相变。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q20</span><span class="qtext">朗道自由能展开式中为什么没有 M³ 项？如果 b &lt; 0 会怎样？</span><span class="q-tag">第 3 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>无外场时系统对 M → −M 对称（磁矩整体翻转不改变能量），故 F 只能是 M 的偶函数，奇次项系数为零。若 b &lt; 0，F 在 |M| 很大时会趋于 −∞，自由能没有下界，理论失效；此时必须保留 M⁶ 项（且其系数为正），相变变为一级。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q21</span><span class="qtext">朗道（平均场）理论给出 β = 1/2，而实验约 0.32，这说明什么？</span><span class="q-tag">第 3 章 · 概念</span></summary>
+  <div class="q-ans"><b>答：</b>说明平均场近似忽略了临界点附近序参量的强涨落。朗道理论假定 M 在空间均匀，但临界点附近关联长度发散，涨落覆盖宏观尺度，使幂律指数偏离经典值。修正需要标度理论与重整化群；不过平均场在 d &gt; 4 维时才严格成立，且其概念（序参量、对称破缺、普适性）仍然有效。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q22</span><span class="qtext">为什么在临界点以上，液体可以不经过相变而连续地变成气体？</span><span class="q-tag">第 3 章 · 推理</span></summary>
+  <div class="q-ans"><b>答：</b>临界点以上气液两相没有区别：密度连续变化，不存在共存线，也没有潜热。在 p–T 图上绕过临界点（沿 T &gt; T_c 的路径）就能从液相连续走到气相，全程没有相变发生。因此气液相变在临界点处是连续相变，其一级相变的性质随接近临界点而消失。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q23</span><span class="qtext">单元系在某温度下两相共存，自由度是多少？三相共存呢？</span><span class="q-tag">第 3 章 · 计算</span></summary>
+  <div class="q-ans"><b>答：</b>由相律 f = k + 2 − π，单元系 k = 1。两相共存 π = 2 ⟹ f = 1（压强由温度唯一确定，即相平衡曲线）；三相共存 π = 3 ⟹ f = 0，三相点是一个确定的状态点（水的三相点 273.16 K、611 Pa）。</div>
+</details>
+<details class="q-card">
+  <summary><span class="qnum">Q24</span><span class="qtext">已知某物质的饱和蒸气压满足 ln p = −L/(RT) + A，怎样求汽化潜热？这个公式的适用条件是什么？</span><span class="q-tag">第 3 章 · 计算</span></summary>
+  <div class="q-ans"><b>答：</b>由 ln p 对 1/T 作图为直线，斜率 −L/R，故 L = −R × 斜率。该式由克拉珀龙方程在「蒸气相体积远大于液相 + 气相为理想气体 + L 近似为常数」三个近似下得到，故只适用于远离临界点的温度范围，临界点附近 v_g ≈ v_l 时失效。</div>
+</details>
+<div class="empty" id="empty">没有匹配的内容，换个关键词试试<br><span style="font-size:.9em;opacity:.7">支持搜索概念、公式符号、章节号，例如「麦克斯韦」「克拉珀龙」「临界指数」</span></div>
+</main>
+</div>
+
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<footer>
+  汪志诚《热力学·统计物理》第六版 · 第一至三章复习提纲<br>
+  按「物理图像 — 推导脉络 — 关键结论 — 易错点」组织 · 供上课同步理解与考前复习使用<br>
+  <span style="opacity:.7">公式为 HTML 排版，无需联网；打印时推导块与自测答案会自动展开</span>
+</footer>
+
+<script>
+/* ==========================================================================
+   热力学·统计物理 复习提纲 · 交互脚本
+   由 build.py 注入到单文件 HTML 中，离线可用，无第三方依赖。
+   ========================================================================== */
+
+const KEY_DONE = 'rztj-done-v3';
+const KEY_DARK = 'rztj-dark';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+let currentMode = 'all';
+
+/* ====== 卡片折叠 ====== */
+function foldCard(e, head) {
+  if (e.target.classList.contains('mark')) return;
+  head.parentElement.classList.toggle('closed');
+}
+
+/* ====== 已掌握标记 ====== */
+function loadDone() {
+  try { return JSON.parse(localStorage.getItem(KEY_DONE) || '{}'); }
+  catch (err) { return {}; }
+}
+function saveDone(o) {
+  try { localStorage.setItem(KEY_DONE, JSON.stringify(o)); } catch (err) {}
+}
+
+function markDone(e, el) {
+  e.stopPropagation();
+  const card = el.closest('.card');
+  const on = card.classList.toggle('done');
+  const o = loadDone();
+  if (on) { o[card.id] = 1; } else { delete o[card.id]; }
+  saveDone(o);
+  updateProg();
+}
+
+function updateProg() {
+  const total = $$('.card').length;
+  const done = $$('.card.done').length;
+  const pct = total ? Math.round(done * 100 / total) : 0;
+  $('#prog').innerHTML = '已掌握 <b>' + done + '</b> / ' + total;
+  $('#pbarIn').style.width = pct + '%';
+  const bar = $('#pbarIn').parentElement;
+  bar.title = '掌握进度 ' + pct + '%';
+  $$('nav.side a').forEach(a => {
+    const card = document.getElementById(a.getAttribute('href').slice(1));
+    a.classList.toggle('done', !!(card && card.classList.contains('done')));
+  });
+}
+
+function restoreDone() {
+  const o = loadDone();
+  Object.keys(o).forEach(id => {
+    const card = document.getElementById(id);
+    if (card) card.classList.add('done');
+  });
+  updateProg();
+}
+
+/* ====== 遮挡结论（自测模式） ====== */
+function toggleMask() {
+  const on = document.body.classList.toggle('mask');
+  $('#bMask').classList.toggle('on', on);
+  if (!on) $$('.concl.shown').forEach(c => c.classList.remove('shown'));
+}
+
+/* ====== 模糊公式（公式速查自测） ====== */
+function toggleMaskF() {
+  const on = document.body.classList.toggle('maskf');
+  $('#bMaskF').classList.toggle('on', on);
+  if (!on) $$('.fml.shown').forEach(c => c.classList.remove('shown'));
+}
+
+/* 点击结论 / 公式：在对应模式下逐个揭开 */
+document.addEventListener('click', e => {
+  if (document.body.classList.contains('mask')) {
+    const c = e.target.closest('.concl');
+    if (c) { c.classList.toggle('shown'); return; }
+  }
+  if (document.body.classList.contains('maskf')) {
+    const f = e.target.closest('.fml');
+    if (f) f.classList.toggle('shown');
+  }
+}, true);
+
+/* ====== 推导块全部展开/收起 ====== */
+function toggleAllDeriv() {
+  const all = $$('details.b-deriv');
+  const anyClosed = all.some(d => !d.open);
+  all.forEach(d => { d.open = anyClosed; });
+  $('#bFold').textContent = anyClosed ? '收起推导' : '展开推导';
+}
+
+/* ====== 深色模式 ====== */
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  try { localStorage.setItem(KEY_DARK, on ? '1' : '0'); } catch (err) {}
+}
+(function initDark() {
+  let saved = null;
+  try { saved = localStorage.getItem(KEY_DARK); } catch (err) {}
+  if (saved === '1' || (saved === null && window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+})();
+
+/* ====== 阅读模式：全部 / 只看易错 / 只看结论 ====== */
+function setMode(m) {
+  currentMode = m;
+  document.body.dataset.mode = m;
+  $('#bModeAll').classList.toggle('on', m === 'all');
+  $('#bModeWarn').classList.toggle('on', m === 'warn');
+  $('#bModeKey').classList.toggle('on', m === 'key');
+  if (m !== 'all') {        // 大纲模式下自动展开卡片，否则看不到内容
+    $$('.card').forEach(c => c.classList.remove('closed'));
+  }
+  applyFilter();
+}
+
+/* ====== 搜索与过滤 ====== */
+function escapeReg(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function clearMarks() {
+  $$('mark.hl').forEach(m => {
+    m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
+  });
+  $$('.card').forEach(c => c.normalize && c.normalize());
+}
+
+function highlightIn(root, q) {
+  if (!q) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      if (p.closest('script,style,mark,textarea')) return NodeFilter.FILTER_REJECT;
+      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return node.nodeValue.toLowerCase().indexOf(q) >= 0
+        ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const text = node.nodeValue, low = text.toLowerCase();
+    const frag = document.createDocumentFragment();
+    let i = 0;
+    while (true) {
+      const idx = low.indexOf(q, i);
+      if (idx < 0) { frag.appendChild(document.createTextNode(text.slice(i))); break; }
+      if (idx > i) frag.appendChild(document.createTextNode(text.slice(i, idx)));
+      const m = document.createElement('mark');
+      m.className = 'hl';
+      m.textContent = text.slice(idx, idx + q.length);
+      frag.appendChild(m);
+      i = idx + q.length;
+    }
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+
+function cardText(card) {
+  if (currentMode === 'all') return card.textContent;
+  const sel = currentMode === 'warn' ? '.b-warn' : '.b-key';
+  return Array.from(card.querySelectorAll(sel)).map(n => n.textContent).join(' ');
+}
+
+function isShown(el) {
+  if (getComputedStyle(el).display === 'none') return false;
+  if (el.classList.contains('fsheet')) {
+    return Array.from(el.querySelectorAll('.frow')).some(r => getComputedStyle(r).display !== 'none');
+  }
+  return true;
+}
+
+function applyFilter() {
+  const q = ($('#q').value || '').trim().toLowerCase();
+  clearMarks();
+  let hits = 0;
+
+  /* 章节卡片 */
+  $$('.card').forEach(card => {
+    const okMode = currentMode === 'all' || !!card.querySelector('.b-' + currentMode);
+    const okQ = !q || cardText(card).toLowerCase().includes(q);
+    const show = okMode && okQ;
+    card.style.display = show ? '' : 'none';
+    if (show) { hits++; if (q) highlightIn(card, q); }
+  });
+
+  /* 习题 / 说明 / 自测题 */
+  $$('.ex-type, .note, .q-card').forEach(el => {
+    const ok = !q || el.textContent.toLowerCase().includes(q);
+    el.style.display = ok ? '' : 'none';
+    if (ok && q) { highlightIn(el, q); hits++; }
+  });
+
+  /* 公式速查 */
+  $$('.frow').forEach(tr => {
+    const ok = !q || tr.textContent.toLowerCase().includes(q);
+    tr.style.display = ok ? '' : 'none';
+    if (ok && q) { highlightIn(tr, q); hits++; }
+  });
+  $$('.fsheet').forEach(sheet => {
+    const rows = Array.from(sheet.querySelectorAll('.frow'));
+    const any = rows.some(r => getComputedStyle(r).display !== 'none');
+    sheet.style.display = any ? '' : 'none';
+  });
+
+  /* 章节标题：章内没有可见内容就隐藏 */
+  $$('.chap').forEach(ch => {
+    if (!q) { ch.style.display = ''; return; }
+    let n = ch.nextElementSibling, vis = false;
+    while (n && !n.classList.contains('chap')) {
+      if ((n.classList.contains('card') || n.classList.contains('ex-type') ||
+           n.classList.contains('note') || n.classList.contains('fsheet') ||
+           n.classList.contains('q-card')) && isShown(n)) { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    ch.style.display = vis ? '' : 'none';
+  });
+
+  /* 命中数与空状态 */
+  const hitsEl = $('#hits');
+  if (q) {
+    hitsEl.textContent = hits ? '命中 ' + hits + ' 条' : '无结果';
+    document.body.classList.toggle('no-hits', hits === 0);
+  } else {
+    hitsEl.textContent = '';
+    document.body.classList.remove('no-hits');
+  }
+}
+
+/* ====== 侧栏滚动高亮 ====== */
+(function scrollSpy() {
+  const links = $$('nav.side a');
+  const targets = links
+    .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+    .filter(Boolean);
+  if (!targets.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      links.forEach(a => a.classList.remove('cur'));
+      const a = links.find(x => x.getAttribute('href') === '#' + en.target.id);
+      if (a) a.classList.add('cur');
+    });
+  }, { rootMargin: '-70px 0px -72% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+})();
+
+/* ====== 点击章节横幅：折叠/展开本章卡片 ====== */
+$$('.chap').forEach(ch => {
+  ch.style.cursor = 'pointer';
+  ch.title = '点击折叠 / 展开本章卡片';
+  ch.addEventListener('click', e => {
+    if (e.target.tagName === 'A') return;
+    const cards = [];
+    let n = ch.nextElementSibling;
+    while (n && !n.classList.contains('chap')) {
+      if (n.classList.contains('card')) cards.push(n);
+      n = n.nextElementSibling;
+    }
+    if (!cards.length) return;
+    const anyOpen = cards.some(c => !c.classList.contains('closed'));
+    cards.forEach(c => c.classList.toggle('closed', anyOpen));
+  });
+});
+
+/* ====== 回到顶部按钮 ====== */
+(function toTop() {
+  const btn = $('#toTop');
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > 600);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ====== 键盘快捷键 ====== */
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toUpperCase();
+  if (tag === 'INPUT' || tag === 'TEXTAREA') {
+    if (e.key === 'Escape') { e.target.value = ''; applyFilter(); e.target.blur(); }
+    return;
+  }
+  if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
+  if (e.key === 'Escape') { $('#q').value = ''; applyFilter(); setMode('all'); return; }
+  const k = e.key.toLowerCase();
+  if (k === 'm') toggleMask();
+  else if (k === 'f') toggleMaskF();
+  else if (k === 'd') toggleDark();
+  else if (k === 'w') setMode(currentMode === 'warn' ? 'all' : 'warn');
+  else if (k === 'k') setMode(currentMode === 'key' ? 'all' : 'key');
+  else if (k === 'a') setMode('all');
+});
+
+/* ====== 打印前展开全部折叠块 ====== */
+window.addEventListener('beforeprint', () => {
+  $$('details').forEach(d => { d.open = true; });
+  $$('.card').forEach(c => c.classList.remove('closed'));
+});
+
+/* ====== 初始化 ====== */
+restoreDone();
+applyFilter();
+</script>
+
+</body>
+</html>

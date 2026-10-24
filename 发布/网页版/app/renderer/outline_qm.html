@@ -1,0 +1,2812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="量子力学复习提纲 构建脚本 build.py · 2026-10-23 16:15">
+<title>量子力学 · 复习提纲（第1–3章）</title>
+<style>
+  :root {
+    --bg:#fbf5fb; --card:#fffdfe; --text:#3b3350; --muted:#8a7c9e;
+    --line:rgba(228,200,224,.62); --hover:#fdf0f7;
+    --c1:#b83f7c; --c1-bg:#fff0f7; --c1-soft:#ffd6e8;
+    --c2:#257f70; --c2-bg:#eafaf5; --c2-soft:#c8f0e4;
+    --key:#9a6a10; --key-bg:#fff7e0; --key-line:#efd9a2;
+    --warn:#b84055; --warn-bg:#fff0f2; --warn-line:#f6c9d0;
+    --deriv:#6550a8; --deriv-bg:#f5f1fc; --deriv-line:#ddd2f2;
+    --img:#257b9b; --img-bg:#eef9fd; --img-line:#c8e8f2;
+  }
+  body.dark {
+    --bg:#161222; --card:#211c31; --text:#ece7f7; --muted:#a89bbd;
+    --line:#382e4e; --hover:#2c2540;
+    --c1:#ff9cc7; --c1-bg:#3a2233; --c1-soft:#56304a;
+    --c2:#7fd8c4; --c2-bg:#1b3530; --c2-soft:#294e47;
+    --key:#f2cf7f; --key-bg:#332b18; --key-line:#554925;
+    --warn:#ff9a9a; --warn-bg:#3a2225; --warn-line:#5a3036;
+    --deriv:#c6b6f2; --deriv-bg:#29233d; --deriv-line:#41365d;
+    --img:#8fd4ea; --img-bg:#192c36; --img-line:#2c4c59;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background:var(--bg); color:var(--text);
+    font-family:'Microsoft YaHei','PingFang SC','Segoe UI',system-ui,sans-serif;
+    line-height:1.75; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    background:linear-gradient(135deg,#1e5a8a 0%,#14735f 100%);
+    color:#fff; text-align:center; padding:38px 20px 26px;
+  }
+  .hero h1 { font-size:1.65em; font-weight:500; letter-spacing:.02em; }
+  .hero .sub { opacity:.88; font-size:.9em; margin-top:5px; }
+  .hero .info { margin-top:11px; font-size:.79em; opacity:.66; line-height:1.7; }
+
+  /* ============ TOOLBAR ============ */
+  .toolbar {
+    position:sticky; top:0; z-index:50;
+    background:var(--card);
+    background:color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:9px 16px;
+  }
+  .toolbar-in {
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+  }
+  .toolbar input[type=text] {
+    flex:1; min-width:170px; padding:8px 13px; font-size:.9em;
+    border:1px solid var(--line); border-radius:7px;
+    background:var(--bg); color:var(--text); outline:none;
+    font-family:inherit; transition:border-color .2s;
+  }
+  .toolbar input[type=text]:focus { border-color:var(--c1); }
+  .btn {
+    padding:7px 13px; font-size:.83em; font-family:inherit; cursor:pointer;
+    border:1px solid var(--line); border-radius:7px;
+    background:var(--card); color:var(--text);
+    transition:all .18s; white-space:nowrap;
+  }
+  .btn:hover { background:var(--hover); border-color:var(--c1); }
+  .btn.on { background:var(--c1); color:#fff; border-color:var(--c1); }
+  .prog {
+    font-size:.82em; color:var(--muted); padding:0 4px;
+    white-space:nowrap; font-variant-numeric:tabular-nums;
+  }
+  .prog b { color:var(--c2); font-weight:600; }
+
+  /* ============ LAYOUT ============ */
+  .wrap { max-width:1180px; margin:0 auto; display:flex; gap:26px; padding:22px 16px 70px; align-items:flex-start; }
+
+  nav.side {
+    position:sticky; top:62px; width:212px; flex-shrink:0;
+    max-height:calc(100vh - 84px); overflow-y:auto;
+    font-size:.845em; padding-right:4px;
+  }
+  nav.side::-webkit-scrollbar { width:5px; }
+  nav.side::-webkit-scrollbar-thumb { background:var(--line); border-radius:3px; }
+  .side-h {
+    font-size:.86em; font-weight:600; color:var(--muted);
+    letter-spacing:.08em; margin:14px 0 5px; padding-left:9px;
+  }
+  .side-h:first-child { margin-top:0; }
+  nav.side a {
+    display:block; padding:3px 9px; color:var(--muted);
+    text-decoration:none; border-radius:5px; border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  nav.side a:hover { background:var(--hover); color:var(--text); }
+  nav.side a.cur { color:var(--c1); background:var(--c1-bg); border-left-color:var(--c1); font-weight:600; }
+  nav.side a.done::after { content:'✓'; float:right; color:var(--c2); font-weight:700; font-size:.9em; }
+
+  main { flex:1; min-width:0; }
+
+  /* ============ CHAPTER BANNER ============ */
+  .chap {
+    margin:30px 0 14px; padding:13px 20px; border-radius:9px;
+    font-weight:600; font-size:1.06em;
+    display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  }
+  .chap:first-child { margin-top:0; }
+  .chap .cn { font-size:.74em; font-weight:700; opacity:.62; letter-spacing:.1em; }
+  .chap .cm { font-size:.76em; font-weight:400; opacity:.72; margin-left:auto; }
+  .chap1 { background:var(--c1-bg); color:var(--c1); }
+  .chap2 { background:var(--c2-bg); color:var(--c2); }
+
+  /* ============ CARD ============ */
+  .card {
+    background:var(--card); border:1px solid var(--line);
+    border-radius:10px; margin-bottom:11px; overflow:hidden;
+    transition:box-shadow .2s, border-color .2s;
+    scroll-margin-top:70px;
+  }
+  .card:hover { box-shadow:0 2px 12px rgba(0,0,0,.055); }
+  .card.done { border-color:var(--c2-soft); }
+  body.dark .card:hover { box-shadow:0 2px 12px rgba(0,0,0,.3); }
+
+  .chead {
+    padding:11px 17px; display:flex; align-items:center; gap:11px;
+    cursor:pointer; user-select:none;
+  }
+  .secnum {
+    font-size:.78em; font-weight:700; padding:2px 8px; border-radius:5px;
+    flex-shrink:0; font-variant-numeric:tabular-nums; letter-spacing:.02em;
+  }
+  .chap1 .secnum, .card.c1 .secnum { background:var(--c1-bg); color:var(--c1); }
+  .card.c2 .secnum { background:var(--c2-bg); color:var(--c2); }
+  .chead h3 { font-size:1em; font-weight:600; flex:1; }
+  .star { font-size:.72em; color:var(--key); font-weight:400; opacity:.85; }
+  .caret { color:var(--muted); font-size:.72em; transition:transform .22s; flex-shrink:0; }
+  .card.closed .caret { transform:rotate(-90deg); }
+  .card.closed .cbody { display:none; }
+
+  .mark {
+    width:19px; height:19px; border-radius:5px; flex-shrink:0;
+    border:1.5px solid var(--line); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all .16s; font-size:.72em; color:transparent;
+  }
+  .mark:hover { border-color:var(--c2); }
+  .card.done .mark { background:var(--c2); border-color:var(--c2); color:#fff; }
+
+  .cbody { padding:0 17px 15px; }
+
+  /* ============ BLOCKS ============ */
+  .blk { border-radius:8px; padding:11px 15px; margin-top:9px; border-left:3px solid; }
+  .blk h4 {
+    font-size:.78em; font-weight:700; letter-spacing:.09em;
+    margin-bottom:6px; opacity:.9; display:flex; align-items:center; gap:6px;
+  }
+  .blk p { font-size:.925em; }
+  .blk p + p { margin-top:7px; }
+  .blk ul, .blk ol { margin:6px 0 0 19px; font-size:.925em; }
+  .blk li { margin:3px 0; }
+  .blk li::marker { color:var(--muted); }
+
+  .b-img  { background:var(--img-bg);   border-color:var(--img-line);   color:var(--text); }
+  .b-img h4  { color:var(--img); }
+  .b-key  { background:var(--key-bg);   border-color:var(--key-line); }
+  .b-key h4  { color:var(--key); }
+  .b-warn { background:var(--warn-bg);  border-color:var(--warn-line); }
+  .b-warn h4 { color:var(--warn); }
+  .b-deriv{ background:var(--deriv-bg); border-color:var(--deriv-line); }
+  .b-deriv h4 { color:var(--deriv); }
+
+  /* derivation collapsible */
+  details.b-deriv { padding:0; }
+  details.b-deriv > summary {
+    list-style:none; cursor:pointer; padding:11px 15px;
+    font-size:.78em; font-weight:700; letter-spacing:.09em; color:var(--deriv);
+    display:flex; align-items:center; gap:7px; opacity:.95;
+  }
+  details.b-deriv > summary::-webkit-details-marker { display:none; }
+  details.b-deriv > summary::before {
+    content:'▸'; font-size:1em; transition:transform .2s; display:inline-block;
+  }
+  details.b-deriv[open] > summary::before { transform:rotate(90deg); }
+  details.b-deriv > summary::after {
+    content:attr(data-hint); margin-left:auto;
+    font-size:.88em; font-weight:400; letter-spacing:0; opacity:.52;
+  }
+  details.b-deriv[open] > summary::after { content:''; }
+  .dbody { padding:0 15px 13px; font-size:.925em; }
+  .dbody ol { margin-left:19px; }
+  .dbody li { margin:5px 0; }
+  .dbody p + p { margin-top:7px; }
+
+  /* conclusion masking */
+  .concl { position:relative; border-radius:6px; transition:filter .2s; }
+  .concl > * { font-size:.95em; }
+  body.mask .concl { min-height:34px; }
+  body.mask .concl::after {
+    content:'点击显示结论'; position:absolute; inset:0;
+    background:var(--key-bg); border:1px dashed var(--key-line);
+    border-radius:6px; display:flex; align-items:center; justify-content:center;
+    color:var(--key); font-size:.8em; letter-spacing:.05em; cursor:pointer;
+  }
+  body.mask .concl.shown::after { display:none; }
+
+  /* ============ MATH ============ */
+  .m {
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.06em; white-space:nowrap;
+  }
+  .m .up { font-style:normal; }
+  .eq {
+    display:block; text-align:center; margin:9px 0;
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.07em;
+    white-space:normal; line-height:2;
+  }
+  .eq-l {
+    display:block; margin:9px 0 9px 8px;
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.05em; line-height:2;
+  }
+  .frac {
+    display:inline-flex; flex-direction:column; vertical-align:middle;
+    text-align:center; margin:0 .18em; font-size:.94em; line-height:1.28;
+  }
+  .frac > .num { border-bottom:1px solid currentColor; padding:0 .28em; }
+  .frac > .den { padding:0 .28em; }
+  sub, sup { font-size:.7em; font-style:normal; }
+  .tag {
+    font-style:normal; font-size:.74em; padding:1px 6px; border-radius:4px;
+    background:var(--line); color:var(--muted); margin-left:5px;
+    font-family:'Microsoft YaHei',sans-serif; white-space:nowrap;
+  }
+  .tag.hot { background:var(--warn-bg); color:var(--warn); }
+  .tag.key { background:var(--key-bg); color:var(--key); }
+
+  /* ============ EXERCISE SECTION ============ */
+  .ex-type {
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--c1);
+    border-radius:9px; padding:12px 16px; margin-bottom:9px;
+    scroll-margin-top:70px;
+  }
+  .ex-type h4 { font-size:.94em; font-weight:600; margin-bottom:4px; color:var(--c1); }
+  .ex-type .feat { font-size:.86em; color:var(--muted); margin-bottom:5px; }
+  .ex-type .feat b { color:var(--text); font-weight:600; }
+  .ex-type ul { margin:4px 0 0 18px; font-size:.91em; }
+  .ex-type li { margin:2px 0; }
+
+  .note {
+    background:var(--card); border:1px solid var(--line); border-radius:9px;
+    padding:13px 17px; margin:14px 0; font-size:.89em; color:var(--muted);
+    line-height:1.8;
+  }
+  .note b { color:var(--text); }
+
+  footer {
+    text-align:center; color:var(--muted); font-size:.8em;
+    padding:26px 16px 40px; line-height:1.9;
+  }
+
+  .empty {
+    text-align:center; color:var(--muted); padding:36px; font-size:.9em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px) {
+    nav.side { display:none; }
+    .wrap { gap:0; }
+  }
+  @media (max-width:600px) {
+    body { font-size:14.5px; }
+    .hero h1 { font-size:1.3em; }
+    .cbody { padding:0 13px 13px; }
+    .chead { padding:10px 13px; gap:8px; }
+    .blk { padding:10px 12px; }
+    .eq { font-size:.98em; }
+    .prog { display:none; }
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    body { background:#fff !important; font-size:11pt; }
+    .toolbar, nav.side { display:none !important; }
+    .wrap { display:block; max-width:none; padding:0; }
+    .hero {
+      background:#f4eefb !important; color:#3b3350 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:20px;
+    }
+    .hero::before, .hero::after { display:none !important; }
+    .hero h1::before, .hero h1::after { display:none !important; }
+    .hero .sub { background:none !important; border:0 !important; }
+    .card { break-inside:avoid; box-shadow:none; }
+    .card.closed .cbody { display:block !important; }
+    details.b-deriv > .dbody { display:block !important; }
+    details.b-deriv > summary::after { content:'' !important; }
+    .blk, .chap, .ex-type, .note { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body.mask .concl::after { display:none !important; }
+    .mark, .caret { display:none; }
+  }
+
+  /* ==========================================================================
+     二次元星空 / 樱色手帐主题
+     ========================================================================== */
+
+  html { scroll-behavior:smooth; }
+  ::selection { background:rgba(255,165,205,.35); }
+
+  body {
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 14%, rgba(225,137,181,.30) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 22% 68%, rgba(150,137,226,.24) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 36% 28%, rgba(255,255,255,.95) 0 1.3px, transparent 1.8px),
+      radial-gradient(circle at 51% 84%, rgba(225,137,181,.20) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 66% 18%, rgba(255,255,255,.85) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 78% 62%, rgba(150,137,226,.22) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 91% 32%, rgba(255,255,255,.9) 0 1.1px, transparent 1.6px),
+      radial-gradient(1000px 600px at 4% -8%, rgba(255,204,228,.50), transparent 60%),
+      radial-gradient(900px 560px at 102% 2%, rgba(199,214,255,.50), transparent 58%),
+      radial-gradient(800px 560px at 50% 112%, rgba(218,201,255,.35), transparent 62%),
+      linear-gradient(155deg, #fff8fd 0%, #f7f3ff 48%, #f1fbff 100%);
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+  }
+  body.dark {
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 14%, rgba(255,255,255,.72) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 22% 68%, rgba(196,180,255,.55) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 36% 28%, rgba(255,255,255,.8) 0 1.3px, transparent 1.8px),
+      radial-gradient(circle at 51% 84%, rgba(255,203,230,.6) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 66% 18%, rgba(255,255,255,.85) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 78% 62%, rgba(196,180,255,.5) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 91% 32%, rgba(255,255,255,.75) 0 1.1px, transparent 1.6px),
+      radial-gradient(1000px 600px at 4% -8%, rgba(120,74,140,.34), transparent 60%),
+      radial-gradient(900px 560px at 102% 2%, rgba(60,74,145,.40), transparent 58%),
+      radial-gradient(800px 560px at 50% 112%, rgba(105,72,150,.28), transparent 62%),
+      linear-gradient(155deg, #171326 0%, #14111f 55%, #101823 100%);
+  }
+
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb {
+    background:linear-gradient(180deg,#f0b6d2,#c9b8ee);
+    border-radius:999px; border:3px solid transparent; background-clip:content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background:linear-gradient(180deg,#e79bc3,#b09ee8);
+    border-radius:999px; border:3px solid transparent; background-clip:content-box;
+  }
+  body.dark ::-webkit-scrollbar-thumb {
+    background:linear-gradient(180deg,#6b4a75,#4d467e);
+    border-radius:999px; border:3px solid transparent; background-clip:content-box;
+  }
+
+  /* ---------- 按钮 ---------- */
+  .btn {
+    border-radius:999px;
+    background:rgba(255,255,255,.72);
+    color:#5b4b69;
+    transition:transform .16s, background .16s, border-color .16s,
+               color .16s, box-shadow .16s;
+  }
+  .btn:hover {
+    transform:translateY(-1px);
+    background:linear-gradient(135deg,#fff2f8,#f4efff);
+    border-color:#e9b7d4;
+    color:#a54878;
+    box-shadow:0 4px 13px rgba(193,125,167,.16);
+  }
+  .btn.on {
+    background:linear-gradient(135deg,#d95f9e,#8a75df);
+    border-color:transparent;
+    color:#fff;
+    box-shadow:0 4px 14px rgba(199,108,168,.30);
+  }
+  .btn.on:hover { color:#fff; }
+  body.dark .btn { background:rgba(39,32,57,.85); color:#e7dff2; }
+  body.dark .btn:hover {
+    background:linear-gradient(135deg,#3b2a42,#342c50);
+    border-color:#6d527e;
+    color:#ffb5d5;
+  }
+  body.dark .btn.on {
+    background:linear-gradient(135deg,#ff8fbe,#9b87ff);
+    color:#24152e;
+  }
+
+  /* ---------- 侧边目录 ---------- */
+  nav.side {
+    background:rgba(255,255,255,.58);
+    border:1px solid rgba(236,208,228,.55);
+    border-radius:16px;
+    padding:12px 8px;
+    margin-top:2px;
+    box-shadow:0 8px 28px rgba(150,110,160,.06);
+    backdrop-filter:blur(12px);
+  }
+  body.dark nav.side {
+    background:rgba(33,28,49,.55);
+    border-color:#3a3050;
+    box-shadow:0 8px 28px rgba(0,0,0,.22);
+  }
+  nav.side a { border-radius:10px; }
+  nav.side a.cur {
+    background:linear-gradient(135deg,var(--c1-bg),#f4efff);
+    border-left-color:transparent;
+    box-shadow:inset 3px 0 0 var(--c1);
+  }
+  body.dark nav.side a.cur {
+    background:linear-gradient(135deg,#3a2233,#2e2949);
+  }
+  .side-h { letter-spacing:.1em; }
+  .side-h::before {
+    content:'✧';
+    color:var(--c1);
+    margin-right:5px;
+    opacity:.55;
+    font-weight:400;
+  }
+
+  /* ---------- 章节横幅 ---------- */
+  .chap {
+    border-radius:16px;
+    padding:14px 20px;
+    border:1px solid rgba(255,255,255,.55);
+    box-shadow:0 6px 20px rgba(150,110,160,.07);
+    font-family:'YouYuan','幼圆','STYuanti','Microsoft YaHei',sans-serif;
+    letter-spacing:.04em;
+  }
+  .chap::before {
+    content:'✦';
+    font-size:.85em;
+    opacity:.55;
+    flex-shrink:0;
+  }
+  .chap1 { background:linear-gradient(135deg,var(--c1-bg),color-mix(in srgb,var(--c1-bg) 72%,var(--card))) !important; }
+  .chap2 { background:linear-gradient(135deg,var(--c2-bg),color-mix(in srgb,var(--c2-bg) 72%,var(--card))) !important; }
+  .chap0 { background:linear-gradient(135deg,var(--c0-bg),color-mix(in srgb,var(--c0-bg) 72%,var(--card))) !important; }
+  .chap3 { background:linear-gradient(135deg,var(--c3-bg),color-mix(in srgb,var(--c3-bg) 72%,var(--card))) !important; }
+  .chapfx { background:linear-gradient(135deg,var(--key-bg),color-mix(in srgb,var(--key-bg) 72%,var(--card))) !important; }
+  .chapq { background:linear-gradient(135deg,var(--q-bg),color-mix(in srgb,var(--q-bg) 72%,var(--card))) !important; }
+
+  /* ---------- 卡片 ---------- */
+  .card {
+    background:linear-gradient(180deg,#fffefe,#fffafe);
+    border-radius:16px;
+    border-top:3px solid var(--c1-soft);
+    box-shadow:0 5px 20px rgba(150,110,165,.06);
+    transition:transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .card.c0 { border-top-color:var(--c0-soft); }
+  .card.c1 { border-top-color:var(--c1-soft); }
+  .card.c2 { border-top-color:var(--c2-soft); }
+  .card.c3 { border-top-color:var(--c3-soft); }
+  .card:hover {
+    transform:translateY(-1px);
+    box-shadow:0 10px 28px rgba(150,100,160,.12);
+    border-color:#f0cfe2;
+  }
+  .card.done { border-color:var(--c2-soft); }
+  body.dark .card {
+    background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 88%,#000));
+  }
+  body.dark .card:hover { box-shadow:0 10px 28px rgba(0,0,0,.34); border-color:#5a3f64; }
+
+  .chead h3 {
+    font-family:'YouYuan','幼圆','STYuanti','Microsoft YaHei',sans-serif;
+    font-size:1.03em;
+    letter-spacing:.02em;
+  }
+  .secnum {
+    border-radius:999px;
+    padding:3px 10px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+  }
+  body.dark .secnum { box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); }
+  .star { text-shadow:0 0 9px rgba(240,190,80,.45); }
+  .mark {
+    border-radius:7px;
+    background:rgba(255,255,255,.58);
+  }
+  .card.done .mark {
+    background:linear-gradient(135deg,#8fe0c8,#5ec4ad);
+    border-color:transparent;
+    box-shadow:0 2px 8px rgba(94,196,173,.35);
+  }
+  body.dark .mark { background:rgba(255,255,255,.05); }
+
+  /* ---------- 内容块 ---------- */
+  .blk {
+    border-radius:14px;
+    border-left-width:4px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  body.dark .blk { box-shadow:none; }
+  .blk h4 {
+    font-family:'YouYuan','幼圆','STYuanti','Microsoft YaHei',sans-serif;
+    letter-spacing:.08em;
+  }
+  details.b-deriv {
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--deriv-bg),color-mix(in srgb,var(--deriv-bg) 78%,var(--card)));
+  }
+  details.b-deriv > summary { border-radius:14px; }
+
+  body.mask .concl::after {
+    content:'✧ 点击显示结论';
+    background:linear-gradient(135deg,var(--key-bg),color-mix(in srgb,var(--key-bg) 76%,var(--card)));
+    border:1px dashed var(--key-line);
+    border-radius:12px;
+    color:var(--key);
+    letter-spacing:.08em;
+  }
+
+  /* ---------- 表格 / 公式速查 ---------- */
+  .tab th {
+    background:linear-gradient(180deg,var(--hover),color-mix(in srgb,var(--hover) 72%,var(--card)));
+  }
+  .tab tbody tr:hover td {
+    background:color-mix(in srgb,var(--hover) 55%,transparent);
+  }
+  .fsheet {
+    border-radius:16px;
+    background:linear-gradient(180deg,#fffefe,#fffbfe);
+    box-shadow:0 5px 20px rgba(150,110,165,.06);
+  }
+  body.dark .fsheet {
+    background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 88%,#000));
+  }
+  .fgroup-h {
+    border-radius:0 999px 999px 0;
+    padding:2px 10px;
+    background:linear-gradient(90deg,var(--c1-bg),transparent 75%);
+  }
+  .fgroup-h.c0 { background:linear-gradient(90deg,var(--c0-bg),transparent 75%); }
+  .fgroup-h.c2 { background:linear-gradient(90deg,var(--c2-bg),transparent 75%); }
+  .fgroup-h.c3 { background:linear-gradient(90deg,var(--c3-bg),transparent 75%); }
+
+  /* ---------- 习题 / 提示 / 页脚 ---------- */
+  .ex-type {
+    border-radius:14px;
+    background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 92%,var(--c1-bg)));
+    box-shadow:0 4px 16px rgba(150,110,165,.05);
+  }
+  .ex-type h4 { font-family:'YouYuan','幼圆','STYuanti','Microsoft YaHei',sans-serif; }
+  .note {
+    border-radius:14px;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--card) 88%,var(--c1-bg)),var(--card));
+  }
+  footer::before {
+    content:'✦  ✧  ✦';
+    display:block;
+    color:var(--c1);
+    font-size:12px;
+    letter-spacing:.4em;
+    opacity:.45;
+    margin-bottom:6px;
+  }
+  .empty {
+    background:linear-gradient(135deg,var(--c1-bg),var(--key-bg));
+    border:1px dashed var(--line);
+    border-radius:16px;
+  }
+
+  @media (max-width:600px) {
+    .chap { border-radius:14px; padding:12px 15px; }
+    nav.side { border-radius:14px; }
+    .card { border-radius:14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+    }
+  }
+
+  /* ==================== 专题 / 配色 ==================== */
+  :root {
+    --c0:#5b58a8; --c0-bg:#f0efff; --c0-soft:#d9d5f7;
+    --c3:#8a4fa8; --c3-bg:#f9efff; --c3-soft:#ecd6f6;
+    --q:#7b58a8;  --q-bg:#f6efff;
+  }
+  body.dark {
+    --c0:#b3adff; --c0-bg:#242143; --c0-soft:#373263;
+    --c3:#d8b0f0; --c3-bg:#2a2034; --c3-soft:#443157;
+    --q:#d0b0f5;  --q-bg:#2a2140;
+  }
+
+  .chap0 { background:var(--c0-bg); color:var(--c0); }
+  .chap1 { background:var(--c1-bg); color:var(--c1); }
+  .chap2 { background:var(--c2-bg); color:var(--c2); }
+  .chap3 { background:var(--c3-bg); color:var(--c3); }
+  .chapfx { background:var(--key-bg); color:var(--key); }
+  .chapq { background:var(--q-bg); color:var(--q); }
+  .card.c0 .secnum { background:var(--c0-bg); color:var(--c0); }
+  .card.c1 .secnum { background:var(--c1-bg); color:var(--c1); }
+  .card.c2 .secnum { background:var(--c2-bg); color:var(--c2); }
+  .card.c3 .secnum { background:var(--c3-bg); color:var(--c3); }
+  .card.c0.done { border-color:var(--c0-soft); }
+  .card.c1.done { border-color:var(--c1-soft); }
+  .card.c2.done { border-color:var(--c2-soft); }
+  .card.c3.done { border-color:var(--c3-soft); }
+
+  .ex-type { border-left-color:var(--c1) !important; }
+
+  /* ==================== HERO ==================== */
+  .hero {
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    padding:42px 20px 34px;
+    color:#fff;
+    border-bottom:1px solid rgba(255,255,255,.18);
+    background:
+      radial-gradient(circle at 12% 24%, rgba(255,255,255,.78) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 27% 64%, rgba(255,255,255,.55) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 41% 18%, rgba(255,255,255,.6) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 58% 72%, rgba(255,255,255,.45) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 72% 30%, rgba(255,255,255,.7) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 84% 68%, rgba(255,255,255,.5) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 94% 20%, rgba(255,255,255,.65) 0 1px, transparent 1.5px),
+      radial-gradient(ellipse at 88% 8%, rgba(255,210,235,.55), transparent 38%),
+      radial-gradient(ellipse at 10% 92%, rgba(160,190,255,.35), transparent 42%),
+      linear-gradient(135deg,#5b4bb8 0%,#8b5fc4 42%,#e57fae 100%);
+  }
+  .hero::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 18% 84%, rgba(255,255,255,.75) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 33% 42%, rgba(255,255,255,.5) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 52% 12%, rgba(255,255,255,.65) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 69% 88%, rgba(255,255,255,.55) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 88% 50%, rgba(255,255,255,.6) 0 1px, transparent 1.5px);
+    opacity:.8;
+  }
+  .hero::after {
+    content:'';
+    position:absolute;
+    right:6.5%;
+    top:-34px;
+    width:124px;
+    height:124px;
+    border-radius:50%;
+    background:radial-gradient(circle at 36% 34%,#fffef8,#ffe6f3 58%,#f7c7e0 100%);
+    box-shadow:0 0 60px rgba(255,228,245,.55), 0 0 120px rgba(200,170,255,.35);
+    opacity:.42;
+    pointer-events:none;
+  }
+  .hero > * { position:relative; z-index:1; }
+  .hero .kicker {
+    font-size:.68em;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    opacity:.62;
+    margin-bottom:8px;
+  }
+  .hero h1 {
+    font-family:'YouYuan','幼圆','STYuanti','Microsoft YaHei',sans-serif;
+    font-size:1.95em;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-shadow:0 2px 18px rgba(70,35,110,.25);
+  }
+  .hero h1::before {
+    content:'✧ ';
+    color:#ffe0f0;
+    font-size:.7em;
+    vertical-align:.15em;
+    opacity:.9;
+  }
+  .hero h1::after {
+    content:' ✧';
+    color:#ffe0f0;
+    font-size:.7em;
+    vertical-align:.15em;
+    opacity:.9;
+  }
+  .hero .sub {
+    display:inline-block;
+    max-width:calc(100% - 10px);
+    margin-top:11px;
+    padding:4px 16px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    backdrop-filter:blur(6px);
+    font-size:.84em;
+    line-height:1.8;
+    opacity:.95;
+  }
+  .hero .info {
+    margin-top:12px;
+    font-size:.78em;
+    opacity:.75;
+    line-height:1.7;
+  }
+  body.dark .hero {
+    border-bottom-color:#3a3050;
+    background:
+      radial-gradient(circle at 12% 24%, rgba(255,255,255,.65) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 27% 64%, rgba(255,255,255,.4) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 41% 18%, rgba(255,255,255,.5) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 58% 72%, rgba(255,255,255,.34) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 72% 30%, rgba(255,255,255,.55) 0 1.1px, transparent 1.6px),
+      radial-gradient(circle at 84% 68%, rgba(255,255,255,.38) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 94% 20%, rgba(255,255,255,.5) 0 1px, transparent 1.5px),
+      radial-gradient(ellipse at 88% 8%, rgba(255,170,215,.22), transparent 38%),
+      radial-gradient(ellipse at 10% 92%, rgba(120,150,255,.2), transparent 42%),
+      linear-gradient(135deg,#241d4d 0%,#3b2559 45%,#5c2d4a 100%);
+  }
+  body.dark .hero::after { opacity:.22; }
+
+  /* ==================== 工具栏 ==================== */
+  .toolbar {
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,253,255,.84);
+    backdrop-filter:blur(18px) saturate(1.2);
+    border-bottom:1px solid rgba(232,194,220,.55);
+    box-shadow:0 6px 24px rgba(150,105,160,.07);
+    padding:9px 16px;
+    overflow:visible;
+  }
+  body.dark .toolbar {
+    background:rgba(28,23,41,.86);
+    border-bottom-color:#382e4e;
+    box-shadow:0 6px 24px rgba(0,0,0,.25);
+  }
+  .toolbar-in {
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+  }
+  .toolbar input[type=text] {
+    flex:1; min-width:170px; padding:8px 15px; font-size:.9em;
+    border:1px solid var(--line); border-radius:999px;
+    background:rgba(255,255,255,.82); color:var(--text); outline:none;
+    font-family:inherit;
+    transition:border-color .2s, box-shadow .2s, background .2s;
+  }
+  .toolbar input[type=text]:hover { background:#fff; }
+  .toolbar input[type=text]:focus {
+    border-color:var(--c1);
+    box-shadow:0 0 0 3px rgba(233,138,186,.15);
+  }
+  body.dark .toolbar input[type=text] { background:rgba(39,32,57,.9); }
+  body.dark .toolbar input[type=text]:hover { background:#2f2749; }
+
+  .modes {
+    display:inline-flex; gap:2px; padding:2px;
+    border:1px solid var(--line); border-radius:999px;
+    background:rgba(255,255,255,.55);
+    overflow:hidden;
+  }
+  body.dark .modes { background:rgba(39,32,57,.7); }
+  .modes .btn {
+    border:0; border-radius:999px; padding:5px 12px;
+    font-size:.8em; background:transparent; box-shadow:none;
+  }
+  .modes .btn:hover {
+    transform:none;
+    background:rgba(255,255,255,.78);
+    color:var(--c1);
+    box-shadow:none;
+  }
+  body.dark .modes .btn:hover { background:rgba(255,255,255,.08); }
+  .modes .btn.on {
+    background:linear-gradient(135deg,#d95f9e,#8a75df);
+    color:#fff;
+    box-shadow:0 2px 8px rgba(199,108,168,.25);
+  }
+  body.dark .modes .btn.on {
+    background:linear-gradient(135deg,#ff8fbe,#9b87ff);
+    color:#24152e;
+  }
+  .modes .btn + .btn { border-left:0; }
+  .toolbar .btn { padding:6px 11px; font-size:.8em; }
+  .toolbar .modes .btn { padding:5px 10px; }
+  .toolbar input[type=text] { min-width:140px; padding:7px 14px; }
+
+  .pbar {
+    position:absolute; left:0; right:0; bottom:0;
+    height:3px; background:transparent;
+  }
+  .pbar > i {
+    display:block; height:100%; width:0;
+    background:linear-gradient(90deg,#f7a8c8,#c9a8f5,#9fdcff,#ffe0a8);
+    box-shadow:0 0 8px rgba(220,140,200,.4);
+    transition:width .35s ease;
+  }
+  .hits {
+    font-size:.78em; color:var(--c1); min-width:4em; text-align:center;
+    padding:2px 9px; border-radius:999px; background:var(--hover);
+    font-variant-numeric:tabular-nums;
+  }
+  .hits:empty { display:none; }
+  .prog {
+    font-size:.82em; color:var(--muted); padding:0 4px;
+    white-space:nowrap; font-variant-numeric:tabular-nums;
+  }
+  .prog b { color:var(--c1); font-weight:600; }
+  mark.hl {
+    background:#ffe3ef; color:inherit; border-radius:3px; padding:0 1px;
+  }
+  body.dark mark.hl { background:#75405a; color:#fff; }
+
+  .to-top {
+    position:fixed; right:22px; bottom:24px; z-index:60;
+    width:42px; height:42px; border-radius:50%;
+    border:0;
+    background:linear-gradient(135deg,#f39ac4,#9b87ff);
+    color:#fff; cursor:pointer; font-size:1em; display:none;
+    box-shadow:0 8px 22px rgba(170,110,190,.35), inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .18s, box-shadow .18s;
+  }
+  .to-top.show { display:block; }
+  .to-top:hover {
+    transform:translateY(-2px);
+    color:#fff;
+    box-shadow:0 12px 28px rgba(170,110,190,.45), inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  body.dark .to-top {
+    background:linear-gradient(135deg,#c75c92,#7a68d8);
+    box-shadow:0 8px 22px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  #empty { display:none; }
+  body.no-hits #empty { display:block; }
+
+  /* ==================== 原书定位行 ==================== */
+  .meta {
+    padding:0 0 9px; display:flex; gap:12px; flex-wrap:wrap;
+    font-size:.77em; color:var(--muted); align-items:center;
+  }
+  .meta b { font-weight:600; color:var(--text); }
+  .meta .dot { opacity:.45; }
+  .meta .src {
+    background:var(--hover); border-radius:999px; padding:2px 9px;
+  }
+  .meta .ppt {
+    background:linear-gradient(135deg,var(--key-bg),color-mix(in srgb,var(--key-bg) 72%,var(--card)));
+    color:var(--key); border-radius:999px; padding:2px 9px;
+  }
+  .card.closed .meta { display:none; }
+
+  .tag.ppt { background:var(--key-bg); color:var(--key); }
+
+  /* ==================== 表格 ==================== */
+  .tab { width:100%; border-collapse:collapse; font-size:.9em; margin-top:6px; }
+  .tab th, .tab td {
+    border:1px solid var(--line); padding:6px 10px;
+    text-align:left; vertical-align:middle;
+  }
+  .tab th {
+    background:linear-gradient(180deg,var(--hover),color-mix(in srgb,var(--hover) 70%,var(--card)));
+    font-weight:600;
+  }
+  .tab td.m, .tab td .m { white-space:normal; }
+  .tab tr:nth-child(even) td { background:color-mix(in srgb,var(--hover) 38%,transparent); }
+  .tab tbody tr:hover td { background:color-mix(in srgb,var(--hover) 62%,transparent); }
+  .b-key .tab th, .b-key .tab td { border-color:var(--key-line); }
+
+  /* ==================== 公式速查 ==================== */
+  .fsheet {
+    background:linear-gradient(180deg,#fffefe,#fffbfe);
+    border:1px solid var(--line); border-radius:16px;
+    padding:6px 16px 14px; margin-bottom:12px; scroll-margin-top:70px;
+    box-shadow:0 5px 20px rgba(150,110,165,.06);
+  }
+  body.dark .fsheet {
+    background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 88%,#000));
+  }
+  .fgroup-h {
+    font-size:.92em; font-weight:600; color:var(--c1);
+    margin:14px 0 2px; padding:2px 10px;
+    border-left:3px solid var(--c1);
+    border-radius:0 999px 999px 0;
+    background:linear-gradient(90deg,var(--c1-bg),transparent 75%);
+  }
+  .fgroup-h.c0 { color:var(--c0); border-left-color:var(--c0); background:linear-gradient(90deg,var(--c0-bg),transparent 75%); }
+  .fgroup-h.c2 { color:var(--c2); border-left-color:var(--c2); background:linear-gradient(90deg,var(--c2-bg),transparent 75%); }
+  .fgroup-h.c3 { color:var(--c3); border-left-color:var(--c3); background:linear-gradient(90deg,var(--c3-bg),transparent 75%); }
+  .frow.hide { display:none; }
+  .fml {
+    font-family:'Cambria Math','Latin Modern Math','Times New Roman',serif;
+    font-style:italic; font-size:1.02em; line-height:1.8; white-space:normal;
+  }
+  .fml sub, .fml sup { font-style:normal; }
+  .fname { font-weight:600; font-size:.95em; white-space:nowrap; }
+  .fnote { color:var(--muted); font-size:.86em; }
+  body.maskf .fml { filter:blur(5px); cursor:pointer; user-select:none; }
+  body.maskf .fml.shown { filter:none; user-select:auto; }
+
+  /* ==================== 阅读模式 ==================== */
+  body[data-mode="warn"] .card .blk:not(.b-warn) { display:none; }
+  body[data-mode="key"] .card .blk:not(.b-key) { display:none; }
+  body[data-mode="warn"] .card:not(:has(.b-warn)),
+  body[data-mode="key"] .card:not(:has(.b-key)) { display:none !important; }
+
+  /* ==================== 打印补充 ==================== */
+  @media print {
+    .pbar, .modes, .hits, .to-top { display:none !important; }
+    .fml { filter:none !important; }
+    .tab { font-size:9pt; }
+    .chap, .fgroup-h { break-after:avoid; }
+    .meta { display:flex !important; }
+  }
+
+  @media (max-width:1000px) {
+    .prog { display:none; }
+  }
+  @media (max-width:900px) {
+    .hero { padding:30px 16px 24px; }
+    .hero h1 { font-size:1.6em; }
+    .hero .kicker { font-size:.64em; letter-spacing:.2em; margin-bottom:5px; }
+    .hero .sub { font-size:.78em; padding:3px 12px; margin-top:8px; }
+    .hero .info { font-size:.72em; margin-top:9px; }
+    .hero::after { width:88px; height:88px; right:4%; top:-24px; opacity:.32; }
+  }
+  @media (max-width:600px) {
+    .hero { padding:26px 14px 22px; }
+    .hero h1 { font-size:1.4em; }
+    .hero .kicker { letter-spacing:.14em; }
+    .modes { display:none; }
+    .hits { display:none; }
+    .fname { white-space:normal; }
+    .meta { padding:0 0 8px; gap:8px; }
+  }
+</style>
+</head>
+<body data-mode="all">
+
+<div class="hero">
+  <p class="kicker">Quantum Mechanics · Study Notes</p>
+  <h1>量子力学 · 复习提纲</h1>
+  <p class="sub">专题：量子力学的诞生 &nbsp;·&nbsp; 概率论 &nbsp;·&nbsp; 第1章 波函数 &nbsp;·&nbsp; 第2章 定态薛定谔方程 &nbsp;·&nbsp; 第3章 形式理论</p>
+  <p class="info">
+    Griffiths《Introduction to Quantum Mechanics》Second Edition 中文译本 · 机械工业出版社<br>
+    按「物理图像 → 推导脉络 → 关键结论 → 易错点」组织 · 每节标注原书页码与对应课件
+  </p>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-in">
+    <input type="text" id="q" placeholder="🔍 搜索概念、公式或关键词……" oninput="applyFilter()">
+    <span class="hits" id="hits"></span>
+    <div class="modes">
+      <button class="btn on" id="bModeAll" onclick="setMode('all')" title="显示全部内容">全部</button>
+      <button class="btn" id="bModeWarn" onclick="setMode('warn')" title="只看易错点（考前突击）">易错点</button>
+      <button class="btn" id="bModeKey" onclick="setMode('key')" title="只看关键结论">结论</button>
+    </div>
+    <button class="btn" id="bMask" onclick="toggleMask()" title="遮挡关键结论（自测，快捷键 M）">👁 遮挡结论</button>
+    <button class="btn" id="bMaskF" onclick="toggleMaskF()" title="模糊公式速查表（快捷键 F）">遮住公式</button>
+    <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
+    <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
+    <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
+    <span class="prog" id="prog"></span>
+  </div>
+  <div class="pbar"><i id="pbarIn"></i></div>
+</div>
+
+<div class="wrap">
+
+<nav class="side" id="side">
+  <div class="side-h">TOPIC 课件专题：量子力学的诞生与概率论</div>
+  <a href="#s0a">专题 1 量子力学的诞生</a>
+  <a href="#s0b">专题 2 概率论初步</a>
+  <div class="side-h">CH.1 波函数</div>
+  <a href="#s11">1.1 薛定谔方程</a>
+  <a href="#s12">1.2 波函数的统计诠释</a>
+  <a href="#s13">1.3 概率论</a>
+  <a href="#s14">1.4 归一化</a>
+  <a href="#s15">1.5 动量与期望值</a>
+  <a href="#s16">1.6 不确定原理</a>
+  <div class="side-h">CH.2 定态薛定谔方程</div>
+  <a href="#s21">2.1 定态</a>
+  <a href="#s22">2.2 一维无限深方势阱</a>
+  <a href="#s23">2.3 谐振子</a>
+  <a href="#s24">2.4 自由粒子</a>
+  <a href="#s25">2.5 δ 函数势</a>
+  <a href="#s26">2.6 有限深方势阱</a>
+  <div class="side-h">CH.3 形式理论</div>
+  <a href="#s31">3.1 希尔伯特空间</a>
+  <a href="#s32">3.2 可观测量与厄密算符</a>
+  <a href="#s33">3.3 厄密算符的本征函数</a>
+  <a href="#s34">3.4 广义统计诠释</a>
+  <a href="#s35">3.5 不确定原理</a>
+  <a href="#s36">3.6 狄拉克符号</a>
+  <div class="side-h">速查 · 考点</div>
+  <a href="#fx">公式速查表</a>
+  <a href="#ex">考点与习题归类</a>
+</nav>
+
+<main id="main">
+<!-- ══════════════ 专题 ══════════════ -->
+<div class="chap chap0" id="ch0">
+  <span class="cn">TOPIC</span> 课件专题：量子力学的诞生与概率论
+  <span class="cm">2 讲 · 书前史 + 数学准备</span>
+</div>
+
+<!-- 专题 1 -->
+<article class="card c0" id="s0a">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">专题 1</span>
+    <h3>量子力学的诞生 <span class="tag">课件 1-1</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <span class="src">原书：无对应节（课件补讲，相关背景见中译本前言）</span>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-1-1" data-page="14" data-end="39" data-printed="14–39" href="#" title="课件 1-1（第 14–39 页）">课件 1-1，p014–p039</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>19 世纪末，经典物理在三处碰壁：<b>黑体辐射</b>的能量分布（紫外灾难）、<b>光电效应</b>的截止频率与遏止电压、<b>氢原子光谱</b>的分立谱线。三条裂缝分别逼出三个全新的观念 —— 能量量子化、光量子、定态与能级跃迁。量子力学就是在这三条裂缝里诞生的。</p>
+      <p>课件的叙事顺序是：基尔霍夫 → 维恩 → 瑞利/金斯 → 普朗克（1900）；赫兹/莱纳德 → 爱因斯坦（1905）；巴耳末/里德伯 → 玻尔（1913）。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 黑体辐射（p015–p021）</b></p>
+      <ol>
+        <li><b>基尔霍夫</b>：黑体吸收并发射一切波长，无反射无透射；热平衡时黑体辐射的谱只由温度决定，与材料、形状无关。</li>
+        <li><b>维恩</b>：由实验得位移律 <span class="m">λ<sub>max</sub>T = b</span>，并拟合出 <span class="m">M<sub>λ</sub> = Aλ<sup>−5</sup>e<sup>−B/λT</sup></span> —— 短波符合，长波失效。</li>
+        <li><b>瑞利–金斯</b>：按经典电磁理论数出模式数密度（两个横向自由度各 ½k<sub>B</sub>T），得 <span class="m">M<sub>λ</sub> = (2πc/λ⁴)k<sub>B</sub>T</span> —— 长波符合，短波发散，即<b>紫外灾难</b>。</li>
+        <li><b>普朗克</b>：假设谐振子的能量只能取 <span class="m">0, hν, 2hν, ⋯</span>，交换只能以最小单位 hν 进行。单模平均能量变为
+          <span class="eq-l m">⟨E⟩ = hν/(e<sup>hν/k<sub>B</sub>T</sup> − 1)</span>
+          从而
+          <span class="eq-l m">M<sub>ν</sub> = (2πν²/c²)·hν/(e<sup>hν/k<sub>B</sub>T</sup> − 1)</span>
+          低 ν 退化为瑞利–金斯，高 ν 退化为维恩 —— 一条公式统一两极限。</li>
+      </ol>
+      <p style="margin-top:9px"><b>② 光电效应（p022–p027）</b></p>
+      <ol>
+        <li>三大反常：存在<b>截止频率</b>；最大动能随 <span class="m">ν</span> 线性增大；<b>光强只决定饱和电流</b>，不影响遏止电压。</li>
+        <li>爱因斯坦光量子：<span class="m">E<sub>k,max</sub> = hν − W₀ = h(ν − ν₀)</span>。</li>
+        <li>遏止电压满足 <span class="m">eU<sub>s</sub> = hν − W₀</span>，即 <span class="m">U<sub>s</sub> = (h/e)ν − W₀/e</span> —— <b>斜率 h/e 与金属无关</b>，是光量子说的判据。</li>
+      </ol>
+      <p style="margin-top:9px"><b>③ 氢光谱与玻尔模型（p028–p037）</b></p>
+      <ol>
+        <li>巴耳末系 <span class="m">λ = B·n²/(n² − 4)</span>（n = 3, 4, 5, ⋯）；里德伯公式 <span class="m">1/λ = R(1/n₁² − 1/n₂²)</span>，n₂ &gt; n₁。</li>
+        <li>玻尔三假设：<b>定态</b>（轨道上运动不辐射）；<b>角动量量子化</b> <span class="m">L = nħ</span>；<b>跃迁</b> <span class="m">hν = E<sub>i</sub> − E<sub>f</sub></span>。</li>
+        <li>由此得 <span class="m">E<sub>n</sub> = −13.6 eV/n²</span>，谱线系：莱曼 n₁=1、巴耳末 n₁=2、帕邢 n₁=3。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>普朗克</b> <span class="m">E = hν = ħω</span>，黑体谱
+          <span class="m">M<sub>ν</sub> = (2πν²/c²)·hν/(e<sup>hν/k<sub>B</sub>T</sup>−1)</span>。</p>
+        <p><b>爱因斯坦</b> <span class="m">E<sub>k,max</sub> = hν − W₀</span>；<span class="m">U<sub>s</sub> = (h/e)ν − W₀/e</span>，斜率 h/e 对所有金属相同。</p>
+        <p><b>玻尔</b> <span class="m">L = nħ</span>，<span class="m">E<sub>n</sub> = −13.6 eV/n²</span>，<span class="m">hν = E<sub>i</sub> − E<sub>f</sub></span>。</p>
+        <p style="margin-top:6px">共同启示：<b>能量与状态在微观尺度上是分立的</b>；经典物理在微观世界失效。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点 <span class="tag hot">课件反复强调</span></h4>
+      <ul>
+        <li><b>光强 ↔ 频率分工</b>：光强决定光子数（→ 饱和电流），频率决定单个光子能量（→ 能否打出电子、E<sub>k,max</sub>）。别把两者混为一谈。</li>
+        <li><b>遏止电压不随光强改变</b> —— 这是经典波动说最致命的反例（课件 p023 红字、p025 专页）。</li>
+        <li>普朗克公式的两个极限：低 ν → 瑞利–金斯，高 ν → 维恩。这是必会的小题。</li>
+        <li>玻尔模型只对氢和类氢离子成功，不能解释多电子原子、谱线强度与精细结构；<b>不要把它当成普遍理论</b>。</li>
+        <li>本套课件到玻尔模型为止，<b>没有</b>康普顿散射、德布罗意波、波粒二象性 —— 这几块属于后续内容，别在这张卡片里找。</li>
+        <li>谱线系别记反：莱曼系落 n=1（紫外），巴耳末 n=2（可见），帕邢 n=3（红外）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 专题 2 -->
+<article class="card c0" id="s0b">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">专题 2</span>
+    <h3>概率论初步 <span class="tag">课件 1-2</span></h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="16" data-end="20" data-printed="4–8" href="#" title="原书 §1.3，pp.4–8（PDF 第 16–20 页）">原书 §1.3，pp.4–8</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-1-2" data-page="1" data-end="26" data-printed="1–26" href="#" title="课件 1-2（第 1–26 页）">课件 1-2（p01–p26）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>伽尔顿板：单个小球落点不可预测，大量小球却给出稳定的钟形分布。量子力学的概率是<b>内禀的</b>，但计算工具与经典概率论完全一样：先学会分布、期望、方差、中位数、最可几值，才能读懂 <span class="m">|Ψ|²</span>。</p>
+      <p>课件的路线是：离散分布（钉板）→ 累积分布（CDF）→ 连续极限（概率密度）→ 特征数 → 中心极限定理 → 例题。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>离散分布</b>：n 层钉板有 n+1 个槽，<span class="m">P(j) = N(j)/N</span>（N→∞ 的频率稳定值），<span class="m">Σ<sub>j=0</sub><sup>n</sup>P(j) = 1</span>。</li>
+        <li><b>累积分布</b>：<span class="m">F(j) = Σ<sub>i≤j</sub>P(i)</span>，<span class="m">F(0)=0</span>、<span class="m">F(n+1)=1</span>；<span class="m">P(j) = F(j+1) − F(j)</span>。</li>
+        <li><b>二项分布</b>：<span class="m">P(j) = C(n,j)(1/2)<sup>n</sup></span>，平均值 <span class="m">⟨j⟩ = n/2</span>，标准差 <span class="m">σ = √n/2</span>。</li>
+        <li><b>特征数</b>：众数 <span class="m">j<sub>mode</sub> = arg max P(j)</span>；中位数 <span class="m">j<sub>med</sub> = min{j | F(j) ≥ 1/2}</span>；平均值 <span class="m">⟨j⟩ = ΣjP(j)</span>。</li>
+        <li><b>方差</b>：<span class="m">σ² = ⟨(j−⟨j⟩)²⟩ = ⟨j²⟩ − ⟨j⟩²</span>；σ 是分布宽度，约 68% 落在 <span class="m">⟨j⟩ ± σ</span>。</li>
+        <li><b>连续极限</b>：单点概率为零，改用密度 <span class="m">P(x∈[x,x+dx]) = ρ(x)dx</span>，<span class="m">ρ = dF/dx</span>，<span class="m">P(a≤x≤b) = ∫<sub>a</sub><sup>b</sup>ρdx</span>，<span class="m">⟨x⟩ = ∫xρdx</span>。</li>
+        <li><b>中心极限定理</b>：n→∞ 时二项分布趋于正态 <span class="m">ρ(x) = (1/σ√(2π))e<sup>−(x−μ)²/2σ²</sup></span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>归一化</b>：<span class="m">ΣP(j)=1</span>，<span class="m">∫ρ(x)dx=1</span>。</p>
+        <p><b>期望与方差</b>：<span class="m">⟨x⟩ = ∫xρdx</span>，<span class="m">σ² = ⟨x²⟩ − ⟨x⟩²</span>。</p>
+        <p><b>PDF 与 CDF</b>：<span class="m">ρ(x)</span> 是密度（可大于 1），<span class="m">F(x)</span> 是累计概率（0→1），<span class="m">ρ = dF/dx</span>。<span class="tag hot">课件黄底</span></p>
+        <p style="margin-top:6px"><b>课件例题</b>（p23–p25）：自由落体从高 h 处随机时刻释放，落点密度 <span class="m">ρ(x) = 1/(2√(hx))</span>（0≤x≤h）；验证 <span class="m">∫ρdx = 1</span>，<span class="m">⟨x⟩ = h/3</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>平均值 ≠ 最可几值</b>：二项分布 n=10 时峰值 j=5、平均值 5.00，相等只是对称巧合；一般分布不相等。</li>
+        <li>连续情形「恰好落在某点」概率为零，只能问区间；把 <span class="m">ρ(x)</span> 当概率是常见错误。</li>
+        <li><span class="m">σ</span> 是标准差（分布宽度），不是平均误差；方差的展开式 <span class="m">⟨x²⟩−⟨x⟩²</span> 与定义式等价，但前者好算。</li>
+        <li>课件数值小瑕疵：二项分布平均值 p015 写 5.00、p012 图注 5.051，按 5 处理即可。</li>
+        <li>本讲<b>没有</b> δ 函数；δ 函数在 §2.5（课件 3-5）才出现，不要提前混用。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 第1章 ══════════════ -->
+<div class="chap chap1" id="ch1">
+  <span class="cn">CH.1</span> 波函数
+  <span class="cm">6 节 · 从薛定谔方程到不确定原理</span>
+</div>
+
+<!-- 1.1 -->
+<article class="card c1" id="s11">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.1</span>
+    <h3>薛定谔方程</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="13" data-end="13" data-printed="1–1" href="#" title="原书 §1.1，pp.1–1（PDF 第 13–13 页）">原书 §1.1，p.1</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-2-1" data-page="1" data-end="7" data-printed="1–7" href="#" title="课件 2-1（第 1–7 页）">课件 2-1（p01–p07）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>量子力学的「牛顿第二定律」就是薛定谔方程：给定初始波函数 <span class="m">Ψ(x,0)</span>，方程就决定了此后所有时刻的 <span class="m">Ψ(x,t)</span>，正像牛顿定律决定 <span class="m">x(t)</span> 一样。区别在于，方程的解不再是粒子的位置，而是一个<b>复的波函数</b>。</p>
+      <p>它是基本假设，不能从经典力学「推导」出来；课件用三种方程并排对比，正是为了说明这一点（见推导脉络）。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 三个方程的对照</b>（课件 2-1 p06）</p>
+      <ol>
+        <li>牛顿第二定律：<span class="m">m ∂²x/∂t² = −∂V/∂x</span> —— 常微分方程，解 <span class="m">x(t)</span> 是实数。</li>
+        <li>经典波动方程：<span class="m">∂²y/∂t² = v² ∂²y/∂x²</span> —— 时间、空间都二阶，解（位移/场强）是实数。</li>
+        <li>薛定谔方程：<b>时间一阶、空间二阶</b>，并且带 <span class="m">i</span>，所以解是复数 —— 这是它与经典方程最本质的区别。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 一维含时薛定谔方程</b></p>
+      <span class="eq m">iħ ∂Ψ/∂t = −(ħ²/2m) ∂²Ψ/∂x² + V(x,t)Ψ</span>
+      <p>其中 <span class="m">ħ = h/2π = 1.054572×10⁻³⁴ J·s</span>；<span class="m">V(x,t)</span> 为势能。</p>
+      <p style="margin-top:8px"><b>③ 两种等价表述</b>（课件 2-1 p07）</p>
+      <ol>
+        <li><b>波动力学</b>（薛定谔）：以波函数 <span class="m">Ψ</span> 为基本对象，演化由含时薛定谔方程给出。</li>
+        <li><b>矩阵力学</b>（海森堡）：以算符为基本对象，演化由
+          <span class="eq-l m">dÂ/dt = (1/iħ)[Â, Ĥ] + ∂Â/∂t</span>
+          给出（第三章会系统学）。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>含时薛定谔方程</b>（一维）：
+          <span class="m">iħ ∂Ψ/∂t = −(ħ²/2m) ∂²Ψ/∂x² + VΨ</span>（<a class="loc" data-doc="book" data-page="13" data-end="13" data-printed="1" href="#" title="原书式(1.1)，p.1">式 1.1</a>，p.1）。</p>
+        <p style="margin-top:6px"><b>解是复数波函数</b> <span class="m">Ψ(x,t)</span>，它本身没有直接的可观测意义，其物理含义由 §1.2 的统计诠释给出。</p>
+        <p style="margin-top:6px"><b>地位</b>：量子力学的基本假设，逻辑上相当于经典力学中的牛顿第二定律。<span class="tag hot">课件强调</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>薛定谔方程<b>不能由经典物理推出</b>，它是假设；「从德布罗意波猜出来」只是历史线索，不是证明。</li>
+        <li>方程里是 <b>时间一阶、空间二阶</b>：所以初始条件只需 <span class="m">Ψ(x,0)</span>，不需要 <span class="m">∂Ψ/∂t</span> 的初值（与经典波动方程不同）。</li>
+        <li><span class="m">V</span> 是势能，不是力；力对应 <span class="m">−∂V/∂x</span>，只在物理图像里用于类比。</li>
+        <li>波函数是复数，但任何可观测量的期望值必须是实数 —— 这要求算符是厄密的（§3.2）。</li>
+        <li>课件 2-1 的红框方程是<b>一维</b>形式；三维形式把 <span class="m">∂²/∂x²</span> 换成 <span class="m">∇²</span>（第八章才系统用）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.2 -->
+<article class="card c1" id="s12">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.2</span>
+    <h3>波函数的统计诠释</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="13" data-end="15" data-printed="1–3" href="#" title="原书 §1.2，pp.1–3（PDF 第 13–15 页）">原书 §1.2，pp.1–3</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-2-2" data-page="1" data-end="8" data-printed="1–8" href="#" title="课件 2-2（第 1–8 页）">课件 2-2（p01–p08）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>薛定谔方程给出 <span class="m">Ψ</span>，可「<span class="m">Ψ</span> 到底描述什么」是量子力学最核心的诠释问题。玻恩的答案是：<b><span class="m">|Ψ(x,t)|²</span> 是概率密度</b> —— <span class="m">Ψ</span> 本身不是物质波，而是<b>概率幅</b>。</p>
+      <p>因此单次测量不可预言，只能预言「大量同样制备的系统」的统计分布；测量之后，波函数坍缩到测量结果对应的本征态。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>要点梳理</h4>
+      <ul>
+        <li><b>概率密度</b>：在 <span class="m">x</span> 附近 <span class="m">dx</span> 内发现粒子的概率为 <span class="m">|Ψ(x,t)|² dx</span>。</li>
+        <li><b>区间概率</b>：<span class="m">P(a ≤ x ≤ b) = ∫<sub>a</sub><sup>b</sup> |Ψ(x,t)|² dx</span>。</li>
+        <li><b>归一化</b>：<span class="m">∫<sub>−∞</sub><sup>+∞</sup> |Ψ|² dx = 1</span>（详见 §1.4）。</li>
+        <li><b>波包</b>：<span class="m">Ψ = exp(−x²/2)</span> 型波包，<span class="m">|Ψ|²</span> 的峰位即最可几位置；波包越窄，位置越确定，动量越弥散（不确定原理的伏笔）。</li>
+        <li><b>与经典对照</b>：经典轨道 <span class="m">x(t)</span> 失效，代之以「概率云」<span class="m">Ψ*Ψ</span>；经典波（位移/场强）与量子波（概率幅）物理含义不同。</li>
+      </ul>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>统计诠释</b>：<span class="m">ρ(x,t) = |Ψ(x,t)|²</span> 是概率密度；<span class="m">Ψ</span> 是概率幅，不是可观测的物理量。</p>
+        <p style="margin-top:6px">单次测量结果不可预言；对大量全同系统，结果的分布由 <span class="m">|Ψ|²</span> 给出；测量后波函数坍缩。</p>
+        <p style="margin-top:6px"><b>诠释之争</b>：玻恩/玻尔（正统、概率、互补原理）vs 爱因斯坦（「上帝不掷骰子」，隐变量）；测量问题、隐变量、多世界、退相干至今仍是开放问题。<span class="tag hot">课件展开</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b><span class="m">Ψ</span> 本身不是概率</b>，<span class="m">|Ψ|²</span> 才是；<span class="m">Ψ</span> 可以有节点（为零），节点处发现粒子的概率为零。</li>
+        <li>概率密度有量纲（1/长度），<span class="m">|Ψ|²dx</span> 才是无量纲概率。</li>
+        <li>波函数的整体相位 <span class="m">e<sup>iθ</sup></span> 不影响 <span class="m">|Ψ|²</span>，但<b>相对相位</b>会影响干涉 —— 这是量子力学与经典概率最不同的地方。</li>
+        <li>「坍缩」不是薛定谔方程演化出来的，是诠释里额外加的测量假设；课件 2-2 明确把它列为未解困惑之一。</li>
+        <li>概率诠释只适用于归一化（平方可积）的波函数；平面波 <span class="m">e<sup>ikx</sup></span> 不能直接归一（§2.4、§3.3 处理）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.3 -->
+<article class="card c1" id="s13">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.3</span>
+    <h3>概率论</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="16" data-end="20" data-printed="4–8" href="#" title="原书 §1.3，pp.4–8（PDF 第 16–20 页）">原书 §1.3，pp.4–8</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-1-2" data-page="1" data-end="26" data-printed="1–26" href="#" title="课件 1-2（第 1–26 页）">课件 1-2（p01–p26）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>伽尔顿板：单个小球落点不可预测，大量小球却呈现稳定的钟形分布。量子力学的概率不是「知识不足」，而是<b>内禀的</b>；但计算工具与经典概率论完全一样 —— 分布、期望、方差、中位数、最可几值。</p>
+      <p>这一节把「离散的概率 P(j)」过渡到「连续的概率密度 ρ(x)」，为 <span class="m">|Ψ|²</span> 的运算做准备。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>离散分布</b>：<span class="m">P(j) = N(j)/N</span>（N → ∞ 时的频率稳定值），<span class="m">Σ<sub>j</sub> P(j) = 1</span>。</li>
+        <li><b>累积分布（CDF）</b>：<span class="m">F(j) = Σ<sub>i≤j</sub> P(i)</span>，<span class="m">F(0)=0</span>、<span class="m">F(n+1)=1</span>；<span class="m">P(j) = F(j+1) − F(j)</span>。</li>
+        <li><b>连续极限</b>：单点概率为零，改用密度 <span class="m">P(x ∈ [x, x+dx]) = ρ(x) dx</span>；<span class="m">ρ = dF/dx</span>，<span class="m">P(a ≤ x ≤ b) = ∫<sub>a</sub><sup>b</sup> ρ dx</span>。</li>
+        <li><b>期望值</b>：<span class="m">⟨j⟩ = Σ<sub>j</sub> jP(j)</span>；<span class="m">⟨f(j)⟩ = Σ<sub>j</sub> f(j)P(j)</span>；连续情形 <span class="m">⟨x⟩ = ∫ xρ(x) dx</span>。</li>
+        <li><b>方差</b>：<span class="m">σ² = ⟨(x−⟨x⟩)²⟩ = ⟨x²⟩ − ⟨x⟩²</span>，<span class="m">σ = √σ²</span> 是分布的宽度。</li>
+        <li><b>三个「中心」</b>：最可几值（众数，P 最大处）、中位数（<span class="m">F ≥ 1/2</span> 的最小 x）、平均值 <span class="m">⟨x⟩</span>。对称分布三者相等，一般不等。</li>
+        <li><b>中心极限定理</b>：n → ∞ 时二项分布趋于正态 <span class="m">ρ(x) = (1/σ√(2π)) e<sup>−(x−μ)²/2σ²</sup></span>（书 §1.3 的推导）。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>归一化</b>：<span class="m">ΣP(j) = 1</span>，<span class="m">∫ρ(x) dx = 1</span>。</p>
+        <p><b>期望与方差</b>：<span class="m">⟨x⟩ = ∫xρ dx</span>，<span class="m">σ² = ⟨x²⟩ − ⟨x⟩²</span>。</p>
+        <p><b>离散 ↔ 连续</b>：<span class="m">P(j) → ρ(x)dx</span>，<span class="m">Σ → ∫</span>。</p>
+        <p style="margin-top:6px"><b>课件例题</b>（1-2 p23–p25）：自由落体从高 h 处随机时刻释放，落点密度 <span class="m">ρ(x) = 1/(2√(hx))</span>（0 ≤ x ≤ h），可验证 <span class="m">∫ρ dx = 1</span>，<span class="m">⟨x⟩ = h/3</span>。<span class="tag hot">课件例题</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>PDF 与 CDF 别混</b>：<span class="m">ρ(x)</span> 是密度（可大于 1），<span class="m">F(x)</span> 是累计概率（0→1）；<span class="m">ρ = dF/dx</span>。</li>
+        <li><b>平均值 ≠ 最可几值</b>：二项分布 n=10 时峰值是 j=5（P=0.243），平均值 5.00，看起来相等只是对称性巧合；一般不对称分布不相等。</li>
+        <li>连续情形下问「恰好落在某点」的概率是 0，只能问区间概率。</li>
+        <li>方差的展开式 <span class="m">⟨x²⟩ − ⟨x⟩²</span> 与定义式 <span class="m">⟨(x−⟨x⟩)²⟩</span> 等价，但前者好算 —— 考试常用。</li>
+        <li>课件里二项分布的平均值有一处数值不一致（p015 写 5.00，p012 图注 5.051），按 5 处理即可，不必纠结。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.4 -->
+<article class="card c1" id="s14">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.4</span>
+    <h3>归一化</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="20" data-end="21" data-printed="8–9" href="#" title="原书 §1.4，pp.8–9（PDF 第 20–21 页）">原书 §1.4，pp.8–9</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-2-3" data-page="1" data-end="8" data-printed="1–8" href="#" title="课件 2-3（第 1–8 页）">课件 2-3（p01–p08）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>薛定谔方程是线性的：若 <span class="m">Ψ</span> 是解，<span class="m">CΨ</span> 也是解。可是概率必须总和为 1，波函数不能任意乘常数 —— <b>归一化</b>就是把这个常数定下来。它不改变任何物理结论，只把「同一个态」的表示规范化。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>为什么必须归一化</b>：概率诠释要求 <span class="m">∫|Ψ|²dx = 1</span>；方程线性使 <span class="m">Ψ</span> 的常数因子不定，必须用一个条件把它固定。</li>
+        <li><b>三条作用</b>：定出未定的乘法常数；排除平庸解 <span class="m">Ψ ≡ 0</span>；把「物理可实现的态」限定为方程的<b>平方可积</b>解。</li>
+        <li><b>归一化是否稳定</b>（课件 2-3 p05–p06 的证明）：令
+          <span class="eq-l m">N(t) = ∫ |Ψ(x,t)|² dx</span>
+          把含时薛定谔方程及其共轭代入 <span class="m">dN/dt</span>，分部积分并用边界项为零，得 <span class="m">dN/dt = 0</span>。所以初始归一 → 永远归一。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>归一化条件</b>：<span class="m">∫<sub>−∞</sub><sup>+∞</sup> |Ψ(x,t)|² dx = 1</span>（<a class="loc" data-doc="book" data-page="20" data-end="20" data-printed="8" href="#" title="原书式(1.20)，p.8">式 1.20 </a>附近，p.8）。</p>
+        <p style="margin-top:6px">归一化<b>在时间演化下保持</b>（<span class="m">dN/dt = 0</span>）—— 这保证理论自洽，也是「概率守恒」的来源。</p>
+        <p style="margin-top:6px"><b>物理态</b> ↔ 平方可积的归一化解；平面波不可归一，只能作为「理想化工具」处理（见 §2.4、§3.3）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>归一化因子求出后，<b>整段计算都要带着它</b>；只对部分区间积分不等于总概率 1。</li>
+        <li>未归一化时，期望值公式要写成比值 <span class="m">⟨x⟩ = ∫x|Ψ|²dx / ∫|Ψ|²dx</span>，否则数值无意义。</li>
+        <li>归一化不改变相对概率、不改变能量本征值；两种归一化只差一个常数相位/因子。</li>
+        <li>课件 2-3 的例题（p08）：<span class="m">Ψ(x,0)</span> 是分段线性函数，先定 <span class="m">A</span>，再求最可几位置、区间概率与 <span class="m">⟨x⟩</span> —— 这类题是考试标配，步骤不要跳。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.5 -->
+<article class="card c1" id="s15">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.5</span>
+    <h3>动量与期望值</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="22" data-end="23" data-printed="10–11" href="#" title="原书 §1.5，pp.10–11（PDF 第 22–23 页）">原书 §1.5，pp.10–11</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-2-4" data-page="1" data-end="8" data-printed="1–8" href="#" title="课件 2-4（第 1–8 页）">课件 2-4（p01–p08）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>经典里「平均值」是随机变量乘概率密度积分；量子里「位置」仍是 <span class="m">x</span>，但「动量」不再是数，而是一个<b>算符</b> <span class="m">p̂ = −iħ ∂/∂x</span>。期望值公式于是变成「波函数夹着算符」的三明治结构。</p>
+      <p>由此可以证明 Ehrenfest 定理：量子期望值满足与经典牛顿定律形式相同的方程 —— 量子力学在「平均」意义上恢复经典。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>位置期望</b>：<span class="m">⟨x⟩ = ∫ x |Ψ(x,t)|² dx</span>。</li>
+        <li><b>动量期望</b>：对 <span class="m">⟨x⟩</span> 求时间导数，用含时薛定谔方程代入、分部积分并丢弃边界项，得
+          <span class="eq-l m">d⟨x⟩/dt = −(iħ/m)∫ Ψ* ∂Ψ/∂x dx</span>
+          于是识别出
+          <span class="eq-l m">⟨p⟩ = ∫ Ψ*(−iħ ∂/∂x)Ψ dx</span></li>
+        <li><b>一般力学量</b>：<span class="m">⟨Q⟩ = ∫ Ψ* Q̂(x, −iħ∂/∂x) Ψ dx</span>；算符表：<span class="m">x̂ = x</span>，<span class="m">p̂ = −iħ∂ₓ</span>，<span class="m">T̂ = −(ħ²/2m)∂ₓ²</span>，<span class="m">Ĥ = T̂ + V̂</span>。</li>
+        <li><b>Ehrenfest 定理</b>：<span class="m">d⟨x⟩/dt = ⟨p⟩/m</span>，<span class="m">m d²⟨x⟩/dt² = ⟨−∂V/∂x⟩ = ⟨F⟩</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>动量算符</b>：<span class="m">p̂ = (ħ/i) ∂/∂x = −iħ ∂/∂x</span>（<a class="loc" data-doc="book" data-page="22" data-end="22" data-printed="10" href="#" title="原书式(1.30)，p.10">式 1.30</a>，p.10）。</p>
+        <p><b>期望值公式</b>：<span class="m">⟨Q⟩ = ∫ Ψ* Q̂ Ψ dx</span>（三明治：<span class="m">Ψ*</span> 夹算符夹 <span class="m">Ψ</span>）。</p>
+        <p><b>Ehrenfest 定理</b>：<span class="m">d⟨x⟩/dt = ⟨p⟩/m</span>，<span class="m">m d²⟨x⟩/dt² = ⟨F⟩</span>（p.11）。<span class="tag hot">课件重点</span></p>
+        <p style="margin-top:6px"><b>算符对应</b>：<span class="m">x → x</span>，<span class="m">p → −iħ∂ₓ</span>，<span class="m">T → −(ħ²/2m)∂ₓ²</span>，<span class="m">V → V(x)</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>算符作用在<b>它右边的整个波函数</b>上：<span class="m">p̂(xΨ) = −iħ(Ψ + x∂ₓΨ)</span>，不能只乘 <span class="m">x</span>。</li>
+        <li><span class="m">⟨p⟩</span> 不是 <span class="m">m d⟨x⟩/dt</span> 的定义，而是由 Ehrenfest 定理<b>推出</b>它等于后者；顺序别反。</li>
+        <li>期望值公式里 <span class="m">Ψ*</span> 与 <span class="m">Ψ</span> 不能写成 <span class="m">|Ψ|²</span> 再乘算符（除非算符与 <span class="m">x</span> 对易）。</li>
+        <li>厄密算符保证期望值为实数；若算出复数，检查算符是否厄密或积分是否漏了共轭。</li>
+        <li>课件 2-4 封面公式排版错乱，不要去背它，以正文 <span class="m">⟨Q⟩ = ∫Ψ*Q̂Ψdx</span> 为准。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 1.6 -->
+<article class="card c1" id="s16">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§1.6</span>
+    <h3>不确定原理</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="24" data-end="27" data-printed="12–15" href="#" title="原书 §1.6，pp.12–15（PDF 第 24–27 页）">原书 §1.6，pp.12–15</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-2-5" data-page="1" data-end="5" data-printed="1–5" href="#" title="课件 2-5（第 1–5 页）">课件 2-5（p01–p05）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>经典波也一样：一段很长的波列（波长确定）无法定位；一个短脉冲（位置确定）又由许多波长叠加而成。德布罗意把 <span class="m">p = h/λ</span> 接到粒子上，于是「位置确定」与「动量确定」成了互相排斥的两件事 —— 这就是不确定原理。</p>
+      <p>它不是仪器精度不够，而是<b>波粒二象性的内禀结果</b>；课件用双缝 + X 射线散射电子的图来说明。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（课件版）</summary>
+    <div class="dbody">
+      <p>课件只给直观论证，严格证明留到 §3.5：</p>
+      <ol>
+        <li>经典波列：波长确定 ⇒ 位置不确定；孤子/脉冲：位置确定 ⇒ 波长（动量）不确定。</li>
+        <li>德布罗意 <span class="m">p = h/λ</span> 把「波长」换成「动量」。</li>
+        <li>于是 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>（海森堡不确定关系），<span class="m">σ</span> 为标准差。</li>
+      </ol>
+      <p style="margin-top:8px">严格证明（§3.5）：由施瓦茨不等式 + 对易子 <span class="m">[x̂, p̂] = iħ</span>，得 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>；取等号的条件是波函数为高斯型 —— 即「最小不确定波包」。</p>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>不确定关系</b>：<span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>（<a class="loc" data-doc="book" data-page="24" data-end="24" data-printed="12" href="#" title="原书式(1.41)，p.12">式 1.41</a>，p.12）。<span class="tag hot">课件红框</span></p>
+        <p style="margin-top:6px"><b>标准差</b>（不确定度）：<span class="m">σ<sub>A</sub> = √(⟨A²⟩ − ⟨A⟩²)</span>。</p>
+        <p style="margin-top:6px"><b>高斯波包</b>（课件 2-5 例题）：<span class="m">Ψ(x,t) = A e<sup>−a[(mx²/ħ) + it]</sup></span>，可验证 <span class="m">σ<sub>x</sub>σ<sub>p</sub> = ħ/2</span> 取等号。</p>
+        <p style="margin-top:6px">物理含义：位置越确定（<span class="m">σ<sub>x</sub></span> 小），动量越弥散；反之亦然。这就是「量子涨落」的定量表述。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>σ 是标准差，不是测量误差</b>，也不是「仪器精度」；它是同一个态反复测量的统计散布。</li>
+        <li>课件 2-5 封面把不等号写成 <span class="m">≤</span>，正文是 <span class="m">≥</span> —— 以 <span class="m">≥</span> 为准（课件笔误）。</li>
+        <li><span class="m">Δx Δp ≈ h</span> 是量级估算，严格式子是 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>，差一个 <span class="m">2π</span>，别写错。</li>
+        <li>取等号的条件是高斯波包；普通波包乘积大于 <span class="m">ħ/2</span>。</li>
+        <li>不确定原理不禁止「同时测量」到近似值，只限制两者散布的乘积下界；也<b>不能</b>用它解释「测量扰动」的全部（那是另一种表述）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 第2章 ══════════════ -->
+<div class="chap chap2" id="ch2">
+  <span class="cn">CH.2</span> 定态薛定谔方程
+  <span class="cm">6 节 · 一维问题的五种势</span>
+</div>
+
+<!-- 2.1 -->
+<article class="card c2" id="s21">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.1</span>
+    <h3>定态</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="28" data-end="31" data-printed="16–19" href="#" title="原书 §2.1，pp.16–19（PDF 第 28–31 页）">原书 §2.1，pp.16–19</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-1" data-page="1" data-end="14" data-printed="1–14" href="#" title="课件 3-1（第 1–14 页）">课件 3-1（p01–p14）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>若势能 <span class="m">V(x)</span> 不显含时间，含时薛定谔方程可以「分离变量」：时间部分给一个纯相位因子，空间部分满足一个不含时的方程。这样解出来的态叫<b>定态</b>。</p>
+      <p>定态并不「静止」——波函数仍在振荡，但<b>概率密度不随时间变化</b>，能量也完全确定。这是全部一维问题的起点：先解定态方程，再用定态叠加构造任意含时解。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>设 <span class="m">V</span> 不显含 <span class="m">t</span>，令 <span class="m">Ψ(x,t) = ψ(x)φ(t)</span>，代入含时薛定谔方程并除以 <span class="m">ψφ</span>：
+          <span class="eq-l m">iħ (1/φ) dφ/dt = −(ħ²/2m)(1/ψ) d²ψ/dx² + V</span></li>
+        <li>左边只含 <span class="m">t</span>、右边只含 <span class="m">x</span>，故两边都等于同一常数 <span class="m">E</span>。</li>
+        <li>时间方程 <span class="m">iħ dφ/dt = Eφ</span> 给出 <span class="m">φ(t) = e<sup>−iEt/ħ</sup></span>；空间方程就是<b>定态薛定谔方程</b>：
+          <span class="eq-l m">−(ħ²/2m) d²ψ/dx² + Vψ = Eψ</span></li>
+        <li><b>定态的三条性质</b>：① 概率密度 <span class="m">|Ψ|² = |ψ|²</span> 与时间无关，期望值也只需用 <span class="m">ψ</span> 算；② 能量完全确定（<span class="m">σ<sub>H</sub> = 0</span>）；③ 任意解可写成定态的叠加
+          <span class="eq-l m">Ψ(x,t) = Σ<sub>n</sub> c<sub>n</sub>ψ<sub>n</sub>(x)e<sup>−iE<sub>n</sub>t/ħ</sup></span>
+          系数由初态 <span class="m">c<sub>n</sub> = ∫ψ<sub>n</sub>*Ψ(x,0)dx</span> 定（正交归一性保证）。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>定态薛定谔方程</b>：<span class="m">−(ħ²/2m)ψ″ + Vψ = Eψ</span>（<a class="loc" data-doc="book" data-page="28" data-end="28" data-printed="16" href="#" title="原书式(2.5)，p.16">式 2.5</a>，p.16）。<span class="tag hot">课件红框</span></p>
+        <p style="margin-top:6px"><b>定态</b>：<span class="m">Ψ = ψ(x)e<sup>−iEt/ħ</sup></span>，概率密度不随时间变，能量取确定值 <span class="m">E</span>。</p>
+        <p style="margin-top:6px"><b>一般解</b>：<span class="m">Ψ = Σ c<sub>n</sub>ψ<sub>n</sub>e<sup>−iE<sub>n</sub>t/ħ</sup></span>；<span class="m">c<sub>n</sub> = ⟨ψ<sub>n</sub>|Ψ(0)⟩</span>。叠加态的概率密度<b>会</b>随时间振荡（拍频 <span class="m">|E₂−E₁|/ħ</span>）。</p>
+        <p style="margin-top:6px">「不同的物理条件只体现在势 <span class="m">V(x)</span> 里」—— 这是本章反复用的思想。<span class="tag hot">课件强调</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>定态<b>不是</b>「什么都不动」：波函数有 <span class="m">e<sup>−iEt/ħ</sup></span> 相位，|Ψ|² 才不随时间变。</li>
+        <li>只有 <span class="m">V</span> 不显含 <span class="m">t</span> 才能分离变量；含时势必须解完整的含时方程。</li>
+        <li>叠加态一般<b>不是</b>定态：两态叠加的 <span class="m">|Ψ|²</span> 含 <span class="m">cos[(E₂−E₁)t/ħ]</span> 交叉项（课件 3-1 例题，式 14）。</li>
+        <li>能量零点可任取，所以 <span class="m">E</span> 可正可负；只有「相对势垒」才有意义。</li>
+        <li><span class="m">ψ</span> 是定态方程的解，<span class="m">Ψ</span> 是含时解；求期望值时用哪一个都行，但不要混写。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.2 -->
+<article class="card c2" id="s22">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.2</span>
+    <h3>一维无限深方势阱</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="32" data-end="37" data-printed="20–25" href="#" title="原书 §2.2，pp.20–25（PDF 第 32–37 页）">原书 §2.2，pp.20–25</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-2" data-page="1" data-end="12" data-printed="1–12" href="#" title="课件 3-2（第 1–12 页）">课件 3-2（p01–p12）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>把粒子关进「无限高」的盒子：<span class="m">0 &lt; x &lt; a</span> 内 <span class="m">V=0</span>，外面 <span class="m">V=∞</span>。盒外波函数必须为零，盒内是自由粒子 —— 但两端钉死在零，于是只有<b>驻波</b>能存在，能量被量子化。</p>
+      <p>这是最简单的束缚态模型：波函数节点数 = <span class="m">n−1</span>，能级 <span class="m">E<sub>n</sub> ∝ n²</span> 不等间距，基态能量不为零（零点能）。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>分区：盒外 <span class="m">ψ = 0</span>；盒内 <span class="m">ψ″ = −k²ψ</span>，<span class="m">k = √(2mE)/ħ</span>，通解
+          <span class="eq-l m">ψ = A sin kx + B cos kx</span></li>
+        <li>边界条件（<span class="m">ψ</span> 连续）：<span class="m">ψ(0) = 0 ⟹ B = 0</span>；<span class="m">ψ(a) = 0 ⟹ k<sub>n</sub>a = nπ</span>，即 <span class="m">k<sub>n</sub> = nπ/a</span>（n = 1, 2, 3, …）。</li>
+        <li>能级：<span class="m">E<sub>n</sub> = ħ²k<sub>n</sub>²/2m = n²π²ħ²/(2ma²)</span>。</li>
+        <li>归一化：<span class="m">∫<sub>0</sub><sup>a</sup>|A|²sin²(nπx/a)dx = |A|²a/2 = 1</span>，故 <span class="m">A = √(2/a)</span>。</li>
+        <li>正交归一：<span class="m">∫ψ<sub>m</sub>*ψ<sub>n</sub>dx = δ<sub>mn</sub></span>（积化和差即可证）。</li>
+        <li>任意初态展开：<span class="m">Ψ(x,0) = Σc<sub>n</sub>ψ<sub>n</sub></span>，<span class="m">c<sub>n</sub> = ∫ψ<sub>n</sub>*Ψ(x,0)dx</span>；能量期望 <span class="m">⟨H⟩ = Σ|c<sub>n</sub>|²E<sub>n</sub></span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>波函数与能级</b>（<a class="loc" data-doc="book" data-page="32" data-end="32" data-printed="20" href="#" title="原书式(2.27)，p.20">式 2.27</a>、2.28，p.20）：
+          <span class="m">ψ<sub>n</sub> = √(2/a) sin(nπx/a)</span>，<span class="m">E<sub>n</sub> = n²π²ħ²/(2ma²)</span>，n = 1, 2, 3, …</p>
+        <p style="margin-top:6px"><b>正交归一</b>：<span class="m">⟨ψ<sub>m</sub>|ψ<sub>n</sub>⟩ = δ<sub>mn</sub></span>；<b>完备</b>：任意函数可展开。</p>
+        <p style="margin-top:6px"><b>图像</b>：<span class="m">ψ<sub>1</sub></span> 无节点、偶对称；<span class="m">ψ<sub>2</sub></span> 一个节点、奇；<span class="m">ψ<sub>3</sub></span> 两个节点、偶；节点数 = n − 1。<span class="tag hot">课件 p04 图</span></p>
+        <p style="margin-top:6px"><b>课件例题</b>（p10）：<span class="m">Ψ(x,0) = Ax(a−x)</span>，先由归一化得 <span class="m">A = √(30/a⁵)</span>，再求 <span class="m">c<sub>n</sub></span> 与含时解 —— 偶数 n 的系数为零。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>n 从 1 开始</b>：<span class="m">n=0</span> 给出 <span class="m">ψ≡0</span>，没有物理意义（归一化失败）。</li>
+        <li>能级 <span class="m">∝ n²</span>，<b>不是</b>等间距；间距随 n 增大而变大。</li>
+        <li>波函数在壁上连续（为零），但<b>导数</b>在壁上不连续 —— 因为 <span class="m">V=∞</span>，这是允许的例外。</li>
+        <li>「偶/奇」是相对盒中心 <span class="m">a/2</span> 说的，不是相对 <span class="m">x=0</span>；写宇称时注意坐标原点。</li>
+        <li>展开系数 <span class="m">c<sub>n</sub></span> 由初态决定，不要与 <span class="m">ψ<sub>n</sub></span> 本身混淆；<span class="m">Σ|c<sub>n</sub>|² = 1</span> 可用来验算。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.3 -->
+<article class="card c2" id="s23">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.3</span>
+    <h3>谐振子</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="38" data-end="50" data-printed="26–38" href="#" title="原书 §2.3，pp.26–38（PDF 第 38–50 页）">原书 §2.3，pp.26–38</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-3" data-page="1" data-end="14" data-printed="1–14" href="#" title="课件 3-3（第 1–14 页）">课件 3-3（p01–p14）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>任何势能在极小点附近都可以近似成抛物线 <span class="m">V ≈ ½mω²x²</span>，所以谐振子不只是「弹簧」，而是<b>一切束缚体系的通用模型</b>，也是量子场论的基础工具（课件星标）。</p>
+      <p>它的能级是等间距的 <span class="m">E<sub>n</sub> = (n+½)ħω</span>：有零点能、能级步长恒为 <span class="m">ħω</span>，这些都与无限深阱的 <span class="m">n²</span> 分布形成对照。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络（代数法）</summary>
+    <div class="dbody">
+      <ol>
+        <li>哈密顿量 <span class="m">H = p²/2m + ½mω²x²</span>。定义升降算符
+          <span class="eq-l m">a<sub>±</sub> = (1/√(2mωħ))(∓ip + mωx)</span></li>
+        <li>由 <span class="m">[x, p] = iħ</span> 得 <span class="m">[a<sub>−</sub>, a<sub>+</sub>] = 1</span>，并且
+          <span class="eq-l m">a<sub>−</sub>a<sub>+</sub> = H/ħω + ½，　a<sub>+</sub>a<sub>−</sub> = H/ħω − ½</span>
+          故 <span class="m">H = ħω(a<sub>+</sub>a<sub>−</sub> + ½)</span>。</li>
+        <li>若 <span class="m">ψ</span> 是能量 <span class="m">E</span> 的定态，则 <span class="m">a<sub>+</sub>ψ</span> 的能量为 <span class="m">E+ħω</span>、<span class="m">a<sub>−</sub>ψ</span> 为 <span class="m">E−ħω</span>（「爬梯子」）。</li>
+        <li>梯子必须到底：存在 <span class="m">ψ<sub>0</sub></span> 使 <span class="m">a<sub>−</sub>ψ<sub>0</sub> = 0</span>，解微分方程得
+          <span class="eq-l m">ψ<sub>0</sub> = (mω/πħ)<sup>1/4</sup> e<sup>−mωx²/2ħ</sup>，　E<sub>0</sub> = ½ħω</span></li>
+        <li>逐级上升：<span class="m">ψ<sub>n</sub> = (1/√(n!))(a<sub>+</sub>)<sup>n</sup>ψ<sub>0</sub></span>，<span class="m">E<sub>n</sub> = (n+½)ħω</span>；矩阵元
+          <span class="m">a<sub>+</sub>ψ<sub>n</sub> = √(n+1)ψ<sub>n+1</sub></span>，<span class="m">a<sub>−</sub>ψ<sub>n</sub> = √n ψ<sub>n−1</sub></span>。</li>
+        <li>算符的厄密共轭关系：<span class="m">∫f*(a<sub>±</sub>g)dx = ∫(a<sub>∓</sub>f)*g dx</span>；由此可证正交性。</li>
+      </ol>
+      <p style="margin-top:8px">解析法（幂级数、厄密多项式）给出同一组能级，但代数法更干净，也是后续「二次量子化」的雏形。</p>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>能级</b>：<span class="m">E<sub>n</sub> = (n + ½)ħω</span>，<span class="m">ω = √(k/m)</span>，<span class="m">n = 0, 1, 2, …</span>（等间距，零点能 ½ħω）。</p>
+        <p style="margin-top:6px"><b>基态</b>：<span class="m">ψ<sub>0</sub> = (mω/πħ)<sup>1/4</sup>e<sup>−mωx²/2ħ</sup></span>（高斯型，最小不确定波包）。</p>
+        <p style="margin-top:6px"><b>升降算符</b>：<span class="m">a<sub>±</sub> = (1/√(2mωħ))(∓ip + mωx)</span>；<span class="m">[a<sub>−</sub>,a<sub>+</sub>]=1</span>，<span class="m">H = ħω(a<sub>+</sub>a<sub>−</sub>+½)</span>。</p>
+        <p style="margin-top:6px"><b>课件例题</b>（p11）：用 <span class="m">x = √(ħ/2mω)(a<sub>+</sub>+a<sub>−</sub>)</span> 算 <span class="m">⟨V⟩ = ½mω²⟨x²⟩ = ½ħω(n+½) = ½E<sub>n</sub></span> —— 与位力定理一致。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>零点能不能丢</b>：<span class="m">E<sub>0</sub> = ½ħω ≠ 0</span>，这是不确定原理的直接后果。</li>
+        <li><span class="m">a<sub>−</sub>ψ<sub>0</sub> = 0</span> 是「梯子到底」的条件，不是「<span class="m">a<sub>−</sub></span> 作用在任何态都为零」；对 <span class="m">n ≥ 1</span>，<span class="m">a<sub>−</sub>ψ<sub>n</sub> = √n ψ<sub>n−1</sub> ≠ 0</span>。</li>
+        <li>算符顺序不能交换：<span class="m">a<sub>+</sub>a<sub>−</sub> ≠ a<sub>−</sub>a<sub>+</sub></span>，差 1 就是 <span class="m">[a<sub>−</sub>,a<sub>+</sub>]=1</span>。</li>
+        <li><span class="m">ω</span> 由势的曲率给出：<span class="m">ω = √(V″/m)</span>，不要与经典频率混淆单位。</li>
+        <li>谐振子波函数有奇偶性（<span class="m">ψ<sub>n</sub></span> 宇称 <span class="m">(−1)<sup>n</sup></span>），但这不是所有势都有的性质，只对对称势成立。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.4 -->
+<article class="card c2" id="s24">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.4</span>
+    <h3>自由粒子</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="51" data-end="56" data-printed="39–44" href="#" title="原书 §2.4，pp.39–44（PDF 第 51–56 页）">原书 §2.4，pp.39–44</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-4" data-page="1" data-end="10" data-printed="1–10" href="#" title="课件 3-4（第 1–10 页）">课件 3-4（p01–p10）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>自由粒子 <span class="m">V=0</span> 的解是平面波 <span class="m">e<sup>ikx</sup></span>，能量可以取<b>任意正值</b>（连续谱）。但平面波在全空间不可归一 —— 它不是物理态，只能作为「理想化基元」；真正的粒子是这些平面波的<b>叠加</b>（波包）。</p>
+      <p>波包有两个速度：相位传播的 <span class="m">v<sub>p</sub></span> 与包络传播的 <span class="m">v<sub>g</sub></span>。量子力学里只有群速度对应经典粒子速度。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>定态方程 <span class="m">−(ħ²/2m)ψ″ = Eψ</span>，<span class="m">k = √(2mE)/ħ</span>，解
+          <span class="eq-l m">ψ<sub>k</sub>(x) = Ae<sup>ikx</sup> + Be<sup>−ikx</sup>，　E = ħ²k²/2m</span>
+          <span class="m">k&gt;0</span> 右行、<span class="m">k&lt;0</span> 左行；<span class="m">E</span> 任意正数。</li>
+        <li>含时解：<span class="m">Ψ<sub>k</sub>(x,t) = Ae<sup>i(kx−ωt)</sup></span>，<span class="m">ω = ħk²/2m</span>。</li>
+        <li>相速度 <span class="m">v<sub>p</sub> = ω/k = ħk/2m = √(E/2m)</span>；群速度 <span class="m">v<sub>g</sub> = dω/dk = ħk/m = √(2E/m)</span>。</li>
+        <li>与经典对比：经典 <span class="m">v = √(2E/m) = v<sub>g</sub></span>；而 <span class="m">v<sub>p</sub> = v<sub>g</sub>/2</span>。非相对论自由粒子的相速度不等于粒子速度。</li>
+        <li>不可归一的原因：<span class="m">∫|ψ|²dx = |A|²∫dx → ∞</span>。补救：把权重换成 <span class="m">φ(k)</span>，求和变积分
+          <span class="eq-l m">Ψ(x,t) = (1/√(2π))∫φ(k)e<sup>i(kx−ωt)</sup>dk</span>
+          反演 <span class="m">φ(k) = (1/√(2π))∫Ψ(x,0)e<sup>−ikx</sup>dx</span>。</li>
+        <li>课件例题（方波包）：<span class="m">Ψ(x,0) = A</span>（<span class="m">|x|&lt;a</span>）其余为零，得 <span class="m">A=1/√(2a)</span>、<span class="m">φ(k) ∝ sin(ka)/k</span>；窄包（a 小）→ <span class="m">φ(k)</span> 宽；宽包 → <span class="m">φ(k)</span> 窄 —— 不确定原理的体现。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>平面波</b>：<span class="m">ψ<sub>k</sub> = Ae<sup>ikx</sup></span>，<span class="m">E = ħ²k²/2m</span>，能量连续、任意正。<span class="tag hot">课件红框</span></p>
+        <p style="margin-top:6px"><b>两个速度</b>：<span class="m">v<sub>p</sub> = ħk/2m</span>，<span class="m">v<sub>g</sub> = ħk/m = v<sub>classical</sub></span>；非相对论下 <span class="m">v<sub>p</sub> = v<sub>g</sub>/2</span>。</p>
+        <p style="margin-top:6px"><b>波包</b>：<span class="m">Ψ = (1/√(2π))∫φ(k)e<sup>i(kx−ωt)</sup>dk</span>；<span class="m">φ(k)</span> 是动量空间的波函数（傅里叶变换）。</p>
+        <p style="margin-top:6px"><b>不确定原理</b>：波包越窄，<span class="m">φ(k)</span> 越宽 —— 严格地 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>平面波<b>不可归一</b>，不能直接算 <span class="m">⟨x⟩</span>、<span class="m">σ<sub>x</sub></span>；必须用波包（或箱归一化）。</li>
+        <li><span class="m">v<sub>p</sub></span> 可以大于 <span class="m">c</span>（非相对论理论里无所谓），但<b>群速度</b>才是信号/粒子速度。</li>
+        <li><span class="m">k</span> 的符号决定传播方向；<span class="m">E</span> 只依赖 <span class="m">k²</span>，正负 <span class="m">k</span> 能量相同（二重简并）。</li>
+        <li>方波包的 <span class="m">φ(k)</span> 是 <span class="m">sin(ka)/k</span> 型，不是高斯；高斯包才给出最小不确定乘积。</li>
+        <li>「自由粒子能量连续」与「束缚态能量分立」的判据是 <span class="m">E</span> 与 <span class="m">V(±∞)</span> 的关系（§2.5 会系统讲）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.5 -->
+<article class="card c2" id="s25">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.5</span>
+    <h3>δ 函数势</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="57" data-end="62" data-printed="45–50" href="#" title="原书 §2.5，pp.45–50（PDF 第 57–62 页）">原书 §2.5，pp.45–50</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-5" data-page="1" data-end="15" data-printed="1–15" href="#" title="课件 3-5（第 1–15 页）">课件 3-5（p01–p15）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p><span class="m">V(x) = −αδ(x)</span> 是「极短程相互作用」的模型：一个很窄很深的势阱。它能抓住粒子形成唯一的束缚态；对入射粒子则必有部分反射、部分透射 —— 即使势是<b>排斥</b>的（<span class="m">α&lt;0</span>）也有透射，这就是量子隧穿。</p>
+      <p>δ 势的价值在于：所有计算都能手算到底，又能演示束缚态与散射态的全套方法。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 束缚态（E &lt; 0）</b></p>
+      <ol>
+        <li>两侧 <span class="m">ψ″ = κ²ψ</span>，<span class="m">κ = √(−2mE)/ħ</span>，解 <span class="m">ψ = Be<sup>κx</sup></span>（x&lt;0）、<span class="m">Fe<sup>−κx</sup></span>（x&gt;0）；<span class="m">ψ</span> 连续给 <span class="m">F = B</span>。</li>
+        <li>在 <span class="m">x=0</span> 积分定态方程，得导数跃变
+          <span class="eq-l m">Δψ′ = −(2mα/ħ²)ψ(0)</span>
+          代入得 <span class="m">−2Bκ = −2mαB/ħ²</span>，故 <span class="m">κ = mα/ħ²</span>，<span class="m">E = −mα²/2ħ²</span>。</li>
+        <li>归一化：<span class="m">2|B|²/κ = 1</span>，<span class="m">B = √(mα)/ħ</span>，故
+          <span class="eq-l m">ψ(x) = (√(mα)/ħ) e<sup>−mα|x|/ħ²</sup></span>
+          只有一个束缚态（无论 α 多大）。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 散射态（E &gt; 0）</b></p>
+      <ol>
+        <li>两侧平面波：<span class="m">Ae<sup>ikx</sup>+Be<sup>−ikx</sup></span>（x&lt;0），<span class="m">Fe<sup>ikx</sup></span>（x&gt;0，无左入射）。</li>
+        <li>连续性与跃变条件给出 <span class="m">B = iβA/(1−iβ)</span>、<span class="m">F = A/(1−iβ)</span>，<span class="m">β ≡ mα/(ħ²k)</span>。</li>
+        <li>反射/透射系数 <span class="m">R = β²/(1+β²)</span>、<span class="m">T = 1/(1+β²) = E/(E + mα²/2ħ²)</span>，满足 <span class="m">R+T=1</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>唯一束缚态</b>：<span class="m">E = −mα²/2ħ²</span>，<span class="m">ψ = (√(mα)/ħ)e<sup>−mα|x|/ħ²</sup></span>（<a class="loc" data-doc="book" data-page="57" data-end="57" data-printed="45" href="#" title="原书式(2.129)，p.45">式 2.129 </a>附近，p.45）。<span class="tag hot">课件黑框</span></p>
+        <p style="margin-top:6px"><b>散射系数</b>：<span class="m">T = 1/(1 + mα²/(2ħ²E))</span>，<span class="m">R = 1 − T</span>；<span class="m">R+T=1</span>。</p>
+        <p style="margin-top:6px"><b>重要推论</b>：<span class="m">T</span> 只依赖 <span class="m">α²</span> —— 把阱换成垒（<span class="m">α → −α</span>）透射系数不变，仍有 <span class="m">T&gt;0</span>：<b>量子隧穿</b>。<span class="tag hot">课件★</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>δ 势只让 <b>一阶导数</b>跃变，波函数本身仍连续；跃变系数是 <span class="m">−2mα/ħ²</span>，别漏 <span class="m">m/ħ²</span>。</li>
+        <li>束缚态只在 <span class="m">α&gt;0</span>（吸引）时存在；<span class="m">α&lt;0</span>（排斥）没有束缚态，但散射仍会反射。</li>
+        <li>散射态 <span class="m">E&gt;0</span> 不能归一，只能比较概率流；<span class="m">R</span>、<span class="m">T</span> 是概率流之比，不是波函数模方之比。</li>
+        <li><span class="m">E → 0</span> 时 <span class="m">T → 0</span>（长波长全部反射）；<span class="m">E</span> 很大时 <span class="m">T → 1</span>（短波长几乎不感受势）。</li>
+        <li>课件 3-5 有 3 道雨课堂题，其中「δ 函数不连续」类选项是常见陷阱：δ 本身在 0 点发散，但 <span class="m">∫δ=1</span>。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 2.6 -->
+<article class="card c2" id="s26">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§2.6</span>
+    <h3>有限深方势阱</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="63" data-end="65" data-printed="51–53" href="#" title="原书 §2.6，pp.51–53（PDF 第 63–65 页）">原书 §2.6，pp.51–53</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-3-6" data-page="1" data-end="13" data-printed="1–13" href="#" title="课件 3-6（第 1–13 页）">课件 3-6（p01–p13）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>把无限深阱的墙降到有限高度 <span class="m">V₀</span>：波函数可以<b>渗入</b>经典禁区并指数衰减，束缚态数目有限（不像无限深阱那样无限多）。阱越浅越窄，束缚态越少；浅到一定程度连一个束缚态都留不住。</p>
+      <p>同一个势还可以当散射问题处理：入射粒子在某些能量下<b>完全透射</b>（共振），这是量子干涉的结果。把阱换成垒，就得到 STM 的隧穿模型。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <p><b>① 束缚态（−V₀ &lt; E &lt; 0）</b></p>
+      <ol>
+        <li>分区：外区 <span class="m">ψ″ = κ²ψ</span>，<span class="m">κ = √(−2mE)/ħ</span>；内区 <span class="m">ψ″ = −ℓ²ψ</span>，<span class="m">ℓ = √(2m(E+V₀))/ħ</span>。</li>
+        <li>偶势 → 取偶/奇解：内部 <span class="m">cos ℓx</span>（偶）或 <span class="m">sin ℓx</span>（奇）；外部指数衰减。</li>
+        <li>在边界匹配 <span class="m">ψ</span> 与 <span class="m">ψ′</span>，得超越方程
+          <span class="eq-l m">κ = ℓ tan(ℓa)（偶态）　/　−κ = ℓ cot(ℓa)（奇态）</span></li>
+        <li>令 <span class="m">z = ℓa</span>，<span class="m">z₀ = (a/ħ)√(2mV₀)</span>，化为
+          <span class="eq-l m">tan z = √((z₀/z)² − 1)</span>
+          用图解法求交点（<a class="loc" data-doc="book" data-page="64" data-end="64" data-printed="52" href="#" title="原书图 2.17，p.52">图 2.17</a>）。</li>
+        <li>交点数 = 束缚态数：<span class="m">z₀ &lt; π/2</span> 时只有一个偶束缚态；<span class="m">z₀ → ∞</span> 回到无限深阱 <span class="m">E<sub>n</sub> ∝ n²</span>。</li>
+      </ol>
+      <p style="margin-top:8px"><b>② 散射（E &gt; 0）与隧穿</b></p>
+      <ol>
+        <li>透射系数 <span class="m">T<sup>−1</sup> = 1 + [V₀²/(4E(E+V₀))] sin²[(2a/ħ)√(2m(E+V₀))]</span>。</li>
+        <li>共振条件：正弦为零 ⇒ <span class="m">E<sub>n</sub> + V₀ = n²π²ħ²/2m(2a)²</span>，此时 <span class="m">T=1</span>（与宽 2a 的无限深阱能级一致）。</li>
+        <li>垒（<span class="m">V₀ → −V₀</span>）：<span class="m">T<sup>−1</sup> = 1 + [V₀²/(4E(V₀−E))]sinh²(κL)</span>；<span class="m">κL ≫ 1</span> 时
+          <span class="eq-l m">T ≈ [16E(V₀−E)/V₀²] e<sup>−2κL</sup></span></li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>束缚态条件</b>：<span class="m">κ = ℓ tan(ℓa)</span>（偶）、<span class="m">−κ = ℓ cot(ℓa)</span>（奇），<span class="m">z₀ = (a/ħ)√(2mV₀)</span>。<span class="tag hot">课件红框</span></p>
+        <p style="margin-top:6px"><b>束缚态个数有限</b>：由 <span class="m">z₀</span> 与 <span class="m">π/2</span> 的比较决定；浅阱可能只剩一个（或零个）。</p>
+        <p style="margin-top:6px"><b>共振透射</b>：<span class="m">T=1</span> 的条件 <span class="m">E_n+V₀ = n²π²ħ²/2m(2a)²</span>，本质是多重反射相消干涉。</p>
+        <p style="margin-top:6px"><b>隧穿</b>：<span class="m">T ∝ e<sup>−2κL</sup></span>，<span class="m">κ = √(2m(V₀−E))/ħ</span>；STM 电流 <span class="m">I ∝ e<sup>−2κL</sup></span>，间距每增加 ~1 Å 电流降一个量级。<span class="tag hot">课件 STM</span></p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>有限深阱的束缚态能量以<b>阱底</b>为负值基准（外部 <span class="m">V=0</span>）：<span class="m">−V₀ &lt; E &lt; 0</span>；别把 <span class="m">E</span> 写成正。</li>
+        <li>偶/奇解要分开处理：偶态用 <span class="m">cos ℓx</span> + <span class="m">tan</span>，奇态用 <span class="m">sin ℓx</span> + <span class="m">cot</span>；混用会得到错误能级。</li>
+        <li><span class="m">z₀</span> 的定义里是 <span class="m">V₀</span> 与阱宽 <span class="m">2a</span>（若用半宽 a）；不同教材记号不同，做题先统一。</li>
+        <li>「完全透射」只在特定能量发生，不是所有 <span class="m">E</span> 都透射；<span class="m">T=1</span> 与「无势」不同，是干涉效应。</li>
+        <li>STM 的 <span class="m">κ</span> 用功函数 <span class="m">Φ</span>：<span class="m">κ = √(2mΦ)/ħ ≈ 0.512√(Φ/eV) Å⁻¹</span>；别把 <span class="m">V₀−E</span> 写成 <span class="m">V₀</span>。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 第3章 ══════════════ -->
+<div class="chap chap3" id="ch3">
+  <span class="cn">CH.3</span> 形式理论
+  <span class="cm">6 节 · 线性代数化的量子力学</span>
+</div>
+
+<!-- 3.1 -->
+<article class="card c3" id="s31">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.1</span>
+    <h3>希尔伯特空间</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="74" data-end="75" data-printed="62–63" href="#" title="原书 §3.1，pp.62–63（PDF 第 74–75 页）">原书 §3.1，pp.62–63</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-1" data-page="1" data-end="4" data-printed="1–4" href="#" title="课件 4-1（第 1–4 页）">课件 4-1（p01–p04）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>前两章每个势都要从头解一遍微分方程。这一章换一种语言：把波函数看成<b>向量</b>、把算符看成<b>线性变换</b>，量子力学就变成了线性代数 —— 具体势的「偶然性」被抽象掉，剩下的是一般结构（课件：量子力学的天然语言是线性代数）。</p>
+      <p>「希尔伯特空间」就是允许的波函数全体：平方可积、可归一化的函数集合 <span class="m">L²(a,b)</span>。</p>
+    </div>
+    <div class="blk b-deriv">
+      <h4>要点梳理</h4>
+      <ul>
+        <li><b>态矢量</b>：<span class="m">|α⟩ ↔ a = (a₁, …, a_N)ᵀ</span>；<b>算符</b>：<span class="m">|β⟩ = T|α⟩ ↔ b = Ta</span>。</li>
+        <li><b>内积</b>：<span class="m">⟨α|β⟩ = a₁*b₁ + … + a_N*b_N</span>；连续情形 <span class="m">⟨f|g⟩ = ∫<sub>a</sub><sup>b</sup> f*(x)g(x)dx</span>。</li>
+        <li><b>内积的性质</b>：<span class="m">⟨g|f⟩ = ⟨f|g⟩*</span>；<span class="m">⟨f|f⟩ = ∫|f|²dx ≥ 0</span>（等号仅当 f=0）。</li>
+        <li><b>正交归一</b>：<span class="m">⟨f<sub>m</sub>|f<sub>n</sub>⟩ = δ<sub>mn</sub></span>（归一 <span class="m">⟨f|f⟩=1</span>，正交 <span class="m">⟨f|g⟩=0</span>）。</li>
+        <li><b>完备性</b>：希尔伯特空间中任一函数可展开 <span class="m">f = Σc<sub>n</sub>f<sub>n</sub></span>，且 <span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|f⟩</span>。</li>
+      </ul>
+    </div>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>内积</b>：<span class="m">⟨f|g⟩ = ∫f*g dx</span>；<b>归一</b> <span class="m">⟨f|f⟩=1</span>；<b>正交</b> <span class="m">⟨f|g⟩=0</span>。</p>
+        <p style="margin-top:6px"><b>完备展开</b>：<span class="m">f = Σc<sub>n</sub>f<sub>n</sub></span>，<span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|f⟩</span> —— 这就是「投影」。</p>
+        <p style="margin-top:6px"><b>希尔伯特空间</b>：定义在区间 <span class="m">(a,b)</span> 上、满足 <span class="m">∫|f|²dx &lt; ∞</span> 的函数全体（平方可积）。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>内积里是 <b><span class="m">f*</span></b>（共轭），不是 <span class="m">f</span>；写 <span class="m">∫fg</span> 会得到复数甚至在 <span class="m">f=g</span> 时不为正。</li>
+        <li><span class="m">⟨f|g⟩</span> 与 <span class="m">⟨g|f⟩</span> 互为共轭，不要当成相等。</li>
+        <li>完备性是<b>公理</b>（对物理上允许的算符本征函数系成立），不是随便一组函数都完备。</li>
+        <li>连续谱的本征函数不在希尔伯特空间内（不可归一），但可用 δ 函数归一（§3.3）。</li>
+        <li>有限维向量与函数空间写法一一对应，但「矩阵」是无穷维的，别把有限维直觉（如行列式）直接搬过来。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.2 -->
+<article class="card c3" id="s32">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.2</span>
+    <h3>可观测量与厄密算符</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="76" data-end="78" data-printed="64–66" href="#" title="原书 §3.2，pp.64–66（PDF 第 76–78 页）">原书 §3.2，pp.64–66</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-2" data-page="1" data-end="5" data-printed="1–5" href="#" title="课件 4-2（第 1–5 页）">课件 4-2（p01–p05）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>测量结果必须是实数，而量子力学用算符表示可观测量 —— 算符必须满足一个额外条件，才能保证期望值永远是实数。这个条件就是<b>厄密性</b>。</p>
+      <p>「确定的测量值」对应算符的<b>本征态</b>：若系统处于 <span class="m">Q̂</span> 的本征态，测 <span class="m">Q</span> 必得本征值、没有涨落。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>期望值 <span class="m">⟨Q⟩ = ∫ψ*Q̂ψ dx = ⟨ψ|Q̂ψ⟩</span> 必须为实，即 <span class="m">⟨ψ|Q̂ψ⟩ = ⟨Q̂ψ|ψ⟩</span>。</li>
+        <li>把这条对「一切 <span class="m">f</span>」都要求，就是厄密算符的定义
+          <span class="eq-l m">⟨f|Q̂f⟩ = ⟨Q̂f|f⟩</span></li>
+        <li><b>例：动量算符厄密</b>（课件 4-2 p03）：分部积分
+          <span class="eq-l m">⟨f|p̂g⟩ = ∫f*(−iħ g′)dx = −iħf*g|<sub>边界</sub> + ∫(−iħf′)*g dx = ⟨p̂f|g⟩</span>
+          边界项在波函数于无穷远趋于零时消失。</li>
+        <li><b>本征方程</b>：若每次测量必得同一值 <span class="m">q</span>，则方差 <span class="m">⟨(Q̂−q)²⟩=0</span>，即
+          <span class="eq-l m">Q̂Ψ = qΨ</span>
+          <span class="m">Ψ</span> 为本征函数，<span class="m">q</span> 为本征值；全体本征值组成<b>谱</b>，多个本征函数对应同一本征值称为<b>简并</b>。</li>
+        <li><b>例：</b><span class="m">Q̂ = i d/dφ</span>，周期条件 <span class="m">f(φ+2π)=f(φ)</span>（课件 4-2 p05）：本征值 <span class="m">q = 0, ±1, ±2, …</span>，且非简并。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>厄密条件</b>：<span class="m">⟨f|Q̂g⟩ = ⟨Q̂f|g⟩</span>（对一切 f, g）⟺ 期望值为实。</p>
+        <p style="margin-top:6px"><b>确定态 = 本征态</b>：<span class="m">Q̂ψ = qψ</span>，测 <span class="m">Q</span> 必得 <span class="m">q</span>，方差为零。<span class="tag hot">课件方框</span></p>
+        <p style="margin-top:6px"><b>算符语言</b>：可观测量 ↔ 厄密算符；本征值 ↔ 可能的测量值；本征态 ↔ 测量后坍缩到的态。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>厄密性是 <span class="m">⟨f|Q̂g⟩ = ⟨Q̂f|g⟩</span>，注意「算符作用在哪一边」；写成 <span class="m">Q̂</span> 在右边/左边搞反会导致共轭错误。</li>
+        <li>分部积分时<b>边界项必须为零</b>，否则算符不厄密；动量算符的厄密性就依赖这一点。</li>
+        <li>「本征值都是实数」是本征函数的性质（§3.3 才证），此处先记住；不要反过来推「实算符都厄密」。</li>
+        <li>测量后坍缩到对应本征态，但<b>本征态不唯一</b>（简并时），需要额外的投影规则。</li>
+        <li><span class="m">Q̂</span> 本身不是数，不能写成 <span class="m">⟨ψ|Q̂|ψ⟩ = Q̂⟨ψ|ψ⟩</span>；算符要作用在右边的函数上。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.3 -->
+<article class="card c3" id="s33">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.3</span>
+    <h3>厄密算符的本征函数</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="79" data-end="82" data-printed="67–70" href="#" title="原书 §3.3，pp.67–70（PDF 第 79–82 页）">原书 §3.3，pp.67–70</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-3" data-page="1" data-end="8" data-printed="1–8" href="#" title="课件 4-3（第 1–8 页）">课件 4-3（p01–p08）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>厄密算符的本征函数有三条「金科玉律」：<b>实本征值</b>（测量结果实）、<b>不同本征值对应本征函数正交</b>（不同确定态互斥）、<b>完备</b>（任何态都能由它们展开）。§3.4 的概率诠释全部建立在三条之上。</p>
+      <p>离散谱与连续谱的区别在于：前者可归一、在希尔伯特空间里；后者不可归一，只能用 δ 函数「正交归一」。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>定理 1（实性）</b>：设 <span class="m">Q̂f = qf</span> 且 <span class="m">Q̂</span> 厄密，则
+          <span class="eq-l m">q⟨f|f⟩ = ⟨f|Q̂f⟩ = ⟨Q̂f|f⟩ = q*⟨f|f⟩</span>
+          故 <span class="m">q = q*</span>，本征值为实。</li>
+        <li><b>定理 2（正交性）</b>：设 <span class="m">Q̂f = qf</span>、<span class="m">Q̂g = q′g</span>，<span class="m">q ≠ q′</span>。由厄密性得
+          <span class="m">q′⟨f|g⟩ = ⟨f|Q̂g⟩ = ⟨Q̂f|g⟩ = q⟨f|g⟩</span>
+          故 <span class="m">(q′−q)⟨f|g⟩ = 0 ⟹ ⟨f|g⟩ = 0</span>。</li>
+        <li><b>完备性（公理）</b>：希尔伯特空间中任一函数可展开为 <span class="m">f = Σc<sub>n</sub>f<sub>n</sub></span>。</li>
+        <li><b>例 1（动量，课件 p05）</b>：<span class="m">−iħf′ = pf</span> ⟹ <span class="m">f<sub>p</sub> = (1/√(2πħ))e<sup>ipx/ħ</sup></span>，<span class="m">⟨f<sub>p′</sub>|f<sub>p</sub>⟩ = δ(p−p′)</span>（狄拉克正交归一）。</li>
+        <li><b>例 2（位置，课件 p07）</b>：<span class="m">xg<sub>y</sub> = yg<sub>y</sub></span> ⟹ <span class="m">g<sub>y</sub> = δ(x−y)</span>，<span class="m">⟨g<sub>y′</sub>|g<sub>y</sub>⟩ = δ(y−y′)</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>三性质</b>：本征值实、不同本征值对应本征函数正交、本征函数系完备。</p>
+        <p style="margin-top:6px"><b>离散谱</b>：<span class="m">⟨f<sub>m</sub>|f<sub>n</sub>⟩ = δ<sub>mn</sub></span>，可归一。<b>连续谱</b>：<span class="m">⟨f<sub>z′</sub>|f<sub>z</sub>⟩ = δ(z−z′)</span>，不可归一。</p>
+        <p style="margin-top:6px"><b>动量本征函数</b>：<span class="m">f<sub>p</sub> = (2πħ)<sup>−1/2</sup>e<sup>ipx/ħ</sup></span>；<b>位置本征函数</b>：<span class="m">g<sub>y</sub> = δ(x−y)</span>。<span class="tag hot">课件例题</span></p>
+        <p style="margin-top:6px"><b>展开</b>：<span class="m">f = ∫c(p)f<sub>p</sub>dp</span> 就是傅里叶变换；<span class="m">c(p) = ⟨f<sub>p</sub>|f⟩</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><b>简并</b>时不同本征函数未必自动正交，需要用 Gram-Schmidt 再正交化。</li>
+        <li>连续谱本征函数「不可归一」不等于「不能用」：用 δ 函数归一，展开式写成积分。</li>
+        <li>本征值相同不代表函数相同；本征函数乘任意常数仍是本征函数（归一化只定模长）。</li>
+        <li>「实性」是对<b>厄密</b>算符说的；非厄密算符（如 <span class="m">d/dx</span> 不带 <span class="m">−iħ</span>）可以有复本征值。</li>
+        <li>位置本征函数 <span class="m">δ(x−y)</span> 不是普通函数，积分时要小心；它只用于形式推导，不代表物理态。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.4 -->
+<article class="card c3" id="s34">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.4</span>
+    <h3>广义统计诠释</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="83" data-end="84" data-printed="71–72" href="#" title="原书 §3.4，pp.71–72（PDF 第 83–84 页）">原书 §3.4，pp.71–72</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-4" data-page="1" data-end="5" data-printed="1–5" href="#" title="课件 4-4（第 1–5 页）">课件 4-4（p01–p05）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>§1.2 只说了「位置的统计诠释」；有了本征函数系之后，可以把同一句话推广到<b>任何可观测量</b>：把态按 <span class="m">Q̂</span> 的本征函数展开，展开系数的模方就是测到对应本征值的概率。</p>
+      <p>这就是「广义统计诠释」，也是量子力学「测量」的标准表述：概率由投影给出，测量后态坍缩到相应本征态。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>把态展开：<span class="m">Ψ = Σc<sub>n</sub>f<sub>n</sub></span>，由正交性 <span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|Ψ⟩ = ∫f<sub>n</sub>*Ψdx</span>。</li>
+        <li>归一化条件给出 <span class="m">Σ|c<sub>n</sub>|² = 1</span>（交叉项因正交而消失）。</li>
+        <li><b>概率诠释</b>：测量 <span class="m">Q</span> 得 <span class="m">q<sub>n</sub></span> 的概率为 <span class="m">|c<sub>n</sub>|²</span>；测量后态坍缩为 <span class="m">f<sub>n</sub></span>。</li>
+        <li>期望值：<span class="m">⟨Q⟩ = Σq<sub>n</sub>|c<sub>n</sub>|²</span>（加权平均）。</li>
+        <li>连续谱：<span class="m">Ψ = ∫c(z)f<sub>z</sub>dz</span>，<span class="m">c(z) = ⟨f<sub>z</sub>|Ψ⟩</span>，落在 <span class="m">dz</span> 内的概率为 <span class="m">|c(z)|²dz</span>。</li>
+        <li>特例：位置表象 <span class="m">c(y) = Ψ(y)</span>、概率 <span class="m">|Ψ|²dy</span>；动量表象 <span class="m">Φ(p) = (2πħ)<sup>−1/2</sup>∫e<sup>−ipx/ħ</sup>Ψdx</span>、概率 <span class="m">|Φ|²dp</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>广义统计诠释</b>：<span class="m">P(q<sub>n</sub>) = |c<sub>n</sub>|²</span>，<span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|Ψ⟩</span>；连续谱 <span class="m">P(z) = |c(z)|²dz</span>。</p>
+        <p style="margin-top:6px"><b>归一与期望</b>：<span class="m">Σ|c<sub>n</sub>|² = 1</span>，<span class="m">⟨Q⟩ = Σq<sub>n</sub>|c<sub>n</sub>|²</span>。<span class="tag hot">课件公式 (21)–(24)</span></p>
+        <p style="margin-top:6px"><b>课件例题</b>（4-4 p05）：δ 阱束缚态 <span class="m">Ψ ∝ e<sup>−mα|x|/ħ²</sup></span>，动量空间波函数为洛伦兹型，算得 <span class="m">P(p&gt;p₀) = 1/4 − 1/2π ≈ 0.0908</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><span class="m">c<sub>n</sub></span> 是复数，概率是 <b>模方</b> <span class="m">|c<sub>n</sub>|² = c<sub>n</sub>c<sub>n</sub>*</span>，不是 <span class="m">c<sub>n</sub></span> 本身。</li>
+        <li>「测到某本征值的概率」要求本征函数正交归一；若基不正交，公式要加重叠矩阵。</li>
+        <li>连续谱给的是<b>概率密度</b>，问「恰好等于某值」的概率为零，只能问区间。</li>
+        <li>本征值简并时，测到该本征值的概率是各简并态 <span class="m">|c<sub>n</sub>|²</span> 之和。</li>
+        <li>测量会改变态（坍缩），所以「连续测两次同一量」的联合概率不能直接用第一次的 <span class="m">|c<sub>n</sub>|²</span> 相乘（除非两次测量对易）。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.5 -->
+<article class="card c3" id="s35">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.5</span>
+    <h3>不确定原理（一般形式）</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="85" data-end="90" data-printed="73–78" href="#" title="原书 §3.5，pp.73–78（PDF 第 85–90 页）">原书 §3.5，pp.73–78</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-5" data-page="1" data-end="9" data-printed="1–9" href="#" title="课件 4-5（第 1–9 页）">课件 4-5（p01–p09）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>§1.6 的不确定关系是「类比 + 直觉」得到的；这一节用<b>施瓦茨不等式</b>给出严格证明，并推广到任意两个可观测量：不确定度的乘积由它们<b>对易子</b>的期望值控制。</p>
+      <p>对易的两个量可以同时确定；不对易的两个量（如 <span class="m">x</span> 与 <span class="m">p</span>）不能有共同本征态 —— 这是「不相容可观测量」的精确含义。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li>令 <span class="m">f = (Â−⟨A⟩)Ψ</span>，<span class="m">g = (B̂−⟨B⟩)Ψ</span>，则 <span class="m">σ<sub>A</sub>² = ⟨f|f⟩</span>，<span class="m">σ<sub>B</sub>² = ⟨g|g⟩</span>。</li>
+        <li>施瓦茨不等式 <span class="m">⟨f|f⟩⟨g|g⟩ ≥ |⟨f|g⟩|²</span>，即 <span class="m">σ<sub>A</sub>²σ<sub>B</sub>² ≥ |⟨f|g⟩|²</span>。</li>
+        <li>对任意复数 <span class="m">z</span>，<span class="m">|z|² ≥ (Im z)² = [(z−z*)/2i]²</span>；取 <span class="m">z = ⟨f|g⟩</span>，得
+          <span class="eq-l m">σ<sub>A</sub>²σ<sub>B</sub>² ≥ (⟨[Â,B̂]⟩/2i)²</span>
+          即 <span class="m">σ<sub>A</sub>σ<sub>B</sub> ≥ |⟨[Â,B̂]⟩|/2</span>（广义不确定原理）。</li>
+        <li>取 <span class="m">Â = x</span>、<span class="m">B̂ = p̂</span>，由 <span class="m">[x̂,p̂] = iħ</span> 得 <span class="m">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>。</li>
+        <li><b>最小不确定波包</b>：取等号要求 <span class="m">g = iaf</span>（a 实），解出高斯型 <span class="m">Ψ ∝ e<sup>−a(x−⟨x⟩)²/2ħ</sup>e<sup>i⟨p⟩x/ħ</sup></span>。</li>
+        <li><b>能量-时间</b>：由 <span class="m">d⟨Q⟩/dt = (i/ħ)⟨[Ĥ,Q̂]⟩ + ⟨∂Q̂/∂t⟩</span> 出发，令 <span class="m">ΔE = σ<sub>H</sub></span>、<span class="m">Δt = σ<sub>Q</sub>/|d⟨Q⟩/dt|</span>，得 <span class="m">ΔEΔt ≥ ħ/2</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>广义不确定原理</b>：<span class="m">σ<sub>A</sub>σ<sub>B</sub> ≥ |⟨[Â,B̂]⟩|/2</span>（<a class="loc" data-doc="book" data-page="85" data-end="85" data-printed="73" href="#" title="原书式(3.62)，p.73">式 3.62</a>，p.73）。<span class="tag hot">课件方框</span></p>
+        <p style="margin-top:6px"><b>位置-动量</b>：<span class="m">[x̂,p̂] = iħ ⟹ σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</span>。</p>
+        <p style="margin-top:6px"><b>最小波包</b>：高斯型；取等号条件 <span class="m">g = iaf</span>。</p>
+        <p style="margin-top:6px"><b>能量-时间</b>：<span class="m">ΔEΔt ≥ ħ/2</span>；<span class="m">Δt</span> 定义为态发生显著变化所需时间，<b>不是</b>某个「时间算符」的标准差。</p>
+        <p style="margin-top:6px"><b>守恒量</b>：若 <span class="m">[Ĥ,Q̂]=0</span> 且 <span class="m">Q̂</span> 不显含 <span class="m">t</span>，则 <span class="m">d⟨Q⟩/dt = 0</span>。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li>对易子的符号：<span class="m">[x̂,p̂] = iħ</span>（不是 <span class="m">−iħ</span>，取决于算符定义与顺序，本课程统一用 <span class="m">p̂=−iħ∂ₓ</span>）。</li>
+        <li><span class="m">ΔEΔt ≥ ħ/2</span> 中的 <span class="m">Δt</span> 不是「测量时间」的普适下限，而是该态演化的特征时间；定态 <span class="m">ΔE=0</span> 时 <span class="m">Δt=∞</span>。</li>
+        <li>取等号需要波包为高斯型，且两算符的「中心化」满足 <span class="m">g = iaf</span>；普通态乘积更大。</li>
+        <li>对易只是「可同时精确」的必要条件；还要考虑简并与共同本征函数系。</li>
+        <li>课件 4-5 的例题算得 <span class="m">ΔEΔt = 2πħ</span>（两能级叠加的振荡周期），与 <span class="m">ħ/2</span> 不矛盾：那是最小下限，具体态的乘积可以更大。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- 3.6 -->
+<article class="card c3" id="s36">
+  <div class="chead" onclick="foldCard(event,this)">
+    <span class="secnum">§3.6</span>
+    <h3>狄拉克符号</h3>
+    <div class="mark" onclick="markDone(event,this)">✓</div>
+    <span class="caret">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="meta">
+      <a class="loc" data-doc="book" data-page="91" data-end="99" data-printed="79–87" href="#" title="原书 §3.6，pp.79–87（PDF 第 91–99 页）">原书 §3.6，pp.79–87</a>
+      <span class="dot">·</span>
+      <a class="loc" data-doc="deck-4-6" data-page="1" data-end="8" data-printed="1–8" href="#" title="课件 4-6（第 1–8 页）">课件 4-6（p01–p08）</a>
+    </div>
+    <div class="blk b-img">
+      <h4>物理图像</h4>
+      <p>把「态是向量」这件事写得彻底一点：态记作 <b>ket</b> <span class="m">|α⟩</span>，它的共轭记作 <b>bra</b> <span class="m">⟨α|</span>，内积就是它们的「括号」 <span class="m">⟨α|β⟩</span>。波函数只是态在某个基下的分量，比如 <span class="m">Ψ(x,t) = ⟨x|S(t)⟩</span>。</p>
+      <p>这样写的好处：算符像矩阵、展开像基变换、完备性像单位分解 —— 量子力学与线性代数完全同构，且与具体表象无关。</p>
+    </div>
+    <details class="blk b-deriv" data-hint="先自己想一遍再展开">
+      <summary>推导脉络</summary>
+    <div class="dbody">
+      <ol>
+        <li><b>态与内积</b>：<span class="m">|α⟩ ↔ (a₁,…,a_N)ᵀ</span>，<span class="m">⟨α| ↔ (a₁*,…,a_N*)</span>；<span class="m">⟨α|β⟩ = Σa<sub>i</sub>*b<sub>i</sub></span>；<span class="m">⟨β|α⟩ = ⟨α|β⟩*</span>。</li>
+        <li><b>算符</b>：<span class="m">|β⟩ = Q̂|α⟩</span>；在基 <span class="m">|e<sub>n</sub>⟩</span> 下，<span class="m">a<sub>n</sub> = ⟨e<sub>n</sub>|α⟩</span>，矩阵元 <span class="m">Q<sub>mn</sub> = ⟨e<sub>m</sub>|Q̂|e<sub>n</sub>⟩</span>，于是 <span class="m">b<sub>m</sub> = ΣQ<sub>mn</sub>a<sub>n</sub></span>。</li>
+        <li><b>基与完备性</b>：<span class="m">⟨e<sub>m</sub>|e<sub>n</sub>⟩ = δ<sub>mn</sub></span> ⟹ <span class="m">|α⟩ = Σ⟨e<sub>n</sub>|α⟩|e<sub>n</sub>⟩</span>，即
+          <span class="eq-l m">Σ<sub>n</sub>|e<sub>n</sub>⟩⟨e<sub>n</sub>| = 1</span>
+          连续基：<span class="m">∫|e<sub>z</sub>⟩⟨e<sub>z</sub>|dz = 1</span>。</li>
+        <li><b>投影算符</b>：<span class="m">P̂ = |α⟩⟨α|</span>，<span class="m">P̂|β⟩ = (⟨α|β⟩)|α⟩</span> —— 把任意态投到 <span class="m">|α⟩</span> 方向。</li>
+        <li><b>课件例题</b>（4-6 p04–p06）：两态系统 <span class="m">H = [[h,g],[g,h]]</span>，初态 <span class="m">|1⟩</span>，求得 <span class="m">E<sub>±</sub> = h ± g</span>、<span class="m">|S<sub>±</sub>⟩ = (1/√2)(1,±1)ᵀ</span>，最终 <span class="m">|S(t)⟩ = e<sup>−iht/ħ</sup>(cos(gt/ħ), −i sin(gt/ħ))ᵀ</span>。</li>
+      </ol>
+    </div>
+    </details>
+    <div class="blk b-key">
+      <h4>关键结论</h4>
+      <div class="concl">
+        <p><b>基本规则</b>：<span class="m">⟨α|β⟩ = ⟨β|α⟩*</span>；<span class="m">⟨α|α⟩ ≥ 0</span>；算符作用在 ket 上得 ket，作用在 bra 上得 bra（左作用）。</p>
+        <p style="margin-top:6px"><b>矩阵表示</b>：<span class="m">Q<sub>mn</sub> = ⟨e<sub>m</sub>|Q̂|e<sub>n</sub>⟩</span>，<span class="m">b<sub>m</sub> = ΣQ<sub>mn</sub>a<sub>n</sub></span>。</p>
+        <p style="margin-top:6px"><b>完备性关系</b>：<span class="m">Σ|e<sub>n</sub>⟩⟨e<sub>n</sub>| = 1</span>（离散）；<span class="m">∫|e<sub>z</sub>⟩⟨e<sub>z</sub>|dz = 1</span>（连续）。<span class="tag hot">课件 p08</span></p>
+        <p style="margin-top:6px"><b>表象无关</b>：<span class="m">Ψ(x,t) = ⟨x|S(t)⟩</span>，<span class="m">Φ(p,t) = ⟨p|S(t)⟩</span>，<span class="m">c<sub>n</sub> = ⟨n|S(t)⟩</span> —— 都是同一个 <span class="m">|S⟩</span> 在不同基下的分量。</p>
+      </div>
+    </div>
+    <div class="blk b-warn">
+      <h4>易错点</h4>
+      <ul>
+        <li><span class="m">⟨α|β⟩</span> 是复数，<span class="m">⟨α|β⟩* = ⟨β|α⟩</span>；别写成 <span class="m">⟨α|β⟩ = ⟨β|α⟩</span>。</li>
+        <li>算符作用在 bra 上时要「向左作用」：<span class="m">⟨α|Q̂</span> 是合法的，但 <span class="m">Q̂|α⟩⟨β|</span> 是算符而非数。</li>
+        <li><span class="m">|α⟩⟨β|</span> 是算符（外积），<span class="m">⟨β|α⟩</span> 是数（内积），两者不能混。</li>
+        <li>完备性关系里的 1 是<b>单位算符</b>，不是归一化常数；插在任意两态之间可做基变换。</li>
+        <li>连续谱的完备性用积分与 δ 归一，离散谱用求和与 <span class="m">δ<sub>mn</sub></span>；混用会丢失 δ 函数因子。</li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 公式速查 ══════════════ -->
+<div class="chap chapfx" id="fx" style="background:var(--key-bg); color:var(--key)">
+  <span class="cn">FX</span> 公式速查表
+  <span class="cm">按章分组 · 支持搜索与模糊自测</span>
+</div>
+<div class="note"><b>用法</b>：点工具栏「遮住公式」，先凭名称回忆式子再看答案；也可以直接按符号搜，例如「ħ」「⟨x⟩」「δ」「[A,B]」。页码指中译本印刷页。记号与 Griffiths 中译本一致：Ψ 为波函数，ψ 为定态波函数的空间部分，⟨Q⟩ 为期望值。</div>
+<div class="fsheet">
+  <h4 class="fgroup-h c0">专题 · 量子力学的诞生与概率论</h4>
+  <table class="tab">
+    <thead><tr><th style="width:18%">名称</th><th style="width:52%">公式</th><th>要点 / 定位</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="0"><td class="fname">普朗克能量子</td><td class="fml">E = hν = ħω</td><td class="fnote">课件 1-1；h = 6.626×10⁻³⁴ J·s</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">普朗克黑体公式</td><td class="fml">M<sub>ν</sub> = (2πν²/c²)·hν/(e<sup>hν/k<sub>B</sub>T</sup>−1)</td><td class="fnote">课件 1-1 p020；低 ν→瑞利–金斯，高 ν→维恩</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">维恩位移定律</td><td class="fml">λ<sub>max</sub>T = b</td><td class="fnote">课件 1-1 p018；b = 2.898×10⁻³ m·K</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">斯特藩-玻尔兹曼定律</td><td class="fml">j = σT⁴</td><td class="fnote">σ = 5.67×10⁻⁸ W/(m²·K⁴)</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">爱因斯坦光电方程</td><td class="fml">E<sub>k,max</sub> = hν − W₀</td><td class="fnote">课件 1-1 p026；W₀ 为逸出功</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">遏止电压</td><td class="fml">eU<sub>s</sub> = hν − W₀</td><td class="fnote">斜率 h/e 与金属无关；课件红字强调</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">玻尔能级</td><td class="fml">E<sub>n</sub> = −13.6 eV/n²</td><td class="fnote">课件 1-1 p031；L = nħ，hν = E<sub>i</sub> − E<sub>f</sub></td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">德布罗意关系</td><td class="fml">λ = h/p，　ν = E/h</td><td class="fnote">课件 2-1 复习提及</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">二项分布</td><td class="fml">P(j) = C(n,j)(1/2)<sup>n</sup></td><td class="fnote">⟨j⟩ = n/2，σ = √n/2；课件 1-2 p09</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">正态分布</td><td class="fml">ρ(x) = (1/σ√(2π)) e<sup>−(x−μ)²/2σ²</sup></td><td class="fnote">二项分布的中心极限；课件 1-2 p21</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">概率归一化</td><td class="fml">Σp<sub>i</sub> = 1，　∫ρ(x)dx = 1</td><td class="fnote">离散 / 连续</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">期望值与方差</td><td class="fml">⟨x⟩ = ∫xρdx，　σ² = ⟨x²⟩ − ⟨x⟩²</td><td class="fnote">课件 1-2 p15–p17</td></tr>
+      <tr class="frow" data-ch="0"><td class="fname">δ 函数</td><td class="fml">∫δ(x−a)f(x)dx = f(a)，　δ(kx) = δ(x)/|k|</td><td class="fnote">课件 3-5 才讲，见 §2.5</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="fsheet">
+  <h4 class="fgroup-h ">第1章 波函数（pp.1–15）</h4>
+  <table class="tab">
+    <thead><tr><th style="width:18%">名称</th><th style="width:52%">公式</th><th>要点 / 定位</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="1"><td class="fname">含时薛定谔方程</td><td class="fml">iħ ∂Ψ/∂t = −(ħ²/2m)∂²Ψ/∂x² + VΨ</td><td class="fnote">§1.1 <a class="loc" data-doc="book" data-page="13" data-end="13" data-printed="1" href="#" title="原书式(1.1)，p.1">式(1.1)</a>，p.1；课件 2-1</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">概率密度</td><td class="fml">ρ(x,t) = |Ψ(x,t)|²</td><td class="fnote">§1.2，p.2；课件 2-2</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">归一化</td><td class="fml">∫<sub>−∞</sub><sup>∞</sup>|Ψ|²dx = 1</td><td class="fnote">§1.4，p.8；课件 2-3</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">位置期望</td><td class="fml">⟨x⟩ = ∫Ψ*xΨdx</td><td class="fnote">§1.5，p.10；课件 2-4</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">动量算符</td><td class="fml">p̂ = (ħ/i)∂/∂x = −iħ∂/∂x</td><td class="fnote">§1.5 <a class="loc" data-doc="book" data-page="22" data-end="22" data-printed="10" href="#" title="原书式(1.30)，p.10">式(1.30)</a>，p.10</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">动量期望</td><td class="fml">⟨p⟩ = ∫Ψ*(−iħ∂/∂x)Ψdx</td><td class="fnote">§1.5，p.10</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">Ehrenfest 定理</td><td class="fml">d⟨x⟩/dt = ⟨p⟩/m，　m d²⟨x⟩/dt² = ⟨F⟩</td><td class="fnote">§1.5，p.11；课件 2-4 深蓝框</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">不确定度</td><td class="fml">σ<sub>A</sub>² = ⟨A²⟩ − ⟨A⟩²</td><td class="fnote">§1.6，p.12</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">不确定关系</td><td class="fml">σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</td><td class="fnote">§1.6 <a class="loc" data-doc="book" data-page="24" data-end="24" data-printed="12" href="#" title="原书式(1.41)，p.12">式(1.41)</a>，p.12；课件 2-5（封面 ≤ 为笔误）</td></tr>
+      <tr class="frow" data-ch="1"><td class="fname">概率流</td><td class="fml">J = (iħ/2m)(Ψ∂Ψ*/∂x − Ψ*∂Ψ/∂x)</td><td class="fnote"><a class="loc" data-doc="solutions" data-page="20" data-end="20" href="#" title="习题 1.14–1.14 的解答（第 20–20 页）">习题 1.14</a>，p.14</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="fsheet">
+  <h4 class="fgroup-h c2">第2章 定态薛定谔方程（pp.16–61）</h4>
+  <table class="tab">
+    <thead><tr><th style="width:18%">名称</th><th style="width:52%">公式</th><th>要点 / 定位</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="2"><td class="fname">定态薛定谔方程</td><td class="fml">−(ħ²/2m)d²ψ/dx² + Vψ = Eψ</td><td class="fnote">§2.1 <a class="loc" data-doc="book" data-page="28" data-end="28" data-printed="16" href="#" title="原书式(2.5)，p.16">式(2.5)</a>，p.16；课件 3-1 红框</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">定态与含时解</td><td class="fml">Ψ(x,t) = ψ(x)e<sup>−iEt/ħ</sup></td><td class="fnote">§2.1，p.16；|Ψ|²=|ψ|²</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">叠加展开</td><td class="fml">Ψ = Σc<sub>n</sub>ψ<sub>n</sub>e<sup>−iE<sub>n</sub>t/ħ</sup>，c<sub>n</sub> = ∫ψ<sub>n</sub>*Ψ(0)dx</td><td class="fnote">§2.1，p.16；拍频 |E₂−E₁|/ħ</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">无限深阱波函数</td><td class="fml">ψ<sub>n</sub> = √(2/a) sin(nπx/a)</td><td class="fnote">§2.2 式(2.28)，p.20；n≥1</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">无限深阱能级</td><td class="fml">E<sub>n</sub> = n²π²ħ²/(2ma²)</td><td class="fnote">§2.2 <a class="loc" data-doc="book" data-page="32" data-end="32" data-printed="20" href="#" title="原书式(2.27)，p.20">式(2.27)</a>，p.20；E∝n²</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">谐振子能级</td><td class="fml">E<sub>n</sub> = (n+½)ħω，ω = √(k/m)</td><td class="fnote">§2.3，p.26；零点能 ½ħω</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">谐振子基态</td><td class="fml">ψ<sub>0</sub> = (mω/πħ)<sup>1/4</sup>e<sup>−mωx²/2ħ</sup></td><td class="fnote">§2.3，p.26；高斯型、最小不确定</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">升降算符</td><td class="fml">a<sub>±</sub> = (1/√(2mωħ))(∓ip̂ + mωx)</td><td class="fnote">§2.3.2，p.30；[a<sub>−</sub>,a<sub>+</sub>]=1</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">谐振子通项</td><td class="fml">ψ<sub>n</sub> = (1/√(n!))(a<sub>+</sub>)<sup>n</sup>ψ<sub>0</sub></td><td class="fnote">a<sub>+</sub>ψ<sub>n</sub> = √(n+1)ψ<sub>n+1</sub></td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">自由粒子平面波</td><td class="fml">ψ<sub>k</sub> = Ae<sup>ikx</sup>，E = ħ²k²/2m</td><td class="fnote">§2.4，p.39；不可归一</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">相速度与群速度</td><td class="fml">v<sub>p</sub> = ω/k = ħk/2m，　v<sub>g</sub> = dω/dk = ħk/m</td><td class="fnote">§2.4，p.39；v<sub>g</sub>=v<sub>class</sub>，v<sub>p</sub>=v<sub>g</sub>/2</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">波包（傅里叶）</td><td class="fml">Ψ = (1/√(2π))∫φ(k)e<sup>i(kx−ωt)</sup>dk</td><td class="fnote">§2.4，p.40；φ(k) 为动量空间波函数</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">δ 势束缚态</td><td class="fml">E = −mα²/2ħ²，ψ = (√(mα)/ħ)e<sup>−mα|x|/ħ²</sup></td><td class="fnote">§2.5 <a class="loc" data-doc="book" data-page="57" data-end="57" data-printed="45" href="#" title="原书式(2.129)，p.45">式(2.129)</a>，p.45；唯一束缚态</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">δ 势散射系数</td><td class="fml">T = 1/(1 + mα²/2ħ²E)，R = 1 − T</td><td class="fnote">§2.5，p.47；R+T=1；垒也透射</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">有限深阱超越方程</td><td class="fml">κ = ℓtan(ℓa)（偶）　/　−κ = ℓcot(ℓa)（奇）</td><td class="fnote">§2.6，p.51；z = ℓa，z₀ = (a/ħ)√(2mV₀)</td></tr>
+      <tr class="frow" data-ch="2"><td class="fname">STM 隧穿电流</td><td class="fml">T ∝ e<sup>−2κL</sup>，κ = √(2mΦ)/ħ</td><td class="fnote">§2.6；Φ 为功函数，κ ≈ 0.512√(Φ/eV) Å⁻¹</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="fsheet">
+  <h4 class="fgroup-h c3">第3章 形式理论（pp.62–87）</h4>
+  <table class="tab">
+    <thead><tr><th style="width:18%">名称</th><th style="width:52%">公式</th><th>要点 / 定位</th></tr></thead>
+    <tbody>
+      <tr class="frow" data-ch="3"><td class="fname">内积</td><td class="fml">⟨f|g⟩ = ∫f*g dx</td><td class="fnote">§3.1，p.62；⟨g|f⟩ = ⟨f|g⟩*</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">厄密算符</td><td class="fml">⟨f|Q̂g⟩ = ⟨Q̂f|g⟩</td><td class="fnote">§3.2 <a class="loc" data-doc="book" data-page="76" data-end="76" data-printed="64" href="#" title="原书式(3.16)，p.64">式(3.16)</a>，p.64；期望值为实</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">本征方程</td><td class="fml">Q̂f<sub>n</sub> = q<sub>n</sub>f<sub>n</sub></td><td class="fnote">§3.2，p.64；确定态</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">实性与正交性</td><td class="fml">q<sub>n</sub> ∈ ℝ，　⟨f<sub>m</sub>|f<sub>n</sub>⟩ = δ<sub>mn</sub></td><td class="fnote">§3.3，p.67；简并需再正交化</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">完备展开</td><td class="fml">f = Σc<sub>n</sub>f<sub>n</sub>，c<sub>n</sub> = ⟨f<sub>n</sub>|f⟩</td><td class="fnote">§3.3，p.67</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">广义统计诠释</td><td class="fml">P(q<sub>n</sub>) = |c<sub>n</sub>|²，c<sub>n</sub> = ⟨f<sub>n</sub>|Ψ⟩</td><td class="fnote">§3.4 <a class="loc" data-doc="book" data-page="83" data-end="83" data-printed="71" href="#" title="原书式(3.43)，p.71">式(3.43)</a>，p.71；连续谱 |c(z)|²dz</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">期望值（谱表示）</td><td class="fml">⟨Q⟩ = Σq<sub>n</sub>|c<sub>n</sub>|²</td><td class="fnote">§3.4，p.71</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">对易子</td><td class="fml">[A,B] = AB − BA</td><td class="fnote">§3.5，p.73</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">广义不确定原理</td><td class="fml">σ<sub>A</sub>σ<sub>B</sub> ≥ |⟨[A,B]⟩|/2</td><td class="fnote">§3.5 <a class="loc" data-doc="book" data-page="85" data-end="85" data-printed="73" href="#" title="原书式(3.62)，p.73">式(3.62)</a>，p.73；课件方框</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">位置-动量</td><td class="fml">[x̂,p̂] = iħ ⟹ σ<sub>x</sub>σ<sub>p</sub> ≥ ħ/2</td><td class="fnote">§3.5，p.73</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">最小不确定波包</td><td class="fml">Ψ ∝ e<sup>−a(x−⟨x⟩)²/2ħ</sup>e<sup>i⟨p⟩x/ħ</sup></td><td class="fnote">§3.5，p.74；取等条件 g = iaf</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">算符演化与守恒</td><td class="fml">d⟨Q⟩/dt = (i/ħ)⟨[Ĥ,Q̂]⟩ + ⟨∂Q̂/∂t⟩</td><td class="fnote">§3.5，p.75；[Ĥ,Q̂]=0 且不显含 t 则守恒</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">能量-时间</td><td class="fml">ΔEΔt ≥ ħ/2</td><td class="fnote">§3.5，p.75；Δt 为显著变化时间</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">狄拉克符号</td><td class="fml">⟨α|β⟩，|α⟩，⟨α| = |α⟩†</td><td class="fnote">§3.6，p.79；⟨β|α⟩ = ⟨α|β⟩*</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">矩阵元</td><td class="fml">Q<sub>mn</sub> = ⟨e<sub>m</sub>|Q̂|e<sub>n</sub>⟩，b<sub>m</sub> = ΣQ<sub>mn</sub>a<sub>n</sub></td><td class="fnote">§3.6，p.80</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">完备性关系</td><td class="fml">Σ<sub>n</sub>|e<sub>n</sub>⟩⟨e<sub>n</sub>| = 1</td><td class="fnote">§3.6，p.82；连续谱 ∫|e<sub>z</sub>⟩⟨e<sub>z</sub>|dz = 1</td></tr>
+      <tr class="frow" data-ch="3"><td class="fname">投影算符</td><td class="fml">P̂ = |α⟩⟨α|，P̂|β⟩ = (⟨α|β⟩)|α⟩</td><td class="fnote">§3.6，p.82</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════ 考点 · 习题 ══════════════ -->
+<div class="chap chapq" id="ex" style="background:var(--key-bg); color:var(--key)">
+  <span class="cn">EX</span> 考点与习题归类
+  <span class="cm">按解法范式归并 · 对应书后习题编号</span>
+</div>
+
+<div class="note">
+  <b>使用说明</b>：下面按「解法范式」归类，而不是按题号。每类给出识别特征、套路、易错点，并标注对应的课后习题
+  （中译本编号为「习题 1.x / 2.x / 3.x」）。习题页码：第 1 章 pp.14–15；第 2 章散布于各节末，章末补充题 2.29–2.56 在 pp.54–61；
+  第 3 章 3.1–3.38 在正文各节末，3.39–3.40 在 p.87。
+</div>
+
+<div class="ex-type">
+  <h4>类型 A：归一化与概率计算 <span class="tag key">基本功</span></h4>
+  <div class="feat">识别特征：给出 <span class="m">Ψ(x,0)</span>，要求定归一化常数、区间概率、最可几位置。</div>
+  <ul>
+    <li>三步：写 <span class="m">∫|Ψ|²dx = 1</span> 定常数 → 求 <span class="m">P(a≤x≤b) = ∫<sub>a</sub><sup>b</sup>|Ψ|²dx</span> → 需要时求 <span class="m">⟨x⟩</span>。</li>
+    <li>分段函数逐段积分，边界点单独处理；常数的正负号由归一化只定模长，相位可任取。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="9" data-end="12" href="#" title="习题 1.2–1.5 的解答（第 9–12 页）">习题 1.2–1.5</a>、1.17；课件 2-3 例题（p08）、1-2 落体例题。</li>
+    <li><b>易错</b>：漏掉常数因子；把 <span class="m">|Ψ|²</span> 当概率而非概率密度；区间外积分不写零。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 B：期望值与不确定度</h4>
+  <div class="feat">识别特征：求 <span class="m">⟨x⟩、⟨x²⟩、⟨p⟩、⟨p²⟩、σ<sub>x</sub>、σ<sub>p</sub></span>，或验证不确定关系。</div>
+  <ul>
+    <li>公式：<span class="m">⟨x⟩ = ∫Ψ*xΨdx</span>，<span class="m">⟨p⟩ = ∫Ψ*(−iħ∂ₓ)Ψdx</span>，<span class="m">σ<sub>A</sub>² = ⟨A²⟩−⟨A⟩²</span>。</li>
+    <li><span class="m">⟨p⟩</span> 不要用 <span class="m">m d⟨x⟩/dt</span> 硬算（除非题目要求验证 Ehrenfest 定理）；直接做导数更稳。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="8" data-end="24" href="#" title="习题 1.1–1.18 的解答（第 8–24 页）">习题 1.1–1.18</a> 中的期望值小题、2.41（谐振子）、课件 2-4/2-5 例题。</li>
+    <li><b>易错</b>：算符作用对象；<span class="m">Ψ*</span> 漏共轭；<span class="m">σ</span> 写成 <span class="m">σ²</span>；积分限与归一化不符。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 C：定态与含时叠加</h4>
+  <div class="feat">识别特征：给初态，求 <span class="m">Ψ(x,t)</span>、<span class="m">|Ψ|²</span> 的时间依赖、能量期望。</div>
+  <ul>
+    <li>先求定态 <span class="m">ψ<sub>n</sub></span> 与 <span class="m">E<sub>n</sub></span>，再展开 <span class="m">c<sub>n</sub> = ∫ψ<sub>n</sub>*Ψ(0)dx</span>，最后 <span class="m">Ψ = Σc<sub>n</sub>ψ<sub>n</sub>e<sup>−iE<sub>n</sub>t/ħ</sup></span>。</li>
+    <li>两态叠加会出现拍频 <span class="m">|E₂−E₁|/ħ</span>；概率密度随时间振荡（课件 3-1 例题）。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="36" data-end="37" href="#" title="习题 2.7–2.9 的解答（第 36–37 页）">习题 2.7–2.9</a>、2.37；课件 3-1 S10、3-2 S10。</li>
+    <li><b>易错</b>：把叠加态当定态；<span class="m">c<sub>n</sub></span> 忘了取共轭；<span class="m">Σ|c<sub>n</sub>|²≠1</span> 时没检查。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 D：一维无限深方势阱 <span class="tag key">最常考</span></h4>
+  <div class="feat">识别特征：盒子势、给宽度 a，求能级/波函数/概率/节点。</div>
+  <ul>
+    <li>直接套 <span class="m">ψ<sub>n</sub> = √(2/a)sin(nπx/a)</span>，<span class="m">E<sub>n</sub> = n²π²ħ²/2ma²</span>；注意 <span class="m">n≥1</span>。</li>
+    <li>节点数 <span class="m">n−1</span>；宇称相对 <span class="m">a/2</span>；<span class="m">E∝n²</span> 非等间距。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="32" data-end="37" href="#" title="习题 2.4–2.9 的解答（第 32–37 页）">习题 2.4–2.9</a>、2.37、2.40；课件 3-2 全节 + S10 例题。</li>
+    <li><b>易错</b>：<span class="m">n=0</span>；边界条件写成 <span class="m">ψ′(0)=0</span>；忘记归一化常数 <span class="m">√(2/a)</span>。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 E：谐振子</h4>
+  <div class="feat">识别特征：抛物线势、升降算符、零点能、<span class="m">⟨V⟩</span> 或 <span class="m">⟨T⟩</span>。</div>
+  <ul>
+    <li>能级 <span class="m">E<sub>n</sub> = (n+½)ħω</span>，<span class="m">ω = √(k/m)</span>；基态高斯型。</li>
+    <li>用 <span class="m">x = √(ħ/2mω)(a<sub>+</sub>+a<sub>−</sub>)</span> 与 <span class="m">a<sub>±</sub>ψ<sub>n</sub> = √(n+1 或 n)ψ<sub>n±1</sub></span> 算矩阵元。</li>
+    <li>结论：<span class="m">⟨V⟩ = ⟨T⟩ = ½E<sub>n</sub></span>（位力定理）。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="79" data-end="79" href="#" title="习题 2.41–2.41 的解答（第 79–79 页）">习题 2.41</a> 及章末谐振子题；课件 3-3 例题。</li>
+    <li><b>易错</b>：漏零点能；<span class="m">a<sub>±</sub></span> 的系数 √(n+1)/√n；<span class="m">n=0</span> 时 <span class="m">a<sub>−</sub>ψ<sub>0</sub>=0</span>。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 F：自由粒子与波包</h4>
+  <div class="feat">识别特征：平面波、连续谱、群速度/相速度、傅里叶变换、方波包。</div>
+  <ul>
+    <li>平面波 <span class="m">ψ = Ae<sup>ikx</sup></span>，<span class="m">E = ħ²k²/2m</span>；不可归一，需用波包 <span class="m">∫φ(k)e<sup>i(kx−ωt)</sup>dk</span>。</li>
+    <li><span class="m">v<sub>p</sub> = ħk/2m</span>，<span class="m">v<sub>g</sub> = ħk/m = v<sub>class</sub></span>；非相对论 <span class="m">v<sub>p</sub> = v<sub>g</sub>/2</span>。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="81" data-end="81" href="#" title="习题 2.43–2.43 的解答（第 81–81 页）">习题 2.43</a>（高斯波包）、2.52（散射矩阵，延伸）；课件 3-4 方波包例题。</li>
+    <li><b>易错</b>：对平面波直接算 <span class="m">⟨x⟩</span>；把 <span class="m">v<sub>p</sub></span> 当粒子速度；傅里叶变换系数漏 <span class="m">1/√(2π)</span>。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 G：δ 函数势</h4>
+  <div class="feat">识别特征：<span class="m">V = −αδ(x)</span>，求束缚态能量、波函数、透射/反射系数。</div>
+  <ul>
+    <li>束缚态：<span class="m">κ = mα/ħ²</span>，<span class="m">E = −mα²/2ħ²</span>，<span class="m">ψ = (√(mα)/ħ)e<sup>−mα|x|/ħ²</sup></span>；只有一个束缚态。</li>
+    <li>散射：<span class="m">β = mα/(ħ²k)</span>，<span class="m">T = 1/(1+β²)</span>，<span class="m">R = β²/(1+β²)</span>，<span class="m">R+T=1</span>。</li>
+    <li>跃变条件：<span class="m">Δψ′ = −(2mα/ħ²)ψ(0)</span>。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="63" data-end="63" href="#" title="习题 2.30–2.30 的解答（第 63–63 页）">习题 2.30</a>、2.31；课件 3-5 全节。</li>
+    <li><b>易错</b>：把 δ 势当普通势在 0 点求导；忘记跃变；<span class="m">T</span> 与 <span class="m">α</span> 符号无关（垒也有透射）。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 H：有限深阱与隧穿</h4>
+  <div class="feat">识别特征：有限深 <span class="m">V₀</span>、求束缚态数/能级、散射共振、STM。</div>
+  <ul>
+    <li>写出分区解 → 匹配 <span class="m">ψ</span>、<span class="m">ψ′</span> → 偶态 <span class="m">κ=ℓtan(ℓa)</span>、奇态 <span class="m">−κ=ℓcot(ℓa)</span>。</li>
+    <li>图解法：<span class="m">z=ℓa</span>、<span class="m">z₀=(a/ħ)√(2mV₀)</span>；交点数即束缚态数。</li>
+    <li>散射/共振：<span class="m">T=1</span> 条件 <span class="m">E_n+V₀ = n²π²ħ²/2m(2a)²</span>；垒的透射 <span class="m">T∝e<sup>−2κL</sup></span>。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="61" data-end="61" href="#" title="习题 2.29–2.29 的解答（第 61–61 页）">习题 2.29</a>、2.32、2.33；课件 3-6 全节（含 STM 估算）。</li>
+    <li><b>易错</b>：束缚态能量区间写错；偶/奇方程混用；STM 里 <span class="m">κ</span> 用功函数而非 <span class="m">V₀−E</span>。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 I：厄密性与本征值</h4>
+  <div class="feat">识别特征：证明某算符厄密、求本征值/本征函数、判断简并。</div>
+  <ul>
+    <li>厄密：证 <span class="m">⟨f|Q̂g⟩ = ⟨Q̂f|g⟩</span>（分部积分 + 边界项为零）。</li>
+    <li>本征方程 <span class="m">Q̂f = qf</span>；实本征值、正交、完备三性质。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="105" data-end="111" href="#" title="习题 3.1–3.8 的解答（第 105–111 页）">习题 3.1–3.8</a> 一类；课件 4-2 动量厄密性、4-3 动量/位置本征函数。</li>
+    <li><b>易错</b>：分部积分边界项；算符定义域；简并时没正交化。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 J：广义统计诠释</h4>
+  <div class="feat">识别特征：求测得某本征值的概率、<span class="m">c<sub>n</sub></span>、期望值。</div>
+  <ul>
+    <li><span class="m">c<sub>n</sub> = ⟨f<sub>n</sub>|Ψ⟩</span>，<span class="m">P(q<sub>n</sub>) = |c<sub>n</sub>|²</span>，<span class="m">⟨Q⟩ = Σq<sub>n</sub>|c<sub>n</sub>|²</span>。</li>
+    <li>连续谱用 <span class="m">|c(z)|²dz</span>；位置/动量空间波函数互相傅里叶变换。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="108" data-end="110" href="#" title="习题 3.4–3.6 的解答（第 108–110 页）">习题 3.4–3.6</a> 一类；课件 4-4 δ 阱例题（0.0908）。</li>
+    <li><b>易错</b>：概率不是 <span class="m">c<sub>n</sub></span>；简并求和；连续谱问区间。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 K：对易子与不确定原理</h4>
+  <div class="feat">识别特征：算 <span class="m">[A,B]</span>、证不确定关系、求最小波包、能量-时间。</div>
+  <ul>
+    <li>基本对易子 <span class="m">[x̂,p̂]=iħ</span>；由此推出 <span class="m">σ<sub>A</sub>σ<sub>B</sub> ≥ |⟨[A,B]⟩|/2</span>。</li>
+    <li>最小波包条件 <span class="m">g = iaf</span>，得高斯型；能量-时间 <span class="m">ΔEΔt ≥ ħ/2</span>。</li>
+    <li>代表题：<a class="loc" data-doc="solutions" data-page="115" data-end="119" href="#" title="习题 3.17–3.20 的解答（第 115–119 页）">习题 3.17–3.20</a>、3.39；课件 4-5 全节。</li>
+    <li><b>易错</b>：对易子符号；<span class="m">Δt</span> 的含义；把「取等」当普遍成立。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 L：狄拉克符号与矩阵</h4>
+  <div class="feat">识别特征：用 <span class="m">|α⟩、⟨α|</span> 表示，求矩阵元、投影、本征矢。</div>
+  <ul>
+    <li>内积 <span class="m">⟨α|β⟩</span>、矩阵元 <span class="m">Q<sub>mn</sub>=⟨e<sub>m</sub>|Q̂|e<sub>n</sub>⟩</span>、完备性 <span class="m">Σ|e<sub>n</sub>⟩⟨e<sub>n</sub>|=1</span>。</li>
+    <li>两态问题：写矩阵 → 解特征方程 → 归一化本征矢 → 加时间因子。</li>
+    <li>代表题：课件 4-6 两态例题；<a class="loc" data-doc="solutions" data-page="140" data-end="141" href="#" title="习题 3.39–3.40 的解答（第 140–141 页）">习题 3.39–3.40</a>。</li>
+    <li><b>易错</b>：内积共轭；外积与内积混淆；连续谱的 δ 归一。</li>
+  </ul>
+</div>
+
+<div class="ex-type">
+  <h4>类型 M：概念辨析与课件互动题</h4>
+  <div class="feat">识别特征：判断/简答/多选，考「说法是否正确」。</div>
+  <ul>
+    <li>高频判断点：定态是否「静止」；叠加态概率密度是否随时间变；平面波能否归一；<span class="m">n=0</span> 是否存在；零点能是否为零；<span class="m">R+T</span> 是否等于 1；隧穿与势垒符号。</li>
+    <li>课件雨课堂题集中出现的位置：1-1 p016/p028、1-2 p05/p18、3-1 S11–S13、3-2 S11–S12、3-3 S12–S14、3-4 S9–S10、3-5 S12–S14、4-6 p04。</li>
+    <li>答题策略：先定位考点（哪一节），再回忆该节的「课件强调」与易错点，比语感可靠。</li>
+  </ul>
+</div>
+
+<div class="note">
+  <b>课件强调清单（考前最后一遍）</b>：黑体辐射「能量不再均分」与紫外灾难；光电效应遏止电压不随光强；玻尔三假设与谱线系；
+  定态能量无涨落（σ<sub>H</sub>=0）；无限深阱 <span class="m">E∝n²</span> 与节点/宇称；谐振子零点能与 <span class="m">a<sub>±</sub></span>、<span class="m">⟨V⟩=E/2</span>；
+  自由粒子 <span class="m">v<sub>g</sub>=v<sub>class</sub></span> 与平面波不可归一；δ 势唯一束缚态与 <span class="m">R+T=1</span>（垒也透射）；
+  有限深阱超越方程与共振透射、STM 的 <span class="m">e<sup>−2κL</sup></span>；厄密算符三性质；广义统计诠释 <span class="m">|c<sub>n</sub>|²</span>；
+  对易子与不确定原理；狄拉克符号的完备性关系。
+</div>
+<div class="empty" id="empty">没有匹配的内容，换个关键词试试<br><span style="font-size:.9em;opacity:.7">支持搜索概念、公式符号、章节号，例如「定态」「不确定原理」「狄拉克」</span></div>
+</main>
+</div>
+
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<footer>
+  Griffiths《量子力学概论》第二版（中译本）· 课件范围：绪论、概率论与第 1–3 章<br>
+  按「物理图像 — 推导脉络 — 关键结论 — 易错点」组织 · 每节标注原书页码与对应课件 · 供上课同步与考前复习使用<br>
+  <span style="opacity:.7">公式为 HTML 排版，无需联网；打印时推导块会自动展开</span>
+</footer>
+
+<script>
+/* ==========================================================================
+   热力学·统计物理 复习提纲 · 交互脚本
+   由 build.py 注入到单文件 HTML 中，离线可用，无第三方依赖。
+   ========================================================================== */
+
+const KEY_DONE = 'rztj-done-v3';
+const KEY_DARK = 'rztj-dark';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+let currentMode = 'all';
+
+/* ====== 卡片折叠 ====== */
+function foldCard(e, head) {
+  if (e.target.classList.contains('mark')) return;
+  head.parentElement.classList.toggle('closed');
+}
+
+/* ====== 已掌握标记 ====== */
+function loadDone() {
+  try { return JSON.parse(localStorage.getItem(KEY_DONE) || '{}'); }
+  catch (err) { return {}; }
+}
+function saveDone(o) {
+  try { localStorage.setItem(KEY_DONE, JSON.stringify(o)); } catch (err) {}
+}
+
+function markDone(e, el) {
+  e.stopPropagation();
+  const card = el.closest('.card');
+  const on = card.classList.toggle('done');
+  const o = loadDone();
+  if (on) { o[card.id] = 1; } else { delete o[card.id]; }
+  saveDone(o);
+  updateProg();
+}
+
+function updateProg() {
+  const total = $$('.card').length;
+  const done = $$('.card.done').length;
+  const pct = total ? Math.round(done * 100 / total) : 0;
+  $('#prog').innerHTML = '已掌握 <b>' + done + '</b> / ' + total;
+  $('#pbarIn').style.width = pct + '%';
+  const bar = $('#pbarIn').parentElement;
+  bar.title = '掌握进度 ' + pct + '%';
+  $$('nav.side a').forEach(a => {
+    const card = document.getElementById(a.getAttribute('href').slice(1));
+    a.classList.toggle('done', !!(card && card.classList.contains('done')));
+  });
+}
+
+function restoreDone() {
+  const o = loadDone();
+  Object.keys(o).forEach(id => {
+    const card = document.getElementById(id);
+    if (card) card.classList.add('done');
+  });
+  updateProg();
+}
+
+/* ====== 遮挡结论（自测模式） ====== */
+function toggleMask() {
+  const on = document.body.classList.toggle('mask');
+  $('#bMask').classList.toggle('on', on);
+  if (!on) $$('.concl.shown').forEach(c => c.classList.remove('shown'));
+}
+
+/* ====== 模糊公式（公式速查自测） ====== */
+function toggleMaskF() {
+  const on = document.body.classList.toggle('maskf');
+  $('#bMaskF').classList.toggle('on', on);
+  if (!on) $$('.fml.shown').forEach(c => c.classList.remove('shown'));
+}
+
+/* 点击结论 / 公式：在对应模式下逐个揭开 */
+document.addEventListener('click', e => {
+  if (document.body.classList.contains('mask')) {
+    const c = e.target.closest('.concl');
+    if (c) { c.classList.toggle('shown'); return; }
+  }
+  if (document.body.classList.contains('maskf')) {
+    const f = e.target.closest('.fml');
+    if (f) f.classList.toggle('shown');
+  }
+}, true);
+
+/* ====== 推导块全部展开/收起 ====== */
+function toggleAllDeriv() {
+  const all = $$('details.b-deriv');
+  const anyClosed = all.some(d => !d.open);
+  all.forEach(d => { d.open = anyClosed; });
+  $('#bFold').textContent = anyClosed ? '收起推导' : '展开推导';
+}
+
+/* ====== 深色模式 ====== */
+function notifyTheme(on) {
+  try {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'theme', dark: !!on }, '*');
+    }
+  } catch (err) {}
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  try { localStorage.setItem(KEY_DARK, on ? '1' : '0'); } catch (err) {}
+  notifyTheme(on);
+}
+(function initDark() {
+  let saved = null;
+  try { saved = localStorage.getItem(KEY_DARK); } catch (err) {}
+  if (saved === '1' || (saved === null && window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+  notifyTheme(document.body.classList.contains('dark'));
+})();
+window.addEventListener('message', function (e) {
+  const d = e.data || {};
+  if (d.type === 'request-theme') {
+    notifyTheme(document.body.classList.contains('dark'));
+  }
+});
+
+/* ====== 阅读模式：全部 / 只看易错 / 只看结论 ====== */
+function setMode(m) {
+  currentMode = m;
+  document.body.dataset.mode = m;
+  $('#bModeAll').classList.toggle('on', m === 'all');
+  $('#bModeWarn').classList.toggle('on', m === 'warn');
+  $('#bModeKey').classList.toggle('on', m === 'key');
+  if (m !== 'all') {        // 大纲模式下自动展开卡片，否则看不到内容
+    $$('.card').forEach(c => c.classList.remove('closed'));
+  }
+  applyFilter();
+}
+
+/* ====== 搜索与过滤 ====== */
+function escapeReg(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function clearMarks() {
+  $$('mark.hl').forEach(m => {
+    m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
+  });
+  $$('.card').forEach(c => c.normalize && c.normalize());
+}
+
+function highlightIn(root, q) {
+  if (!q) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      if (p.closest('script,style,mark,textarea')) return NodeFilter.FILTER_REJECT;
+      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return node.nodeValue.toLowerCase().indexOf(q) >= 0
+        ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const text = node.nodeValue, low = text.toLowerCase();
+    const frag = document.createDocumentFragment();
+    let i = 0;
+    while (true) {
+      const idx = low.indexOf(q, i);
+      if (idx < 0) { frag.appendChild(document.createTextNode(text.slice(i))); break; }
+      if (idx > i) frag.appendChild(document.createTextNode(text.slice(i, idx)));
+      const m = document.createElement('mark');
+      m.className = 'hl';
+      m.textContent = text.slice(idx, idx + q.length);
+      frag.appendChild(m);
+      i = idx + q.length;
+    }
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+
+function cardText(card) {
+  if (currentMode === 'all') return card.textContent;
+  const sel = currentMode === 'warn' ? '.b-warn' : '.b-key';
+  return Array.from(card.querySelectorAll(sel)).map(n => n.textContent).join(' ');
+}
+
+function isShown(el) {
+  if (getComputedStyle(el).display === 'none') return false;
+  if (el.classList.contains('fsheet')) {
+    return Array.from(el.querySelectorAll('.frow')).some(r => getComputedStyle(r).display !== 'none');
+  }
+  return true;
+}
+
+function applyFilter() {
+  const q = ($('#q').value || '').trim().toLowerCase();
+  clearMarks();
+  let hits = 0;
+
+  /* 章节卡片 */
+  $$('.card').forEach(card => {
+    const okMode = currentMode === 'all' || !!card.querySelector('.b-' + currentMode);
+    const okQ = !q || cardText(card).toLowerCase().includes(q);
+    const show = okMode && okQ;
+    card.style.display = show ? '' : 'none';
+    if (show) { hits++; if (q) highlightIn(card, q); }
+  });
+
+  /* 习题 / 说明 / 自测题 */
+  $$('.ex-type, .note, .q-card').forEach(el => {
+    const ok = !q || el.textContent.toLowerCase().includes(q);
+    el.style.display = ok ? '' : 'none';
+    if (ok && q) { highlightIn(el, q); hits++; }
+  });
+
+  /* 公式速查 */
+  $$('.frow').forEach(tr => {
+    const ok = !q || tr.textContent.toLowerCase().includes(q);
+    tr.style.display = ok ? '' : 'none';
+    if (ok && q) { highlightIn(tr, q); hits++; }
+  });
+  $$('.fsheet').forEach(sheet => {
+    const rows = Array.from(sheet.querySelectorAll('.frow'));
+    const any = rows.some(r => getComputedStyle(r).display !== 'none');
+    sheet.style.display = any ? '' : 'none';
+  });
+
+  /* 章节标题：章内没有可见内容就隐藏 */
+  $$('.chap').forEach(ch => {
+    if (!q) { ch.style.display = ''; return; }
+    let n = ch.nextElementSibling, vis = false;
+    while (n && !n.classList.contains('chap')) {
+      if ((n.classList.contains('card') || n.classList.contains('ex-type') ||
+           n.classList.contains('note') || n.classList.contains('fsheet') ||
+           n.classList.contains('q-card')) && isShown(n)) { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    ch.style.display = vis ? '' : 'none';
+  });
+
+  /* 命中数与空状态 */
+  const hitsEl = $('#hits');
+  if (q) {
+    hitsEl.textContent = hits ? '命中 ' + hits + ' 条' : '无结果';
+    document.body.classList.toggle('no-hits', hits === 0);
+  } else {
+    hitsEl.textContent = '';
+    document.body.classList.remove('no-hits');
+  }
+}
+
+/* ====== 侧栏滚动高亮 ====== */
+(function scrollSpy() {
+  const links = $$('nav.side a');
+  const targets = links
+    .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+    .filter(Boolean);
+  if (!targets.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      links.forEach(a => a.classList.remove('cur'));
+      const a = links.find(x => x.getAttribute('href') === '#' + en.target.id);
+      if (a) a.classList.add('cur');
+    });
+  }, { rootMargin: '-70px 0px -72% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+})();
+
+/* ====== 点击章节横幅：折叠/展开本章卡片 ====== */
+$$('.chap').forEach(ch => {
+  ch.style.cursor = 'pointer';
+  ch.title = '点击折叠 / 展开本章卡片';
+  ch.addEventListener('click', e => {
+    if (e.target.tagName === 'A') return;
+    const cards = [];
+    let n = ch.nextElementSibling;
+    while (n && !n.classList.contains('chap')) {
+      if (n.classList.contains('card')) cards.push(n);
+      n = n.nextElementSibling;
+    }
+    if (!cards.length) return;
+    const anyOpen = cards.some(c => !c.classList.contains('closed'));
+    cards.forEach(c => c.classList.toggle('closed', anyOpen));
+  });
+});
+
+/* ====== 回到顶部按钮 ====== */
+(function toTop() {
+  const btn = $('#toTop');
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > 600);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ====== 键盘快捷键 ====== */
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toUpperCase();
+  if (tag === 'INPUT' || tag === 'TEXTAREA') {
+    if (e.key === 'Escape') { e.target.value = ''; applyFilter(); e.target.blur(); }
+    return;
+  }
+  if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
+  if (e.key === 'Escape') { $('#q').value = ''; applyFilter(); setMode('all'); return; }
+  const k = e.key.toLowerCase();
+  if (k === 'm') toggleMask();
+  else if (k === 'f') toggleMaskF();
+  else if (k === 'd') toggleDark();
+  else if (k === 'w') setMode(currentMode === 'warn' ? 'all' : 'warn');
+  else if (k === 'k') setMode(currentMode === 'key' ? 'all' : 'key');
+  else if (k === 'a') setMode('all');
+});
+
+/* ====== 打印前展开全部折叠块 ====== */
+window.addEventListener('beforeprint', () => {
+  $$('details').forEach(d => { d.open = true; });
+  $$('.card').forEach(c => c.classList.remove('closed'));
+});
+
+/* ====== 初始化 ====== */
+restoreDone();
+applyFilter();
+</script>
+
+
+<style>
+  a.loc { color: inherit; text-decoration: none; border-bottom: 1px dashed color-mix(in srgb, var(--c1) 55%, transparent); cursor: pointer; }
+  a.loc:hover { color: var(--c1); border-bottom-color: var(--c1); }
+  .card.flash { outline: 3px solid var(--c1); outline-offset: -3px; border-radius: 16px; }
+  .flashtext { background: var(--key-bg); color: inherit; box-shadow: 0 0 0 2px var(--key-bg); border-radius: 3px; }
+</style>
+<script>
+(function () {
+  function send(msg) { parent.postMessage(msg, '*'); }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.loc');
+    if (!a) return;
+    e.preventDefault();
+    send({ type: 'open-doc', doc: a.dataset.doc, page: Number(a.dataset.page),
+           end: Number(a.dataset.end) || 0, printed: a.dataset.printed || '' });
+  }, true);
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (d.type === 'reveal-card') {
+      var el = document.getElementById(d.card);
+      if (!el) return;
+      if (el.classList.contains('closed')) el.classList.remove('closed');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('flash');
+      setTimeout(function () { el.classList.remove('flash'); }, 1800);
+    }
+    if (d.type === 'focus-search') {
+      var q = document.getElementById('q');
+      if (q) { q.focus(); q.select(); }
+    }
+    if (d.type === 'flash-text') { highlight(d.text); }
+  });
+  function highlight(text) {
+    if (!text) return;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = walker.nextNode())) {
+      var i = n.nodeValue.indexOf(text);
+      if (i >= 0) {
+        var after = n.splitText(i);
+        after.nodeValue = after.nodeValue.substr(text.length);
+        var span = document.createElement('span');
+        span.className = 'flashtext';
+        span.textContent = text;
+        after.parentNode.insertBefore(span, after);
+        span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(function () { span.classList.remove('flashtext'); }, 2600);
+        break;
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>

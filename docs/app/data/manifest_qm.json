@@ -1,0 +1,788 @@
+{
+ "docs": [
+  {
+   "id": "book",
+   "kind": "book",
+   "title": "教材 · 格里菲斯《量子力学概论》（第2版中译本）",
+   "file": "docs/book.pdf",
+   "pages": 323,
+   "offset": 12,
+   "pageDir": "docs/pages/book",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "solutions",
+   "kind": "solutions",
+   "title": "学习指导与习题解答",
+   "file": "docs/solutions.pdf",
+   "pages": 436,
+   "offset": 6,
+   "pageDir": "docs/pages/solutions",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-1-1",
+   "kind": "deck",
+   "title": "课件 1-1 · 量子力学的诞生",
+   "file": "docs/decks/deck-1-1.pdf",
+   "pages": 39,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-1-1",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-1-2",
+   "kind": "deck",
+   "title": "课件 1-2 · 概率论初步",
+   "file": "docs/decks/deck-1-2.pdf",
+   "pages": 26,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-1-2",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-2-1",
+   "kind": "deck",
+   "title": "课件 2-1 · 薛定谔方程",
+   "file": "docs/decks/deck-2-1.pdf",
+   "pages": 7,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-2-1",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-2-2",
+   "kind": "deck",
+   "title": "课件 2-2 · 波函数的统计诠释",
+   "file": "docs/decks/deck-2-2.pdf",
+   "pages": 8,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-2-2",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-2-3",
+   "kind": "deck",
+   "title": "课件 2-3 · 波函数归一化",
+   "file": "docs/decks/deck-2-3.pdf",
+   "pages": 8,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-2-3",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-2-4",
+   "kind": "deck",
+   "title": "课件 2-4 · 力学量的平均值",
+   "file": "docs/decks/deck-2-4.pdf",
+   "pages": 8,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-2-4",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-2-5",
+   "kind": "deck",
+   "title": "课件 2-5 · 不确定原理",
+   "file": "docs/decks/deck-2-5.pdf",
+   "pages": 5,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-2-5",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-1",
+   "kind": "deck",
+   "title": "课件 3-1 · 定态方程的一般理论",
+   "file": "docs/decks/deck-3-1.pdf",
+   "pages": 14,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-1",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-2",
+   "kind": "deck",
+   "title": "课件 3-2 · 一维无限深方势阱",
+   "file": "docs/decks/deck-3-2.pdf",
+   "pages": 12,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-2",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-3",
+   "kind": "deck",
+   "title": "课件 3-3 · 谐振子势",
+   "file": "docs/decks/deck-3-3.pdf",
+   "pages": 14,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-3",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-4",
+   "kind": "deck",
+   "title": "课件 3-4 · 自由粒子",
+   "file": "docs/decks/deck-3-4.pdf",
+   "pages": 10,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-4",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-5",
+   "kind": "deck",
+   "title": "课件 3-5 · delta 函数势",
+   "file": "docs/decks/deck-3-5.pdf",
+   "pages": 15,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-5",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-3-6",
+   "kind": "deck",
+   "title": "课件 3-6 · 有限深方势阱",
+   "file": "docs/decks/deck-3-6.pdf",
+   "pages": 13,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-3-6",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-1",
+   "kind": "deck",
+   "title": "课件 4-1 · 希尔伯特空间",
+   "file": "docs/decks/deck-4-1.pdf",
+   "pages": 4,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-1",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-2",
+   "kind": "deck",
+   "title": "课件 4-2 · 可观测量与厄密算符",
+   "file": "docs/decks/deck-4-2.pdf",
+   "pages": 5,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-2",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-3",
+   "kind": "deck",
+   "title": "课件 4-3 · 厄密算符的本征函数",
+   "file": "docs/decks/deck-4-3.pdf",
+   "pages": 8,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-3",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-4",
+   "kind": "deck",
+   "title": "课件 4-4 · 广义统计诠释",
+   "file": "docs/decks/deck-4-4.pdf",
+   "pages": 5,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-4",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-5",
+   "kind": "deck",
+   "title": "课件 4-5 · 不确定性原理",
+   "file": "docs/decks/deck-4-5.pdf",
+   "pages": 9,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-5",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-4-6",
+   "kind": "deck",
+   "title": "课件 4-6 · 狄拉克符号",
+   "file": "docs/decks/deck-4-6.pdf",
+   "pages": 8,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-4-6",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  }
+ ],
+ "cards": [
+  {
+   "id": "s0a",
+   "label": "专题 1 量子力学的诞生",
+   "deck": "deck-1-1",
+   "deckStart": 14,
+   "deckEnd": 39
+  },
+  {
+   "id": "s0b",
+   "label": "专题 2 概率论初步",
+   "doc": "book",
+   "start": 16,
+   "end": 20,
+   "printed": "4–8",
+   "deck": "deck-1-2",
+   "deckStart": 1,
+   "deckEnd": 26
+  },
+  {
+   "id": "s11",
+   "label": "§1.1 薛定谔方程",
+   "doc": "book",
+   "start": 13,
+   "end": 13,
+   "printed": "1–1",
+   "deck": "deck-2-1",
+   "deckStart": 1,
+   "deckEnd": 7
+  },
+  {
+   "id": "s12",
+   "label": "§1.2 波函数的统计诠释",
+   "doc": "book",
+   "start": 13,
+   "end": 15,
+   "printed": "1–3",
+   "deck": "deck-2-2",
+   "deckStart": 1,
+   "deckEnd": 8
+  },
+  {
+   "id": "s13",
+   "label": "§1.3 概率论",
+   "doc": "book",
+   "start": 16,
+   "end": 20,
+   "printed": "4–8",
+   "deck": "deck-1-2",
+   "deckStart": 1,
+   "deckEnd": 26
+  },
+  {
+   "id": "s14",
+   "label": "§1.4 归一化",
+   "doc": "book",
+   "start": 20,
+   "end": 21,
+   "printed": "8–9",
+   "deck": "deck-2-3",
+   "deckStart": 1,
+   "deckEnd": 8
+  },
+  {
+   "id": "s15",
+   "label": "§1.5 动量与期望值",
+   "doc": "book",
+   "start": 22,
+   "end": 23,
+   "printed": "10–11",
+   "deck": "deck-2-4",
+   "deckStart": 1,
+   "deckEnd": 8
+  },
+  {
+   "id": "s16",
+   "label": "§1.6 不确定原理",
+   "doc": "book",
+   "start": 24,
+   "end": 27,
+   "printed": "12–15",
+   "deck": "deck-2-5",
+   "deckStart": 1,
+   "deckEnd": 5
+  },
+  {
+   "id": "s21",
+   "label": "§2.1 定态",
+   "doc": "book",
+   "start": 28,
+   "end": 31,
+   "printed": "16–19",
+   "deck": "deck-3-1",
+   "deckStart": 1,
+   "deckEnd": 14
+  },
+  {
+   "id": "s22",
+   "label": "§2.2 一维无限深方势阱",
+   "doc": "book",
+   "start": 32,
+   "end": 37,
+   "printed": "20–25",
+   "deck": "deck-3-2",
+   "deckStart": 1,
+   "deckEnd": 12
+  },
+  {
+   "id": "s23",
+   "label": "§2.3 谐振子",
+   "doc": "book",
+   "start": 38,
+   "end": 50,
+   "printed": "26–38",
+   "deck": "deck-3-3",
+   "deckStart": 1,
+   "deckEnd": 14
+  },
+  {
+   "id": "s24",
+   "label": "§2.4 自由粒子",
+   "doc": "book",
+   "start": 51,
+   "end": 56,
+   "printed": "39–44",
+   "deck": "deck-3-4",
+   "deckStart": 1,
+   "deckEnd": 10
+  },
+  {
+   "id": "s25",
+   "label": "§2.5 δ 函数势",
+   "doc": "book",
+   "start": 57,
+   "end": 62,
+   "printed": "45–50",
+   "deck": "deck-3-5",
+   "deckStart": 1,
+   "deckEnd": 15
+  },
+  {
+   "id": "s26",
+   "label": "§2.6 有限深方势阱",
+   "doc": "book",
+   "start": 63,
+   "end": 65,
+   "printed": "51–53",
+   "deck": "deck-3-6",
+   "deckStart": 1,
+   "deckEnd": 13
+  },
+  {
+   "id": "s31",
+   "label": "§3.1 希尔伯特空间",
+   "doc": "book",
+   "start": 74,
+   "end": 75,
+   "printed": "62–63",
+   "deck": "deck-4-1",
+   "deckStart": 1,
+   "deckEnd": 4
+  },
+  {
+   "id": "s32",
+   "label": "§3.2 可观测量与厄密算符",
+   "doc": "book",
+   "start": 76,
+   "end": 78,
+   "printed": "64–66",
+   "deck": "deck-4-2",
+   "deckStart": 1,
+   "deckEnd": 5
+  },
+  {
+   "id": "s33",
+   "label": "§3.3 厄密算符的本征函数",
+   "doc": "book",
+   "start": 79,
+   "end": 82,
+   "printed": "67–70",
+   "deck": "deck-4-3",
+   "deckStart": 1,
+   "deckEnd": 8
+  },
+  {
+   "id": "s34",
+   "label": "§3.4 广义统计诠释",
+   "doc": "book",
+   "start": 83,
+   "end": 84,
+   "printed": "71–72",
+   "deck": "deck-4-4",
+   "deckStart": 1,
+   "deckEnd": 5
+  },
+  {
+   "id": "s35",
+   "label": "§3.5 不确定原理（一般形式）",
+   "doc": "book",
+   "start": 85,
+   "end": 90,
+   "printed": "73–78",
+   "deck": "deck-4-5",
+   "deckStart": 1,
+   "deckEnd": 9
+  },
+  {
+   "id": "s36",
+   "label": "§3.6 狄拉克符号",
+   "doc": "book",
+   "start": 91,
+   "end": 99,
+   "printed": "79–87",
+   "deck": "deck-4-6",
+   "deckStart": 1,
+   "deckEnd": 8
+  }
+ ],
+ "problems": {
+  "1.1": {
+   "sol": 8
+  },
+  "1.2": {
+   "sol": 9
+  },
+  "1.3": {
+   "sol": 10
+  },
+  "1.4": {
+   "sol": 11
+  },
+  "1.5": {
+   "sol": 12
+  },
+  "1.6": {
+   "sol": 13
+  },
+  "1.7": {
+   "sol": 14
+  },
+  "1.8": {
+   "sol": 15
+  },
+  "1.9": {
+   "sol": 15
+  },
+  "1.10": {
+   "sol": 17
+  },
+  "1.11": {
+   "sol": 18
+  },
+  "1.12": {
+   "sol": 18
+  },
+  "1.13": {
+   "sol": 19
+  },
+  "1.14": {
+   "sol": 20
+  },
+  "1.15": {
+   "sol": 21
+  },
+  "1.16": {
+   "sol": 22
+  },
+  "1.17": {
+   "sol": 23
+  },
+  "1.18": {
+   "sol": 24
+  },
+  "2.1": {
+   "sol": 30
+  },
+  "2.2": {
+   "sol": 31
+  },
+  "2.3": {
+   "sol": 32
+  },
+  "2.4": {
+   "sol": 32
+  },
+  "2.5": {
+   "sol": 33
+  },
+  "2.6": {
+   "sol": 35
+  },
+  "2.7": {
+   "sol": 36
+  },
+  "2.8": {
+   "sol": 37
+  },
+  "2.9": {
+   "sol": 37
+  },
+  "2.10": {
+   "sol": 38
+  },
+  "2.11": {
+   "sol": 39
+  },
+  "2.12": {
+   "sol": 40
+  },
+  "2.13": {
+   "sol": 41
+  },
+  "2.14": {
+   "sol": 44
+  },
+  "2.15": {
+   "sol": 44
+  },
+  "2.16": {
+   "sol": 45
+  },
+  "2.17": {
+   "sol": 46
+  },
+  "2.18": {
+   "sol": 47
+  },
+  "2.19": {
+   "sol": 47
+  },
+  "2.20": {
+   "sol": 48
+  },
+  "2.21": {
+   "sol": 50
+  },
+  "2.22": {
+   "sol": 51
+  },
+  "2.23": {
+   "sol": 53
+  },
+  "2.24": {
+   "sol": 54
+  },
+  "2.25": {
+   "sol": 55
+  },
+  "2.26": {
+   "sol": 56
+  },
+  "2.27": {
+   "sol": 56
+  },
+  "2.28": {
+   "sol": 60
+  },
+  "2.29": {
+   "sol": 61
+  },
+  "2.30": {
+   "sol": 63
+  },
+  "2.31": {
+   "sol": 64
+  },
+  "2.32": {
+   "sol": 65
+  },
+  "2.33": {
+   "sol": 67
+  },
+  "2.34": {
+   "sol": 70
+  },
+  "2.35": {
+   "sol": 71
+  },
+  "2.36": {
+   "sol": 72
+  },
+  "2.37": {
+   "sol": 74
+  },
+  "2.38": {
+   "sol": 75
+  },
+  "2.39": {
+   "sol": 77
+  },
+  "2.40": {
+   "sol": 78
+  },
+  "2.41": {
+   "sol": 79
+  },
+  "2.42": {
+   "sol": 81
+  },
+  "2.43": {
+   "sol": 81
+  },
+  "2.44": {
+   "sol": 84
+  },
+  "2.45": {
+   "sol": 85
+  },
+  "2.46": {
+   "sol": 86
+  },
+  "2.47": {
+   "sol": 87
+  },
+  "2.48": {
+   "sol": 89
+  },
+  "2.49": {
+   "sol": 90
+  },
+  "2.50": {
+   "sol": 91
+  },
+  "2.51": {
+   "sol": 93
+  },
+  "2.52": {
+   "sol": 96
+  },
+  "2.53": {
+   "sol": 98
+  },
+  "3.1": {
+   "sol": 105
+  },
+  "3.2": {
+   "sol": 106
+  },
+  "3.3": {
+   "sol": 107
+  },
+  "3.4": {
+   "sol": 108
+  },
+  "3.5": {
+   "sol": 109
+  },
+  "3.6": {
+   "sol": 110
+  },
+  "3.7": {
+   "sol": 110
+  },
+  "3.8": {
+   "sol": 111
+  },
+  "3.9": {
+   "sol": 111
+  },
+  "3.10": {
+   "sol": 112
+  },
+  "3.11": {
+   "sol": 112
+  },
+  "3.12": {
+   "sol": 113
+  },
+  "3.13": {
+   "sol": 113
+  },
+  "3.14": {
+   "sol": 114
+  },
+  "3.15": {
+   "sol": 115
+  },
+  "3.16": {
+   "sol": 115
+  },
+  "3.17": {
+   "sol": 115
+  },
+  "3.18": {
+   "sol": 116
+  },
+  "3.19": {
+   "sol": 118
+  },
+  "3.20": {
+   "sol": 119
+  },
+  "3.21": {
+   "sol": 119
+  },
+  "3.22": {
+   "sol": 119
+  },
+  "3.23": {
+   "sol": 120
+  },
+  "3.24": {
+   "sol": 121
+  },
+  "3.25": {
+   "sol": 121
+  },
+  "3.26": {
+   "sol": 122
+  },
+  "3.27": {
+   "sol": 123
+  },
+  "3.28": {
+   "sol": 123
+  },
+  "3.29": {
+   "sol": 126
+  },
+  "3.30": {
+   "sol": 127
+  },
+  "3.31": {
+   "sol": 128
+  },
+  "3.32": {
+   "sol": 129
+  },
+  "3.33": {
+   "sol": 130
+  },
+  "3.34": {
+   "sol": 132
+  },
+  "3.35": {
+   "sol": 133
+  },
+  "3.36": {
+   "sol": 135
+  },
+  "3.37": {
+   "sol": 136
+  },
+  "3.38": {
+   "sol": 137
+  },
+  "3.39": {
+   "sol": 140
+  },
+  "3.40": {
+   "sol": 141
+  }
+ }
+}

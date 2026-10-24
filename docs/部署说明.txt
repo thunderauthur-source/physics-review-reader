@@ -1,0 +1,53 @@
+﻿网页版 · 部署说明
+==================
+
+一、这个目录是什么
+------------------
+把原来的桌面阅读器改成了纯静态网页：
+  index.html                 入口（自动跳到 app/renderer/index.html）
+  app/renderer/              界面、两份提纲、app.js/css
+  app/data/                  文档/卡片/页码、搜索索引
+  app/docs/pages/            1536 张页面图（WebP）
+
+不需要后端、不需要数据库，任何静态托管都能放。
+
+二、本地预览
+------------
+浏览器直接双击 index.html 也能打开大部分功能，但 file:// 下
+「导出当前页 PNG」会受 canvas 限制，部分浏览器对 localStorage 也有限制。
+完整功能建议用本地 HTTP 服务：
+
+  方式 A：双击「本地预览.cmd」（需要电脑装了 Python）
+  方式 B：在本目录执行
+         python -m http.server 8080 --bind 127.0.0.1
+         然后打开 http://127.0.0.1:8080/
+
+三、放到网上（三选一）
+----------------------
+1. Netlify Drop（最简单）
+   · 打开 https://app.netlify.com/drop
+   · 把整个「网页版」文件夹拖进去
+   · 等上传完成，会得到一个 https://xxxx.netlify.app 网址
+   · 免费额度一般够个人使用
+
+2. Cloudflare Pages
+   · 登录 Cloudflare → Workers & Pages → Create → Pages
+   · 选择「Upload assets」，把「网页版」文件夹上传
+   · 部署后得到 https://xxxx.pages.dev
+
+3. GitHub Pages
+   · 新建仓库，把「网页版」里的内容（index.html、app/）传到仓库根目录
+   · Settings → Pages → Deploy from a branch → main / root
+   · 得到 https://用户名.github.io/仓库名/
+
+四、注意事项
+------------
+· 总大小约 137 MB、1500 多个文件，上传前确认托管平台的单文件/总容量限制。
+· 已放 _headers 设置 X-Robots-Tag: noindex，尽量避免被搜索引擎收录。
+· 教材、课件、题解是扫描件，版权归原作者/出版社；公开托管可能被投诉下架，
+  建议只发给同学、用不公开的链接，或加访问控制（Cloudflare Access 等）。
+· 阅读进度、书签、笔记存在浏览器 localStorage 里：
+  · 换浏览器/换设备不会同步；
+  · 清理浏览器数据会丢失；
+  · 阅读器里「学习 → 统计 → 备份学习数据」可以导出 JSON。
+· 网页版不需要 Edge 专用参数，Chrome / Edge / Firefox / Safari 现代版本均可。

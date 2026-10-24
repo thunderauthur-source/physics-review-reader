@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>物理 · 提纲阅读器</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="256x256" href="icon-256.png">
+<meta name="theme-color" content="#241a45">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <span class="logo">PH</span>
+    <span class="title">物理 · 提纲阅读器</span>
+  </div>
+
+  <label class="docpick">
+    <span>文档</span>
+    <select id="docSel"></select>
+  </label>
+
+  <div class="pager">
+    <button id="prevBtn" title="上一页（←）">‹</button>
+    <input id="pageInput" type="text" inputmode="numeric" title="输入页码后回车">
+    <span id="pageTotal" class="muted">/ –</span>
+    <button id="nextBtn" title="下一页（→）">›</button>
+  </div>
+
+  <div id="rangeInfo" class="chip muted"></div>
+
+  <div class="spacer"></div>
+
+  <button id="bookmarkBtn" class="btn icon" title="收藏当前页（B）">☆</button>
+  <button id="hlBtn" class="btn" title="框选高亮（H）">高亮</button>
+  <button id="studyBtn" class="btn" title="书签 / 笔记 / 统计">学习</button>
+  <button id="tocBtn" class="btn" title="章节目录（T）">目录</button>
+  <button id="searchBtn" class="btn" title="全局搜索（/ 或 Ctrl+K）">搜索</button>
+  <button id="focusBtn" class="btn" title="专注模式，隐藏左侧提纲（F）">专注</button>
+  <button id="locateBtn" class="btn" title="在提纲中定位当前页对应的卡片">定位卡片</button>
+  <button id="fitBtn" class="btn on" title="按窗宽缩放（0）">适宽</button>
+  <button id="zoomOut" class="btn" title="缩小（-）">−</button>
+  <button id="zoomIn" class="btn" title="放大（+）">＋</button>
+</header>
+
+<main id="main">
+  <section id="outlinePane">
+    <div id="coursebar">
+      <span class="clabel">课程</span>
+      <select id="courseSel">
+        <option value="qm">量子力学</option>
+        <option value="thermo">热力学统计物理</option>
+      </select>
+    </div>
+    <iframe id="outline" src="outline_qm.html" title="复习提纲"></iframe>
+  </section>
+  <div id="splitter" title="拖动调整宽度"></div>
+  <section id="pdfPane">
+    <div id="canvasWrap">
+      <div id="pageStage">
+        <img id="pageImg" alt="页面">
+        <div id="hlLayer"></div>
+      </div>
+    </div>
+    <div id="pageSliderWrap">
+      <input id="pageSlider" type="range" min="1" max="1" value="1" step="1" title="拖动快速翻页">
+    </div>
+    <div id="loading" class="loading">正在加载页面…</div>
+  </section>
+</main>
+
+<footer id="statusbar">
+  <span id="statusText" class="muted">就绪</span>
+  <span id="docInfo" class="muted"></span>
+</footer>
+
+<!-- 学习抽屉 -->
+<aside id="drawer">
+  <div class="drawer-head">
+    <span>学习</span>
+    <button id="drawerClose" class="btn icon" title="关闭">×</button>
+  </div>
+  <div class="drawer-tabs">
+    <button data-tab="bm" class="on">书签</button>
+    <button data-tab="note">笔记</button>
+    <button data-tab="stat">统计</button>
+  </div>
+  <div id="tab-bm" class="tabpane">
+    <div id="bmList" class="list"></div>
+    <button id="bmClear" class="btn small">清空本课程书签</button>
+  </div>
+  <div id="tab-note" class="tabpane">
+    <div class="hint" id="notePageLabel">当前页</div>
+    <textarea id="noteText" placeholder="给当前页写点笔记…"></textarea>
+    <div class="row">
+      <button id="noteSave" class="btn small">保存笔记</button>
+      <button id="noteClear" class="btn small">删除本页笔记</button>
+    </div>
+    <div id="noteList" class="list"></div>
+  </div>
+  <div id="tab-stat" class="tabpane">
+    <div id="statBox"></div>
+    <div class="row wrap">
+      <button id="exportPage" class="btn small">导出当前页 PNG</button>
+      <button id="clearHl" class="btn small">清除本页高亮</button>
+      <button id="backupBtn" class="btn small">备份学习数据</button>
+      <button id="restoreBtn" class="btn small">恢复备份</button>
+      <input id="restoreFile" type="file" accept=".json" hidden>
+    </div>
+    <div class="hint">备份包含：两门课进度、书签、笔记、高亮、分栏与缩放设置。</div>
+  </div>
+</aside>
+
+<!-- 全局搜索 -->
+<div id="searchModal" class="modal">
+  <div class="modal-box search-box">
+    <div class="modal-head">
+      <input id="searchInput" placeholder="搜索两门课的提纲（标题、公式、概念）…">
+      <button id="searchClose" class="btn icon">×</button>
+    </div>
+    <div class="row">
+      <button id="outlineSearchBtn" class="btn small">只在当前提纲内搜索</button>
+      <span class="hint" id="searchHint"></span>
+    </div>
+    <div id="searchResults" class="list"></div>
+  </div>
+</div>
+
+<!-- 章节目录 -->
+<div id="tocModal" class="modal">
+  <div class="modal-box toc-box">
+    <div class="modal-head">
+      <span id="tocTitle">章节目录</span>
+      <button id="tocClose" class="btn icon">×</button>
+    </div>
+    <div id="tocList" class="list"></div>
+  </div>
+</div>
+
+<script>
+  // 启动自检：模块加载失败或初始化超时时给出可见提示，而不是白屏
+  window.addEventListener('error', function (e) {
+    var el = document.getElementById('statusText');
+    if (el) el.textContent = '启动错误：' + (e.message || e.filename || '未知错误') + '（按 F12 查看控制台）';
+  }, true);
+  setTimeout(function () {
+    var el = document.getElementById('statusText');
+    if (el && el.textContent === '就绪') {
+      el.textContent = '初始化超时：界面脚本可能没有加载成功，按 F12 查看控制台';
+    }
+  }, 6000);
+</script>
+<script src="../data/manifest_qm.js"></script>
+<script src="../data/search_index.js"></script>
+<script defer src="app.js"></script>
+</body>
+</html>
