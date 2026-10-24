@@ -1,9 +1,15 @@
 # 物理复习提纲阅读器
 
+[![Online Demo](https://img.shields.io/badge/Online%20Demo-Open-0f6b5c?style=flat-square)](https://thunderauthur-source.github.io/physics-review-reader/)
+[![Release](https://img.shields.io/github/v/release/thunderauthur-source/physics-review-reader?style=flat-square)](https://github.com/thunderauthur-source/physics-review-reader/releases/tag/v1.0)
+[![GitHub Stars](https://img.shields.io/github/stars/thunderauthur-source/physics-review-reader?style=social)](https://github.com/thunderauthur-source/physics-review-reader)
+
 > 把「复习提纲」「教材」「课堂讲义」「习题解答」放在同一个窗口里的离线 / 网页阅读器。
 > 左侧点提纲卡片，右侧直接跳到对应页；支持教材与讲义双链接、反向定位、搜索、书签、笔记和框选高亮。
 
 [**在线使用**](https://thunderauthur-source.github.io/physics-review-reader/) · [**下载 Windows 安装版**](https://github.com/thunderauthur-source/physics-review-reader/releases/tag/v1.0) · [**问题反馈**](https://github.com/thunderauthur-source/physics-review-reader/issues)
+
+> 如果这个项目帮你省了时间，欢迎在仓库右上角点一个 ⭐ Star，或把网页版链接发给需要的同学。
 
 <p align="center">
   <img src="docs/screenshots/qm.png" width="49%" alt="量子力学界面">
@@ -388,6 +394,58 @@ Pages 约 30 秒后自动重建。
 
 **能加别的课吗？**
 可以。复制一份 `outline_*.html` 和 manifest，按同样结构加 `docs/pages/<docId>`，再在 `app.js` 的 `COURSES` 里注册。
+
+## 分享与 Star
+
+如果这个项目对同学有用，最方便的分享方式是**网页版链接**，别人点开就能用，不用下载：
+
+```
+https://thunderauthur-source.github.io/physics-review-reader/
+```
+
+<p align="center">
+  <img src="docs/screenshots/share-qr.png" width="200" alt="扫码打开网页版">
+</p>
+
+### 群聊 / 班级群
+
+> 做了个物理复习阅读器，左边点提纲卡片、右边直接跳教材/讲义对应页，量子力学和热统都能用。
+> 网页直接开：https://thunderauthur-source.github.io/physics-review-reader/
+> 不用安装；觉得有用的话 GitHub 点个 Star：https://github.com/thunderauthur-source/physics-review-reader
+
+### 朋友圈 / QQ 空间
+
+> 期末复习做了个「提纲 ↔ 教材/讲义」双向跳转的阅读器，量子力学 + 热力学统计物理，1536 页资料。
+> 在线直接用：https://thunderauthur-source.github.io/physics-review-reader/
+> 开源在 GitHub，欢迎 Star ⭐
+
+### 知乎 / 论坛 / Reddit
+
+可以写成「复习工具分享」而不是纯广告，正文里说明：
+
+- 解决什么问题：提纲和教材页码来回翻
+- 有什么功能：卡片跳页、反向定位、搜索、书签、笔记、高亮
+- 在线地址 + 源码地址
+- 说明资料版权，不提供打包下载
+
+英文一句话简介：
+
+> A browser-based study reader that links review-note cards to the exact pages of textbooks, lecture slides and solution manuals. Static, offline-friendly, no backend.
+
+### 怎么点 Star
+
+1. 打开 <https://github.com/thunderauthur-source/physics-review-reader>
+2. 登录 GitHub
+3. 点右上角 **⭐ Star**（手机网页也可以）
+
+Star 只是收藏和扩散，不会解锁任何功能。不要买 Star 或到无关群里刷链接，容易被举报，也违背 GitHub 的使用规则。
+
+### 分享时的注意
+
+- 优先发**网页版链接**，不要一上来发 137 MB 安装包
+- 只发物理/学习相关的群，遵守群规，别刷屏
+- 仓库里有教材、课件扫描件，公开传播有版权风险；建议只发给同学，不要做成公开推广资源
+- 如果对方打不开 `github.io`，可以换成 Cloudflare Pages 部署，或让对方用安装版
 
 ## 版本
 
