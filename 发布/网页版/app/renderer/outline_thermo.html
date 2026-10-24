@@ -2077,6 +2077,188 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s17">
+      <summary>完整推导 · 20 步：理想气体内能只依赖温度</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从焦耳自由膨胀推出 \((\partial U/\partial V)_T=0\)，得到 \(U=U(T)\)、\(H=H(T)\)，并用麦克斯韦关系交叉验证。
+          约定：理想气体 \(pV=nRT\)，\(C_V\) 为定容热容。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="free-expansion">焦耳实验</a></div>
+            <div class="step-body">
+              <p>气体装在绝热容器一侧，另一侧真空；打开阀门，气体自由膨胀。</p>
+              <p>测量膨胀前后温度：理想气体温度不变；真实气体通常有微小变化。</p>
+              <p class="step-why"><b>目的：</b>判断内能是否依赖体积。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由膨胀不做功</div>
+            <div class="step-body">
+              <p>向真空膨胀，外界没有阻力，\(\delta W=0\)；容器绝热，\(\delta Q=0\)。</p>
+              <p>由第一定律：</p>
+              \[ \Delta U=Q+W=0. \]
+              <p class="step-check"><b>注意：</b>自由膨胀不可逆，不能用 \(-p\mathrm{d}V\) 算功；但初末态仍有定义。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度不变</div>
+            <div class="step-body">
+              <p>实验观测 \(T_{\rm 初}=T_{\rm 末}\)。所以对理想气体，在 U 不变时 T 也不变。</p>
+              <p>这暗示 U 与 V 无关：若 U 依赖 V，自由膨胀后 V 变、T 一般会变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">偏导数形式</div>
+            <div class="step-body">
+              <p>把 U 看成 (T,V) 的函数：</p>
+              \[ \mathrm{d}U=\left(\frac{\partial U}{\partial T}\right)_V\mathrm{d}T
+                 +\left(\frac{\partial U}{\partial V}\right)_T\mathrm{d}V. \]
+              <p>自由膨胀 \(\mathrm{d}U=0\)、\(\mathrm{d}T=0\)、\(\mathrm{d}V\ne0\)，所以</p>
+              \[ \left(\frac{\partial U}{\partial V}\right)_T=0. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焦耳定律</div>
+            <div class="step-body">
+              <p>\((\partial U/\partial V)_T=0\) 对任意 V 成立，所以 U 只是 T 的函数：</p>
+              \[ U=U(T). \]
+              <p>这就是焦耳定律；它是理想气体的定义性性质之一。</p>
+              <p class="step-why"><b>微观：</b>理想气体无分子间势能，内能只是平动/转动/振动动能，故只依赖 T。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="enthalpy">焓</a>也只依赖温度</div>
+            <div class="step-body">
+              <p>\[ H=U+pV=U(T)+nRT=H(T). \]</p>
+              <p>所以理想气体的 H 也只依赖 T；\(C_p=(\partial H/\partial T)_p\) 也只是 T 的函数。</p>
+              <p class="step-check"><b>对比：</b>真实气体 H 依赖 T 和 p（节流效应）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="cv">热容</a></div>
+            <div class="step-body">
+              <p>由 \(U=U(T)\)：</p>
+              \[ C_V=\frac{\mathrm{d}U}{\mathrm{d}T},\qquad
+                 \mathrm{d}U=C_V(T)\,\mathrm{d}T. \]
+              <p>若 \(C_V\) 近似常数，\(U=C_VT+U_0\)。</p>
+              <p class="step-why"><b>注意：</b>\(U_0\) 是参考常数，不可测；只影响绝对内能。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内能变化的计算</div>
+            <div class="step-body">
+              <p>对任意过程（不要求等容）：</p>
+              \[ \Delta U=\int_{T_1}^{T_2}C_V(T)\,\mathrm{d}T. \]
+              <p>因为 U 只依赖 T，路径无关；这是理想气体最方便的结论。</p>
+              <p class="step-check"><b>检查：</b>等温过程 \(\Delta U=0\)；绝热过程 \(\Delta U=W\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焓变</div>
+            <div class="step-body">
+              <p>同理：</p>
+              \[ \Delta H=\int_{T_1}^{T_2}C_p(T)\,\mathrm{d}T. \]
+              <p>等压过程 \(Q_p=\Delta H\)；非等压过程也可用此式算 \(\Delta H\)（只依赖 T）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">麦克斯韦关系交叉验证</div>
+            <div class="step-body">
+              <p>第二章将证明：</p>
+              \[ \left(\frac{\partial U}{\partial V}\right)_T
+                 =T\left(\frac{\partial p}{\partial T}\right)_V-p. \]
+              <p>代入理想气体 \(p=nRT/V\)：\((\partial p/\partial T)_V=nR/V\)，所以右边 \(=T(nR/V)-p=p-p=0\)。与焦耳定律一致。</p>
+              <p class="step-why"><b>意义：</b>热力学一般关系与气体模型互相印证。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">微观图像</div>
+            <div class="step-body">
+              <p>理想气体分子无相互作用，内能是各分子动能之和：</p>
+              \[ U=\sum_i E_{k,i}. \]
+              <p>温度是平均动能的度量，所以 U 只随 T 变；体积变化不改变平均动能。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">真实气体的对比</div>
+            <div class="step-body">
+              <p>真实气体有分子间吸引：膨胀时克服引力做功，U 增加/温度下降。</p>
+              <p>所以 \((\partial U/\partial V)_T>0\)（通常）；焦耳–汤姆孙效应正是这种依赖的体现。</p>
+              <p class="step-check"><b>极限：</b>低压高温下真实气体趋于理想气体，\((\partial U/\partial V)_T\to0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">焦耳–汤姆孙预览</div>
+            <div class="step-body">
+              <p>节流过程等焓；理想气体 \(H=H(T)\)，所以节流前后温度不变。</p>
+              <p>真实气体 \(H\) 依赖 p，节流可能降温或升温（转变温度）。</p>
+              <p class="step-why"><b>知识点：</b>§2.3 节流；这里只需知道理想气体不降温。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内能的参考态</div>
+            <div class="step-body">
+              <p>\(U=C_VT+U_0\) 中的 \(U_0\) 可任取；热力学只关心 \(\Delta U\)。</p>
+              <p>比较不同物质时，要统一参考态（如标准态），否则绝对值无意义。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由膨胀与准静态</div>
+            <div class="step-body">
+              <p>自由膨胀不是准静态，但初末态都是平衡态，所以 \(\Delta U\) 仍可算。</p>
+              <p>不能用 \(-p\mathrm{d}V\) 算功，但 \(\Delta U=0\) 由第一定律直接得到。</p>
+              <p class="step-check"><b>常见混淆：</b>把自由膨胀当绝热可逆，错误套 \(pV^\gamma\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度变化的实验精度</div>
+            <div class="step-body">
+              <p>焦耳实验精度有限：水的热容远大于气体，温度变化极小；但结论被后续更精密实验支持。</p>
+              <p>「结论对、手段糙」是物理史上常见情形；不要因为实验粗糙就否定理想气体模型。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位与量纲</div>
+            <div class="step-body">
+              <p>U、H：J；\(C_V,C_p\)：J/K（总）或 J/(mol·K)（摩尔）。</p>
+              <p>\(pV\) 项：J；\(H=U+pV\) 量纲一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(U=U(T)\) 推广到真实气体；</li>
+                <li>用 \(C_V\Delta T\) 算非理想气体；</li>
+                <li>认为自由膨胀准静态、可套绝热方程；</li>
+                <li>把 \(U_0\) 当可测量；</li>
+                <li>等温过程误以为 Q=0（等温不是绝热）。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">U=U(T) 的适用边界</div>
+            <div class="step-body">
+              <p>理想气体模型要求：分子间无相互作用、分子体积可忽略；低压、高温下真实气体趋于该极限。</p>
+              <p>高压/低温时分子间吸引显著，\((\partial U/\partial V)_T>0\)，必须用范德瓦耳斯等真实气体模型修正。</p>
+              <p class="step-check"><b>检查：</b>题目若给范德瓦耳斯方程，不能再用 \(U=C_VT+U_0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>焦耳定律：</b>理想气体 \((\partial U/\partial V)_T=0\)，\(U=U(T)\)，\(H=H(T)\)。</p>
+              <p><b>计算：</b>\(\Delta U=\int C_V\mathrm{d}T\)，\(\Delta H=\int C_p\mathrm{d}T\)，路径无关。</p>
+              <p><b>验证：</b>麦克斯韦关系 \((\partial U/\partial V)_T=T(\partial p/\partial T)_V-p=0\)。</p>
+              <p><b>自检：</b>为什么自由膨胀不能套 \(pV^\gamma=\)常数？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2125,6 +2307,191 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s18">
+      <summary>完整推导 · 20 步：理想气体绝热过程</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(\delta Q=0\) 推出 \(pV^\gamma,TV^{\gamma-1},p^{1-\gamma}T^\gamma\) 三个过程方程，并说明<a class="kp" data-kp="reversible">适用条件</a>与声速应用。
+          约定：理想气体、准静态（可逆）绝热、\(\gamma=C_p/C_V\) 近似常数。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="adiabatic-process">绝热条件</a></div>
+            <div class="step-body">
+              <p>系统与外界无热交换：</p>
+              \[ \delta Q=0. \]
+              <p>绝热不是「温度不变」；它只说不交换热，温度可以因做功而变。</p>
+              <p class="step-why"><b>对比：</b>等温过程 T 不变但可以吸/放热；绝热过程 Q=0 但 T 变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第一定律退化</div>
+            <div class="step-body">
+              <p>\(\mathrm{d}U=\delta Q+\delta W=\delta W\)。准静态体积功 \(\delta W=-p\mathrm{d}V\)：</p>
+              \[ \mathrm{d}U=-p\,\mathrm{d}V. \]
+              <p>内能减少完全用于对外做功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">理想气体内能</div>
+            <div class="step-body">
+              <p>\(\mathrm{d}U=C_V\mathrm{d}T\)（理想气体 U=U(T)），所以</p>
+              \[ C_V\,\mathrm{d}T=-p\,\mathrm{d}V. \]
+              <p class="step-check"><b>注意：</b>这一步用了理想气体；真实气体需用 \((\partial U/\partial V)_T\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">消去压强</div>
+            <div class="step-body">
+              <p>用 \(p=nRT/V\)：</p>
+              \[ C_V\,\mathrm{d}T=-\frac{nRT}{V}\mathrm{d}V. \]
+              <p>分离变量：</p>
+              \[ \frac{C_V}{nR}\frac{\mathrm{d}T}{T}=-\frac{\mathrm{d}V}{V}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">引入 γ</div>
+            <div class="step-body">
+              <p>由 \(C_p-C_V=nR\)：</p>
+              \[ \frac{C_V}{nR}=\frac{C_V}{C_p-C_V}=\frac{1}{\gamma-1}. \]
+              <p>所以</p>
+              \[ \frac{1}{\gamma-1}\frac{\mathrm{d}T}{T}=-\frac{\mathrm{d}V}{V}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">积分</div>
+            <div class="step-body">
+              <p>两边积分：</p>
+              \[ \frac{1}{\gamma-1}\ln T=-\ln V+\text{const}. \]
+              <p>整理：</p>
+              \[ \ln\left(TV^{\gamma-1}\right)=\text{const}. \]
+              <p>所以</p>
+              \[ TV^{\gamma-1}=\text{const}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第二个过程方程</div>
+            <div class="step-body">
+              <p>用 \(T=pV/(nR)\) 代入 \(TV^{\gamma-1}\)：</p>
+              \[ \frac{pV}{nR}V^{\gamma-1}\propto pV^\gamma=\text{const}. \]
+              <p>所以</p>
+              \[ pV^\gamma=\text{const}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">第三个过程方程</div>
+            <div class="step-body">
+              <p>用 \(V\propto T/p\) 代入 \(pV^\gamma\)：</p>
+              \[ p\left(\frac{T}{p}\right)^\gamma\propto p^{1-\gamma}T^\gamma=\text{const}. \]
+              <p>三个方程等价，按已知量选用。</p>
+              <p class="step-check"><b>检查：</b>量纲上 \(pV^\gamma\) 不是能量，但比例常数对同一过程固定。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与等温线比较斜率</div>
+            <div class="step-body">
+              <p>等温线 \(p\propto1/V\)：\(\mathrm{d}p/\mathrm{d}V=-p/V\)。</p>
+              <p>绝热线 \(p\propto V^{-\gamma}\)：\(\mathrm{d}p/\mathrm{d}V=-\gamma p/V\)。</p>
+              <p>\(\gamma>1\)，所以绝热线更陡。</p>
+              <p class="step-why"><b>图像：</b>同样膨胀，绝热没有热补充，压强掉得更快。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热功</div>
+            <div class="step-body">
+              <p>由 \(\Delta U=W\)：</p>
+              \[ W=C_V(T_2-T_1)=\frac{p_2V_2-p_1V_1}{\gamma-1}. \]
+              <p>第二个等号用 \(C_V=nR/(\gamma-1)\) 与 \(pV=nRT\)。</p>
+              <p class="step-check"><b>符号：</b>膨胀 \(T_2<T_1\)，W<0：系统对外做功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热膨胀降温</div>
+            <div class="step-body">
+              <p>\(TV^{\gamma-1}=\)常数：V 增大，T 下降。</p>
+              <p>这是获得低温、液化气体、云室中云迹形成的基础。</p>
+              <p class="step-why"><b>应用：</b>绝热去磁、节流膨胀（不同机制）也用于制冷。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="sound-speed">声速公式</a></div>
+            <div class="step-body">
+              <p>声波压缩—稀疏极快，热交换可忽略，按绝热处理：</p>
+              \[ v=\sqrt{\left(\frac{\partial p}{\partial\rho}\right)_s}
+                 =\sqrt{\frac{\gamma p}{\rho}}=\sqrt{\frac{\gamma RT}{M}}. \]
+              <p>牛顿曾用等温假设得到偏小的声速；拉普拉斯修正为绝热。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">适用条件</div>
+            <div class="step-body">
+              <p>三个过程方程要求：理想气体、准静态（可逆）绝热、\(\gamma\) 常数。</p>
+              <p>非准静态绝热（如自由膨胀）不能用 \(pV^\gamma\)；但 \(\Delta U=W\) 仍成立。</p>
+              <p class="step-check"><b>高频陷阱：</b>自由膨胀是绝热但不可逆，不能套过程方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">自由膨胀反例</div>
+            <div class="step-body">
+              <p>自由膨胀 W=0、Q=0，\(\Delta U=0\)，理想气体 T 不变。</p>
+              <p>若误用 \(TV^{\gamma-1}=\)常数，会得到 T 下降，与实验矛盾。</p>
+              <p class="step-why"><b>原因：</b>过程方程来自可逆功 \(-p\mathrm{d}V\)，自由膨胀不满足。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热与等温的选择</div>
+            <div class="step-body">
+              <p>过程快、绝热好 → 绝热；过程慢、与热源接触好 → 等温。</p>
+              <p>内燃机压缩近似绝热；等温压缩需要冷却。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">γ 的测量</div>
+            <div class="step-body">
+              <p>声速法：测 v、T、M 得 \(\gamma=v^2M/(RT)\)。</p>
+              <p>绝热膨胀法：测 p–V 曲线斜率；或克莱门特–德索尔姆法。</p>
+              <p class="step-check"><b>数值：</b>单原子 1.67、双原子 1.40、多原子约 1.33。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">温度依赖</div>
+            <div class="step-body">
+              <p>若 \(C_V\) 随 T 变，\(\gamma\) 也变；三个过程方程不能写成简单幂律。</p>
+              <p>此时应积分 \(\int C_V\mathrm{d}T=-\int p\mathrm{d}V\)，数值求解。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单位与量纲</div>
+            <div class="step-body">
+              <p>\(pV^\gamma\) 的量纲随 γ 变，但同一过程常数固定；不要拿不同 γ 比较。</p>
+              <p>声速公式量纲：\(\sqrt{(\gamma/\text{无量纲})(\mathrm{J/(mol\cdot K)})(\mathrm{K})/(\mathrm{kg/mol})}=\mathrm{m/s}\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把绝热当等温；</li>
+                <li>自由膨胀套 \(pV^\gamma\)；</li>
+                <li>忘记 γ 常数条件；</li>
+                <li>功公式符号错；</li>
+                <li>声速用等温公式。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>方程：</b>\(pV^\gamma=const\)，\(TV^{\gamma-1}=const\)，\(p^{1-\gamma}T^\gamma=const\)。</p>
+              <p><b>条件：</b>理想气体 + 可逆绝热 + γ 常数。</p>
+              <p><b>应用：</b>绝热降温、声速 \(v=\sqrt{\gamma RT/M}\)、绝热功 \(W=C_V\Delta T\)。</p>
+              <p><b>自检：</b>能否从 \(C_V\mathrm{d}T=-p\mathrm{d}V\) 独立推出 \(TV^{\gamma-1}=const\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -2188,6 +2555,186 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s19">
+      <summary>完整推导 · 20 步：卡诺循环与效率</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：对理想气体完整算一遍卡诺循环，证明 \(\eta=1-T_2/T_1\)，并说明它为何只依赖温度、以及制冷系数。
+          约定：高温热源 \(T_1\)、低温热源 \(T_2\)；所有温度用 K。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="cyclic-process">循环</a>与净功</div>
+            <div class="step-body">
+              <p>循环：系统从某平衡态出发，经一系列过程回到原态。p–V 图上是闭合曲线。</p>
+              <p>循环一周 \(\Delta U=0\)，净功等于围面积：</p>
+              \[ W_{\rm net}=-\oint p\,\mathrm{d}V. \]
+              <p>顺时针（热机）系统对外做净功；逆时针（制冷机）外界对系统做净功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="carnot-efficiency">热机效率</a></div>
+            <div class="step-body">
+              <p>\[ \eta=\frac{W_{\rm net}}{Q_1}=1-\frac{|Q_2|}{Q_1}. \]
+              <p>\(Q_1\) 从高温热源吸热，\(Q_2\) 向低温热源放热；效率总小于 1。</p>
+              <p class="step-check"><b>符号：</b>本课程吸热为正；放热 \(Q_2<0\)，公式用绝对值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="carnot-cycle">卡诺循环</a>四步</div>
+            <div class="step-body">
+              <p>① 等温膨胀（\(T_1\)）→ ② 绝热膨胀（\(T_1\to T_2\)）→ ③ 等温压缩（\(T_2\)）→ ④ 绝热压缩（\(T_2\to T_1\)）。</p>
+              <p>两个等温 + 两个绝热，全部可逆；无摩擦、无有限温差传热。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等温膨胀吸热</div>
+            <div class="step-body">
+              <p>理想气体等温 \(U\) 不变，\(\Delta U=0\)，所以</p>
+              \[ Q_1=-W_1=\int_{V_1}^{V_2}p\,\mathrm{d}V
+                 =nRT_1\ln\frac{V_2}{V_1}. \]
+              <p>\(V_2>V_1\)，吸热 \(Q_1>0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热膨胀</div>
+            <div class="step-body">
+              <p>\(Q=0\)，\(T_1V_2^{\gamma-1}=T_2V_3^{\gamma-1}\)。</p>
+              <p>体积增大、温度下降；对外做功来自内能减少。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">等温压缩放热</div>
+            <div class="step-body">
+              <p>在 \(T_2\) 等温压缩 \(V_3\to V_4\)：</p>
+              \[ Q_2=nRT_2\ln\frac{V_4}{V_3}<0. \]
+              <p>放热大小 \(|Q_2|=nRT_2\ln(V_3/V_4)\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">绝热压缩</div>
+            <div class="step-body">
+              <p>\(Q=0\)，\(T_2V_4^{\gamma-1}=T_1V_1^{\gamma-1}\)。</p>
+              <p>外界做功，温度升回 \(T_1\)，完成循环。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">关键体积比</div>
+            <div class="step-body">
+              <p>两个绝热过程：</p>
+              \[ T_1V_2^{\gamma-1}=T_2V_3^{\gamma-1},\qquad
+                 T_2V_4^{\gamma-1}=T_1V_1^{\gamma-1}. \]
+              <p>两式相乘/相除消去温度：</p>
+              \[ \frac{V_2}{V_1}=\frac{V_3}{V_4}. \]
+              <p class="step-why"><b>没有这一步，体积约不掉，效率不可能只含温度。</b></p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">效率</div>
+            <div class="step-body">
+              <p>由体积比相等，两个对数相等：</p>
+              \[ \frac{|Q_2|}{Q_1}=\frac{T_2\ln(V_3/V_4)}{T_1\ln(V_2/V_1)}
+                 =\frac{T_2}{T_1}. \]
+              <p>所以</p>
+              \[ \boxed{\eta_{\rm Carnot}=1-\frac{T_2}{T_1}}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">只依赖温度</div>
+            <div class="step-body">
+              <p>结果不含 \(n,R,\gamma,V\)：卡诺效率只由两个热源温度决定。</p>
+              <p>这是<a class="kp" data-kp="carnot-theorem">卡诺定理</a>的核心；下一节证明它对任意工质成立。</p>
+              <p class="step-check"><b>注意：</b>T 必须用热力学温标；摄氏温度代入会错。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">热力学温标的定义</div>
+            <div class="step-body">
+              <p>卡诺定理允许用可逆热机的吸放热比定义温度：</p>
+              \[ \frac{Q_1}{Q_2}=\frac{T_1}{T_2}. \]
+              <p>这给出与工质无关的热力学温标；理想气体温标在低压下与之一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">卡诺定理</div>
+            <div class="step-body">
+              <p>在相同两热源间工作的一切热机，可逆热机效率最高；所有可逆热机效率相同，等于 \(1-T_2/T_1\)。</p>
+              <p>不可逆热机效率更低；若高于卡诺效率，将违反第二定律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="refrigerator">制冷机</a></div>
+            <div class="step-body">
+              <p>逆循环：从低温热源吸热 \(Q_2\)，外界做功 W，向高温热源放热 \(Q_1=Q_2+W\)。</p>
+              <p>制冷系数：</p>
+              \[ \omega=\frac{Q_2}{W}=\frac{T_2}{T_1-T_2}. \]
+              <p>\(\omega\) 可以大于 1：制冷机搬运的热量可比消耗的功多。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="heat-pump">热泵</a></div>
+            <div class="step-body">
+              <p>热泵用同一逆循环，目标是把热量送到高温端。性能系数</p>
+              \[ \mathrm{COP}_{\rm hp}=\frac{Q_1}{W}=\frac{T_1}{T_1-T_2}. \]
+              <p>它总比制冷系数大 1：\(\mathrm{COP}_{\rm hp}=\omega+1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="entropy">熵</a>的视角</div>
+            <div class="step-body">
+              <p>可逆循环克劳修斯等式：</p>
+              \[ \oint\frac{\delta Q_{\rm rev}}{T}=0. \]
+              <p>卡诺循环 \(\frac{Q_1}{T_1}-\frac{|Q_2|}{T_2}=0\)，即 \(\frac{|Q_2|}{Q_1}=\frac{T_2}{T_1}\)。</p>
+              <p class="step-why"><b>下一节：</b>由此定义熵；卡诺效率是熵增为零的极限。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">T–S 图</div>
+            <div class="step-body">
+              <p>卡诺循环在 T–S 图上是矩形：两条等温线（水平）+ 两条绝热线（竖直，S 不变）。</p>
+              <p>矩形面积 = 净功；吸热 = \(T_1\Delta S\)，放热 = \(T_2\Delta S\)，效率立刻读出。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">任意工质</div>
+            <div class="step-body">
+              <p>卡诺定理不依赖理想气体；对任意工质，可逆卡诺效率仍为 \(1-T_2/T_1\)。</p>
+              <p>理想气体计算只是「一个证明」，不是「唯一定义」。</p>
+              <p class="step-check"><b>注意：</b>不可逆循环效率低于卡诺；实际热机因摩擦/漏热更低。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">极限</div>
+            <div class="step-body">
+              <p>\(\eta<1\) 恒成立；只有 \(T_2\to0\) 或 \(T_1\to\infty\) 才趋于 1，两者不可达。</p>
+              <p>实际热机 \(T_2\) 受环境限制，\(T_1\) 受材料限制；提高效率靠提高 \(T_1\)、降低 \(T_2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>漏掉 \(V_2/V_1=V_3/V_4\) 这一步；</li>
+                <li>用摄氏温度；</li>
+                <li>把制冷系数当效率（\(\omega\) 可大于 1）；</li>
+                <li>认为卡诺循环是实际热机工作方式；</li>
+                <li>对不可逆循环套卡诺效率。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>循环：</b>两等温 + 两绝热；\(Q_1=nRT_1\ln(V_2/V_1)\)，\(|Q_2|=nRT_2\ln(V_3/V_4)\)。</p>
+              <p><b>关键：</b>\(V_2/V_1=V_3/V_4\)，所以 \(\eta=1-T_2/T_1\)。</p>
+              <p><b>逆循环：</b>\(\omega=T_2/(T_1-T_2)\)；热泵 \(\mathrm{COP}=T_1/(T_1-T_2)\)。</p>
+              <p><b>自检：</b>能否不看上面，独立证明体积比相等并推出效率？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4573,6 +5120,15 @@ applyFilter();
     'gamma': { title: '绝热指数 γ', def: 'γ=C_p/C_V；理想气体 γ=1+R/C_{V,m}，绝热过程 pV^γ=常数。', card: 's16' },
     'latent-heat': { title: '潜热', def: '相变时温度不变吸收的热量；熔化热、汽化热、升华热。不能用 CΔT 计算。', card: 's16' },
     'calorimetry': { title: '量热学', def: '用热平衡 Q_lost=Q_gained 测量热容/潜热；需考虑容器热容与散热修正。', card: 's16' },
+    'adiabatic-process': { title: '绝热过程', def: 'δQ=0；理想气体可逆绝热满足 pV^γ、TV^{γ−1}、p^{1−γ}T^γ 为常数。自由膨胀不可套用。', card: 's18' },
+    'reversible': { title: '可逆过程', def: '准静态且无耗散，系统与外界可沿原路径反向复原；实际过程不可逆，可逆是极限。', card: 's14' },
+    'sound-speed': { title: '声速', def: '声波压缩—稀疏极快，按绝热处理：v=√(γp/ρ)=√(γRT/M)。', card: 's18' },
+    'carnot-cycle': { title: '卡诺循环', def: '两等温+两绝热的可逆循环；效率 η=1−T2/T1，只依赖热源温度。', card: 's19' },
+    'carnot-efficiency': { title: '卡诺效率', def: 'η_Carnot=1−T2/T1；同两热源间一切热机的效率上限。', card: 's19' },
+    'carnot-theorem': { title: '卡诺定理', def: '相同两热源间，可逆热机效率最高且相等，等于 1−T2/T1；不可逆更低。', card: 's19' },
+    'refrigerator': { title: '制冷机', def: '逆卡诺循环：从低温吸热 Q2、外界做功 W，制冷系数 ω=Q2/W=T2/(T1−T2)。', card: 's19' },
+    'heat-pump': { title: '热泵', def: '逆循环把热量送到高温端；COP=Q1/W=T1/(T1−T2)=ω+1。', card: 's19' },
+    'entropy': { title: '熵', def: '状态函数，dS=δQ_rev/T；可逆循环 ∮δQ/T=0，不可逆过程熵增。', card: 's110' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
