@@ -6162,6 +6162,39 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       <p style="margin-top:8px"><b>④ 稳定条件的物理意义</b>：子系统温度被抬高 → 它放热、温度回落（要求 C<sub>V</sub> &gt; 0）；子系统体积被压缩 → 压强升高、把它推回去（要求 (∂p/∂V)<sub>T</sub> &lt; 0，即 κ<sub>T</sub> &gt; 0）。两者本质上都是<b>勒夏特列原理</b>。</p>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s31">
+      <summary>完整推导 · 20 步：热动平衡判据</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把「熵最大」写成变分判据 \(\delta S=0,\delta^2S<0\)，并推出均匀系的 \(T,p\) 相等与<a class="kp" data-kp="equilibrium-criteria">稳定条件</a>。
+          约定：孤立系总 U、V、n 固定；虚变动是设想的无限小变动。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">定性到定量</div><div class="step-body"><p>「熵最大」只是定性；要计算，必须把熵按虚变动展开。</p></div></li>
+          <li class="step"><div class="step-title">虚变动</div><div class="step-body"><p>虚变动不要求满足动力学方程；只用于比较极值。</p></div></li>
+          <li class="step"><div class="step-title">展开</div><div class="step-body"><p>\[ \Delta S=\delta S+\frac12\delta^2S+\cdots \]</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="equilibrium-criteria">平衡条件</a></div><div class="step-body"><p>对任意虚变动 \(\Delta S<0\)，故一阶 \(\delta S=0\)。</p></div></li>
+          <li class="step"><div class="step-title">稳定条件</div><div class="step-body"><p>二阶 \(\delta^2S<0\)；若 \(>0\) 不稳，若 \(=0\) 需看更高阶（中性平衡）。</p></div></li>
+          <li class="step"><div class="step-title">F 判据</div><div class="step-body"><p>等温等容：\(\delta F=0\)，\(\delta^2F>0\)（F 极小）。</p></div></li>
+          <li class="step"><div class="step-title">G 判据</div><div class="step-body"><p>等温等压：\(\delta G=0\)，\(\delta^2G>0\)（G 极小）。</p></div></li>
+          <li class="step"><div class="step-title">H 判据</div><div class="step-body"><p>等熵等压：\(\delta H=0\)，\(\delta^2H>0\)。</p></div></li>
+          <li class="step"><div class="step-title">均匀系模型</div><div class="step-body"><p>系统分 1（子系统）与 0（媒质），总 U、V 固定：\(\delta U_1+\delta U_0=0\)，\(\delta V_1+\delta V_0=0\)。</p></div></li>
+          <li class="step"><div class="step-title">一阶熵变</div><div class="step-body"><p>\[ \delta S=\left(\frac1{T_1}-\frac1{T_0}\right)\delta U_1
+                 +\left(\frac{p_1}{T_1}-\frac{p_0}{T_0}\right)\delta V_1=0. \]</p></div></li>
+          <li class="step"><div class="step-title">T 相等</div><div class="step-body"><p>\(\delta U_1\) 任意，系数为零：\(T_1=T_0\)。</p></div></li>
+          <li class="step"><div class="step-title">p 相等</div><div class="step-body"><p>\(\delta V_1\) 任意，结合 T 相等：\(p_1=p_0\)。</p></div></li>
+          <li class="step"><div class="step-title">二阶变分</div><div class="step-body"><p>取 T、V 为自变量：\[ \delta^2S=-\frac{C_V}{T^2}(\delta T)^2+\frac1T(\partial p/\partial V)_T(\delta V)^2<0. \]</p></div></li>
+          <li class="step"><div class="step-title">C_V>0</div><div class="step-body"><p>第一项要求 \(C_V>0\)：升温吸热、降温放热，系统能自我调节。</p></div></li>
+          <li class="step"><div class="step-title">dp/dV<0</div><div class="step-body"><p>第二项要求 \((\partial p/\partial V)_T<0\)：压缩压强升高，把体积推回。</p></div></li>
+          <li class="step"><div class="step-title">勒夏特列</div><div class="step-body"><p>两条稳定条件都是「偏离后产生恢复力」；对应勒夏特列原理。</p></div></li>
+          <li class="step"><div class="step-title">亚稳态</div><div class="step-body"><p>局部极小但非全局极小：亚稳态；足够扰动可越过势垒。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>二阶符号一律写负（F、G 是正）；</li><li>判据与约束不匹配；</li><li>把虚变动当真实过程；</li><li>忘记 C_V>0/κ_T>0。</li></ul></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>\(\delta S=0,\delta^2S<0\)；T、p 均匀；\(C_V>0,(\partial p/\partial V)_T<0\)。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否从 \(\delta S\) 公式独立推出 T、p 相等？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6232,6 +6265,39 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       <p style="margin-top:8px"><b>④ 巨热力势</b>：J = F − μn，其微分为 dJ = −S dT − p dV − n dμ；由 J 的广延性可得 J = −pV，在统计物理里很好用。</p>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s32">
+      <summary>完整推导 · 20 步：开系基本方程与化学势</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把 n 作为独立变量，引入化学势 μ，写出四个开系微分与<a class="kp" data-kp="gibbs-duhem">吉布斯–杜安</a>方程。
+          约定：单元系、均匀相；μ 为摩尔吉布斯函数。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">为什么需要 μ</div><div class="step-body"><p>相变/开放系交换粒子，封闭系方程不够；必须把 n 当独立变量。</p></div></li>
+          <li class="step"><div class="step-title">G 的广延性</div><div class="step-body"><p>单元系 \(G(T,p,n)=n g(T,p)\)：T、p 强度量，G 与 n 成正比。</p></div></li>
+          <li class="step"><div class="step-title">定义 <a class="kp" data-kp="chemical-potential">μ</a></div><div class="step-body"><p>\[ \mu=(\partial G/\partial n)_{T,p}=g(T,p). \]</p></div></li>
+          <li class="step"><div class="step-title">dG</div><div class="step-body"><p>\[ \mathrm{d}G=-S\mathrm{d}T+V\mathrm{d}p+\mu\mathrm{d}n. \]</p></div></li>
+          <li class="step"><div class="step-title">dU</div><div class="step-body"><p>由 \(U=G+TS-pV\)：\[ \mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V+\mu\mathrm{d}n. \]</p></div></li>
+          <li class="step"><div class="step-title">dH</div><div class="step-body"><p>\[ \mathrm{d}H=T\mathrm{d}S+V\mathrm{d}p+\mu\mathrm{d}n. \]</p></div></li>
+          <li class="step"><div class="step-title">dF</div><div class="step-body"><p>\[ \mathrm{d}F=-S\mathrm{d}T-p\mathrm{d}V+\mu\mathrm{d}n. \]</p></div></li>
+          <li class="step"><div class="step-title">μ 的四种面孔</div><div class="step-body"><p>\[ \mu=(\partial U/\partial n)_{S,V}=(\partial H/\partial n)_{S,p}
+                 =(\partial F/\partial n)_{T,V}=(\partial G/\partial n)_{T,p}. \]</p></div></li>
+          <li class="step"><div class="step-title">欧拉关系</div><div class="step-body"><p>由广延性：\[ U=TS-pV+\mu n. \]</p></div></li>
+          <li class="step"><div class="step-title">取全微分</div><div class="step-body"><p>\(\mathrm{d}U=T\mathrm{d}S+S\mathrm{d}T-p\mathrm{d}V-V\mathrm{d}p+\mu\mathrm{d}n+n\mathrm{d}\mu\)。</p></div></li>
+          <li class="step"><div class="step-title">相减</div><div class="step-body"><p>与 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V+\mu\mathrm{d}n\) 相减得</p><p>\[ S\mathrm{d}T-V\mathrm{d}p+n\mathrm{d}\mu=0. \]</p></div></li>
+          <li class="step"><div class="step-title">吉布斯–杜安</div><div class="step-body"><p>除以 n：\[ \mathrm{d}\mu=-s_m\mathrm{d}T+v_m\mathrm{d}p. \]</p></div></li>
+          <li class="step"><div class="step-title">独立变量</div><div class="step-body"><p>T、p、μ 只有两个独立；μ=μ(T,p)。</p></div></li>
+          <li class="step"><div class="step-title">巨热力势</div><div class="step-body"><p>\(J=F-\mu n\)，\(\mathrm{d}J=-S\mathrm{d}T-p\mathrm{d}V-n\mathrm{d}\mu\)；广延性给 \(J=-pV\)。</p></div></li>
+          <li class="step"><div class="step-title">相变方向</div><div class="step-body"><p>物质从 μ 高的相流向 μ 低的相；平衡时 μ 相等。</p></div></li>
+          <li class="step"><div class="step-title">克拉珀龙预告</div><div class="step-body"><p>沿相平衡曲线 \(d\mu^\alpha=d\mu^\beta\)，结合吉布斯–杜安得 Clapeyron 方程。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>把 μ 当广延量；</li><li>偏导下标丢；</li><li>把 T、p、μ 当独立；</li><li>多元系套单元公式。</li></ul></div></li>
+          <li class="step"><div class="step-title">单位</div><div class="step-body"><p>μ：J/mol；G：J；n：mol；\(s_m\)：J/(mol·K)；\(v_m\)：m³/mol。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>\(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V+\mu\mathrm{d}n\)；μ=G_m；\(S\mathrm{d}T-V\mathrm{d}p+n\mathrm{d}\mu=0\)。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否由欧拉关系推出吉布斯–杜安？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6279,6 +6345,40 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s33">
+      <summary>完整推导 · 20 步：单元系复相平衡条件</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用熵判据推出两相平衡的 \(T^\alpha=T^\beta\)、\(p^\alpha=p^\beta\)、\(\mu^\alpha=\mu^\beta\)，并说明<a class="kp" data-kp="phase-rule">相平衡曲线</a>。
+          约定：α、β 两相，总 U、V、n 固定；忽略界面。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">两相系统</div><div class="step-body"><p>单元系由 α、β 两相组成；物质可在两相间迁移。</p></div></li>
+          <li class="step"><div class="step-title">约束</div><div class="step-body"><p>孤立系：\(\delta U^\alpha+\delta U^\beta=0\)，\(\delta V^\alpha+\delta V^\beta=0\)，\(\delta n^\alpha+\delta n^\beta=0\)。</p></div></li>
+          <li class="step"><div class="step-title">各相基本方程</div><div class="step-body"><p>\(\mathrm{d}U^\alpha=T^\alpha\mathrm{d}S^\alpha-p^\alpha\mathrm{d}V^\alpha+\mu^\alpha\mathrm{d}n^\alpha\)。</p></div></li>
+          <li class="step"><div class="step-title">总熵变</div><div class="step-body"><p>\[ \delta S=\left(\frac1{T^\alpha}-\frac1{T^\beta}\right)\delta U^\alpha
+                 +\left(\frac{p^\alpha}{T^\alpha}-\frac{p^\beta}{T^\beta}\right)\delta V^\alpha
+                 -\left(\frac{\mu^\alpha}{T^\alpha}-\frac{\mu^\beta}{T^\beta}\right)\delta n^\alpha. \]</p></div></li>
+          <li class="step"><div class="step-title">一阶条件</div><div class="step-body"><p>平衡 \(\delta S=0\) 对任意 \(\delta U^\alpha,\delta V^\alpha,\delta n^\alpha\) 成立，三个系数为零。</p></div></li>
+          <li class="step"><div class="step-title">热平衡</div><div class="step-body"><p>\(1/T^\alpha=1/T^\beta\Rightarrow T^\alpha=T^\beta\)。</p></div></li>
+          <li class="step"><div class="step-title">力学平衡</div><div class="step-body"><p>结合 T 相等：\(p^\alpha=p^\beta\)。</p></div></li>
+          <li class="step"><div class="step-title">相平衡</div><div class="step-body"><p>结合 T 相等：\(\mu^\alpha=\mu^\beta\)。</p></div></li>
+          <li class="step"><div class="step-title">三条条件</div><div class="step-body"><p>热、力学、相平衡同时成立；缺一不可。</p></div></li>
+          <li class="step"><div class="step-title">相平衡曲线</div><div class="step-body"><p>\(\mu^\alpha(T,p)=\mu^\beta(T,p)\) 把 (T,p) 约束到一条曲线 \(p=p(T)\)。</p></div></li>
+          <li class="step"><div class="step-title">自由度</div><div class="step-body"><p>单元两相：\(f=1-2+2=1\)，只有一个独立强度量（给定 T 定 p）。</p></div></li>
+          <li class="step"><div class="step-title">三相点</div><div class="step-body"><p>三相共存 \(f=0\)，T、p 都固定（水的三相点 273.16 K）。</p></div></li>
+          <li class="step"><div class="step-title">迁移方向</div><div class="step-body"><p>\(\mu^\alpha>\mu^\beta\) 时 α→β；直到 μ 相等。</p></div></li>
+          <li class="step"><div class="step-title">热/体积方向</div><div class="step-body"><p>热从高温到低温；压强大的相膨胀。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="clapeyron">克拉珀龙</a>预告</div><div class="step-body"><p>沿曲线 \(d\mu^\alpha=d\mu^\beta\)，结合 \(d\mu=-s_m dT+v_m dp\) 得</p><p>\[ \frac{\mathrm{d}p}{\mathrm{d}T}=\frac{L}{T(v_m^\beta-v_m^\alpha)}. \]</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="first-order-transition">一级相变</a></div><div class="step-body"><p>有潜热、比容突变；Clapeyron 适用。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>只写 μ 相等忘 T、p；</li><li>把相平衡曲线当任意线；</li><li>相律用错；</li><li>把 μ 当强度量以外的量。</li></ul></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>μ：J/mol；L：J/mol；v：m³/mol；dp/dT：Pa/K。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>平衡：T、p、μ 三相相等；相曲线由 μ 相等给出；相律给自由度。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否从 δS 公式独立推出三条平衡条件？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -7478,6 +7578,11 @@ applyFilter();
     'virtual-change': { title: '虚变动', def: '设想中、不满足动力学方程的无限小变动；用于熵/自由能极值判据。', card: 's30' },
     'phase-equilibrium': { title: '相平衡', def: '两相 T、p、μ 都相等；单元复相系由相律描述自由度。', card: 's30' },
     'chemical-equilibrium': { title: '化学平衡', def: '多组分反应 Σν_iμ_i=0；与相平衡的 μ 相等同源。', card: 's30' },
+    'equilibrium-criteria': { title: '平衡判据', def: '孤立系 δS=0,δ²S<0；等温等容 δF=0,δ²F>0；等温等压 δG=0,δ²G>0。', card: 's31' },
+    'gibbs-duhem': { title: '吉布斯–杜安方程', def: 'S dT−V dp+n dμ=0；说明 T、p、μ 只有两个独立。', card: 's32' },
+    'phase-rule': { title: '相律', def: 'f=c−p+2；单元两相 f=1，三相点 f=0。', card: 's33' },
+    'clapeyron': { title: '克拉珀龙方程', def: 'dp/dT=L/[T(v2−v1)]；一级相变平衡曲线斜率。', card: 's33' },
+    'first-order-transition': { title: '一级相变', def: '有潜热、比容/熵突变；两相 μ 相等但一阶导不连续。', card: 's33' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
