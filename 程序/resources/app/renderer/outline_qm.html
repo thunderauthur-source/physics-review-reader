@@ -1447,6 +1447,204 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s0b">
+      <summary>完整推导 · 20 步：从伽尔顿板到概率密度</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用伽尔顿板把「频率 → 概率 → 二项分布 → 连续密度 → 高斯」串起来，并配自由落体落点例题。
+          约定：钉板 \(n\) 层，每层独立以 \(1/2\) 概率左/右。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">频率稳定为概率</div>
+            <div class="step-body">
+              <p>投 \(N\) 个小球，槽 \(j\) 中有 \(N_j\) 个。当 \(N\to\infty\)：</p>
+              \[ P(j)=\lim_{N\to\infty}\frac{N_j}{N}. \]
+              <p>这是概率的频率解释；量子力学的 \(|\Psi|^2\) 也是通过大量重复测量定义。</p>
+              <p class="step-why"><b>注意：</b>单个小球不可预测，但大量小球的分布稳定。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化</div>
+            <div class="step-body">
+              <p>所有槽的概率和：</p>
+              \[ \sum_{j=0}^{n}P(j)=1. \]
+              <p>这是概率的第一条要求；任何分布必须先满足它。</p>
+              <p class="step-check"><b>检查：</b>若求和不为 1，检查是否漏槽或概率未归一。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">二项分布</div>
+            <div class="step-body">
+              <p>\(n\) 层中向右 \(j\) 次、向左 \(n-j\) 次，路径数为 \(\binom nj\)，每条路径概率 \((1/2)^n\)：</p>
+              \[ P(j)=\binom nj\left(\frac12\right)^n. \]
+              <p>这是伽尔顿板的精确分布。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="binomial">二项分布</a>；独立试验 + 两种结果。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">组合数的来源</div>
+            <div class="step-body">
+              <p>从 \(n\) 层中选 \(j\) 层向右：</p>
+              \[ \binom nj=\frac{n!}{j!(n-j)!}. \]
+              <p>它满足帕斯卡递推 \(\binom nj=\binom{n-1}{j-1}+\binom{n-1}{j}\)，正是钉板逐层累积的数学形式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">均值</div>
+            <div class="step-body">
+              <p>\[ \langle j\rangle=\sum_jj\binom nj2^{-n}
+                 =n\cdot\frac12=\frac n2. \]
+              <p>推导用 \(j\binom nj=n\binom{n-1}{j-1}\)，再把剩下的和归一。</p>
+              <p class="step-check"><b>对称性：</b>分布关于 \(n/2\) 对称，均值必为 \(n/2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">方差</div>
+            <div class="step-body">
+              <p>\[ \sigma^2=np(1-p)=\frac n4,\qquad
+                 \sigma=\frac{\sqrt n}{2}. \]
+              <p>钉板越高，绝对宽度变大，但相对宽度 \(\sigma/\langle j\rangle\sim1/\sqrt n\) 变小。</p>
+              <p class="step-why"><b>物理：</b>大量独立事件的平均相对涨落减小，这是统计规律性的来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">累积分布 CDF</div>
+            <div class="step-body">
+              <p>\[ F(j)=P(J\le j)=\sum_{i=0}^{j}P(i). \]
+              <p>性质：\(F\) 单调不减，\(F(-1)=0\)，\(F(n)=1\)；\(P(j)=F(j)-F(j-1)\)。</p>
+              <p class="step-check"><b>注意：</b>离散 CDF 是阶梯函数，不是概率密度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续极限</div>
+            <div class="step-body">
+              <p>槽间距 \(\Delta x\to0\)、槽数 \(\to\infty\)，单个槽的概率趋于零，但</p>
+              \[ P(x\in[x,x+\mathrm{d}x])=\rho(x)\mathrm{d}x \]
+              <p>保持有限。\(\rho\) 是概率密度，可大于 1。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="pdf">概率密度</a>；连续变量单点概率为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">CDF 与密度</div>
+            <div class="step-body">
+              <p>\[ F(x)=\int_{-\infty}^{x}\rho(x')\mathrm{d}x',\qquad
+                 \rho(x)=\frac{\mathrm{d}F}{\mathrm{d}x}. \]
+              <p>区间概率：</p>
+              \[ P(a\le x\le b)=F(b)-F(a)=\int_a^b\rho\,\mathrm{d}x. \]
+              <p class="step-check"><b>检查：</b>\(F\) 无量纲且 \(0\le F\le1\)；\(\rho\) 量纲 \(1/L\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续期望</div>
+            <div class="step-body">
+              <p>\[ \langle x\rangle=\int x\rho(x)\mathrm{d}x. \]
+              <p>一般函数：</p>
+              \[ \langle f(x)\rangle=\int f(x)\rho(x)\mathrm{d}x. \]
+              <p>与离散 \(\sum f(j)P(j)\) 完全平行。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">连续方差</div>
+            <div class="step-body">
+              <p>\[ \sigma^2=\int(x-\langle x\rangle)^2\rho\,\mathrm{d}x
+                 =\langle x^2\rangle-\langle x\rangle^2. \]
+              <p>\(\sigma\) 与 \(x\) 同量纲；对方差开方才得到误差棒。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="variance">方差</a>；不是「平均误差」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">众数与中位数</div>
+            <div class="step-body">
+              <p>众数：使 \(\rho\) 最大的点（最可几值）；中位数：使 \(F=1/2\) 的点。</p>
+              <p>对二项分布 \(n=10\)，众数 \(j=5\)、均值 5，恰好重合；一般分布不重合。</p>
+              <p class="step-check"><b>易错：</b>物理题问「最可几位置」时找众数，不是平均值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">高斯极限</div>
+            <div class="step-body">
+              <p>\(n\to\infty\) 时，二项分布趋于</p>
+              \[ \rho(x)=\frac{1}{\sigma\sqrt{2\pi}}
+                 e^{-(x-\mu)^2/(2\sigma^2)},\quad
+                 \mu=\frac n2,\ \sigma^2=\frac n4. \]
+              <p>这是中心极限定理的特例：独立同分布、方差有限的和趋于正态。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="gaussian">高斯分布</a>、<a class="kp" data-kp="central-limit">中心极限定理</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：自由落体落点</div>
+            <div class="step-body">
+              <p>从高 \(h\) 处随机时刻释放，下落时间 \(t\) 在 \([0,\sqrt{2h/g}]\) 均匀。落点 \(x=\frac12gt^2\)，反解 \(t=\sqrt{2x/g}\)。</p>
+              <p>由变量替换：</p>
+              \[ \rho(x)=\rho_t(t)\left|\frac{\mathrm{d}t}{\mathrm{d}x}\right|
+                 =\frac{1}{T}\frac{1}{\sqrt{2gx}},\quad 0<x<h. \]
+              <p>归一化后即 \(\rho(x)=1/(2\sqrt{hx})\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">验证自由落体分布</div>
+            <div class="step-body">
+              <p>\[ \int_0^h\frac{\mathrm{d}x}{2\sqrt{hx}}
+                 =\frac{1}{2\sqrt h}\left[2\sqrt x\right]_0^h=1. \]</p>
+              <p>均值：</p>
+              \[ \langle x\rangle=\int_0^h\frac{x}{2\sqrt{hx}}\mathrm{d}x
+                 =\frac{1}{2\sqrt h}\cdot\frac{2h^{3/2}}{3}=\frac h3. \]
+              <p class="step-check"><b>注意：</b>\(\langle x\rangle=h/3\ne h/2\)，因为落点在底部停留时间更长、密度更大。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">变量替换的雅可比</div>
+            <div class="step-body">
+              <p>一般地：</p>
+              \[ \rho_Y(y)=\rho_X(x)\left|\frac{\mathrm{d}x}{\mathrm{d}y}\right|. \]
+              <p>自由落体里 \(\mathrm{d}t/\mathrm{d}x=1/\sqrt{2gx}\)，所以密度在 \(x\to0\) 发散，但积分有限。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="change-of-variables">变量替换</a>；漏雅可比是概率题最常见错误。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">重尾分布的反例</div>
+            <div class="step-body">
+              <p>柯西分布 \(\rho(x)=1/[\pi(1+x^2)]\) 归一，但 \(\int|x|\rho\,\mathrm{d}x\) 发散：均值不存在。</p>
+              <p>这提醒：不是所有归一分布都有有限期望/方差；物理上要检查积分收敛。</p>
+              <p class="step-check"><b>对比：</b>高斯所有矩有限；洛伦兹（柯西）尾部太重。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">与量子力学的接口</div>
+            <div class="step-body">
+              <p>把 \(\rho(x)\) 换成 \(|\Psi(x)|^2\)，所有概率公式原样使用：</p>
+              \[ P(a\le x\le b)=\int_a^b|\Psi|^2\mathrm{d}x,\qquad
+                 \langle x\rangle=\int x|\Psi|^2\mathrm{d}x. \]
+              <p>区别只在：量子概率是内禀的，且 \(\Psi\) 是复概率幅。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="probability-density">概率密度</a>、<a class="kp" data-kp="born-rule">玻恩规则</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(\rho(x)\) 当概率（它可大于 1）；</li>
+                <li>变量替换漏雅可比；</li>
+                <li>把众数当均值；</li>
+                <li>认为所有分布都有有限方差；</li>
+                <li>离散 CDF 与连续 CDF 的阶梯/积分混用。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>离散：</b>\(P(j)\)、\(\sum P=1\)、\(\langle j\rangle=\sum jP\)、\(\sigma^2=\langle j^2\rangle-\langle j\rangle^2\)。</p>
+              <p><b>连续：</b>\(\rho\mathrm{d}x\)、\(\int\rho=1\)、\(\rho=\mathrm{d}F/\mathrm{d}x\)、\(\langle f\rangle=\int f\rho\)。</p>
+              <p><b>两条极限：</b>二项 \(\to\) 高斯（CLT）；自由落体 \(\rho=1/(2\sqrt{hx})\)。</p>
+              <p><b>自检：</b>能否独立推出自由落体落点密度并验证 \(\langle x\rangle=h/3\)？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
