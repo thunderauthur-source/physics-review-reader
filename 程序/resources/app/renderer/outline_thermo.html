@@ -5612,6 +5612,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s24">
+      <summary>完整推导 · 20 步：由物态方程和热容确定热力学函数</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：已知 \(p(T,V)\) 与 \(C_V(T,V)\)，求 U、S、H、F、G 的标准流程。
+          约定：简单系统、可逆过程；积分常数用热容定。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title"><a class="kp" data-kp="equation-of-state">已知条件</a></div><div class="step-body"><p>物态方程 \(p=p(T,V)\)，定容热容 \(C_V=C_V(T,V)\)。目标：求全部热力学函数。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="internal-energy">内能</a>对 V 的偏导</div><div class="step-body"><p>由麦氏关系：\[ (\partial U/\partial V)_T=T(\partial p/\partial T)_V-p. \]</p></div></li>
+          <li class="step"><div class="step-title">对 V 积分</div><div class="step-body"><p>T 固定：\[ U(T,V)=\int\left[T(\partial p/\partial T)_V-p\right]\mathrm{d}V+\phi(T). \]</p></div></li>
+          <li class="step"><div class="step-title">积分常数是 φ(T)</div><div class="step-body"><p>对 V 积分时，常数可依赖 T；写成 φ(T)，不能写成常数。</p><p class="step-check"><b>高频错误：</b>漏 φ(T)。</p></div></li>
+          <li class="step"><div class="step-title">用 C_V 定 φ</div><div class="step-body"><p>\[ C_V=(\partial U/\partial T)_V, \] 积分得 φ(T)，从而定出 U。</p></div></li>
+          <li class="step"><div class="step-title">熵的偏导</div><div class="step-body"><p>\[ (\partial S/\partial V)_T=(\partial p/\partial T)_V. \]</p></div></li>
+          <li class="step"><div class="step-title">积分求 S</div><div class="step-body"><p>\[ S(T,V)=\int(\partial p/\partial T)_V\mathrm{d}V+\psi(T). \]</p></div></li>
+          <li class="step"><div class="step-title">用 C_V 定 ψ</div><div class="step-body"><p>\(C_V=T(\partial S/\partial T)_V\)，积分得 ψ(T)。</p></div></li>
+          <li class="step"><div class="step-title">求 H、F、G</div><div class="step-body"><p>\[ H=U+pV,\quad F=U-TS,\quad G=H-TS. \]</p></div></li>
+          <li class="step"><div class="step-title">理想气体例</div><div class="step-body"><p>\(p=nRT/V\) 给 U=U(T)；S=C_VlnT+nRlnV+S0。</p></div></li>
+          <li class="step"><div class="step-title">范德瓦耳斯例</div><div class="step-body"><p>\(p=nRT/(V-nb)-an^2/V^2\)，积分得 U 含 \(-an^2/V\) 吸引能项。</p></div></li>
+          <li class="step"><div class="step-title">固体例</div><div class="step-body"><p>用 \(\mathrm{d}V/V=\alpha\mathrm{d}T-\kappa_T\mathrm{d}p\) 提供 p(T,V)，再按流程积分。</p></div></li>
+          <li class="step"><div class="step-title">参考态</div><div class="step-body"><p>U、S 的积分常数可任取；比较状态时消去。</p></div></li>
+          <li class="step"><div class="step-title">可逆性</div><div class="step-body"><p>公式来自平衡态关系；不可逆过程只影响路径，不影响状态函数差。</p></div></li>
+          <li class="step"><div class="step-title">单位</div><div class="step-body"><p>U、H、F、G：J；S：J/K；pV：J。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>漏 φ(T)、ψ(T)；</li><li>用 C_p 定 φ；</li><li>偏导下标错；</li><li>积分限/参考态混乱。</li></ul></div></li>
+          <li class="step"><div class="step-title">检验</div><div class="step-body"><p>把结果代回 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\) 检查。</p></div></li>
+          <li class="step"><div class="step-title">与特性函数的关系</div><div class="step-body"><p>求出 F(T,V) 后，它就是特性函数，可反推其余。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>流程：\((\partial U/\partial V)_T\) → 积分 + φ(T) → C_V 定 φ；S 同理；再由定义求 H、F、G。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否对理想气体完整走一遍流程并验证 S 的两种表达式？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5665,6 +5697,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s25">
+      <summary>完整推导 · 20 步：特性函数</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：说明「一个函数 + 正确自变量 = 全部热力学信息」，并以 F(T,V) 为例导出其余量。
+          约定：均匀系、可逆；自然变量匹配。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title"><a class="kp" data-kp="characteristic-function">定义</a></div><div class="step-body"><p>若一个热力学函数以它的自然变量为自变量，且能通过偏导得到其余全部量，则称特性函数。</p></div></li>
+          <li class="step"><div class="step-title">四个候选</div><div class="step-body"><p>U(S,V)、H(S,p)、F(T,V)、G(T,p)。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="free-energy">F</a> 的微分</div><div class="step-body"><p>\[ \mathrm{d}F=-S\mathrm{d}T-p\mathrm{d}V. \]</p><p>自然变量 (T,V)，匹配。</p></div></li>
+          <li class="step"><div class="step-title">读出 S</div><div class="step-body"><p>\[ S=-(\partial F/\partial T)_V. \]</p></div></li>
+          <li class="step"><div class="step-title">读出 p</div><div class="step-body"><p>\[ p=-(\partial F/\partial V)_T. \]</p><p>这就是物态方程。</p></div></li>
+          <li class="step"><div class="step-title">求 U</div><div class="step-body"><p>由 \(U=F+TS\)：\[ U=F-T(\partial F/\partial T)_V. \]</p><p>这是吉布斯–亥姆霍兹方程。</p></div></li>
+          <li class="step"><div class="step-title">求 H</div><div class="step-body"><p>\(H=U+pV\)。</p></div></li>
+          <li class="step"><div class="step-title">求 G</div><div class="step-body"><p>\(G=F+pV\)。</p></div></li>
+          <li class="step"><div class="step-title">全部信息</div><div class="step-body"><p>一个 F(T,V) 可给 S、p、U、H、G、C_V、C_p 等全部平衡性质。</p></div></li>
+          <li class="step"><div class="step-title">U(S,V) 版本</div><div class="step-body"><p>\(T=(\partial U/\partial S)_V\)，\(p=-(\partial U/\partial V)_S\)，其余由定义。</p></div></li>
+          <li class="step"><div class="step-title">G(T,p) 版本</div><div class="step-body"><p>\(S=-(\partial G/\partial T)_p\)，\(V=(\partial G/\partial p)_T\)，\(H=G+TS\)。</p></div></li>
+          <li class="step"><div class="step-title">H(S,p) 版本</div><div class="step-body"><p>\(T=(\partial H/\partial S)_p\)，\(V=(\partial H/\partial p)_S\)。</p></div></li>
+          <li class="step"><div class="step-title">自变量的重要性</div><div class="step-body"><p>U(T,V) 不是特性函数；必须做勒让德变换成 F(T,V) 或 U(S,V)。</p><p class="step-check"><b>判据：</b>看微分里的 d 变量。</p></div></li>
+          <li class="step"><div class="step-title">勒让德变换</div><div class="step-body"><p>F=U−TS、H=U+pV、G=H−TS；换变量不丢信息。</p></div></li>
+          <li class="step"><div class="step-title">例：理想气体 F</div><div class="step-body"><p>由 S、U 积分可得 F(T,V)，再偏导应回到 p=nRT/V。</p></div></li>
+          <li class="step"><div class="step-title">例：表面系统</div><div class="step-body"><p>F=σA；σ 为表面张力，A 为面积；\(\mathrm{d}F=-S\mathrm{d}T+\sigma\mathrm{d}A\)。</p></div></li>
+          <li class="step"><div class="step-title">例：磁介质</div><div class="step-body"><p>用 \(\mathrm{d}F=-S\mathrm{d}T-\mu_0H\mathrm{d}M\) 等；广义力/位移替换。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>自变量不匹配；</li><li>把 F 当 U；</li><li>吉布斯–亥姆霍兹符号错；</li><li>忘记 +pV。</li></ul></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>特性函数 = 函数 + 自然变量；F(T,V) 给 S、p、U、G；其余三个同理。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否由 F(T,V) 独立推出 U、H、G、C_V？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5732,6 +5796,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s26">
+      <summary>完整推导 · 20 步：热辐射的热力学理论</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把空腔辐射当光子气体，用 \(p=u/3\) 与热力学关系推出 \(u=aT^4\)、\(J=\sigma T^4\)、\(S=\frac43aT^3V\)。
+          约定：平衡辐射、各向同性；\(u\) 为能量密度。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">光子气体</div><div class="step-body"><p>空腔辐射可当一种特殊「气体」：内能 \(U=uV\)，压强由电磁场动量流给出。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="radiation-pressure">辐射压强</a></div><div class="step-body"><p>电动力学给出各向同性辐射：\[ p=\frac{u}{3}. \] 这是推导的输入，不是热力学结论。</p></div></li>
+          <li class="step"><div class="step-title">u 只依赖 T</div><div class="step-body"><p><a class="kp" data-kp="kirchhoff-law">基尔霍夫定律</a>：平衡辐射的能量密度只由 T 决定，与腔形状/材料无关。</p></div></li>
+          <li class="step"><div class="step-title">p 只依赖 T</div><div class="step-body"><p>\(p=u(T)/3\)，所以 \((\partial p/\partial V)_T=0\)。</p></div></li>
+          <li class="step"><div class="step-title">内能对 V 的偏导</div><div class="step-body"><p>\(U=uV\)，所以 \((\partial U/\partial V)_T=u\)。</p></div></li>
+          <li class="step"><div class="step-title">普遍关系</div><div class="step-body"><p>\[ (\partial U/\partial V)_T=T(\partial p/\partial T)_V-p. \]</p></div></li>
+          <li class="step"><div class="step-title">代入</div><div class="step-body"><p>\[ u=T\cdot\frac13\frac{\mathrm{d}u}{\mathrm{d}T}-\frac{u}{3}. \]</p></div></li>
+          <li class="step"><div class="step-title">整理 ODE</div><div class="step-body"><p>\[ 4u=T\frac{\mathrm{d}u}{\mathrm{d}T}. \]</p></div></li>
+          <li class="step"><div class="step-title">分离变量</div><div class="step-body"><p>\[ \frac{\mathrm{d}u}{u}=4\frac{\mathrm{d}T}{T}. \]</p></div></li>
+          <li class="step"><div class="step-title">积分</div><div class="step-body"><p>\[ \ln u=4\ln T+\text{const}\;\Longrightarrow\;u=aT^4. \]</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="stefan-boltzmann">斯特藩–玻尔兹曼</a></div><div class="step-body"><p>辐射通量密度 \(J=(c/4)u=\sigma T^4\)，\(\sigma=ac/4\)。</p></div></li>
+          <li class="step"><div class="step-title">熵</div><div class="step-body"><p>由 \(\mathrm{d}S=(\mathrm{d}U+p\mathrm{d}V)/T\) 积分：\[ S=\frac43aT^3V. \]</p></div></li>
+          <li class="step"><div class="step-title">验证</div><div class="step-body"><p>\((\partial S/\partial V)_T=(\partial p/\partial T)_V=\frac43aT^3\)，一致。</p></div></li>
+          <li class="step"><div class="step-title">黑体</div><div class="step-body"><p>吸收因数 \(\alpha_\omega=1\) 的物体叫绝对黑体；空腔小孔近似黑体。</p></div></li>
+          <li class="step"><div class="step-title">基尔霍夫定律</div><div class="step-body"><p>\(e_\omega/\alpha_\omega=J_\omega\) 对所有物体相同，只依赖 T、ω。</p></div></li>
+          <li class="step"><div class="step-title">热力学普适性</div><div class="step-body"><p>推导未用量子假设，却得 \(T^4\)；量子性体现在 a 的数值（普朗克）。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>把 p=u/3 当热力学结论；</li><li>忘记 p 与 V 无关；</li><li>把 J 与 u 混淆；</li><li>熵公式系数 4/3 写成 1/3。</li></ul></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>u：J/m³；p：Pa=J/m³；J：W/m²；σ：W/(m²·K⁴)。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>p=u/3 → \(u=aT^4\) → \(J=\sigma T^4\) → \(S=\frac43aT^3V\)。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否不看上面，从 p=u/3 独立推出 ODE 并积分？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -7275,6 +7371,11 @@ applyFilter();
     'inversion-temperature': { title: '转变温度', def: 'μ_JT=0 的温度；低于它节流降温，高于它升温。液化前需预冷到转变温度以下。', card: 's23' },
     'throttling': { title: '节流过程', def: '绝热多孔塞流动，等焓但不可逆；不是准静态，不能套 pV^γ。', card: 's23' },
     'adiabatic-expansion': { title: '绝热膨胀', def: '绝热对外做功，内能减少、温度下降；可逆时等熵，理想气体也降温。', card: 's23' },
+    'characteristic-function': { title: '特性函数', def: '以自然变量为自变量的热力学函数；一个 F(T,V) 即可推出全部热力学量。', card: 's25' },
+    'radiation-pressure': { title: '辐射压强', def: '各向同性辐射 p=u/3；来自电动力学，是热辐射热力学推导的输入。', card: 's26' },
+    'stefan-boltzmann': { title: '斯特藩–玻尔兹曼定律', def: '辐射能量密度 u=aT⁴，通量 J=σT⁴；可由 p=u/3 与热力学关系推出。', card: 's26' },
+    'kirchhoff-law': { title: '基尔霍夫定律', def: 'e_ω/α_ω=J_ω 对所有物体相同，只依赖 T、ω；黑体 α=1。', card: 's26' },
+    'photon-gas': { title: '光子气体', def: '把平衡辐射当光子组成的气体；U=uV、p=u/3，能量密度只依赖 T。', card: 's26' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
