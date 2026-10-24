@@ -1199,6 +1199,197 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s0a">
+      <summary>完整推导 · 20 步：量子力学的三条裂缝</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把黑体辐射、光电效应、氢光谱三条实验线索串成「量子化」的诞生；既给公式，也说明每个假设解决了什么矛盾。
+          约定：\(h\) 普朗克常数，\(k_B\) 玻尔兹曼常数，\(c\) 光速；课件 1-1 p014–p039。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="blackbody">黑体辐射</a>：只由温度决定</div>
+            <div class="step-body">
+              <p>黑体吸收所有入射波长、无反射；热平衡时，辐射谱密度 \(M_\lambda(\lambda,T)\) 只依赖 \(\lambda,T\)，与材料/形状无关。</p>
+              <p>实验给出两条规律：斯特凡–玻尔兹曼 \(M=\sigma T^4\)，维恩位移 \(\lambda_{\max}T=b\)。</p>
+              <p class="step-why"><b>为什么是「裂缝」：</b>经典电磁学 + 统计力学无法同时解释这两条规律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">维恩近似：短波成功</div>
+            <div class="step-body">
+              <p>维恩拟合：</p>
+              \[ M_\lambda=\frac{A}{\lambda^5}e^{-B/(\lambda T)}. \]
+              <p>它在短波（大 \(h\nu/k_BT\)）与实验符合，但长波端偏低。</p>
+              <p class="step-check"><b>检查：</b>对 \(\lambda\) 求极值可推出 \(\lambda_{\max}T=B/5\)，即位移律。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">瑞利–金斯：长波成功、短波灾难</div>
+            <div class="step-body">
+              <p>按经典电磁场模式数 + 能量均分，每个模式平均能量 \(k_BT\)：</p>
+              \[ M_\lambda=\frac{2\pi c}{\lambda^4}k_BT. \]
+              <p>长波符合；\(\lambda\to0\) 时 \(M_\lambda\to\infty\)，总能量发散——紫外灾难。</p>
+              <p class="step-why"><b>根源：</b>经典理论允许任意高频模式被激发，且每个模式都分到 \(k_BT\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">普朗克假设：<a class="kp" data-kp="quantization">能量不连续</a></div>
+            <div class="step-body">
+              <p>普朗克假定：频率为 \(\nu\) 的谐振子能量只能取</p>
+              \[ E_n=nh\nu,\qquad n=0,1,2,\dots \]
+              <p>吸收/发射只能以 \(h\nu\) 为最小单位。</p>
+              <p class="step-why"><b>与经典的区别：</b>经典振子能量连续，可趋于零；量子振子有最小激发能，高频模式在低温下被「冻住」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">配分函数</div>
+            <div class="step-body">
+              <p>温度为 \(T\) 时，处于 \(E_n\) 的概率正比于 \(e^{-E_n/k_BT}\)：</p>
+              \[ Z=\sum_{n=0}^{\infty}e^{-nh\nu/k_BT}
+                 =\frac{1}{1-e^{-h\nu/k_BT}}. \]
+              <p>这是几何级数，公比 \(e^{-h\nu/k_BT}<1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">单模平均能量</div>
+            <div class="step-body">
+              <p>\[ \langle E\rangle=\frac{1}{Z}\sum_{n=0}^{\infty}nh\nu e^{-nh\nu/k_BT}
+                 =\frac{h\nu}{e^{h\nu/k_BT}-1}. \]</p>
+              <p>推导：令 \(x=h\nu/k_BT\)，\(\sum n e^{-nx}=e^{-x}/(1-e^{-x})^2\)，再除以 \(Z\)。</p>
+              <p class="step-check"><b>极限：</b>\(x\ll1\) 时 \(\langle E\rangle\approx k_BT\)，回到经典能量均分。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">普朗克黑体谱</div>
+            <div class="step-body">
+              <p>把模式数密度 \(8\pi\nu^2/c^3\) 乘以 \(\langle E\rangle\)：</p>
+              \[ M_\nu=\frac{8\pi\nu^2}{c^3}\frac{h\nu}{e^{h\nu/k_BT}-1}. \]
+              <p>用 \(M_\lambda\,\mathrm{d}\lambda=M_\nu\,\mathrm{d}\nu\) 可换成波长形式。</p>
+              <p class="step-why"><b>成就：</b>一条公式同时拟合短波和长波，且给出斯特凡–玻尔兹曼与维恩位移。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两个极限</div>
+            <div class="step-body">
+              <p>低 ν（\(h\nu\ll k_BT\)）：\(e^x-1\approx x\)，</p>
+              \[ M_\nu\approx\frac{8\pi\nu^2}{c^3}k_BT
+                 \;\leftrightarrow\;
+                 M_\lambda\approx\frac{2\pi c}{\lambda^4}k_BT, \]
+              <p>即瑞利–金斯。</p>
+              <p>高 ν（\(h\nu\gg k_BT\)）：分母 \(e^x\) 主导，</p>
+              \[ M_\nu\approx\frac{8\pi h\nu^3}{c^3}e^{-h\nu/k_BT}, \]
+              <p>即维恩型指数衰减。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="photoelectric">光电效应</a>：三条反常</div>
+            <div class="step-body">
+              <p>① 存在截止频率 \(\nu_0\)，低于它无论光多强都没有电子；② 最大动能随 \(\nu\) 线性增加；③ 光强只改变饱和电流，不改变遏止电压。</p>
+              <p>经典波动说无法解释①③：光强应决定能量，频率不应有阈值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">爱因斯坦<a class="kp" data-kp="photon">光量子</a></div>
+            <div class="step-body">
+              <p>光由能量 \(E=h\nu\) 的光子组成；一个光子把全部能量交给一个电子，扣除逸出功 \(W_0\)：</p>
+              \[ E_{k,\max}=h\nu-W_0=h(\nu-\nu_0). \]
+              <p>截止频率 \(\nu_0=W_0/h\)；低于它，单个光子能量不够。</p>
+              <p class="step-why"><b>知识点：</b>光量子；能量量子化从「振子」推广到「光场」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">遏止电压与斜率</div>
+            <div class="step-body">
+              <p>遏止电压 \(U_s\) 满足 \(eU_s=E_{k,\max}\)：</p>
+              \[ U_s=\frac{h}{e}\nu-\frac{W_0}{e}. \]
+              <p>所以 \(U_s\)–\(\nu\) 图是直线，斜率 \(h/e\) 与金属无关，截距 \(-W_0/e\) 随金属变。</p>
+              <p class="step-check"><b>判据：</b>斜率普适是光量子说的关键证据；经典波动说给不出线性斜率。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">光强与频率的分工</div>
+            <div class="step-body">
+              <p>光强 \(I\) 正比于单位时间光子数 \(N\)；频率决定单个光子能量。</p>
+              <p>饱和电流 \(\propto N\)；最大动能 \(\propto h\nu-W_0\)。二者独立。</p>
+              <p class="step-why"><b>易错：</b>「光强越大，电子能量越大」是经典图像，错在把光强当单个光子的能量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">氢光谱：分立谱线</div>
+            <div class="step-body">
+              <p>巴耳末系经验公式：</p>
+              \[ \frac1\lambda=R\left(\frac1{2^2}-\frac1{n^2}\right),\qquad n=3,4,\dots \]
+              <p>里德伯公式推广：</p>
+              \[ \frac1\lambda=R\left(\frac1{n_1^2}-\frac1{n_2^2}\right),\qquad n_2>n_1. \]
+              <p>谱线分立，说明原子能量只能取分立值。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="bohr-model">玻尔</a>三假设</div>
+            <div class="step-body">
+              <p>① 定态：电子在特定轨道上运动，不辐射；② 角动量量子化：\(L=n\hbar\)；③ 跃迁：吸收/发射光子能量</p>
+              \[ h\nu=E_i-E_f. \]
+              <p>定态假设直接违背经典电动力学（加速电荷应辐射），但解释了稳定原子。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">角动量量子化给轨道</div>
+            <div class="step-body">
+              <p>圆轨道：库仑力提供向心力</p>
+              \[ \frac{mv^2}{r}=\frac{e^2}{4\pi\epsilon_0r^2}. \]
+              <p>角动量 \(L=mvr=n\hbar\)。两式联立：</p>
+              \[ v_n=\frac{e^2}{4\pi\epsilon_0\hbar}\frac1n,\qquad
+                 r_n=\frac{4\pi\epsilon_0\hbar^2}{me^2}n^2=a_0n^2. \]
+              <p>\(a_0\approx0.529\,\text{Å}\) 为玻尔半径。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能级公式</div>
+            <div class="step-body">
+              <p>总能量 \(E=K+V\)，维里定理给 \(K=-E\)、\(V=2E\)。代入：</p>
+              \[ E_n=-\frac{me^4}{2(4\pi\epsilon_0)^2\hbar^2}\frac1{n^2}
+                 =-\frac{13.6\,\mathrm{eV}}{n^2}. \]
+              <p>基态 \(n=1\) 最低；\(n\to\infty\) 时 \(E\to0\)，电离。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">里德伯常数</div>
+            <div class="step-body">
+              <p>跃迁 \(n_2\to n_1\)：</p>
+              \[ \frac1\lambda=\frac{E_{n_2}-E_{n_1}}{hc}
+                 =R\left(\frac1{n_1^2}-\frac1{n_2^2}\right), \]
+              \[ R=\frac{me^4}{8\epsilon_0^2h^3c}\approx1.097\times10^7\,\mathrm{m^{-1}}. \]
+              <p>理论值与光谱实验吻合，是玻尔模型的重大成功。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">谱线系</div>
+            <div class="step-body">
+              <p>\(n_1=1\)：莱曼系（紫外）；\(n_1=2\)：巴耳末系（可见）；\(n_1=3\)：帕邢系（红外）。</p>
+              <p>谱线频率由能级差决定，不是轨道频率；这是「跃迁」图像与经典辐射的根本区别。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">玻尔模型的局限</div>
+            <div class="step-body">
+              <p>只对氢/类氢离子成功；无法解释多电子原子、谱线强度、精细结构、塞曼效应；也不能给出「为什么角动量量子化」的第一性原理。</p>
+              <p>它是「旧量子论」：在经典轨道上强行加量子条件，不是完整理论。真正的量子力学由薛定谔/海森堡建立。</p>
+              <p class="step-check"><b>易错：</b>不要把玻尔模型当普遍理论，也不要用它算多电子原子。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">三条裂缝的共同启示</div>
+            <div class="step-body">
+              <p>黑体辐射 → 能量量子化（\(E=h\nu\)）；光电效应 → 光量子；氢光谱 → 定态与能级跃迁。</p>
+              <p>共同点：微观世界的能量/状态是分立的，经典连续图像失效。下一步是德布罗意波与薛定谔方程。</p>
+              <p class="step-why"><b>学习顺序：</b>先记住三个实验矛盾与三个假设，再进入波动力学；不要只背公式。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5636,6 +5827,216 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s35">
+      <summary>完整推导 · 20 步：广义不确定原理</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用柯西–施瓦茨不等式证明 \(\sigma_A\sigma_B\ge\frac12|\langle[\hat A,\hat B]\rangle|\)，讨论取等条件、角动量与能量–时间版本。
+          约定：\(\hat A,\hat B\) 厄密；\(\sigma_A^2=\langle(\hat A-\langle A\rangle)^2\rangle\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">中心化算符</div>
+            <div class="step-body">
+              <p>令</p>
+              \[ \delta\hat A=\hat A-\langle A\rangle,\qquad
+                 \delta\hat B=\hat B-\langle B\rangle. \]
+              <p>则 \(\langle\delta A\rangle=\langle\delta B\rangle=0\)，且</p>
+              \[ \sigma_A^2=\langle(\delta A)^2\rangle,\qquad
+                 \sigma_B^2=\langle(\delta B)^2\rangle. \]
+              <p class="step-why"><b>目的：</b>把「散布」变成算符的平方期望，便于用内积。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">构造两个态矢量</div>
+            <div class="step-body">
+              <p>\[ |f\rangle=\delta\hat A|\psi\rangle,\qquad
+                 |g\rangle=\delta\hat B|\psi\rangle. \]</p>
+              <p>于是</p>
+              \[ \langle f|f\rangle=\sigma_A^2,\qquad
+                 \langle g|g\rangle=\sigma_B^2. \]
+              <p class="step-check"><b>注意：</b>\(\delta\hat A\) 厄密，所以 \(\langle f|f\rangle\) 为非负实数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">柯西–施瓦茨不等式</div>
+            <div class="step-body">
+              <p>\[ \langle f|f\rangle\langle g|g\rangle\ge|\langle f|g\rangle|^2. \]</p>
+              <p>代入：</p>
+              \[ \sigma_A^2\sigma_B^2\ge|\langle f|g\rangle|^2. \]
+              <p class="step-why"><b>取等：</b>\(|g\rangle=\lambda|f\rangle\)，即两个偏差矢量平行；这会给出最小不确定态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">展开内积</div>
+            <div class="step-body">
+              <p>\[ \langle f|g\rangle
+                 =\langle\delta A\,\delta B\rangle
+                 =\langle AB\rangle-\langle A\rangle\langle B\rangle. \]
+              <p>类似地 \(\langle g|f\rangle=\langle BA\rangle-\langle A\rangle\langle B\rangle\)。</p>
+              <p class="step-check"><b>检查：</b>两式之差就是 \(\langle[A,B]\rangle\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分成实部与虚部</div>
+            <div class="step-body">
+              <p>对任意复数 \(z\)，\(|z|^2\ge(\operatorname{Im}z)^2\)。令 \(z=\langle f|g\rangle\)：</p>
+              \[ \operatorname{Im}z=\frac{z-z^*}{2\mathrm{i}}
+                 =\frac{\langle[A,B]\rangle}{2\mathrm{i}}. \]
+              <p>所以</p>
+              \[ \sigma_A^2\sigma_B^2\ge\left|\frac{\langle[A,B]\rangle}{2\mathrm{i}}\right|^2
+                 =\frac14\left|\langle[A,B]\rangle\right|^2. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">广义<a class="kp" data-kp="uncertainty-principle">不确定原理</a></div>
+            <div class="step-body">
+              <p>开方：</p>
+              \[ \boxed{\sigma_A\sigma_B\ge\frac12\left|\langle[\hat A,\hat B]\rangle\right|}. \]
+              <p>这就是 Robertson 不等式；它对任意两个厄密算符成立。</p>
+              <p class="step-why"><b>物理：</b>不确定度由对易子控制；对易子为零时下界为零，两量可同时确定。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置–<a class="kp" data-kp="momentum-op">动量</a></div>
+            <div class="step-body">
+              <p>\([\hat x,\hat p]=\mathrm{i}\hbar\)，所以</p>
+              \[ \sigma_x\sigma_p\ge\frac12\left|\langle\mathrm{i}\hbar\rangle\right|
+                 =\frac{\hbar}{2}. \]
+              <p>与 §1.6 的结果一致。</p>
+              <p class="step-check"><b>检查：</b>\(\hbar/2\) 来自对易子的量纲；\(\hbar\) 的量纲是作用量。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">取等条件</div>
+            <div class="step-body">
+              <p>柯西–施瓦茨取等要求</p>
+              \[ |g\rangle=\lambda|f\rangle. \]
+              <p>又要求 \(\operatorname{Im}\langle f|g\rangle\) 取满，等价于 \(\lambda\) 为纯虚数：\(\lambda=\mathrm{i}a\)（\(a\) 实）。</p>
+              <p>所以</p>
+              \[ (\hat p-\langle p\rangle)|\psi\rangle
+                 =\mathrm{i}a(\hat x-\langle x\rangle)|\psi\rangle. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">解出最小不确定态（<a class="kp" data-kp="gaussian">高斯</a>）</div>
+            <div class="step-body">
+              <p>在位置表象：</p>
+              \[ -\mathrm{i}\hbar\psi'-\langle p\rangle\psi
+                 =\mathrm{i}a(x-\langle x\rangle)\psi. \]
+              <p>整理：</p>
+              \[ \psi'=\left[-\frac{a}{\hbar}(x-\langle x\rangle)
+                 +\frac{\mathrm{i}\langle p\rangle}{\hbar}\right]\psi. \]
+              <p>积分得高斯波包：</p>
+              \[ \psi\propto e^{-a(x-\langle x\rangle)^2/(2\hbar)}
+                 e^{\mathrm{i}\langle p\rangle x/\hbar}. \]
+              <p>取 \(a=\hbar/(2\sigma_x^2)\) 即标准高斯；\(\sigma_x\sigma_p=\hbar/2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="commutator">角动量</a>分量</div>
+            <div class="step-body">
+              <p>\([\hat L_x,\hat L_y]=\mathrm{i}\hbar\hat L_z\)，所以</p>
+              \[ \sigma_{L_x}\sigma_{L_y}\ge\frac{\hbar}{2}\left|\langle L_z\rangle\right|. \]
+              <p>若 \(L_z\) 有确定值，\(L_x,L_y\) 不能同时确定；在 \(l=0\) 态三者都为零，不矛盾。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相容可观测量的下界为零</div>
+            <div class="step-body">
+              <p>若 \([\hat A,\hat B]=0\)，则 \(\sigma_A\sigma_B\ge0\)：没有非平凡下界，存在共同本征态使两者都确定。</p>
+              <p>但「下界为零」不等于「任意态都同时确定」；只有共同本征态才两者都零。</p>
+              <p class="step-check"><b>例子：</b>自由粒子 \(H\) 与 \(p\) 对易；平面波同时确定二者。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量–时间：不是标准算符关系</div>
+            <div class="step-body">
+              <p>时间在标准量子力学里是参数，不是厄密算符；不能直接套 \(\sigma_E\sigma_t\)。常用推导从</p>
+              \[ \frac{\mathrm{d}\langle Q\rangle}{\mathrm{d}t}
+                 =\frac{\mathrm{i}}{\hbar}\langle[H,Q]\rangle
+                 +\left\langle\frac{\partial Q}{\partial t}\right\rangle \]
+              <p>出发，取 \(Q\) 使 \(\partial_tQ=0\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">Mandelstam–Tamm 推导</div>
+            <div class="step-body">
+              <p>由广义不等式：</p>
+              \[ \sigma_H\sigma_Q\ge\frac{\hbar}{2}\left|\frac{\mathrm{d}\langle Q\rangle}{\mathrm{d}t}\right|. \]
+              <p>定义</p>
+              \[ \Delta t=\frac{\sigma_Q}{|\mathrm{d}\langle Q\rangle/\mathrm{d}t|}, \]
+              <p>则</p>
+              \[ \sigma_H\,\Delta t\ge\frac{\hbar}{2}. \]
+              <p>\(\Delta t\) 是 \(\langle Q\rangle\) 改变一个标准差所需时间，不是「时间算符」的标准差。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量–时间的解释</div>
+            <div class="step-body">
+              <p>对寿命 \(\tau\) 的态，取 \(\Delta t\sim\tau\)，得 \(\Delta E\,\tau\sim\hbar/2\)：短寿命态能量宽。</p>
+              <p>定态 \(\sigma_H=0\)，\(\Delta t=\infty\)：概率分布不演化，寿命无限。</p>
+              <p class="step-why"><b>注意：</b>这不是「能量与时间不能同时测量」；时间不是被测的算符。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">更强的不等式（了解）</div>
+            <div class="step-body">
+              <p>Schrödinger 不等式：</p>
+              \[ \sigma_A^2\sigma_B^2\ge
+                 \left(\frac{\langle\{A,B\}\rangle}{2}-\langle A\rangle\langle B\rangle\right)^2
+                 +\left(\frac{\langle[A,B]\rangle}{2\mathrm{i}}\right)^2. \]
+              <p>Robertson 不等式只取了虚部；实部（协方差）在压缩态等问题中重要。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">最小不确定态的应用</div>
+            <div class="step-body">
+              <p>高斯波包在自由演化中保持最小不确定（但宽度随时间增大）；相干态在谐振子中保持最小不确定且形状不变。</p>
+              <p>压缩态可以让一个方差小于 \(\hbar/2\) 的「真空」值，同时另一个方差变大，乘积仍满足下界。</p>
+              <p class="step-check"><b>例子：</b>量子光学中的 squeezed light。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">测量扰动与联合测量</div>
+            <div class="step-body">
+              <p>标准不确定关系说的是「同一态上分别测 A、B 的统计散布」，不是「同时测量的仪器误差」。</p>
+              <p>联合测量的精度还受 Arthurs–Kelly 型不等式限制；它与 Robertson 不等式形式不同，不能混用。</p>
+              <p class="step-check"><b>注意：</b>即使仪器完美，\(\sigma_A\sigma_B\) 也不能同时为零（除非 \([\hat A,\hat B]=0\) 且态是共同本征态）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲检查</div>
+            <div class="step-body">
+              <p>\([\sigma_A\sigma_B]=[\langle[A,B]\rangle]\)；例如 \(x,p\) 乘积是作用量，与 \(\hbar\) 同量纲。</p>
+              <p>若算出的下界量纲不对，检查对易子是否漏了 \(\hbar\) 或算符定义。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(\hbar/2\) 写成 \(\hbar\)；</li>
+                <li>认为对易子为零就一定「同时测准任意态」；</li>
+                <li>把能量–时间当成标准算符不确定关系；</li>
+                <li>忘记取绝对值，得到负下界；</li>
+                <li>把 \(\sigma_A\) 当仪器误差而不是态的标准差。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>核心：</b>\(\sigma_A\sigma_B\ge\frac12|\langle[\hat A,\hat B]\rangle|\)。</p>
+              <p><b>特例：</b>\(\sigma_x\sigma_p\ge\hbar/2\)；角动量分量由 \(\langle L_z\rangle\) 控制。</p>
+              <p><b>取等：</b>高斯型；\(g=\mathrm{i}af\)。</p>
+              <p><b>能量–时间：</b>\(\Delta E\,\Delta t\ge\hbar/2\)，\(\Delta t\) 是演化时标，不是时间算符。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5692,6 +6093,220 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s36">
+      <summary>完整推导 · 20 步：狄拉克符号与表象</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把态、内积、算符、基、完备性、表象变换写成与具体基底无关的狄拉克符号，并用两态系统演示。
+          约定：\(|\alpha\rangle\) 为 ket，\(\langle\alpha|\) 为 bra；\(\langle\alpha|\beta\rangle\) 为内积。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="dirac-notation">ket</a>：态矢量</div>
+            <div class="step-body">
+              <p>态记作 \(|\alpha\rangle\)，是希尔伯特空间中的矢量；在给定基下有一列分量：</p>
+              \[ |\alpha\rangle\;\leftrightarrow\;
+                 \begin{pmatrix}a_1\\a_2\\\vdots\end{pmatrix},\qquad
+                 a_n=\langle e_n|\alpha\rangle. \]
+              <p>ket 本身不依赖基；分量才依赖基。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="dirac-notation">狄拉克符号</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="dirac-notation">bra</a>：对偶矢量</div>
+            <div class="step-body">
+              <p>每个 ket 对应一个 bra：</p>
+              \[ |\alpha\rangle=\begin{pmatrix}a_1\\\vdots\end{pmatrix}
+                 \;\longleftrightarrow\;
+                 \langle\alpha|=(a_1^*,\dots,a_n^*). \]
+              <p>bra 是行向量、ket 是列向量；bra 是 ket 的厄密共轭。</p>
+              <p class="step-check"><b>检查：</b>\((|\alpha\rangle)^\dagger=\langle\alpha|\)，\((\langle\alpha|)^\dagger=|\alpha\rangle\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">内积：bra 乘 ket</div>
+            <div class="step-body">
+              <p>\[ \langle\alpha|\beta\rangle=\sum_n a_n^*b_n. \]</p>
+              <p>性质：</p>
+              <ul>
+                <li>\(\langle\beta|\alpha\rangle=\langle\alpha|\beta\rangle^*\)；</li>
+                <li>对第二项线性：\(\langle\alpha|(b|\beta\rangle+c|\gamma\rangle)=b\langle\alpha|\beta\rangle+c\langle\alpha|\gamma\rangle\)；</li>
+                <li>\(\langle\alpha|\alpha\rangle\ge0\)。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化与正交</div>
+            <div class="step-body">
+              <p>归一化：\(\langle\alpha|\alpha\rangle=1\)。正交：\(\langle\alpha|\beta\rangle=0\)。</p>
+              <p>正交归一一组基：\(\langle e_m|e_n\rangle=\delta_{mn}\)。</p>
+              <p class="step-why"><b>物理：</b>正交态是互斥的测量结果；内积模方给跃迁/测量概率。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">算符作用在 ket 上</div>
+            <div class="step-body">
+              <p>\(|\beta\rangle=\hat Q|\alpha\rangle\)；在基下：</p>
+              \[ b_m=\langle e_m|\beta\rangle=\sum_n\langle e_m|\hat Q|e_n\rangle a_n. \]
+              <p>定义矩阵元</p>
+              \[ Q_{mn}=\langle e_m|\hat Q|e_n\rangle, \]
+              <p>则 \(b_m=\sum_nQ_{mn}a_n\)：算符就是矩阵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">算符作用在 bra 上</div>
+            <div class="step-body">
+              <p>\(\langle\beta|\hat Q\) 是 bra，其分量是 \(\sum_m b_m^*Q_{mn}\)；等价于 \(\hat Q^\dagger|\beta\rangle\) 的共轭。</p>
+              <p>顺序重要：\(\langle\alpha|\hat Q|\beta\rangle\) 是数；\(\hat Q|\alpha\rangle\langle\beta|\) 是算符。</p>
+              <p class="step-check"><b>注意：</b>不要写 \(\hat Q\langle\alpha|\beta\rangle\) 这种「算符乘数」的混淆式。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">伴随算符（<a class="kp" data-kp="hermitian">厄密</a>）</div>
+            <div class="step-body">
+              <p>\(\hat Q^\dagger\) 满足</p>
+              \[ \langle\alpha|\hat Q\beta\rangle=\langle\hat Q^\dagger\alpha|\beta\rangle. \]
+              <p>矩阵上 \(Q^\dagger_{mn}=Q_{nm}^*\)；厄密即 \(Q^\dagger=Q\)。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="hermitian">厄密算符</a>；可观测量对应厄密矩阵。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">外积：算符的构造块</div>
+            <div class="step-body">
+              <p>\(|\alpha\rangle\langle\beta|\) 是算符：作用在 \(|\gamma\rangle\) 上得</p>
+              \[ (|\alpha\rangle\langle\beta|)|\gamma\rangle
+                 =|\alpha\rangle\langle\beta|\gamma\rangle
+                 =\langle\beta|\gamma\rangle|\alpha\rangle. \]
+              <p>它是「把态投影到 \(\beta\) 方向再放到 \(\alpha\) 方向」的算符。</p>
+              <p class="step-check"><b>对比：</b>\(\langle\beta|\alpha\rangle\) 是数，\(|\alpha\rangle\langle\beta|\) 是算符。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">投影算符</div>
+            <div class="step-body">
+              <p>若 \(|\alpha\rangle\) 归一，</p>
+              \[ \hat P_\alpha=|\alpha\rangle\langle\alpha| \]
+              <p>是投影算符：\(\hat P^2=\hat P\)，\(\hat P^\dagger=\hat P\)。</p>
+              <p>它把任意态投到 \(|\alpha\rangle\) 方向；测量概率 \(\langle\psi|\hat P_\alpha|\psi\rangle=|\langle\alpha|\psi\rangle|^2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="completeness">完备性</a>关系</div>
+            <div class="step-body">
+              <p>正交归一基满足</p>
+              \[ \sum_n|e_n\rangle\langle e_n|=\hat 1. \]
+              <p>连续基：\(\int|e_z\rangle\langle e_z|\mathrm{d}z=\hat 1\)。</p>
+              <p>它是「插入单位算符」做展开/基变换的工具。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="completeness">完备性</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">展开与系数</div>
+            <div class="step-body">
+              <p>\[ |\psi\rangle=\hat 1|\psi\rangle
+                 =\sum_n|e_n\rangle\langle e_n|\psi\rangle
+                 =\sum_n c_n|e_n\rangle, \]
+              \[ c_n=\langle e_n|\psi\rangle. \]
+              <p>展开系数就是投影；\(\sum|c_n|^2=1\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="basis">基变换</a></div>
+            <div class="step-body">
+              <p>若有两组正交归一基 \(\{|e_n\rangle\},\{|f_m\rangle\}\)，则</p>
+              \[ |f_m\rangle=\sum_n|e_n\rangle\langle e_n|f_m\rangle
+                 =\sum_n U_{mn}|e_n\rangle. \]
+              <p>\(U_{mn}=\langle e_n|f_m\rangle\) 是酉矩阵；分量按 \(U\) 变换，物理结果不变。</p>
+              <p class="step-check"><b>检查：</b>\(U^\dagger U=1\)，保证内积/概率不变。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置与动量表象</div>
+            <div class="step-body">
+              <p>\[ \psi(x)=\langle x|\psi\rangle,\qquad
+                 \tilde\psi(p)=\langle p|\psi\rangle. \]
+              <p>同一 \(|\psi\rangle\)，不同基下的分量；傅里叶变换就是基变换。</p>
+              <p>\(\langle x|x'\rangle=\delta(x-x')\)，\(\langle p|p'\rangle=\delta(p-p')\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">两态系统：矩阵表示</div>
+            <div class="step-body">
+              <p>设</p>
+              \[ H=\begin{pmatrix}h&g\\g&h\end{pmatrix},\qquad
+                 |1\rangle=\begin{pmatrix}1\\0\end{pmatrix}. \]
+              <p>本征值：解 \(\det(H-\lambda I)=0\)：</p>
+              \[ (h-\lambda)^2-g^2=0\;\Longrightarrow\;\lambda_\pm=h\pm g. \]
+              <p>本征矢量：</p>
+              \[ |S_\pm\rangle=\frac{1}{\sqrt2}\begin{pmatrix}1\\\pm1\end{pmatrix}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">时间演化</div>
+            <div class="step-body">
+              <p>初态 \(|1\rangle=\frac{1}{\sqrt2}(|S_+\rangle+|S_-\rangle)\)。演化：</p>
+              \[ |S(t)\rangle=\frac{1}{\sqrt2}\left(
+                 e^{-\mathrm{i}E_+t/\hbar}|S_+\rangle
+                 +e^{-\mathrm{i}E_-t/\hbar}|S_-\rangle\right). \]
+              <p>代入 \(E_\pm=h\pm g\) 得</p>
+              \[ |S(t)\rangle=e^{-\mathrm{i}ht/\hbar}
+                 \begin{pmatrix}\cos(gt/\hbar)\\-\mathrm{i}\sin(gt/\hbar)\end{pmatrix}. \]
+              <p>概率 \(P_1=\cos^2(gt/\hbar)\)，\(P_2=\sin^2(gt/\hbar)\)：拉比振荡。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">谱分解</div>
+            <div class="step-body">
+              <p>厄密算符：</p>
+              \[ \hat Q=\sum_n q_n|q_n\rangle\langle q_n|. \]
+              <p>期望值：</p>
+              \[ \langle Q\rangle=\sum_n q_n|\langle q_n|\psi\rangle|^2. \]
+              <p>矩阵形式就是「对角化 + 加权平均」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">张量积</div>
+            <div class="step-body">
+              <p>两粒子：</p>
+              \[ |\psi\rangle=\sum_{ij}c_{ij}|i\rangle_1\otimes|j\rangle_2. \]
+              <p>若 \(c_{ij}=a_ib_j\)，可分离；否则纠缠。算符 \(A\otimes B\) 作用在对应分量上。</p>
+              <p class="step-check"><b>维数：</b>\(\dim(\mathcal H_1\otimes\mathcal H_2)=\dim\mathcal H_1\cdot\dim\mathcal H_2\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">对易子的矩阵形式</div>
+            <div class="step-body">
+              <p>在正交归一基下：</p>
+              \[ [A,B]_{mn}=\sum_k\left(A_{mk}B_{kn}-B_{mk}A_{kn}\right). \]
+              <p>即矩阵乘法 \(AB-BA\)。若 \(AB=BA\)，两矩阵可同时对角化，对应可同时测量。</p>
+              <p class="step-check"><b>检查：</b>厄密矩阵的对易子 \([\hat A,\hat B]\) 是反厄密的（\(C^\dagger=-C\)），所以其期望值为纯虚数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">常见错误</div>
+            <div class="step-body">
+              <ul>
+                <li>把 \(\langle\alpha|\beta\rangle\) 写成 \(\langle\beta|\alpha\rangle\)（差共轭）；</li>
+                <li>把外积 \(|\alpha\rangle\langle\beta|\) 当内积（是算符，不是数）；</li>
+                <li>算符向左作用时忘记取伴随；</li>
+                <li>完备性里的 1 当数，忘了它是单位算符；</li>
+                <li>连续基与离散基的 δ 混用。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>三件套：</b>ket \(|\psi\rangle\)、bra \(\langle\psi|\)、内积 \(\langle\phi|\psi\rangle\)。</p>
+              <p><b>算符：</b>矩阵元 \(\langle e_m|\hat Q|e_n\rangle\)；外积构造投影；厄密 ↔ 可观测量。</p>
+              <p><b>完备性：</b>\(\sum|e_n\rangle\langle e_n|=1\)；展开、基变换、谱分解全靠它。</p>
+              <p><b>自检：</b>能否用狄拉克符号重写一遍位置/动量表象与傅里叶变换？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6430,6 +7045,11 @@ applyFilter();
     'basis': { title: '基', def: '张成整个希尔伯特空间的线性无关矢量组；正交归一基使展开唯一、系数由投影给出。', card: 's31' },
     'completeness': { title: '完备性', def: 'Σ|e_n⟩⟨e_n|=1（连续谱为积分）；保证任意态可展开且不丢信息。', card: 's31' },
     'observable': { title: '可观测量', def: '对应厄密算符；本征值实数、本征矢量正交，测量结果只能是本征值。', card: 's32' },
+    'blackbody': { title: '黑体辐射', def: '黑体吸收全部入射辐射；热平衡谱只由温度决定。普朗克公式统一短波/长波，标志能量量子化。', card: 's0a' },
+    'quantization': { title: '能量量子化', def: '谐振子能量只能取 E_n=nhν；交换以 hν 为单位。高频模式在低温被冻结，解决紫外灾难。', card: 's0a' },
+    'photoelectric': { title: '光电效应', def: '光照射金属打出电子；存在截止频率，最大动能随频率线性增加，光强只影响饱和电流。', card: 's0a' },
+    'photon': { title: '光量子', def: '光由能量 E=hν 的量子组成；一个光子与一个电子作用，给出 E_k,max=hν−W0。', card: 's0a' },
+    'bohr-model': { title: '玻尔模型', def: '定态 + 角动量 L=nħ + 跃迁 hν=Ei−Ef；给氢能级 −13.6eV/n²，但只适用氢/类氢。', card: 's0a' },
     'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
   };
 
