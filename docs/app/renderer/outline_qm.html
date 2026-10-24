@@ -1945,7 +1945,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">离散期望值</div>
+            <div class="step-title">离散<a class="kp" data-kp="expectation">期望值</a></div>
             <div class="step-body">
               <p>定义</p>
               \[ \langle j\rangle=\sum_j j\,P(j). \]
@@ -1969,7 +1969,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
           <li class="step">
             <div class="step-title">从离散到连续：概率密度</div>
             <div class="step-body">
-              <p>连续变量单点概率为零，只能问区间。定义概率密度 \(\rho(x)\)，使</p>
+              <p>连续变量单点概率为零，只能问区间。定义<a class="kp" data-kp="pdf">概率密度</a> \(\rho(x)\)，使</p>
               \[ P(x\in[x,x+\mathrm{d}x])=\rho(x)\,\mathrm{d}x. \]
               <p>归一化变成</p>
               \[ \int_{-\infty}^{+\infty}\rho(x)\,\mathrm{d}x=1. \]
@@ -1977,7 +1977,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">累积分布函数 CDF</div>
+            <div class="step-title">累积分布函数 <a class="kp" data-kp="cdf">CDF</a></div>
             <div class="step-body">
               <p>定义</p>
               \[ F(x)=P(X\le x)=\int_{-\infty}^{x}\rho(x')\,\mathrm{d}x'. \]
@@ -1989,7 +1989,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">连续期望与方差</div>
+            <div class="step-title">连续期望与<a class="kp" data-kp="variance">方差</a></div>
             <div class="step-body">
               <p>把求和换成积分：</p>
               \[ \langle x\rangle=\int x\rho(x)\,\mathrm{d}x,\qquad
@@ -2000,7 +2000,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">变量替换：为什么多一个雅可比因子</div>
+            <div class="step-title">变量替换：为什么多一个<a class="kp" data-kp="change-of-variables">雅可比因子</a></div>
             <div class="step-body">
               <p>设 \(Y=g(X)\) 且 \(g\) 单调可导，反函数 \(X=g^{-1}(Y)\)。由 CDF 相等：</p>
               \[ F_Y(y)=P(Y\le y)=P(X\le g^{-1}(y))=F_X(g^{-1}(y)). \]
@@ -2011,7 +2011,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">高斯积分：先算 \(I^2\)</div>
+            <div class="step-title"><a class="kp" data-kp="gaussian">高斯积分</a>：先算 \(I^2\)</div>
             <div class="step-body">
               <p>令</p>
               \[ I=\int_{-\infty}^{+\infty}e^{-x^2}\,\mathrm{d}x. \]
@@ -2048,7 +2048,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">二项分布</div>
+            <div class="step-title"><a class="kp" data-kp="binomial">二项分布</a></div>
             <div class="step-body">
               <p>\(n\) 次独立试验，每次成功概率 \(p\)，成功次数 \(j\) 的分布：</p>
               \[ P(j)=\binom{n}{j}p^j(1-p)^{n-j},\qquad j=0,1,\dots,n. \]
@@ -2081,7 +2081,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">中心极限定理：为什么趋于高斯</div>
+            <div class="step-title"><a class="kp" data-kp="central-limit">中心极限定理</a>：为什么趋于高斯</div>
             <div class="step-body">
               <p>把二项变量写成 \(n\) 个独立 0/1 变量之和：</p>
               \[ j=\sum_{i=1}^n X_i,\qquad X_i=\begin{cases}1,&p\\0,&1-p\end{cases}. \]
@@ -2092,7 +2092,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">众数、中位数、平均值</div>
+            <div class="step-title"><a class="kp" data-kp="mode">众数</a>、<a class="kp" data-kp="median">中位数</a>、平均值</div>
             <div class="step-body">
               <p>三个「中心」定义不同：</p>
               <ul>
@@ -2105,7 +2105,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">标准差与 \(1\sigma\) 区间</div>
+            <div class="step-title"><a class="kp" data-kp="standard-deviation">标准差</a>与 \(1\sigma\) 区间</div>
             <div class="step-body">
               <p>\(\sigma=\sqrt{\langle x^2\rangle-\langle x\rangle^2}\) 是分布宽度。对高斯分布：</p>
               \[ P(|x-\mu|\le\sigma)\approx68.3\%,\quad
@@ -2230,7 +2230,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">归一化条件</div>
+            <div class="step-title"><a class="kp" data-kp="normalization">归一化条件</a></div>
             <div class="step-body">
               <p>概率诠释要求</p>
               \[ \int_{-\infty}^{+\infty}|\Psi_C(x,t)|^2\,\mathrm{d}x=1. \]
@@ -2252,7 +2252,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">归一化不唯一：整体相位仍自由</div>
+            <div class="step-title">归一化不唯一：<a class="kp" data-kp="global-phase">整体相位</a>仍自由</div>
             <div class="step-body">
               <p>若 \(\Psi\) 已归一化，则</p>
               \[ \Psi'=e^{i\alpha}\Psi \]
@@ -2321,7 +2321,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
           <li class="step">
             <div class="step-title">边界项为零</div>
             <div class="step-body">
-              <p>平方可积要求 \(\Psi(x,t)\to0\)（\(|x|\to\infty\)），且导数也足够快衰减；因此</p>
+              <p><a class="kp" data-kp="square-integrable">平方可积</a>要求 \(\Psi(x,t)\to0\)（\(|x|\to\infty\)），且导数也足够快衰减；因此</p>
               \[ \left[\Psi^*\Psi'-\Psi\Psi^{*'}\right]_{-\infty}^{+\infty}=0. \]
               <p>于是</p>
               \[ \frac{\mathrm{d}N}{\mathrm{d}t}=0. \]
@@ -2329,7 +2329,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">写成连续性方程</div>
+            <div class="step-title">写成<a class="kp" data-kp="continuity">连续性方程</a></div>
             <div class="step-body">
               <p>把被积函数写成全微分：</p>
               \[ \partial_t|\Psi|^2+\partial_x j=0,\qquad
@@ -2339,7 +2339,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
             </div>
           </li>
           <li class="step">
-            <div class="step-title">定态：归一化后形状不随时间变</div>
+            <div class="step-title"><a class="kp" data-kp="stationary">定态</a>：归一化后形状不随时间变</div>
             <div class="step-body">
               <p>若 \(V=V(x)\)，定态为</p>
               \[ \Psi(x,t)=\psi(x)e^{-iEt/\hbar}. \]
