@@ -5885,6 +5885,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     </div>
   
     </details>
+    <details class="blk b-deriv b-full" id="full-s27">
+      <summary>完整推导 · 20 步：磁介质热力学与磁致冷</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：把气体公式翻译到磁介质 \((p,V)\to(-\mu_0H,M)\)，推出磁麦氏关系与<a class="kp" data-kp="adiabatic-demagnetization">绝热去磁</a>降温。
+          约定：H 外场、M 总磁矩；顺磁盐服从居里定律。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title"><a class="kp" data-kp="magnetic-cooling">磁功</a></div><div class="step-body"><p>外场对磁介质做功 \(\delta W=\mu_0H\mathrm{d}M\)（符号依约定）。</p></div></li>
+          <li class="step"><div class="step-title">基本方程</div><div class="step-body"><p>\[ \mathrm{d}U=T\mathrm{d}S+\mu_0H\mathrm{d}M. \]</p><p>与气体 \(\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V\) 对应：\(p\leftrightarrow-\mu_0H\)，\(V\leftrightarrow M\)。</p></div></li>
+          <li class="step"><div class="step-title">G 形式</div><div class="step-body"><p>令 \(G=U-TS-\mu_0HM\)：</p><p>\[ \mathrm{d}G=-S\mathrm{d}T-\mu_0M\mathrm{d}H. \]</p></div></li>
+          <li class="step"><div class="step-title">磁麦氏关系</div><div class="step-body"><p>交叉导数：</p><p>\[ (\partial S/\partial H)_T=\mu_0(\partial M/\partial T)_H. \]</p></div></li>
+          <li class="step"><div class="step-title">居里定律</div><div class="step-body"><p>顺磁体 \(M=CH/T\)（实验规律），所以</p><p>\[ (\partial M/\partial T)_H=-CH/T^2<0. \]</p></div></li>
+          <li class="step"><div class="step-title">熵随场减小</div><div class="step-body"><p>代入：\((\partial S/\partial H)_T<0\)：等温加场，熵减小。</p></div></li>
+          <li class="step"><div class="step-title">等温磁化放热</div><div class="step-body"><p>等温下熵减，必须向恒温浴放热 \(Q=T\Delta S<0\)。</p></div></li>
+          <li class="step"><div class="step-title">绝热去磁</div><div class="step-body"><p>撤场时 \(S\) 近似不变；磁矩无序化需要熵，只能从热运动借，温度下降。</p></div></li>
+          <li class="step"><div class="step-title">熵的变量</div><div class="step-body"><p>\(S(T,H)\)：加场熵减、升温熵增；绝热去磁沿等熵线向左下走。</p></div></li>
+          <li class="step"><div class="step-title">降温幅度</div><div class="step-body"><p>由 \(C_H=T(\partial S/\partial T)_H\) 与磁麦氏关系可算 \(\Delta T\)；初始温度越低、场越强，降温越有效。</p></div></li>
+          <li class="step"><div class="step-title">磁致伸缩</div><div class="step-body"><p>保留 p、V：\((\partial V/\partial H)_{T,p}=-\mu_0(\partial M/\partial p)_{T,H}\)。</p><p>左边是加场长度变化，右边是压磁效应。</p></div></li>
+          <li class="step"><div class="step-title">压磁效应</div><div class="step-body"><p>加压改变磁化强度；与磁致伸缩互为镜像。</p></div></li>
+          <li class="step"><div class="step-title">适用温区</div><div class="step-body"><p>绝热去磁适用于液氦温度以下，可到 mK；更低温用核去磁。</p></div></li>
+          <li class="step"><div class="step-title">第三定律</div><div class="step-body"><p>不可能通过有限步骤达到 0 K；绝热去磁只能趋近。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>绝热去磁写成等温；</li><li>把居里定律当热力学结论；</li><li>磁功符号混用；</li><li>认为去磁一定能到 0 K。</li></ul></div></li>
+          <li class="step"><div class="step-title">单位</div><div class="step-body"><p>\(\mu_0H\)：T；M：A·m²；\(\mu_0HM\)：J。</p></div></li>
+          <li class="step"><div class="step-title">与气体对照</div><div class="step-body"><p>等温压缩↔等温磁化；绝热膨胀↔绝热去磁；p–V 图↔\(\mu_0H\)–M 图。</p></div></li>
+          <li class="step"><div class="step-title">应用</div><div class="step-body"><p>磁致冷、磁传感器、磁致伸缩驱动器。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>\(\mathrm{d}U=T\mathrm{d}S+\mu_0H\mathrm{d}M\)；\((\partial S/\partial H)_T=\mu_0(\partial M/\partial T)_H\)；绝热去磁降温。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否用居里定律说明等温加场熵减、绝热去磁降温？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -5952,6 +5984,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         </ul>
       </div>
     </div>
+    <details class="blk b-deriv b-full" id="full-s28">
+      <summary>完整推导 · 20 步：获得低温的方法</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：比较节流、<a class="kp" data-kp="adiabatic-demagnetization">绝热去磁</a>、<a class="kp" data-kp="dilution-refrigerator">稀释致冷</a>、绝热膨胀四种方法的原理、温区与限制；共同本质是「有序化 + 排熵」。
+          约定：所有 T 用 K；方法选择按温区。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">共同思想</div><div class="step-body"><p>让系统某个自由度有序化（熵减），把熵排给环境；剩下的热运动变弱，温度下降。</p></div></li>
+          <li class="step"><div class="step-title">节流致冷</div><div class="step-body"><p>气体经多孔塞节流，等焓；真实气体在 \(\mu_{\rm JT}>0\) 时降温。</p></div></li>
+          <li class="step"><div class="step-title">节流条件</div><div class="step-body"><p>必须预冷到转变温度以下；理想气体 \(\mu=0\)，不降温。</p></div></li>
+          <li class="step"><div class="step-title">节流温区</div><div class="step-body"><p>常用于制备液氮、液氧、液氩（约 77–90 K）。</p></div></li>
+          <li class="step"><div class="step-title">氢、氦的特殊性</div><div class="step-body"><p>氢、氦的转变温度很低，必须先预冷（液氮/液氢）才能节流液化。</p></div></li>
+          <li class="step"><div class="step-title">绝热去磁</div><div class="step-body"><p>顺磁盐等温磁化（放热）→ 绝热去磁（降温），可到 mK。</p></div></li>
+          <li class="step"><div class="step-title">熵的重新分配</div><div class="step-body"><p>磁场使磁矩有序，熵减；撤场时磁矩无序化从热运动借熵，温度下降。</p></div></li>
+          <li class="step"><div class="step-title">核去磁</div><div class="step-body"><p>用核自旋代替电子自旋，可到 μK 量级；但热接触/弛豫时间极长。</p></div></li>
+          <li class="step"><div class="step-title">稀释致冷</div><div class="step-body"><p>利用 \(^3\)He/\(^4\)He 混合液在低温下的相分离，\(^3\)He 从浓相到稀相吸热，可连续提供 mK 级冷量。</p></div></li>
+          <li class="step"><div class="step-title">绝热膨胀</div><div class="step-body"><p>气体绝热推动活塞/透平做功，内能减少、温度下降；可逆时等熵。</p></div></li>
+          <li class="step"><div class="step-title">节流 vs 膨胀</div><div class="step-body"><p>节流等焓、不可逆、无运动部件；膨胀近似等熵、可逆、需要做功部件。</p></div></li>
+          <li class="step"><div class="step-title">温区选择</div><div class="step-body"><p>常温→液氮：节流；液氦→mK：绝热去磁/稀释；mK 以下：核去磁、激光冷却等。</p></div></li>
+          <li class="step"><div class="step-title">第三定律限制</div><div class="step-body"><p>有限步骤不能达到 0 K；每种方法只能趋近。</p></div></li>
+          <li class="step"><div class="step-title">效率</div><div class="step-body"><p>低温下卡诺效率趋近 1，但制冷量趋近 0；实际致冷机受材料/热漏限制。</p></div></li>
+          <li class="step"><div class="step-title">绝热去磁的局限</div><div class="step-body"><p>需要顺磁盐、初始场、热开关；低温下自旋-晶格弛豫变慢。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>认为节流对理想气体也降温；</li><li>把绝热去磁写成等温；</li><li>混淆节流与膨胀；</li><li>认为可达 0 K。</li></ul></div></li>
+          <li class="step"><div class="step-title">应用</div><div class="step-body"><p>液氮/液氦制备、超导磁体冷却、低温物理实验、空间探测器。</p></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>致冷量 J；制冷系数无量纲；温区 K。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>共同本质：有序化 + 排熵；方法按温区选择；第三定律封顶。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否解释为什么节流对理想气体不降温，而绝热膨胀可以？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -6003,6 +6067,38 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
         <li><b>平衡与稳定是两件事</b>：一阶变分为零只说明「站住了」（平衡）；二阶变分的符号才说明「站得稳」（稳定）。</li>
       </ul>
     </div>
+    <details class="blk b-deriv b-full" id="full-s30">
+      <summary>完整推导 · 20 步：热动平衡的条件</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用<a class="kp" data-kp="virtual-change">虚变动</a> + 熵判据推出热平衡（T 相等）、力学平衡（p 相等）、<a class="kp" data-kp="phase-equilibrium">相平衡</a>（μ 相等），并区分平衡与稳定。
+          约定：孤立系总 U、V、N 固定；虚变动是设想的无限小变动。
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-title">问题</div><div class="step-body"><p>如何判断一个宏观态是否平衡？需要可计算的判据，而不是「看起来不变」。</p></div></li>
+          <li class="step"><div class="step-title">虚变动</div><div class="step-body"><p>设想系统发生无限小变动，不要求满足动力学方程；只用于比较熵/自由能。</p></div></li>
+          <li class="step"><div class="step-title">孤立系约束</div><div class="step-body"><p>总 U、V、N 固定；子系统与媒质交换，但总量不变。</p></div></li>
+          <li class="step"><div class="step-title">熵判据</div><div class="step-body"><p>孤立系平衡时熵极大：对任意虚变动 \(\delta S\le0\)。</p></div></li>
+          <li class="step"><div class="step-title">一阶变分</div><div class="step-body"><p>平衡的必要条件：\(\delta S=0\)。</p></div></li>
+          <li class="step"><div class="step-title">二阶变分</div><div class="step-body"><p>稳定平衡要求 \(\delta^2S<0\)；若 \(\delta^2S>0\)，是不稳定平衡。</p></div></li>
+          <li class="step"><div class="step-title">热平衡</div><div class="step-body"><p>两子系统交换热量：\(\delta S=(1/T_1-1/T_2)\delta Q=0\)，得 \(T_1=T_2\)。</p></div></li>
+          <li class="step"><div class="step-title">力学平衡</div><div class="step-body"><p>交换体积：\(\delta S=(p_1/T_1-p_2/T_2)\delta V=0\)，结合 T 相等得 \(p_1=p_2\)。</p></div></li>
+          <li class="step"><div class="step-title">相平衡</div><div class="step-body"><p>交换粒子：\(\delta S=-(\mu_1/T_1-\mu_2/T_2)\delta N=0\)，得 \(\mu_1=\mu_2\)。</p></div></li>
+          <li class="step"><div class="step-title"><a class="kp" data-kp="chemical-equilibrium">化学平衡</a></div><div class="step-body"><p>多组分反应：\(\sum_i\nu_i\mu_i=0\)（反应物/生成物化学计量数）。</p></div></li>
+          <li class="step"><div class="step-title">四种平衡</div><div class="step-body"><p>热、力学、相、化学平衡同时成立，才是完整平衡态。</p></div></li>
+          <li class="step"><div class="step-title">判据函数匹配</div><div class="step-body"><p>孤立系 S 极大；等温等容 F 极小；等温等压 G 极小；等熵等容 U 极小。</p></div></li>
+          <li class="step"><div class="step-title">平衡 vs 稳定</div><div class="step-body"><p>一阶变分为零只说明「平衡」；二阶变分才说明「稳定」。</p></div></li>
+          <li class="step"><div class="step-title">亚稳态</div><div class="step-body"><p>局部极小但非全局极小：亚稳态（如过冷液体、金刚石）。</p></div></li>
+          <li class="step"><div class="step-title">相律预告</div><div class="step-body"><p>单元复相系自由度 \(f=c-p+2\)；相平衡条件给化学势相等。</p></div></li>
+          <li class="step"><div class="step-title">常见错误</div><div class="step-body"><ul><li>把虚变动当真实过程；</li><li>只看一阶变分；</li><li>判据函数与约束不匹配；</li><li>把亚稳态当稳定平衡。</li></ul></div></li>
+          <li class="step"><div class="step-title">例子</div><div class="step-body"><p>两相共存：T、p、μ 都相等；三相点：三组 μ 相等。</p></div></li>
+          <li class="step"><div class="step-title">量纲</div><div class="step-body"><p>\(\delta S\)：J/K；\(\mu\)：J/mol；T：K；p：Pa。</p></div></li>
+          <li class="step"><div class="step-title">一页总结</div><div class="step-body"><p>δS=0 给平衡条件；δ²S<0 给稳定性；T、p、μ 分别对应热、力学、相/化学平衡。</p></div></li>
+          <li class="step"><div class="step-title">自检</div><div class="step-body"><p>能否用虚变动独立推出 T1=T2、p1=p2、μ1=μ2？</p></div></li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -7376,6 +7472,12 @@ applyFilter();
     'stefan-boltzmann': { title: '斯特藩–玻尔兹曼定律', def: '辐射能量密度 u=aT⁴，通量 J=σT⁴；可由 p=u/3 与热力学关系推出。', card: 's26' },
     'kirchhoff-law': { title: '基尔霍夫定律', def: 'e_ω/α_ω=J_ω 对所有物体相同，只依赖 T、ω；黑体 α=1。', card: 's26' },
     'photon-gas': { title: '光子气体', def: '把平衡辐射当光子组成的气体；U=uV、p=u/3，能量密度只依赖 T。', card: 's26' },
+    'magnetic-cooling': { title: '磁致冷', def: '等温磁化放热 + 绝热去磁降温；利用磁矩有序化/无序化的熵重新分配。', card: 's27' },
+    'adiabatic-demagnetization': { title: '绝热去磁', def: '撤去磁场时磁矩无序化从热运动借熵，温度下降；可到 mK，但不可达 0 K。', card: 's27' },
+    'dilution-refrigerator': { title: '稀释致冷机', def: '利用 ³He/⁴He 混合液相分离，³He 从浓相到稀相吸热，提供 mK 级连续冷量。', card: 's28' },
+    'virtual-change': { title: '虚变动', def: '设想中、不满足动力学方程的无限小变动；用于熵/自由能极值判据。', card: 's30' },
+    'phase-equilibrium': { title: '相平衡', def: '两相 T、p、μ 都相等；单元复相系由相律描述自由度。', card: 's30' },
+    'chemical-equilibrium': { title: '化学平衡', def: '多组分反应 Σν_iμ_i=0；与相平衡的 μ 相等同源。', card: 's30' },
     'van-der-waals': { title: '范德瓦耳斯方程', def: '(p+a/V_m²)(V_m−b)=RT；a 修正分子吸引，b 修正分子体积；能描述气液临界点。', card: 's13' }
   };
 
