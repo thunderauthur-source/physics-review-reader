@@ -3271,6 +3271,222 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s22">
+      <summary>完整推导 · 20 步：一维无限深方势阱</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从分区求解 → 边界条件 → 能级量子化 → 归一化 → 正交展开，完整走一遍无限深方势阱。
+          约定：阱宽 \(a\)，\(0<x<a\) 内 \(V=0\)，外面 \(V=\infty\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">写出<a class="kp" data-kp="infinite-well">无限深势阱</a>的势能</div>
+            <div class="step-body">
+              <p>\[ V(x)=\begin{cases}0,&0<x<a,\\+\infty,&x<0\text{ 或 }x>a.\end{cases} \]</p>
+              <p>无限高壁意味着粒子不可能出现在盒外：盒外波函数必须为零。</p>
+              <p class="step-why"><b>理想化：</b>真实势阱不可能无限高；这个模型抓住「束缚 → 驻波 → 能级离散」的核心。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">分区：盒外与盒内</div>
+            <div class="step-body">
+              <p>盒外 \(V=\infty\)，有限能量下薛定谔方程要求 \(\psi=0\)。盒内 \(V=0\)，定态方程：</p>
+              \[ -\frac{\hbar^2}{2m}\psi''=E\psi. \]
+              <p>令</p>
+              \[ k=\frac{\sqrt{2mE}}{\hbar}, \]
+              <p>则 \(\psi''=-k^2\psi\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">盒内通解</div>
+            <div class="step-body">
+              <p>二阶常系数方程的通解：</p>
+              \[ \psi(x)=A\sin kx+B\cos kx. \]
+              <p>等价地 \(C e^{ikx}+D e^{-ikx}\)；用 sin/cos 更方便套边界。</p>
+              <p class="step-why"><b>为什么 \(E>0\)：</b>盒内 \(V=0\)，动能非负；\(E<0\) 会给指数解，无法在有限区间内满足两端为零（除零解）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">边界 \(x=0\)</div>
+            <div class="step-body">
+              <p>波函数连续，且盒外为零，所以 \(\psi(0)=0\)：</p>
+              \[ \psi(0)=A\sin0+B\cos0=B=0. \]
+              <p>于是只剩</p>
+              \[ \psi(x)=A\sin kx. \]
+              <p class="step-check"><b>检查：</b>\(\sin kx\) 自动满足左端为零；若保留 \(\cos\) 项，会破坏边界。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="boundary">边界</a> \(x=a\)：量子化条件</div>
+            <div class="step-body">
+              <p>右端 \(\psi(a)=0\)：</p>
+              \[ A\sin ka=0. \]
+              <p>非零解要求 \(A\ne0\)，所以</p>
+              \[ ka=n\pi,\qquad n=1,2,3,\dots \]
+              <p>\(n=0\) 给 \(\psi\equiv0\)，不能归一化，舍去；负 \(n\) 只改符号，与正 \(n\) 同一态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">波数与能级</div>
+            <div class="step-body">
+              <p>由 \(k_n=n\pi/a\) 与 \(E=\hbar^2k^2/2m\)：</p>
+              \[ E_n=\frac{\hbar^2}{2m}\left(\frac{n\pi}{a}\right)^2
+                 =\frac{n^2\pi^2\hbar^2}{2ma^2},\qquad n=1,2,\dots \]
+              <p>能级按 \(n^2\) 增长，不是等间距；\(a\) 越小，能级越高、间距越大。</p>
+              <p class="step-why"><b>物理：</b>盒越窄，驻波波长越短，动量/能量越大 —— 不确定原理的体现。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="normalization">归一化</a></div>
+            <div class="step-body">
+              <p>要求</p>
+              \[ 1=\int_0^a|A|^2\sin^2\frac{n\pi x}{a}\,\mathrm{d}x
+                 =|A|^2\frac{a}{2}. \]
+              <p>所以</p>
+              \[ A=\sqrt{\frac{2}{a}}. \]
+              <p>取实数正号；整体相位可任取。</p>
+              <p class="step-check"><b>检查：</b>\(|A|^2a/2=1\)，波函数量纲 \(L^{-1/2}\)，正确。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">正交归一</div>
+            <div class="step-body">
+              <p>对 \(m\ne n\)：</p>
+              \[ \int_0^a\sin\frac{m\pi x}{a}\sin\frac{n\pi x}{a}\,\mathrm{d}x=0, \]
+              <p>由积化和差或对称性可得。因此</p>
+              \[ \langle\psi_m|\psi_n\rangle=\delta_{mn}. \]
+              <p class="step-why"><b>用途：</b>求展开系数时可以直接投影，不用解线性方程组。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="parity">宇称</a>与<a class="kp" data-kp="nodes">节点</a></div>
+            <div class="step-body">
+              <p>相对盒中心 \(x=a/2\)：\(\psi_n\) 的宇称为 \((-1)^{n+1}\)（\(n\) 奇为偶、\(n\) 偶为奇）。</p>
+              <p>节点数（不含边界）为 \(n-1\)：\(\psi_1\) 无节点，\(\psi_2\) 一个节点，依此类推。</p>
+              <p class="step-check"><b>注意：</b>宇称是相对 \(a/2\) 说的；若以 \(x=0\) 为原点，\(\sin(n\pi x/a)\) 既不是奇也不是偶。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量期望与方差</div>
+            <div class="step-body">
+              <p>定态下：</p>
+              \[ \langle H\rangle=E_n,\qquad \langle H^2\rangle=E_n^2,\qquad \sigma_H=0. \]
+              <p>位置期望：</p>
+              \[ \langle x\rangle=\int_0^a x|\psi_n|^2\mathrm{d}x=\frac{a}{2}, \]
+              <p>由 \(\sin^2\) 关于 \(a/2\) 对称得到。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位置方差</div>
+            <div class="step-body">
+              <p>计算</p>
+              \[ \langle x^2\rangle=\frac{2}{a}\int_0^a x^2\sin^2\frac{n\pi x}{a}\mathrm{d}x
+                 =\frac{a^2}{3}-\frac{a^2}{2n^2\pi^2}. \]
+              <p>所以</p>
+              \[ \sigma_x^2=\langle x^2\rangle-\langle x\rangle^2
+                 =a^2\left(\frac{1}{12}-\frac{1}{2n^2\pi^2}\right). \]
+              <p class="step-check"><b>极限：</b>\(n\to\infty\) 时趋于经典均匀分布的方差 \(a^2/12\)（对应原理）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">任意初态的<a class="kp" data-kp="superposition">展开</a></div>
+            <div class="step-body">
+              <p>因为 \(\{\psi_n\}\) 完备：</p>
+              \[ \Psi(x,0)=\sum_{n=1}^{\infty}c_n\psi_n(x), \]
+              \[ c_n=\int_0^a\psi_n^*(x)\Psi(x,0)\,\mathrm{d}x. \]
+              <p>含时解：</p>
+              \[ \Psi(x,t)=\sum_n c_n\psi_n(x)e^{-\mathrm{i}E_nt/\hbar}. \]
+              <p class="step-why"><b>归一化：</b>\(\sum_n|c_n|^2=1\)；\(\langle H\rangle=\sum_n|c_n|^2E_n\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：抛物线初态</div>
+            <div class="step-body">
+              <p>设 \(\Psi(x,0)=A x(a-x)\)。先归一化：</p>
+              \[ 1=|A|^2\int_0^a x^2(a-x)^2\mathrm{d}x
+                 =|A|^2\frac{a^5}{30}, \]
+              <p>所以</p>
+              \[ A=\sqrt{\frac{30}{a^5}}. \]
+              <p class="step-check"><b>量纲：</b>\([A]=L^{-5/2}\)，乘以 \(x(a-x)\)（\(L^2\)）得 \(L^{-1/2}\)，正确。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">展开系数：偶数项为零</div>
+            <div class="step-body">
+              <p>计算</p>
+              \[ c_n=\sqrt{\frac{60}{a^6}}\int_0^a x(a-x)\sin\frac{n\pi x}{a}\mathrm{d}x. \]
+              <p>令 \(y=x/a\)，积分化为 \(a^3\int_0^1(y-y^2)\sin(n\pi y)\mathrm{d}y\)。该积分在 \(n\) 偶时为零（被积函数关于 \(y=1/2\) 奇对称），\(n\) 奇时为 \(4/(n\pi)^3\)。因此</p>
+              \[ c_n=\begin{cases}
+                 \dfrac{8\sqrt{15}}{(n\pi)^3},&n\text{ 奇},\\[4pt]
+                 0,&n\text{ 偶}.
+                 \end{cases} \]
+              <p class="step-check"><b>验算：</b>\(\sum_{n\ \mathrm{odd}}|c_n|^2=1\)；这与初态关于 \(a/2\) 对称一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">含时演化与拍频</div>
+            <div class="step-body">
+              <p>把 \(c_n\) 代入含时展开：</p>
+              \[ \Psi(x,t)=\sum_{n\ \mathrm{odd}}\frac{8\sqrt{15}}{(n\pi)^3}
+                 \sqrt{\frac{2}{a}}\sin\frac{n\pi x}{a}e^{-\mathrm{i}E_nt/\hbar}. \]
+              <p>由于只含奇 \(n\)，概率密度以 \(\omega_{mn}=(E_m-E_n)/\hbar\) 的组合频率振荡；不会出现偶 \(n\) 的节点结构。</p>
+              <p class="step-why"><b>物理：</b>初态的对称性决定了哪些本征态被激发；这是「选择定则」的雏形。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">零点能与不确定原理</div>
+            <div class="step-body">
+              <p>基态 \(E_1=\pi^2\hbar^2/(2ma^2)\ne0\)。若 \(E=0\)，则 \(k=0\)、\(\psi\) 常数，无法满足两端为零。</p>
+              <p>用不确定原理估算：\(\sigma_x\sim a\)，\(\sigma_p\gtrsim\hbar/(2a)\)，所以</p>
+              \[ E\sim\frac{\sigma_p^2}{2m}\sim\frac{\hbar^2}{8ma^2}, \]
+              <p>与精确基态同数量级（差 \(\pi^2/4\)）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">从量子到经典：对应原理</div>
+            <div class="step-body">
+              <p>\(n\) 很大时，\(|\psi_n|^2\) 的振荡迅速，任何有限分辨率探测器都看到平均 \(\approx1/a\)，即经典均匀分布。</p>
+              <p>能量间距 \(\Delta E\approx n\pi^2\hbar^2/(ma^2)\) 相对 \(E_n\) 趋于零，能谱看起来连续。</p>
+              <p class="step-check"><b>注意：</b>对应原理是极限意义，不是「每个 \(n\) 都像经典」。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与常见错误</div>
+            <div class="step-body">
+              <p>\([k]=L^{-1}\)，\([E]=\hbar^2k^2/m=\mathrm{J}\)；\([A]=L^{-1/2}\)。</p>
+              <ul>
+                <li>\(n\) 从 1 开始，不是 0；</li>
+                <li>能级 \(\propto n^2\)，不是等间距；</li>
+                <li>壁上 \(\psi'\) 可以不连续（\(V=\infty\) 的例外）；</li>
+                <li>宇称相对 \(a/2\)，不要相对 \(x=0\) 判断。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量期望与方差</div>
+            <div class="step-body">
+              <p>定态 \(\psi_n\) 是驻波，左右行波等权，所以</p>
+              \[ \langle p\rangle=0. \]
+              <p>动量平方：</p>
+              \[ \langle p^2\rangle=\hbar^2k_n^2=\frac{n^2\pi^2\hbar^2}{a^2},\qquad
+                 \sigma_p=\frac{n\pi\hbar}{a}. \]
+              <p>与第 11 步的 \(\sigma_x\) 相乘，可得 \(\sigma_x\sigma_p\ge\hbar/2\)；\(n=1\) 时约 \(0.57\hbar\)，未取等号（非高斯）。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="momentum-op">动量算符</a>、<a class="kp" data-kp="uncertainty-principle">不确定原理</a>。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>波函数：</b>\(\psi_n=\sqrt{2/a}\sin(n\pi x/a)\)，\(n=1,2,\dots\)</p>
+              <p><b>能级：</b>\(E_n=n^2\pi^2\hbar^2/(2ma^2)\)，非等间距，有零点能。</p>
+              <p><b>方法：</b>分区 → 通解 → 边界量子化 → 归一化 → 傅里叶展开。</p>
+              <p><b>自检：</b>能否独立推出抛物线初态的 \(c_n\) 并说明偶数项为何为零？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3332,6 +3548,217 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       <p style="margin-top:8px">解析法（幂级数、厄密多项式）给出同一组能级，但代数法更干净，也是后续「二次量子化」的雏形。</p>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s23">
+      <summary>完整推导 · 20 步：谐振子的代数解法</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：用升降算符解一维谐振子，得到等间距能级、零点能、波函数与不确定度；不依赖幂级数展开。
+          约定：\(H=p^2/2m+\frac12m\omega^2x^2\)，\([x,p]=i\hbar\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="harmonic-oscillator">谐振子</a>的哈密顿量与长度尺度</div>
+            <div class="step-body">
+              <p>\[ H=\frac{p^2}{2m}+\frac12m\omega^2x^2. \]</p>
+              <p>势能是抛物线，经典振动频率 \(\omega=\sqrt{k/m}\)。量子问题有两个尺度：长度 \(x_0=\sqrt{\hbar/(m\omega)}\)，能量 \(\hbar\omega\)。</p>
+              <p class="step-why"><b>为什么用代数法：</b>微分方程（厄密方程）也能解，但升降算符把「能级等间距」直接暴露出来，且可推广到场论。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">定义<a class="kp" data-kp="ladder-operator">升降算符</a></div>
+            <div class="step-body">
+              <p>令</p>
+              \[ a_\pm=\frac{1}{\sqrt{2m\omega\hbar}}\left(\mp\mathrm{i}p+m\omega x\right). \]
+              <p>即 \(a_+\) 对应 \(-ip+m\omega x\)，\(a_-\) 对应 \(+ip+m\omega x\)。\(a_+\) 与 \(a_-\) 互为厄密共轭。</p>
+              <p class="step-check"><b>量纲：</b>\(p\sim\sqrt{m\hbar\omega}\)，\(m\omega x\sim\sqrt{m\hbar\omega}\)，分母同量纲，所以 \(a_\pm\) 无量纲。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="commutator">对易关系</a></div>
+            <div class="step-body">
+              <p>由 \([x,p]=i\hbar\)：</p>
+              \[ [a_-,a_+]=\frac{1}{2m\omega\hbar}\left[\mathrm{i}p+m\omega x,-\mathrm{i}p+m\omega x\right]=1. \]
+              <p>展开时只有 \([x,p]\) 项留下；\([x,x]=[p,p]=0\)。</p>
+              <p class="step-why"><b>注意：</b>\([a_+,a_-]=-1\)；顺序不能随意换。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用 \(a_\pm\) 表示 \(H\)</div>
+            <div class="step-body">
+              <p>计算 \(a_+a_-\) 与 \(a_-a_+\)：</p>
+              \[ a_+a_-=\frac{H}{\hbar\omega}-\frac12,\qquad
+                 a_-a_+=\frac{H}{\hbar\omega}+\frac12. \]
+              <p>两式相减给出 \([a_-,a_+]=1\)。于是</p>
+              \[ H=\hbar\omega\left(a_+a_-+\frac12\right)
+                 =\hbar\omega\left(a_-a_+-\frac12\right). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">\(a_+\) 升能、\(a_-\) 降能</div>
+            <div class="step-body">
+              <p>设 \(H\psi=E\psi\)。利用 \(Ha_+=a_+(H+\hbar\omega)\)（由对易关系可得）：</p>
+              \[ H(a_+\psi)=a_+(H+\hbar\omega)\psi=(E+\hbar\omega)(a_+\psi). \]
+              <p>所以 \(a_+\psi\) 是能量 \(E+\hbar\omega\) 的态；同理</p>
+              \[ H(a_-\psi)=(E-\hbar\omega)(a_-\psi). \]
+              <p class="step-why"><b>图像：</b>在能级梯子上上下移动，步长恒为 \(\hbar\omega\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">梯子必须到底</div>
+            <div class="step-body">
+              <p>能量不能无限降低（动能+势能非负），所以存在最低态 \(\psi_0\) 使</p>
+              \[ a_-\psi_0=0. \]
+              <p>否则不断降能会得到负能量，违反 \(H\ge0\)。</p>
+              <p class="step-check"><b>注意：</b>\(a_-\psi_0=0\) 只对基态成立，不是对任意态都为零。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">解基态微分方程</div>
+            <div class="step-body">
+              <p>\(a_-=\frac{1}{\sqrt{2m\omega\hbar}}(\mathrm{i}p+m\omega x)\)，\(p=-\mathrm{i}\hbar\partial_x\)：</p>
+              \[ \mathrm{i}(-\mathrm{i}\hbar)\psi_0'+m\omega x\psi_0=0
+                 \;\Longrightarrow\;\hbar\psi_0'+m\omega x\psi_0=0. \]
+              <p>即</p>
+              \[ \frac{\psi_0'}{\psi_0}=-\frac{m\omega}{\hbar}x. \]
+              <p>积分：</p>
+              \[ \psi_0(x)=A\exp\left(-\frac{m\omega}{2\hbar}x^2\right). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">归一化基态</div>
+            <div class="step-body">
+              <p>用高斯积分：</p>
+              \[ 1=|A|^2\int e^{-m\omega x^2/\hbar}\mathrm{d}x
+                 =|A|^2\sqrt{\frac{\pi\hbar}{m\omega}}. \]
+              <p>所以</p>
+              \[ A=\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}. \]
+              <p class="step-check"><b>量纲：</b>\([A]=L^{-1/2}\)，符合一维波函数。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="zero-point-energy">基态能量</a></div>
+            <div class="step-body">
+              <p>用 \(H=\hbar\omega(a_+a_-+\frac12)\)，且 \(a_-\psi_0=0\)：</p>
+              \[ H\psi_0=\hbar\omega\left(a_+a_-+\frac12\right)\psi_0
+                 =\frac12\hbar\omega\,\psi_0. \]
+              <p>所以 \(E_0=\frac12\hbar\omega\)：零点能。</p>
+              <p class="step-why"><b>为什么不能为零：</b>若 \(E=0\)，则 \(p=0,x=0\)，违反 \(\sigma_x\sigma_p\ge\hbar/2\)；零点能是不确定原理的代价。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">激发态由 \(a_+\) 生成</div>
+            <div class="step-body">
+              <p>定义</p>
+              \[ \psi_n=\frac{1}{\sqrt{n!}}a_+^n\psi_0. \]
+              <p>每次 \(a_+\) 加 \(\hbar\omega\)，所以</p>
+              \[ E_n=\left(n+\frac12\right)\hbar\omega,\qquad n=0,1,2,\dots \]
+              <p>能级等间距；相邻间隔恒为 \(\hbar\omega\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">升降算符的矩阵元</div>
+            <div class="step-body">
+              <p>由归一化可证：</p>
+              \[ a_+\psi_n=\sqrt{n+1}\,\psi_{n+1},\qquad
+                 a_-\psi_n=\sqrt{n}\,\psi_{n-1}. \]
+              <p>因此 \(\langle\psi_m|a_+|\psi_n\rangle=\sqrt{n+1}\delta_{m,n+1}\)，\(\langle\psi_m|a_-|\psi_n\rangle=\sqrt n\delta_{m,n-1}\)。</p>
+              <p class="step-check"><b>检查：</b>\(a_-\psi_0=0\) 与 \(\sqrt0=0\) 一致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">波函数的显式形式（<a class="kp" data-kp="hermite-polynomial">厄密多项式</a>）</div>
+            <div class="step-body">
+              <p>令 \(\xi=\sqrt{m\omega/\hbar}\,x\)，则</p>
+              \[ \psi_n(x)=\frac{1}{\sqrt{2^n n!}}\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}
+                 H_n(\xi)e^{-\xi^2/2}, \]
+              <p>其中 \(H_n\) 是厄密多项式：\(H_0=1,H_1=2\xi,H_2=4\xi^2-2,\dots\)</p>
+              <p class="step-why"><b>宇称：</b>\(H_n(-\xi)=(-1)^nH_n(\xi)\)，所以 \(\psi_n\) 的宇称为 \((-1)^n\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">正交归一</div>
+            <div class="step-body">
+              <p>厄密算符不同本征值的本征函数正交；归一化后：</p>
+              \[ \langle\psi_m|\psi_n\rangle=\delta_{mn}. \]
+              <p>也可由厄密多项式的正交性直接证明：</p>
+              \[ \int_{-\infty}^{+\infty}H_m(\xi)H_n(\xi)e^{-\xi^2}\mathrm{d}\xi=0\quad(m\ne n). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">用 \(a_\pm\) 表示 \(x,p\)</div>
+            <div class="step-body">
+              <p>反解定义式：</p>
+              \[ x=\sqrt{\frac{\hbar}{2m\omega}}\left(a_+ + a_-\right),\qquad
+                 p=\mathrm{i}\sqrt{\frac{m\omega\hbar}{2}}\left(a_+ - a_-\right). \]
+              <p>这两个式子把位置/动量的矩阵元化为升降算符的矩阵元，避免积分。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">期望值</div>
+            <div class="step-body">
+              <p>对能量本征态 \(|n\rangle\)：</p>
+              \[ \langle x\rangle=\langle p\rangle=0, \]
+              \[ \langle x^2\rangle=\frac{\hbar}{2m\omega}(2n+1),\qquad
+                 \langle p^2\rangle=\frac{m\omega\hbar}{2}(2n+1). \]
+              <p>所以</p>
+              \[ \sigma_x^2=\frac{\hbar}{2m\omega}(2n+1),\qquad
+                 \sigma_p^2=\frac{m\omega\hbar}{2}(2n+1). \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="uncertainty-principle">不确定度</a></div>
+            <div class="step-body">
+              <p>相乘：</p>
+              \[ \sigma_x\sigma_p=\left(n+\frac12\right)\hbar. \]
+              <p>基态 \(n=0\) 取最小值 \(\hbar/2\)：\(\psi_0\) 是最小不确定态（高斯）。</p>
+              <p class="step-check"><b>检查：</b>\(n\) 越大，波包越宽，乘积越大；只有基态达到下界。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">位力定理</div>
+            <div class="step-body">
+              <p>由 \(\langle T\rangle=\langle p^2\rangle/2m\)，\(\langle V\rangle=\frac12m\omega^2\langle x^2\rangle\)：</p>
+              \[ \langle T\rangle=\frac{\hbar\omega}{4}(2n+1),\qquad
+                 \langle V\rangle=\frac{\hbar\omega}{4}(2n+1). \]
+              <p>所以</p>
+              \[ \langle T\rangle=\langle V\rangle=\frac12E_n. \]
+              <p class="step-why"><b>知识点：</b>位力定理；对 \(V\propto x^2\) 的势，动能与势能期望各占一半。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="coherent-state">相干态</a>：最像经典的量子态</div>
+            <div class="step-body">
+              <p>定义 \(a_-|\alpha\rangle=\alpha|\alpha\rangle\)，\(\alpha\) 为复数。相干态满足</p>
+              \[ \sigma_x\sigma_p=\frac{\hbar}{2}, \]
+              <p>且 \(\langle x\rangle(t)\) 按经典频率 \(\omega\) 振荡，波包形状不变（不计色散）。</p>
+              <p class="step-why"><b>用途：</b>激光、量子光学；它是「最小不确定 + 经典运动」的桥梁。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">选择定则</div>
+            <div class="step-body">
+              <p>由 \(x=\sqrt{\hbar/(2m\omega)}(a_+ + a_-)\)，位置算符只连接相邻能级：</p>
+              \[ \langle m|x|n\rangle\ne0\ \text{仅当}\ m=n\pm1. \]
+              <p>因此电偶极跃迁的选择定则是 \(\Delta n=\pm1\)；光谱中相邻能级间隔 \(\hbar\omega\)。</p>
+              <p class="step-why"><b>用途：</b>解释谐振子只吸收/发射单一频率；也是量子光学中「单光子」图像的来源。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">经典极限与常见错误</div>
+            <div class="step-body">
+              <p>\(n\to\infty\) 时，\(|\psi_n|^2\) 的振荡平均趋于经典概率分布（在转折点附近发散）。</p>
+              <ul>
+                <li>零点能不能丢；</li>
+                <li>\(a_-\psi_0=0\) 只对基态；</li>
+                <li>\(a_+a_-\ne a_-a_+\)，差 1；</li>
+                <li>\(\omega=\sqrt{V''/m}\)，不是任意参数。</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -3390,6 +3817,207 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
       </ol>
     </div>
     </details>
+    <details class="blk b-deriv b-full" id="full-s24">
+      <summary>完整推导 · 20 步：自由粒子、波包与群速度</summary>
+      <div class="dbody">
+        <div class="deriv-note">
+          目标：从 \(V=0\) 的定态解出发，说明连续谱、不可归一化、波包构造、相速度/群速度、高斯波包扩散与方波包频谱。
+          约定：一维、非相对论；\(\omega=\hbar k^2/2m\)。
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-title">自由粒子：\(V=0\)</div>
+            <div class="step-body">
+              <p>定态薛定谔方程：</p>
+              \[ -\frac{\hbar^2}{2m}\psi''=E\psi. \]
+              <p>没有边界条件，粒子不被束缚；\(E\) 可以取任意正值。</p>
+              <p class="step-why"><b>与束缚态对比：</b>束缚态靠边界条件量子化；自由粒子没有边界，能谱连续。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">通解与<a class="kp" data-kp="dispersion">色散</a></div>
+            <div class="step-body">
+              <p>令 \(k=\sqrt{2mE}/\hbar\)：</p>
+              \[ \psi_k(x)=Ae^{\mathrm{i}kx}+Be^{-\mathrm{i}kx},\qquad
+                 E=\frac{\hbar^2k^2}{2m}. \]
+              <p>\(e^{ikx}\) 右行，\(e^{-ikx}\) 左行；含时因子 \(e^{-\mathrm{i}\omega t}\)，\(\omega=\hbar k^2/2m\)。</p>
+              <p class="step-check"><b>检查：</b>\(k\to-k\) 给同一 \(E\)：二重简并（左右行）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么平面波不能归一化</div>
+            <div class="step-body">
+              <p>\[ \int_{-\infty}^{+\infty}|Ae^{\mathrm{i}kx}|^2\mathrm{d}x
+                 =|A|^2\int_{-\infty}^{+\infty}\mathrm{d}x=\infty. \]</p>
+              <p>不存在有限 \(A\) 使总概率为 1；平面波不是希尔伯特空间中的物理态，只是广义本征态。</p>
+              <p class="step-why"><b>知识点：</b><a class="kp" data-kp="square-integrable">平方可积</a>；平面波需用波包或盒/δ 归一化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">盒归一化：临时把空间关起来</div>
+            <div class="step-body">
+              <p>取长度 \(L\)、周期性边界 \(\psi(x+L)=\psi(x)\)，则</p>
+              \[ \psi_k=\frac{1}{\sqrt L}e^{\mathrm{i}kx},\qquad
+                 k=\frac{2\pi n}{L},\quad n\in\mathbb Z. \]
+              <p>这时 \(\int_0^L|\psi_k|^2\mathrm{d}x=1\)；最后让 \(L\to\infty\)，求和变积分。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">从离散叠加到连续<a class="kp" data-kp="wavepacket">波包</a></div>
+            <div class="step-body">
+              <p>把允许的 \(k\) 叠加：</p>
+              \[ \Psi(x,t)=\sum_n c_n\frac{1}{\sqrt L}e^{\mathrm{i}(k_nx-\omega_nt)}. \]
+              <p>\(L\to\infty\) 时，\(\sum_n\to\int \mathrm{d}k\,L/(2\pi)\)，定义 \(\phi(k)=\sqrt{L/(2\pi)}c_n\)，得</p>
+              \[ \Psi(x,t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}
+                 \phi(k)e^{\mathrm{i}(kx-\omega t)}\,\mathrm{d}k. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">傅里叶反演</div>
+            <div class="step-body">
+              <p>在 \(t=0\)：</p>
+              \[ \phi(k)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}
+                 \Psi(x,0)e^{-\mathrm{i}kx}\,\mathrm{d}x. \]
+              <p>这就是动量空间波函数（差一个 \(\sqrt\hbar\) 标度）：\(|\phi(k)|^2\mathrm{d}k\) 是动量落在 \(\hbar[k,k+\mathrm{d}k]\) 的概率。</p>
+              <p class="step-check"><b>检查：</b>\(\int|\Psi|^2\mathrm{d}x=\int|\phi|^2\mathrm{d}k=1\)（帕塞瓦尔定理）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="phase-velocity">相速度</a></div>
+            <div class="step-body">
+              <p>平面波相位 \(\theta=kx-\omega t\)。等相位面满足 \(kx-\omega t=\text{const}\)，所以</p>
+              \[ v_p=\frac{\omega}{k}=\frac{\hbar k}{2m}. \]
+              <p>它是「波峰」的传播速度，不代表粒子/信号速度。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="group-velocity">群速度</a></div>
+            <div class="step-body">
+              <p>波包由不同 \(k\) 叠加；包络峰值由驻相条件 \(\mathrm{d}(kx-\omega t)/\mathrm{d}k=0\) 给出：</p>
+              \[ x-\frac{\mathrm{d}\omega}{\mathrm{d}k}t=0
+                 \;\Longrightarrow\;v_g=\frac{\mathrm{d}\omega}{\mathrm{d}k}. \]
+              <p>代入 \(\omega=\hbar k^2/2m\)：</p>
+              \[ v_g=\frac{\hbar k}{m}. \]
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">群速度等于经典速度</div>
+            <div class="step-body">
+              <p>\(p=\hbar k\)，所以 \(v_g=p/m\)，正是经典速度。</p>
+              <p>而非相对论下</p>
+              \[ v_p=\frac{\hbar k}{2m}=\frac{v_g}{2}. \]
+              <p>相速度不是粒子速度；只有群速度对应粒子运动。</p>
+              <p class="step-check"><b>注意：</b>非相对论里 \(v_p\) 可以大于 \(c\)，不违反因果，因为信号速度是 \(v_g\)。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">驻相法：为什么波包中心按 \(v_g\) 走</div>
+            <div class="step-body">
+              <p>把相位在 \(k_0\) 附近展开：</p>
+              \[ kx-\omega(k)t\approx k_0x-\omega_0t+(k-k_0)\left[x-\omega'(k_0)t\right]. \]
+              <p>当 \(x=\omega'(k_0)t\) 时，各 \(k\) 分量同相，叠加最大；偏离时快速振荡相消。所以波包中心以 \(v_g=\omega'(k_0)\) 移动。</p>
+              <p class="step-why"><b>适用：</b>\(\phi(k)\) 在 \(k_0\) 附近集中、\(\omega(k)\) 光滑；强色散/宽带需更细致。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：高斯波包</div>
+            <div class="step-body">
+              <p>取</p>
+              \[ \phi(k)=\left(\frac{2a^2}{\pi}\right)^{1/4}e^{-a^2(k-k_0)^2}. \]
+              <p>则 \(t=0\) 时</p>
+              \[ \Psi(x,0)=\left(\frac{1}{2\pi a^2}\right)^{1/4}e^{-x^2/(4a^2)}e^{\mathrm{i}k_0x}. \]
+              <p>位置高斯、动量高斯，\(\sigma_x=a\)，\(\sigma_p=\hbar/(2a)\)，乘积 \(\hbar/2\)：最小不确定态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title"><a class="kp" data-kp="wavepacket">波包</a>扩散</div>
+            <div class="step-body">
+              <p>自由演化后，高斯波包宽度随时间增大：</p>
+              \[ \sigma_x(t)=a\sqrt{1+\left(\frac{\hbar t}{2ma^2}\right)^2}. \]
+              <p>不同 \(k\) 分量速度不同（色散），窄波包含宽动量分布，扩散更快。</p>
+              <p class="step-why"><b>物理：</b>这是量子波包的「色散扩散」，不是与环境碰撞造成的。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">例：方波包</div>
+            <div class="step-body">
+              <p>设 \(\Psi(x,0)=A\)（\(|x|<a\)），其余为零。归一化：</p>
+              \[ 1=|A|^2(2a)\;\Longrightarrow\;A=\frac{1}{\sqrt{2a}}. \]
+              <p>傅里叶变换：</p>
+              \[ \phi(k)=\frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{2a}}
+                 \int_{-a}^{a}e^{-\mathrm{i}kx}\mathrm{d}x
+                 =\frac{1}{\sqrt{\pi a}}\frac{\sin ka}{k}. \]
+              <p>窄包（\(a\) 小）→ \(\phi(k)\) 宽；宽包 → \(\phi(k)\) 窄，正是不确定原理。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">概率流与速度</div>
+            <div class="step-body">
+              <p>对平面波 \(\Psi=Ae^{\mathrm{i}(kx-\omega t)}\)：</p>
+              \[ j=\frac{\hbar k}{m}|A|^2=v_g|A|^2. \]
+              <p>概率密度 \(\rho=|A|^2\)，所以 \(j=\rho v_g\)：概率以群速度流动。</p>
+              <p class="step-check"><b>检查：</b>\(k\to-k\) 时 \(j\) 反向，符合左右行波。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">能量与动量关系</div>
+            <div class="step-body">
+              <p>\(E=\hbar\omega=\hbar^2k^2/2m=p^2/2m\)，与经典自由粒子一致。</p>
+              <p>但 \(E\) 连续、无零点能；这与束缚态（无限深阱、谐振子）形成对照。</p>
+              <p class="step-why"><b>判据：</b>\(E\) 是否低于 \(V(\pm\infty)\) 决定束缚/散射；自由粒子 \(V=0\)，任意 \(E>0\) 都是散射态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">相对论对比</div>
+            <div class="step-body">
+              <p>非相对论：\(\omega=\hbar k^2/2m\)，\(v_p=v_g/2\)。</p>
+              <p>相对论：\(E=\sqrt{(pc)^2+(mc^2)^2}\)，\(v_p=E/p=c^2/v_g\)，相速度大于 \(c\)，群速度小于 \(c\)。</p>
+              <p class="step-check"><b>注意：</b>非相对论公式不能用于 \(v\sim c\)；此时需克莱因–戈尔登/狄拉克方程。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">量纲与常见错误</div>
+            <div class="step-body">
+              <p>\([k]=L^{-1}\)，\([\omega]=T^{-1}\)，\([v_p]=[v_g]=L/T\)。</p>
+              <ul>
+                <li>平面波不能直接归一化；</li>
+                <li>\(v_p\) 不是粒子速度，\(v_g\) 才是；</li>
+                <li>\(k\) 与 \(-k\) 能量相同，但动量相反；</li>
+                <li>方波包频谱是 \(\sin(ka)/k\)，不是高斯。</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">动量期望与方差</div>
+            <div class="step-body">
+              <p>在动量表象：</p>
+              \[ \langle p\rangle=\hbar\int k|\phi(k)|^2\mathrm{d}k,\qquad
+                 \langle p^2\rangle=\hbar^2\int k^2|\phi(k)|^2\mathrm{d}k. \]
+              <p>对高斯波包（中心 \(k_0\)）：\(\langle p\rangle=\hbar k_0\)，\(\sigma_p=\hbar/(2a)\)。对一般波包，\(\langle p\rangle=\hbar\langle k\rangle\)。</p>
+              <p class="step-check"><b>检查：</b>\(\langle p^2\rangle-\langle p\rangle^2=\sigma_p^2\ge0\)；若为负，检查归一化。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">为什么自由粒子没有束缚态</div>
+            <div class="step-body">
+              <p>束缚态要求 \(E<V(\pm\infty)=0\)，即 \(E<0\)；但自由粒子 \(E=\hbar^2k^2/2m\ge0\)。</p>
+              <p>因此自由粒子的所有解都是散射态/连续谱，不能平方可积成离散束缚态；波包会扩散到无穷远。</p>
+              <p class="step-why"><b>判据：</b>\(E\) 与无穷远处势能比较；有限深阱会出现有限个 \(E<0\) 束缚态 + 连续散射态。</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-title">一页总结</div>
+            <div class="step-body">
+              <p><b>定态：</b>\(e^{\pm ikx}\)，\(E=\hbar^2k^2/2m\)，连续、二重简并。</p>
+              <p><b>波包：</b>\(\Psi=\frac{1}{\sqrt{2\pi}}\int\phi(k)e^{\mathrm{i}(kx-\omega t)}\mathrm{d}k\)。</p>
+              <p><b>速度：</b>\(v_p=\omega/k=v_g/2\)，\(v_g=\mathrm{d}\omega/\mathrm{d}k=p/m\)。</p>
+              <p><b>自检：</b>能否用驻相法解释为什么波包中心按群速度移动？</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </details>
+
     <div class="blk b-key">
       <h4>关键结论</h4>
       <div class="concl">
@@ -4567,6 +5195,16 @@ applyFilter();
     'uncertainty-principle': { title: '不确定原理', def: 'σ_Aσ_B ≥ ½|⟨[Â,B̂]⟩|；位置–动量为 σxσp≥ħ/2，高斯波包取等号。它不是测量误差，而是态的内禀散布。', card: 's16' },
     'eigenfunction': { title: '本征函数', def: '满足 Âψ=aψ 的函数；a 为本征值。定态是哈密顿量的本征函数，能量为本征值。', card: 's33' },
     'degeneracy': { title: '简并', def: '同一本征值对应多个线性无关本征函数；简并子空间内可通过正交化选基。一维束缚态通常非简并。', card: 's33' },
+    'infinite-well': { title: '无限深方势阱', def: '0<x<a 内 V=0、外面 V=∞；波函数在壁上为零，形成驻波，E_n=n²π²ħ²/(2ma²)，n=1,2,…。', card: 's22' },
+    'parity': { title: '宇称', def: '空间反演 x→−x 下波函数的变换性质；对称势的本征态可取奇/偶。无限深阱相对盒中心 a/2 讨论。', card: 's22' },
+    'nodes': { title: '节点', def: '波函数为零的点（不含边界）。第 n 个束缚态通常有 n−1 个节点；节点越多，动能越大。', card: 's22' },
+    'harmonic-oscillator': { title: '谐振子', def: 'V=½mω²x²；能级 E_n=(n+½)ħω，等间距，零点能 ½ħω；是任意势极小点附近的通用近似。', card: 's23' },
+    'ladder-operator': { title: '升降算符', def: 'a_±=(∓ip+mωx)/√(2mωħ)，满足 [a_−,a_+]=1；a_+ 升能、a_− 降能，步长 ħω。', card: 's23' },
+    'zero-point-energy': { title: '零点能', def: '基态能量 E_0=½ħω≠0；来自不确定原理，不能通过「静止在势底」消除。', card: 's23' },
+    'hermite-polynomial': { title: '厄密多项式', def: 'H_n(ξ) 满足 H_n′ = 2nH_{n−1} 等递推；谐振子波函数含 H_n(ξ)e^{−ξ²/2}，宇称 (−1)^n。', card: 's23' },
+    'coherent-state': { title: '相干态', def: '满足 a_−|α⟩=α|α⟩ 的态；σxσp=ħ/2，⟨x⟩ 按经典频率振荡，是最接近经典运动的量子态。', card: 's23' },
+    'phase-velocity': { title: '相速度', def: '等相位面传播速度 v_p=ω/k；非相对论自由粒子 v_p=ħk/(2m)=v_g/2，不代表粒子速度。', card: 's24' },
+    'group-velocity': { title: '群速度', def: '波包包络速度 v_g=dω/dk；自由粒子 v_g=ħk/m=p/m，等于经典粒子速度。', card: 's24' },
     'free-particle': { title: '自由粒子', def: 'V=0 的粒子；能谱连续，定态为平面波 e^{ikx}，能量 E=ħ²k²/2m。', card: 's24' }
   };
 
