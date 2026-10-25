@@ -752,7 +752,6 @@ body:not(.anime) .mascot-lightbox { display:none !important; }
     <button class="btn maskbtn" id="bMaskS" onclick="toggleMaskMode('step')" title="遮住/揭示推导步骤（快捷键 R）">推导 <b>0/0</b></button>
     <button class="btn" id="bMaskAll" onclick="revealAllMasks()" title="全部揭开">全部揭开</button>
     <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
-    <button class="btn" id="bAnime" onclick="toggleAnime()" title="开关二次元主题与表情包">🐟 二次元</button>
     <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
     <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
     <span class="prog" id="prog"></span>
@@ -8290,22 +8289,6 @@ applyFilter();
     if (e.target === lb) closeLightbox();
   });
 
-  /* 二次元主题开关 */
-  const THEME_KEY = 'outline.anime.v1';
-  function applyTheme(on) {
-    document.body.classList.toggle('anime', on);
-    const btn = document.getElementById('bAnime');
-    if (btn) btn.classList.toggle('on', on);
-  }
-  try {
-    if (localStorage.getItem(THEME_KEY) === '0') applyTheme(false);
-    else applyTheme(true);
-  } catch (err) { applyTheme(true); }
-  window.toggleAnime = function () {
-    const on = !document.body.classList.contains('anime');
-    applyTheme(on);
-    try { localStorage.setItem(THEME_KEY, on ? '1' : '0'); } catch (err) {}
-  };
 })();
 
 </script>
