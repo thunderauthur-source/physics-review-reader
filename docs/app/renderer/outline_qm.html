@@ -1078,8 +1078,167 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
 }
 
 </style>
+<style>
+/* ===== ANIME THEME ===== */
+body.anime {
+  --bg:#eaf8ff; --card:rgba(255,255,255,.88); --text:#17324a; --muted:#6c879c;
+  --line:rgba(72,156,210,.22); --hover:#e4f5ff;
+  --c1:#1577bd; --c1-bg:#e2f4ff; --c1-soft:#c4e8ff;
+  --c2:#d94f8c; --c2-bg:#ffeaf4; --c2-soft:#ffd0e2;
+  --key:#8c6300; --key-bg:#fff8e1; --key-line:#efd37a;
+  --warn:#b23b52; --warn-bg:#ffeef2; --warn-line:#ffc9d6;
+  --deriv:#5b55a8; --deriv-bg:#f3f1ff; --deriv-line:#d8d2ff;
+  --img:#167c91; --img-bg:#e8fbff; --img-line:#b9ecf7;
+  --c3:#a34b8e; --c3-bg:#fdeef7; --c3-soft:#f6d2e7; --q:#5b55a8; --q-bg:#f3f1ff;
+  background:
+    radial-gradient(circle at 7% 9%, rgba(104,205,255,.30) 0 9px, transparent 10px),
+    radial-gradient(circle at 18% 32%, rgba(255,151,197,.22) 0 6px, transparent 7px),
+    radial-gradient(circle at 88% 14%, rgba(104,205,255,.24) 0 12px, transparent 13px),
+    radial-gradient(circle at 76% 62%, rgba(255,151,197,.16) 0 8px, transparent 9px),
+    radial-gradient(circle at 92% 84%, rgba(104,205,255,.18) 0 6px, transparent 7px),
+    linear-gradient(180deg,#dff4ff 0%,#ffe8f3 52%,#e4f7ff 100%);
+  background-attachment: fixed;
+  font-family:"Microsoft YaHei UI","PingFang SC","Segoe UI",system-ui,sans-serif;
+}
+body.anime.dark {
+  --bg:#071824; --card:rgba(14,38,55,.90); --text:#e8f7ff; --muted:#9ab8ca;
+  --line:rgba(118,201,255,.20); --hover:#12364d;
+  --c1:#7bd4ff; --c1-bg:#12354c; --c1-soft:#1b4d69;
+  --c2:#ff9ec6; --c2-bg:#3a1e2e; --c2-soft:#542a40;
+  --key:#f4d477; --key-bg:#2d2718; --key-line:#5a4b24;
+  --warn:#ff9eaa; --warn-bg:#351d25; --warn-line:#63313e;
+  --deriv:#c0b6ff; --deriv-bg:#211f38; --deriv-line:#3d3860;
+  --img:#7fd8e8; --img-bg:#102c36; --img-line:#23515f;
+  --c3:#f0a0c8; --c3-bg:#2f1a28; --c3-soft:#4a283d; --q:#c0b6ff; --q-bg:#211f38;
+  background:
+    radial-gradient(circle at 7% 9%, rgba(60,170,230,.20) 0 9px, transparent 10px),
+    radial-gradient(circle at 18% 32%, rgba(220,90,150,.14) 0 6px, transparent 7px),
+    radial-gradient(circle at 88% 14%, rgba(60,170,230,.16) 0 12px, transparent 13px),
+    radial-gradient(circle at 76% 62%, rgba(220,90,150,.10) 0 8px, transparent 9px),
+    linear-gradient(180deg,#061521 0%,#101525 55%,#061824 100%);
+  background-attachment: fixed;
+}
+body.anime nav.side {
+  background:rgba(255,255,255,.46); border:1px solid rgba(86,174,222,.20);
+  border-radius:14px; padding:10px 8px; backdrop-filter:blur(6px);
+}
+body.anime.dark nav.side { background:rgba(10,32,46,.50); border-color:rgba(118,201,255,.20); }
+body.anime h1, body.anime h2, body.anime h3, body.anime .chead h3,
+body.anime .chap, body.anime .secnum, body.anime .hero h1 {
+  font-family:"YouYuan","Microsoft YaHei UI","Microsoft YaHei","PingFang SC",sans-serif;
+  letter-spacing:.01em;
+}
+body.anime .toolbar {
+  background:rgba(255,255,255,.78);
+  border-bottom:1px solid rgba(91,177,225,.30);
+  box-shadow:0 6px 22px rgba(38,114,160,.08);
+  backdrop-filter:blur(14px);
+}
+body.anime.dark .toolbar { background:rgba(9,30,44,.78); border-bottom-color:rgba(118,201,255,.20); }
+body.anime .card {
+  background:var(--card);
+  border:1.5px solid rgba(86,174,222,.38);
+  border-radius:18px;
+  box-shadow:0 10px 32px rgba(34,112,160,.14);
+  backdrop-filter:blur(3px);
+}
+body.anime.dark .card { border-color:rgba(118,201,255,.22); box-shadow:0 8px 28px rgba(0,0,0,.28); }
+body.anime .chead {
+  background:linear-gradient(90deg,rgba(220,244,255,.92),rgba(255,237,247,.72));
+  border-radius:17px 17px 0 0;
+  border-bottom:1px solid rgba(86,174,222,.20);
+}
+body.anime.dark .chead { background:linear-gradient(90deg,rgba(18,53,76,.92),rgba(58,30,46,.78)); border-bottom-color:rgba(118,201,255,.18); }
+body.anime .chap {
+  background:linear-gradient(135deg,#2479b4 0%,#ca5c98 100%) !important;
+  color:#fff !important;
+  border-radius:15px;
+  box-shadow:0 8px 24px rgba(54,118,170,.20);
+  padding:15px 20px;
+}
+body.anime .chap .cn, body.anime .chap .cm { color:rgba(255,255,255,.84); opacity:1; }
+body.anime .blk { border-radius:13px; }
+body.anime .b-key { box-shadow:0 4px 14px rgba(180,140,20,.06); }
+body.anime .btn { border-radius:9px; }
+body.anime .btn.on { background:linear-gradient(135deg,#2479b4,#ca5c98); border-color:transparent; color:#fff; }
+body.anime .side a.cur { background:linear-gradient(90deg,rgba(198,235,255,.7),rgba(255,214,235,.5)); border-left-color:#2479b4; }
+body.anime.dark .side a.cur { background:linear-gradient(90deg,rgba(24,70,100,.72),rgba(80,35,58,.52)); }
+body.anime .kp-pop { border-radius:16px; border-color:rgba(86,174,222,.35); box-shadow:0 22px 60px rgba(20,75,120,.28); }
+body.anime .concl.masked::after, body.anime .keyeq.masked::after { background:rgba(226,246,255,.62); color:#2b6f9e; }
+body.anime .step.masked .step-body::after { background:rgba(226,246,255,.62); color:#2b6f9e; }
+body.anime .mask-tip { background:rgba(232,248,255,.9); border-color:rgba(86,174,222,.30); color:#3c6d8a; }
+
+/* ===== MASCOTS ===== */
+.mascot-corner {
+  width:44px; height:44px; object-fit:contain; flex:0 0 auto;
+  margin-left:auto; margin-right:3px; cursor:zoom-in;
+  filter:drop-shadow(0 3px 6px rgba(20,80,120,.18));
+  transition:transform .18s ease, filter .18s ease;
+}
+.mascot-corner:hover {
+  transform:translateY(-3px) rotate(-4deg) scale(1.08);
+  filter:drop-shadow(0 7px 12px rgba(20,80,120,.26));
+  animation:mascotWiggle .55s ease-in-out infinite alternate;
+}
+@keyframes mascotWiggle { from { transform:translateY(-3px) rotate(-5deg) scale(1.08); } to { transform:translateY(-5px) rotate(4deg) scale(1.10); } }
+.chap-mascot {
+  width:60px; height:60px; object-fit:contain; margin-left:10px; flex:0 0 auto;
+  cursor:zoom-in; filter:drop-shadow(0 5px 10px rgba(20,40,80,.22));
+  transition:transform .18s ease;
+}
+.chap-mascot:hover { transform:translateY(-3px) rotate(3deg) scale(1.06); }
+.card-mascot-end {
+  display:flex; align-items:center; justify-content:flex-end; gap:9px;
+  margin:14px 2px 0; color:var(--muted); font-size:12px; letter-spacing:.04em;
+}
+.card-mascot-end img {
+  width:56px; height:56px; object-fit:contain; cursor:zoom-in;
+  filter:drop-shadow(0 4px 8px rgba(20,80,120,.16));
+  transition:transform .18s ease;
+}
+.card-mascot-end img:hover { transform:translateY(-3px) scale(1.08); }
+.mascot-credit {
+  max-width:1180px; margin:14px auto 0; padding:8px 14px;
+  font-size:11px; line-height:1.7; color:var(--muted); text-align:center;
+  border-top:1px dashed var(--line);
+}
+body:not(.anime) .mascot-corner,
+body:not(.anime) .chap-mascot,
+body:not(.anime) .card-mascot-end,
+body:not(.anime) .mascot-credit,
+body:not(.anime) .mascot-lightbox { display:none !important; }
+.mascot-lightbox {
+  position:fixed; inset:0; z-index:10000; display:none;
+  align-items:center; justify-content:center;
+  background:rgba(8,25,40,.66); backdrop-filter:blur(8px);
+  padding:24px;
+}
+.mascot-lightbox.show { display:flex; }
+.mascot-lightbox figure { margin:0; text-align:center; max-width:min(86vw,560px); }
+.mascot-lightbox img {
+  max-width:min(86vw,520px); max-height:70vh; object-fit:contain;
+  border-radius:22px; background:rgba(255,255,255,.94);
+  box-shadow:0 28px 80px rgba(0,0,0,.35);
+}
+.mascot-lightbox figcaption { margin-top:10px; color:#eaf8ff; font-size:13px; letter-spacing:.08em; }
+.mascot-lb-close {
+  position:absolute; top:18px; right:22px; width:40px; height:40px;
+  border:1px solid rgba(255,255,255,.35); border-radius:50%;
+  background:rgba(255,255,255,.14); color:#fff; font-size:26px; line-height:1;
+  cursor:pointer; font-family:inherit;
+}
+.mascot-lb-close:hover { background:rgba(255,255,255,.26); }
+@media (prefers-reduced-motion:reduce) {
+  .mascot-corner, .mascot-corner:hover, .chap-mascot, .card-mascot-end img { animation:none !important; transition:none; }
+}
+@media print {
+  .mascot-corner, .chap-mascot, .card-mascot-end, .mascot-credit, .mascot-lightbox { display:none !important; }
+  body.anime { background:#fff !important; }
+}
+
+</style>
 </head>
-<body data-mode="all">
+<body data-mode="all" class="anime">
 
 <div class="hero">
   <p class="kicker">Quantum Mechanics · Study Notes</p>
@@ -1105,6 +1264,7 @@ a.loc.jump-flash, .kp.jump-flash { animation: jumpFlash .65s ease; }
     <button class="btn maskbtn" id="bMaskS" onclick="toggleMaskMode('step')" title="遮住/揭示推导步骤（快捷键 R）">推导 <b>0/0</b></button>
     <button class="btn" id="bMaskAll" onclick="revealAllMasks()" title="全部揭开">全部揭开</button>
     <button class="btn" id="bFold" onclick="toggleAllDeriv()" title="展开/收起所有推导">展开推导</button>
+    <button class="btn" id="bAnime" onclick="toggleAnime()" title="开关二次元主题与表情包">🐟 二次元</button>
     <button class="btn" onclick="toggleDark()" title="切换深色模式（快捷键 D）">🌙</button>
     <button class="btn" onclick="window.print()" title="打印 / 导出 PDF">🖨</button>
     <span class="prog" id="prog"></span>
@@ -7480,6 +7640,133 @@ applyFilter();
       });
     } catch (err) { console.warn('KaTeX render failed', err); }
   }
+})();
+
+</script>
+<script>
+/* ===== ANIME MASCOTS ===== */
+(function () {
+  const MASCOTS = [
+    ['hello', '你好'], ['morning', '早安'], ['bye', '拜拜'], ['wow', '哇'],
+    ['cry', '哭哭'], ['smiletears', '笑泪'], ['shy', '害羞'], ['pout', '鼓脸'],
+    ['wait', '等等'], ['peek', '偷看'], ['promise', '约定'], ['phonehug', '抱手机'],
+    ['goodnight', '晚安'], ['snow', '下雪'], ['eraser', '橡皮'], ['fade', '消失'],
+    ['yandere', '病娇'], ['cos_cat', '猫猫'], ['cos_school', '校服'], ['cos_idol', '偶像'],
+    ['cos_astro', '宇航员'], ['cos_bride', '婚纱']
+  ];
+  const prefix = 'mascot/';
+  const pick = i => MASCOTS[((i % MASCOTS.length) + MASCOTS.length) % MASCOTS.length];
+
+  function makeImg(item, cls, size) {
+    const img = document.createElement('img');
+    img.className = cls + ' mascot-img';
+    img.src = prefix + item[0] + '.webp';
+    img.alt = '溟月表情包：' + item[1];
+    img.title = '点击放大：' + item[1];
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.addEventListener('error', function () { this.style.display = 'none'; });
+    return img;
+  }
+
+  /* 每张卡片右上角 + 卡片结尾 */
+  document.querySelectorAll('.card').forEach(function (card, i) {
+    const head = card.querySelector('.chead');
+    if (head && !head.querySelector('.mascot-corner')) {
+      const item = pick(i);
+      const img = makeImg(item, 'mascot-corner');
+      const mark = head.querySelector('.mark');
+      if (mark) head.insertBefore(img, mark); else head.appendChild(img);
+    }
+    const body = card.querySelector('.cbody');
+    if (body && !body.querySelector('.card-mascot-end')) {
+      const item = pick(i + 7);
+      const end = document.createElement('div');
+      end.className = 'card-mascot-end';
+      const text = document.createElement('span');
+      text.textContent = '学完啦 · ' + item[1];
+      end.appendChild(text);
+      end.appendChild(makeImg(item, 'end-mascot'));
+      body.appendChild(end);
+    }
+  });
+
+  /* 每章章首大图 */
+  document.querySelectorAll('.chap').forEach(function (chap, i) {
+    if (chap.querySelector('.chap-mascot')) return;
+    const img = makeImg(pick(i * 4 + 3), 'chap-mascot');
+    chap.appendChild(img);
+  });
+
+  /* 授权署名 */
+  const main = document.getElementById('main');
+  if (main && !document.querySelector('.mascot-credit')) {
+    const credit = document.createElement('div');
+    credit.className = 'mascot-credit';
+    credit.textContent = '表情包：溟月 © 上善无形 ／ 女仆版 ZipZipPipe · CC BY-NC-SA 4.0 · AI 生成';
+    main.appendChild(credit);
+  }
+
+  /* 灯箱 */
+  let lb = document.getElementById('mascotLightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'mascotLightbox';
+    lb.className = 'mascot-lightbox';
+    lb.innerHTML = '<button class="mascot-lb-close" type="button" aria-label="关闭">×</button><figure><img class="mascot-lb-img" alt=""><figcaption></figcaption></figure>';
+    document.body.appendChild(lb);
+  }
+  const lbImg = lb.querySelector('.mascot-lb-img');
+  const lbCap = lb.querySelector('figcaption');
+  function openLightbox(src, label, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || label || '溟月表情包';
+    lbCap.textContent = label || '';
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.classList.remove('show');
+    lbImg.removeAttribute('src');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function (e) {
+    const img = e.target.closest && e.target.closest('.mascot-img');
+    if (img) {
+      e.preventDefault();
+      e.stopPropagation();
+      const label = (img.alt || '').replace(/^溟月表情包：/, '');
+      openLightbox(img.currentSrc || img.src, label, img.alt);
+      return;
+    }
+    if (e.target.closest && e.target.closest('.mascot-lb-close')) {
+      e.preventDefault(); closeLightbox(); return;
+    }
+    if (e.target === lb) closeLightbox();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lb.classList.contains('show')) closeLightbox();
+  });
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb) closeLightbox();
+  });
+
+  /* 二次元主题开关 */
+  const THEME_KEY = 'outline.anime.v1';
+  function applyTheme(on) {
+    document.body.classList.toggle('anime', on);
+    const btn = document.getElementById('bAnime');
+    if (btn) btn.classList.toggle('on', on);
+  }
+  try {
+    if (localStorage.getItem(THEME_KEY) === '0') applyTheme(false);
+    else applyTheme(true);
+  } catch (err) { applyTheme(true); }
+  window.toggleAnime = function () {
+    const on = !document.body.classList.contains('anime');
+    applyTheme(on);
+    try { localStorage.setItem(THEME_KEY, on ? '1' : '0'); } catch (err) {}
+  };
 })();
 
 </script>

@@ -7,5 +7,9 @@
 # 日志与临时文件
 *.log
 *.tmp
+构建/_tmp*
 .DS_Store
 Thumbs.db
+
+# 用户提供的原始表情包大图（网页使用 renderer/mascot/ 下的压缩版）
+大肥鱼图片包/
