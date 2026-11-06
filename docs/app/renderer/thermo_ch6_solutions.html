@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="汪志诚《热力学·统计物理》第六章习题 6.1–6.6 详细解答：自由粒子量子态数、两种粒子的最概然分布、玻色与费米分布。">
+<title>热力学·统计物理 第六章习题 6.1–6.6 详解</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+  :root {
+    --bg: #f5f8f7;
+    --paper: #ffffff;
+    --paper-soft: #f8fbfa;
+    --ink: #1d302e;
+    --ink-2: #405a56;
+    --muted: #738a85;
+    --line: #dbe8e4;
+    --line-strong: #c6d9d4;
+    --teal: #0e6b5e;
+    --teal-2: #1e8b7a;
+    --teal-soft: #e8f8f4;
+    --indigo: #57489a;
+    --indigo-soft: #f0edfb;
+    --gold: #926511;
+    --gold-soft: #fff7e4;
+    --pink: #a43c70;
+    --pink-soft: #fff0f7;
+    --shadow: 0 14px 40px rgba(24, 57, 50, .08);
+    --shadow-soft: 0 5px 18px rgba(24, 57, 50, .05);
+    --radius: 18px;
+    --maxw: 1060px;
+    --serif: Georgia, 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(65, 160, 145, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 84% 9%, rgba(110, 90, 170, .08) 0 1.2px, transparent 1.7px),
+      radial-gradient(900px 520px at 102% 0%, rgba(177, 226, 215, .22), transparent 62%),
+      radial-gradient(820px 500px at 0% 100%, rgba(197, 208, 245, .16), transparent 60%);
+    background-attachment: fixed;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: rgba(65, 180, 155, .24); }
+  a { color: var(--teal); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    color: #fff;
+    padding: 29px 22px 33px;
+    background:
+      radial-gradient(800px 420px at 86% 20%, rgba(85, 220, 192, .20), transparent 64%),
+      radial-gradient(720px 420px at 8% 112%, rgba(105, 94, 200, .22), transparent 62%),
+      linear-gradient(135deg, #071a20 0%, #0d3b40 48%, #17364a 100%);
+  }
+
+  .hero-in { max-width: var(--maxw); margin: 0 auto; }
+
+  .crumb {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    color: rgba(255,255,255,.62); font-size: 12.5px;
+  }
+  .crumb a { color: rgba(255,255,255,.86); text-decoration: none; }
+  .crumb a:hover { color: #fff; text-decoration: underline; }
+
+  .kicker {
+    margin: 19px 0 7px;
+    color: #a6efdd; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+  }
+  .hero h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.6vw, 3.15rem);
+    font-weight: 600; line-height: 1.2; letter-spacing: .025em;
+  }
+  .hero .sub {
+    max-width: 760px; margin: 11px 0 0;
+    color: rgba(255,255,255,.82); font-size: .96rem; line-height: 1.8;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 19px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 36px; padding: 7px 14px;
+    border: 1px solid transparent; border-radius: 9px;
+    background: transparent; color: inherit;
+    font-family: inherit; font-size: 13px; line-height: 1.2;
+    text-decoration: none; cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-light { background: #fff; color: #12322e; border-color: #fff; font-weight: 600; }
+  .btn-light:hover { background: #effffa; }
+  .btn-ghost { background: rgba(255,255,255,.075); color: #fff; border-color: rgba(255,255,255,.34); }
+  .btn-ghost:hover { background: rgba(255,255,255,.16); }
+
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+  .hero-meta span {
+    padding: 3px 9px; border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px; color: rgba(255,255,255,.70);
+    font-size: 11.5px;
+  }
+
+  /* ---------- NAV ---------- */
+  .quicknav {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(255,255,255,.90);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 4px 18px rgba(20, 55, 48, .04);
+  }
+  .quicknav-in {
+    display: flex; align-items: center; gap: 5px;
+    max-width: var(--maxw); margin: 0 auto; padding: 8px 20px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .quicknav-in::-webkit-scrollbar { display: none; }
+  .qn-label {
+    flex: 0 0 auto; margin-right: 5px; color: var(--muted);
+    font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .qlink {
+    display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto;
+    padding: 5px 10px; border: 1px solid transparent; border-radius: 999px;
+    color: var(--muted); font-size: 12.8px; text-decoration: none; white-space: nowrap;
+    transition: color .16s, background .16s, border-color .16s;
+  }
+  .qlink:hover { color: var(--ink); background: var(--paper-soft); border-color: var(--line); }
+  .qlink.active {
+    color: var(--teal); background: var(--teal-soft);
+    border-color: rgba(30,139,122,.25); font-weight: 600;
+  }
+
+  /* ---------- PAGE ---------- */
+  .page { max-width: var(--maxw); margin: 0 auto; padding: 24px 20px 56px; }
+
+  .panel {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow-soft);
+  }
+
+  .intro { padding: 22px 25px 23px; }
+  .eyebrow {
+    margin: 0 0 3px; color: var(--teal);
+    font-size: 10.5px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase;
+  }
+  .intro h2, .recap h2 {
+    margin: 0; color: var(--ink); font-family: var(--serif);
+    font-size: clamp(1.35rem, 2.7vw, 1.72rem); font-weight: 600;
+  }
+  .intro p { margin: 0; color: var(--ink-2); font-size: .94rem; }
+  .intro p + p { margin-top: 7px; }
+  .intro-grid {
+    display: grid; grid-template-columns: 1.04fr .96fr;
+    gap: 24px; margin-top: 14px;
+  }
+  .notation {
+    margin-top: 11px; padding: 11px 13px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--paper-soft);
+    color: var(--ink-2); font-size: .9rem;
+  }
+  .notation b { color: var(--ink); }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .checklist li {
+    display: flex; gap: 9px; color: var(--ink-2); font-size: .9rem; line-height: 1.7;
+  }
+  .checklist .dot {
+    flex: 0 0 6px; width: 6px; height: 6px; margin-top: .65em;
+    border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px var(--teal-soft);
+  }
+
+  /* ---------- QUESTION CARD ---------- */
+  .qcard {
+    margin-top: 20px; background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden;
+    scroll-margin-top: 68px;
+  }
+  .qhead {
+    display: flex; align-items: center; gap: 14px;
+    padding: 17px 22px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(120deg, var(--teal-soft), transparent 68%);
+  }
+  .qnum {
+    flex: 0 0 auto; display: grid; place-items: center;
+    width: 48px; height: 48px; border-radius: 13px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-2));
+    color: #fff; font-family: var(--serif); font-size: 1.2rem; font-weight: 700;
+    line-height: 1;
+  }
+  .qhead h2 {
+    margin: 0; color: var(--ink); font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.5vw, 1.55rem); font-weight: 600; line-height: 1.4;
+  }
+  .qhead .tag {
+    margin-left: auto; flex: 0 0 auto;
+    padding: 3px 9px; border-radius: 999px;
+    background: var(--gold-soft); color: var(--gold);
+    font-size: 10.5px; font-weight: 700; white-space: nowrap;
+  }
+  .qbody { padding: 20px 24px 24px; }
+
+  .problem {
+    margin: 0 0 17px; padding: 13px 16px;
+    border-left: 4px solid var(--teal);
+    border-radius: 0 10px 10px 0;
+    background: var(--teal-soft);
+  }
+  .problem-label {
+    display: block; margin-bottom: 2px;
+    color: var(--teal); font-size: 10.5px; font-weight: 800;
+    letter-spacing: .14em;
+  }
+  .problem p { margin: 0; color: var(--ink); font-size: .94rem; }
+  .problem p + p { margin-top: 5px; }
+  .problem .katex-display { margin: .55em 0; }
+
+  .lead { margin: 0 0 13px; color: var(--ink-2); font-size: .94rem; }
+  .steps {
+    list-style: none; counter-reset: step;
+    margin: 12px 0 0; padding: 0;
+  }
+  .steps > li {
+    position: relative; counter-increment: step;
+    margin-left: 13px; padding: 0 0 17px 34px;
+    border-left: 1px solid var(--line);
+  }
+  .steps > li:last-child { padding-bottom: 0; border-left-color: transparent; }
+  .steps > li::before {
+    content: counter(step);
+    position: absolute; left: -13px; top: -1px;
+    display: grid; place-items: center;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--indigo); color: #fff;
+    font-size: 11px; font-weight: 700; line-height: 1;
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+  .step-title {
+    margin: 0 0 3px; color: var(--ink);
+    font-size: .95rem; font-weight: 700; line-height: 1.55;
+  }
+  .step-body { color: var(--ink-2); font-size: .93rem; }
+  .step-body p { margin: 0; }
+  .step-body p + p { margin-top: 6px; }
+  .step-body .katex-display { margin: .55em 0; }
+
+  .mathbox {
+    margin: 9px 0; padding: 7px 11px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--paper-soft); overflow-x: auto;
+  }
+  .mathbox .katex-display { margin: .08em 0; }
+
+  .result {
+    margin-top: 18px; padding: 13px 16px;
+    border: 1px solid rgba(146,101,17,.28);
+    border-radius: 11px;
+    background: linear-gradient(120deg, var(--gold-soft), transparent 85%);
+  }
+  .result-label {
+    display: block; margin-bottom: 2px;
+    color: var(--gold); font-size: 10px; font-weight: 800;
+    letter-spacing: .14em;
+  }
+  .result p { margin: 0; color: var(--ink); font-size: .93rem; }
+  .result .katex-display { margin: .4em 0; }
+
+  .callout {
+    margin: 14px 0 0; padding: 10px 13px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: var(--paper-soft); color: var(--ink-2);
+    font-size: .88rem; line-height: 1.72;
+  }
+  .callout b { color: var(--ink); }
+  .callout.gold { background: var(--gold-soft); border-color: #ecd9a8; }
+  .callout.indigo { background: var(--indigo-soft); border-color: #d9d1f2; }
+  .callout.pink { background: var(--pink-soft); border-color: #f0cadc; }
+
+  /* ---------- SUMMARY ---------- */
+  .recap { margin-top: 22px; padding: 22px 24px 23px; }
+  .recap p.sub { margin: 4px 0 12px; color: var(--muted); font-size: .88rem; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 11px; }
+  table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: .9rem; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th {
+    background: var(--paper-soft); color: var(--muted);
+    font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--teal); font-weight: 700; white-space: nowrap; }
+  td .katex-display { margin: .12em 0; }
+
+  .foot {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    max-width: var(--maxw); margin: 0 auto; padding: 0 20px 44px;
+    color: var(--muted); font-size: 12px; line-height: 1.7;
+  }
+  .foot a { color: var(--muted); }
+  .foot a:hover { color: var(--ink); }
+
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 1px 0; }
+  .katex { font-size: 1.02em; }
+
+  @media (max-width: 780px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 18px; }
+    .qhead { padding: 14px 16px; }
+    .qnum { width: 42px; height: 42px; border-radius: 11px; font-size: 1.05rem; }
+    .qbody { padding: 16px 16px 19px; }
+    .qhead .tag { display: none; }
+    .intro { padding: 18px 16px 19px; }
+    .recap { padding: 17px 16px 18px; }
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 15px; }
+    .hero { padding: 22px 16px 26px; }
+    .quicknav-in { padding: 7px 13px; }
+    .qn-label { display: none; }
+    .page { padding: 17px 12px 40px; }
+    .problem { padding: 11px 12px; }
+    .steps > li { margin-left: 11px; padding-left: 29px; }
+    .steps > li::before { left: -11px; width: 22px; height: 22px; font-size: 10px; }
+    .foot { padding: 0 13px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+
+  @media print {
+    :root { --bg: #fff; --paper: #fff; --paper-soft: #fff; --ink: #111; --ink-2: #222; --muted: #555; --line: #bbb; --shadow: none; --shadow-soft: none; }
+    body { background: #fff !important; font-size: 10.5pt; line-height: 1.6; }
+    .hero { color: #111; background: #fff; border-bottom: 2px solid #222; padding: 0 0 9px; }
+    .hero-actions, .hero-meta, .crumb, .quicknav, .foot { display: none !important; }
+    .hero h1 { font-size: 22pt; }
+    .hero .sub, .kicker { color: #444; }
+    .page { max-width: none; padding: 9px 0 0; }
+    .panel, .qcard { border: 1px solid #aaa; box-shadow: none; }
+    .qcard { margin-top: 12px; break-inside: auto; }
+    .qhead { background: #f2f2f2 !important; break-after: avoid; }
+    .qnum { background: #333 !important; }
+    .qbody { padding: 12px 14px 14px; }
+    .problem, .result, .callout, .mathbox, .table-wrap { break-inside: avoid; }
+    .steps > li { break-inside: avoid; }
+    .katex-display { overflow: visible; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; font-size: 9pt; }
+    a { color: #111; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="crumb">
+      <a href="index.html">物理 · 提纲阅读器</a>
+      <span>/</span>
+      <a href="outline_thermo.html">热力学·统计物理</a>
+      <span>/</span>
+      <span>第六章习题</span>
+    </div>
+
+    <p class="kicker">Chapter 6 · Solved Problems</p>
+    <h1>近独立粒子的最概然分布</h1>
+    <p class="sub">热力学·统计物理第六章习题 6.1–6.6 详细解析：自由粒子的量子态数、两种粒子的最概然分布，以及玻色–爱因斯坦与费米–狄拉克分布。</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-light" href="outline_thermo.html">← 返回热力学提纲</a>
+      <button class="btn btn-ghost" id="printBtn" type="button">打印 / 存 PDF</button>
+    </div>
+
+    <div class="hero-meta">
+      <span>教材 pp.155–156</span>
+      <span>§6.2 · §6.6–6.8</span>
+      <span>6 道题 · 完整推导</span>
+    </div>
+  </div>
+</header>
+
+<nav class="quicknav" aria-label="题目快速导航">
+  <div class="quicknav-in">
+    <span class="qn-label">习题</span>
+    <a class="qlink" href="#q61">6.1 三维态数</a>
+    <a class="qlink" href="#q62">6.2 一维态数</a>
+    <a class="qlink" href="#q63">6.3 二维态数</a>
+    <a class="qlink" href="#q64">6.4 极端相对论</a>
+    <a class="qlink" href="#q65">6.5 两种粒子</a>
+    <a class="qlink" href="#q66">6.6 玻色/费米</a>
+    <a class="qlink" href="#recap">结果汇总</a>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="intro panel" aria-labelledby="introTitle">
+    <p class="eyebrow">Before You Start</p>
+    <h2 id="introTitle">记号与总思路</h2>
+    <div class="intro-grid">
+      <div>
+        <p>6.1–6.4 用的是同一个相空间计数：动量空间中小体积元 \(d^3p\) 内包含的量子态数为</p>
+        <div class="mathbox">
+          \[
+            dN=\frac{V}{h^3}d^3p
+          \]
+        </div>
+        <p>把 \(d^3p\) 写成球壳 \(4\pi p^2dp\)，再利用色散关系 \(\varepsilon(p)\) 把 \(dp\) 换成 \(d\varepsilon\)，就得到能量区间内的量子态数 \(D(\varepsilon)d\varepsilon\)。</p>
+        <div class="callout gold">
+          <b>自旋约定：</b>下面的 \(D(\varepsilon)\) 按教材 6.1–6.3 的写法，只数一个自旋态。若粒子有 \(g_s\) 个自旋态，把结果乘以 \(g_s\)；例如电子 \(g_s=2\)，光子有两个偏振态。
+        </div>
+      </div>
+
+      <div>
+        <div class="notation">
+          <b>能量色散：</b>非相对论 \(\displaystyle \varepsilon=\frac{p^2}{2m}\)；极端相对论 \(\displaystyle \varepsilon=cp\)。
+        </div>
+        <div class="notation">
+          <b>统计记号：</b>能级 \(\varepsilon_l\) 的简并度为 \(\omega_l\)，该能级上的粒子数为 \(a_l\)；拉格朗日乘子为 \(\alpha,\beta\)，其中 \(\beta=1/kT\)。
+        </div>
+        <ul class="checklist">
+          <li><span class="dot"></span><span><b>6.1–6.4：</b>只做“态数”的几何计数，不涉及粒子间统计。</span></li>
+          <li><span class="dot"></span><span><b>6.5：</b>可分辨粒子，用玻耳兹曼微观状态数 + 斯特林公式 + 拉格朗日乘子。</span></li>
+          <li><span class="dot"></span><span><b>6.6：</b>把 6.5 的 \(\Omega\) 换成玻色/费米微观状态数，重复同一套变分。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6.1 -->
+  <article class="qcard" id="q61">
+    <div class="qhead">
+      <div class="qnum">6.1</div>
+      <h2>三维自由粒子的量子态数</h2>
+      <span class="tag">相空间计数</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>试根据式 (6.2.13) 证明，在体积 \(V\) 内，在 \(\varepsilon\) 到 \(\varepsilon+d\varepsilon\) 的能量范围内，三维自由粒子的量子态数为</p>
+        \[
+          D(\varepsilon)d\varepsilon
+          =\frac{2\pi V}{h^3}(2m)^{3/2}\varepsilon^{1/2}d\varepsilon.
+        \]
+      </div>
+
+      <p class="lead">三维动量空间是三维球，半径 \(p\) 的球壳体积为 \(4\pi p^2dp\)。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">写出动量空间的态密度</div>
+          <div class="step-body">
+            <p>体积 \(V\) 内，每个量子态在动量空间占据体积 \(h^3/V\)，因此</p>
+            \[
+              dN=\frac{V}{h^3}d^3p
+              =\frac{V}{h^3}4\pi p^2dp.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">用色散关系换成能量变量</div>
+          <div class="step-body">
+            <p>非相对论自由粒子：</p>
+            \[
+              \varepsilon=\frac{p^2}{2m}
+              \quad\Longrightarrow\quad
+              p=\sqrt{2m\varepsilon},
+              \qquad
+              \frac{dp}{d\varepsilon}
+              =\sqrt{\frac{m}{2\varepsilon}}.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">代入并化简</div>
+          <div class="step-body">
+            \[
+              \begin{aligned}
+                D(\varepsilon)d\varepsilon
+                &=\frac{V}{h^3}4\pi p^2\frac{dp}{d\varepsilon}d\varepsilon\\
+                &=\frac{V}{h^3}4\pi(2m\varepsilon)
+                  \sqrt{\frac{m}{2\varepsilon}}d\varepsilon\\
+                &=\frac{V}{h^3}4\pi\sqrt{2}\,m^{3/2}
+                  \varepsilon^{1/2}d\varepsilon\\
+                &=\frac{2\pi V}{h^3}(2m)^{3/2}
+                  \varepsilon^{1/2}d\varepsilon.
+              \end{aligned}
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="result">
+        <span class="result-label">结果</span>
+        \[
+          \boxed{
+            D(\varepsilon)d\varepsilon
+            =\frac{2\pi V}{h^3}(2m)^{3/2}\varepsilon^{1/2}d\varepsilon
+          }
+        \]
+      </div>
+    </div>
+  </article>
+
+  <!-- 6.2 -->
+  <article class="qcard" id="q62">
+    <div class="qhead">
+      <div class="qnum">6.2</div>
+      <h2>一维自由粒子的量子态数</h2>
+      <span class="tag">一维球壳</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>试证明，对于一维自由粒子，在长度 \(L\) 内，在 \(\varepsilon\) 到 \(\varepsilon+d\varepsilon\) 的能量范围内，量子态数为</p>
+        \[
+          D(\varepsilon)d\varepsilon
+          =\frac{2L}{h}\left(\frac{m}{2\varepsilon}\right)^{1/2}d\varepsilon.
+        \]
+      </div>
+
+      <p class="lead">一维动量只能取 \(p=\pm\sqrt{2m\varepsilon}\)，所以动量轴上的 \(dp\) 对应两个方向。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">一维动量空间的态密度</div>
+          <div class="step-body">
+            <p>长度 \(L\) 内，动量轴上每个态占 \(h/L\)，因此 \(dp\) 内的态数为 \(L\,dp/h\)。因为 \(p\) 可正可负，能量只与 \(p^2\) 有关，所以要算两个方向：</p>
+            \[
+              D(p)dp=2\frac{L}{h}dp.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">换为能量</div>
+          <div class="step-body">
+            \[
+              \varepsilon=\frac{p^2}{2m},
+              \qquad
+              \frac{dp}{d\varepsilon}
+              =\sqrt{\frac{m}{2\varepsilon}}.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">代入</div>
+          <div class="step-body">
+            \[
+              D(\varepsilon)d\varepsilon
+              =2\frac{L}{h}
+              \sqrt{\frac{m}{2\varepsilon}}d\varepsilon
+              =\frac{2L}{h}\left(\frac{m}{2\varepsilon}\right)^{1/2}d\varepsilon.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="result">
+        <span class="result-label">结果</span>
+        \[
+          \boxed{
+            D(\varepsilon)d\varepsilon
+            =\frac{2L}{h}\left(\frac{m}{2\varepsilon}\right)^{1/2}d\varepsilon
+          }
+        \]
+      </div>
+    </div>
+  </article>
+
+  <!-- 6.3 -->
+  <article class="qcard" id="q63">
+    <div class="qhead">
+      <div class="qnum">6.3</div>
+      <h2>二维自由粒子的量子态数</h2>
+      <span class="tag">二维圆环</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>试证明，对于二维自由粒子，在面积 \(L^2\) 内，在 \(\varepsilon\) 到 \(\varepsilon+d\varepsilon\) 的能量范围内，量子态数为</p>
+        \[
+          D(\varepsilon)d\varepsilon
+          =\frac{2\pi L^2}{h^2}m\,d\varepsilon.
+        \]
+      </div>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">二维动量空间的圆环面积</div>
+          <div class="step-body">
+            <p>面积 \(L^2\) 内，动量空间态密度为 \(L^2/h^2\)。二维动量空间中半径 \(p\) 到 \(p+dp\) 的圆环面积为</p>
+            \[
+              d^2p=2\pi p\,dp,
+            \]
+            <p>所以</p>
+            \[
+              D(p)dp=\frac{L^2}{h^2}2\pi p\,dp.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">利用 \(p\,dp=m\,d\varepsilon\)</div>
+          <div class="step-body">
+            <p>由 \(\varepsilon=p^2/(2m)\) 得</p>
+            \[
+              \frac{d\varepsilon}{dp}=\frac{p}{m}
+              \quad\Longrightarrow\quad
+              p\,dp=m\,d\varepsilon.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">代入</div>
+          <div class="step-body">
+            \[
+              D(\varepsilon)d\varepsilon
+              =\frac{2\pi L^2}{h^2}m\,d\varepsilon.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="result">
+        <span class="result-label">结果</span>
+        \[
+          \boxed{
+            D(\varepsilon)d\varepsilon
+            =\frac{2\pi L^2}{h^2}m\,d\varepsilon
+          }
+        \]
+      </div>
+    </div>
+  </article>
+
+  <!-- 6.4 -->
+  <article class="qcard" id="q64">
+    <div class="qhead">
+      <div class="qnum">6.4</div>
+      <h2>极端相对论粒子的量子态数</h2>
+      <span class="tag">\(\varepsilon=cp\)</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>在极端相对论情形下，粒子的能量动量关系为 \(\varepsilon=cp\)。试求在体积 \(V\) 内，在 \(\varepsilon\) 到 \(\varepsilon+d\varepsilon\) 的能量范围内，三维粒子的量子态数。</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">仍从三维动量球壳出发</div>
+          <div class="step-body">
+            \[
+              D(p)dp=\frac{V}{h^3}4\pi p^2dp.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">用 \(\varepsilon=cp\) 换元</div>
+          <div class="step-body">
+            <p>由 \(p=\varepsilon/c\) 得</p>
+            \[
+              dp=\frac{d\varepsilon}{c},
+              \qquad
+              p^2dp=\frac{\varepsilon^2}{c^3}d\varepsilon.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">代入</div>
+          <div class="step-body">
+            \[
+              D(\varepsilon)d\varepsilon
+              =\frac{V}{h^3}4\pi
+              \frac{\varepsilon^2}{c^3}d\varepsilon
+              =\frac{4\pi V}{h^3c^3}\varepsilon^2d\varepsilon.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="result">
+        <span class="result-label">结果</span>
+        \[
+          \boxed{
+            D(\varepsilon)d\varepsilon
+            =\frac{4\pi V}{h^3c^3}\varepsilon^2d\varepsilon
+          }
+        \]
+      </div>
+
+      <div class="callout gold">
+        <b>自旋/偏振：</b>若粒子有 \(g_s\) 个自旋态，右端乘 \(g_s\)。例如光子有两个偏振态，则
+        \[
+          D_\gamma(\varepsilon)d\varepsilon
+          =\frac{8\pi V}{h^3c^3}\varepsilon^2d\varepsilon.
+        \]
+      </div>
+    </div>
+  </article>
+
+  <!-- 6.5 -->
+  <article class="qcard" id="q65">
+    <div class="qhead">
+      <div class="qnum">6.5</div>
+      <h2>两种可分辨粒子的最概然分布</h2>
+      <span class="tag">拉格朗日乘子</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>设系统含有两种粒子，其粒子数分别为 \(N\) 和 \(N'\)。粒子间的相互作用很弱，可以看作是近独立的。假设粒子可以分辨，处在一个个体量子态的粒子数不受限制。试证明，在平衡状态下，两种粒子的最概然分布分别为</p>
+        \[
+          a_l=\omega_l e^{-\alpha-\beta\varepsilon_l},
+          \qquad
+          a'_l=\omega'_l e^{-\alpha'-\beta\varepsilon'_l},
+        \]
+        <p>其中 \(\varepsilon_l,\varepsilon'_l\) 是两种粒子的能级，\(\omega_l,\omega'_l\) 是能级的简并度。</p>
+        <p><b>讨论：</b>把一种粒子看作一个子系统，系统由两个子系统组成。证明互为热平衡的两个子系统具有相同的 \(\beta\)。</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">写出可分辨粒子的微观状态数</div>
+          <div class="step-body">
+            <p>对第一种粒子，\(a_l\) 个可分辨粒子分配到 \(\omega_l\) 个量子态中，方式数为</p>
+            \[
+              \frac{N!}{\prod_l a_l!}\prod_l\omega_l^{a_l}.
+            \]
+            <p>第二种粒子同理。两种粒子近独立，总微观状态数为</p>
+            \[
+              \Omega=
+              N!\prod_l\frac{\omega_l^{a_l}}{a_l!}
+              \cdot
+              N'!\prod_l\frac{(\omega'_l)^{a'_l}}{a'_l!}.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">取对数并用斯特林公式</div>
+          <div class="step-body">
+            <p>用 \(\ln a!\approx a\ln a-a\)，常数项不影响变分：</p>
+            \[
+              \ln\Omega
+              =\text{常量}
+              +\sum_l a_l\ln\frac{\omega_l}{a_l}
+              +\sum_l a'_l\ln\frac{\omega'_l}{a'_l}.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">写出约束条件</div>
+          <div class="step-body">
+            <p>两种粒子数分别固定，总能量固定：</p>
+            \[
+              \sum_l a_l=N,
+              \qquad
+              \sum_l a'_l=N',
+            \]
+            \[
+              \sum_l\varepsilon_l a_l
+              +\sum_l\varepsilon'_l a'_l=E.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">变分 + 拉格朗日乘子</div>
+          <div class="step-body">
+            <p>令</p>
+            \[
+              \delta\ln\Omega
+              -\alpha\delta N
+              -\alpha'\delta N'
+              -\beta\delta E=0.
+            \]
+            <p>由</p>
+            \[
+              \delta\ln\Omega
+              =
+              -\sum_l\ln\frac{a_l}{\omega_l}\delta a_l
+              -\sum_l\ln\frac{a'_l}{\omega'_l}\delta a'_l,
+            \]
+            <p>代入并整理，各 \(\delta a_l,\delta a'_l\) 独立，因此</p>
+            \[
+              \ln\frac{a_l}{\omega_l}
+              =-\alpha-\beta\varepsilon_l,
+              \qquad
+              \ln\frac{a'_l}{\omega'_l}
+              =-\alpha'-\beta\varepsilon'_l.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">解出分布</div>
+          <div class="step-body">
+            \[
+              a_l=\omega_l e^{-\alpha-\beta\varepsilon_l},
+              \qquad
+              a'_l=\omega'_l e^{-\alpha'-\beta\varepsilon'_l}.
+            \]
+            <p>其中 \(\alpha,\alpha'\) 由粒子数确定：</p>
+            \[
+              e^{-\alpha}
+              =\frac{N}{\sum_l\omega_l e^{-\beta\varepsilon_l}},
+              \qquad
+              e^{-\alpha'}
+              =\frac{N'}{\sum_l\omega'_l e^{-\beta\varepsilon'_l}}.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="result">
+        <span class="result-label">结果</span>
+        \[
+          \boxed{
+            a_l=\omega_l e^{-\alpha-\beta\varepsilon_l},
+            \qquad
+            a'_l=\omega'_l e^{-\alpha'-\beta\varepsilon'_l}
+          }
+        \]
+      </div>
+
+      <div class="callout indigo">
+        <b>为什么 \(\beta\) 相同：</b>两种粒子可以交换能量，总能量只有一个约束，因此能量对应的拉格朗日乘子 \(\beta\) 是共同的；而 \(N,N'\) 分别固定，所以 \(\alpha,\alpha'\) 一般不同。热平衡时
+        \[
+          \beta=\frac{1}{kT}.
+        \]
+        这也是“互为热平衡的两个子系统温度相同”的统计表述。
+      </div>
+    </div>
+  </article>
+
+  <!-- 6.6 -->
+  <article class="qcard" id="q66">
+    <div class="qhead">
+      <div class="qnum">6.6</div>
+      <h2>玻色子与费米子的结果</h2>
+      <span class="tag">BE / FD</span>
+    </div>
+    <div class="qbody">
+      <div class="problem">
+        <span class="problem-label">题目</span>
+        <p>承 6.5 题，如果粒子是玻色子或费米子，结果如何？</p>
+      </div>
+
+      <p class="lead">把 6.5 的微观状态数换成玻色或费米的微观状态数，约束条件不变，重复同一套变分即可。</p>
+
+      <h3 style="margin:16px 0 6px; font-size:1.02rem; color:var(--teal);">（1）玻色–爱因斯坦分布</h3>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">玻色系统的微观状态数</div>
+          <div class="step-body">
+            \[
+              \Omega_B=
+              \prod_l
+              \frac{(\omega_l+a_l-1)!}
+              {a_l!(\omega_l-1)!}
+              \prod_l
+              \frac{(\omega'_l+a'_l-1)!}
+              {a'_l!(\omega'_l-1)!}.
+            \]
+            <p>取对数并用斯特林近似：</p>
+            \[
+              \ln\Omega_B
+              =
+              \sum_l
+              \left[
+              (\omega_l+a_l)\ln(\omega_l+a_l)
+              -a_l\ln a_l
+              -\omega_l\ln\omega_l
+              \right]
+              +\cdots
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">变分</div>
+          <div class="step-body">
+            \[
+              \delta\ln\Omega_B
+              =
+              \sum_l
+              \ln\frac{\omega_l+a_l}{a_l}\delta a_l
+              +
+              \sum_l
+              \ln\frac{\omega'_l+a'_l}{a'_l}\delta a'_l.
+            \]
+            <p>加上 \(\alpha,\alpha',\beta\) 约束后：</p>
+            \[
+              \ln\frac{\omega_l+a_l}{a_l}
+              -\alpha-\beta\varepsilon_l=0,
+              \qquad
+              \ln\frac{\omega'_l+a'_l}{a'_l}
+              -\alpha'-\beta\varepsilon'_l=0.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">解出玻色分布</div>
+          <div class="step-body">
+            \[
+              \boxed{
+                a_l=\frac{\omega_l}
+                {e^{\alpha+\beta\varepsilon_l}-1}
+              },
+              \qquad
+              \boxed{
+                a'_l=\frac{\omega'_l}
+                {e^{\alpha'+\beta\varepsilon'_l}-1}
+              }.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <h3 style="margin:20px 0 6px; font-size:1.02rem; color:var(--teal);">（2）费米–狄拉克分布</h3>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">费米系统的微观状态数</div>
+          <div class="step-body">
+            \[
+              \Omega_F=
+              \prod_l
+              \frac{\omega_l!}
+              {a_l!(\omega_l-a_l)!}
+              \prod_l
+              \frac{\omega'_l!}
+              {a'_l!(\omega'_l-a'_l)!},
+            \]
+            <p>其中 \(0\le a_l\le\omega_l\)，\(0\le a'_l\le\omega'_l\)。取对数并用斯特林近似：</p>
+            \[
+              \ln\Omega_F
+              =
+              \sum_l
+              \left[
+              \omega_l\ln\omega_l
+              -a_l\ln a_l
+              -(\omega_l-a_l)\ln(\omega_l-a_l)
+              \right]
+              +\cdots
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">变分</div>
+          <div class="step-body">
+            \[
+              \delta\ln\Omega_F
+              =
+              \sum_l
+              \ln\frac{\omega_l-a_l}{a_l}\delta a_l
+              +
+              \sum_l
+              \ln\frac{\omega'_l-a'_l}{a'_l}\delta a'_l.
+            \]
+            <p>同样引入 \(\alpha,\alpha',\beta\)：</p>
+            \[
+              \ln\frac{\omega_l-a_l}{a_l}
+              -\alpha-\beta\varepsilon_l=0,
+              \qquad
+              \ln\frac{\omega'_l-a'_l}{a'_l}
+              -\alpha'-\beta\varepsilon'_l=0.
+            \]
+          </div>
+        </li>
+        <li>
+          <div class="step-title">解出费米分布</div>
+          <div class="step-body">
+            \[
+              \boxed{
+                a_l=\frac{\omega_l}
+                {e^{\alpha+\beta\varepsilon_l}+1}
+              },
+              \qquad
+              \boxed{
+                a'_l=\frac{\omega'_l}
+                {e^{\alpha'+\beta\varepsilon'_l}+1}
+              }.
+            \]
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout indigo">
+        <b>共同点：</b>两种统计中，两种粒子仍可交换能量，因此有共同的
+        \[
+          \beta=\frac{1}{kT};
+        \]
+        但 \(N,N'\) 分别固定，所以 \(\alpha,\alpha'\) 一般不同。若两种粒子统计类型不同，各自用对应的分布即可。
+      </div>
+
+      <div class="callout gold">
+        <b>经典极限检查：</b>当 \(e^\alpha\gg1\) 时，
+        \[
+          e^{\alpha+\beta\varepsilon}\pm1\approx e^{\alpha+\beta\varepsilon},
+        \]
+        玻色和费米分布都回到 6.5 的玻耳兹曼分布
+        \[
+          a_l\approx\omega_l e^{-\alpha-\beta\varepsilon_l}.
+        \]
+      </div>
+    </div>
+  </article>
+
+  <!-- RECAP -->
+  <section class="recap panel" id="recap" aria-labelledby="recapTitle">
+    <p class="eyebrow">One-Page Recap</p>
+    <h2 id="recapTitle">结果汇总</h2>
+    <p class="sub">6.1–6.4 的 \(D(\varepsilon)\) 均按一个自旋态计；6.5–6.6 中两种粒子有共同 \(\beta\)。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>题号</th><th>结果</th><th>关键点</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6.1</td>
+            <td>\[
+              D(\varepsilon)d\varepsilon
+              =\frac{2\pi V}{h^3}(2m)^{3/2}
+              \varepsilon^{1/2}d\varepsilon
+            \]</td>
+            <td>三维球壳 \(4\pi p^2dp\)</td>
+          </tr>
+          <tr>
+            <td>6.2</td>
+            <td>\[
+              D(\varepsilon)d\varepsilon
+              =\frac{2L}{h}\left(\frac{m}{2\varepsilon}\right)^{1/2}d\varepsilon
+            \]</td>
+            <td>一维要算 \(p=\pm\sqrt{2m\varepsilon}\) 两个方向</td>
+          </tr>
+          <tr>
+            <td>6.3</td>
+            <td>\[
+              D(\varepsilon)d\varepsilon
+              =\frac{2\pi L^2}{h^2}m\,d\varepsilon
+            \]</td>
+            <td>二维圆环 \(2\pi p\,dp\)</td>
+          </tr>
+          <tr>
+            <td>6.4</td>
+            <td>\[
+              D(\varepsilon)d\varepsilon
+              =\frac{4\pi V}{h^3c^3}\varepsilon^2d\varepsilon
+            \]</td>
+            <td>极端相对论 \(p=\varepsilon/c\)</td>
+          </tr>
+          <tr>
+            <td>6.5</td>
+            <td>\[
+              a_l=\omega_l e^{-\alpha-\beta\varepsilon_l},\quad
+              a'_l=\omega'_l e^{-\alpha'-\beta\varepsilon'_l}
+            \]</td>
+            <td>可分辨粒子；共同 \(\beta\)，不同 \(\alpha,\alpha'\)</td>
+          </tr>
+          <tr>
+            <td>6.6</td>
+            <td>\[
+              \text{玻色：}\ a_l=\frac{\omega_l}{e^{\alpha+\beta\varepsilon_l}-1}
+            \]
+            \[
+              \text{费米：}\ a_l=\frac{\omega_l}{e^{\alpha+\beta\varepsilon_l}+1}
+            \]</td>
+            <td>把 6.5 的 \(\Omega\) 换成玻色/费米微观状态数</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout gold" style="margin-top:14px;">
+      <b>化学势写法：</b>取 \(\alpha=-\mu/(kT)\)，\(\beta=1/(kT)\)，三种分布可统一写成
+      \[
+        a_l=
+        \begin{cases}
+          \omega_l e^{(\mu-\varepsilon_l)/(kT)}, & \text{玻耳兹曼},\\[4pt]
+          \dfrac{\omega_l}{e^{(\varepsilon_l-\mu)/(kT)}-1}, & \text{玻色},\\[8pt]
+          \dfrac{\omega_l}{e^{(\varepsilon_l-\mu)/(kT)}+1}, & \text{费米}.
+        \end{cases}
+      \]
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>热力学·统计物理 · 第六章习题 6.1–6.6 · 教材 pp.155–156</span>
+  <span><a href="outline_thermo.html">返回热力学提纲</a> · <a href="index.html">打开阅读器</a></span>
+</footer>
+
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  function renderMath() {
+    if (typeof window.renderMathInElement !== 'function') return;
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      strict: false,
+      trust: false
+    });
+  }
+
+  function activeLink() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.qlink'));
+    var sections = links.map(function (a) {
+      var id = a.getAttribute('href');
+      return id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+    }).filter(Boolean);
+    if (!sections.length) return;
+    var y = window.scrollY + 100;
+    var cur = sections[0];
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= y) cur = sec;
+    });
+    links.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur.id);
+    });
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      activeLink();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  document.getElementById('printBtn').addEventListener('click', function () {
+    window.print();
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    renderMath();
+    activeLink();
+    setTimeout(activeLink, 350);
+  });
+})();
+</script>
+</body>
+</html>

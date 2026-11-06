@@ -122,6 +122,8 @@
 - **代码版**：左图右代码，附核心 Python 与复制按钮
   <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/hydrogen_clouds_code.html>
 - **汇报材料**：`发布/氢原子电子云.pdf`（5 页左图右码版）、`发布/氢原子电子云.pptx`（10 页公式版，约 4 分 40 秒，含演讲备注）
+- **热力学第六章习题详解**：教材 pp.155–156 的 6.1–6.6 题，含原题、逐步推导与结果汇总
+  <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/thermo_ch6_solutions.html>
 - 生成脚本：`构建/生成氢原子电子云.py`、`构建/生成氢原子汇报PPT.py`、`构建/添加氢原子公式页.py`
 
 三处副本（`程序/resources/app/renderer`、`docs/app/renderer`、`发布/网页版/app/renderer`）内容保持一致；拓展页入口在量子力学提纲顶部和侧栏「拓展 · 题解 / 图像」。
