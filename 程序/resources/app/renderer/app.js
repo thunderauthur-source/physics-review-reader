@@ -175,6 +175,9 @@ function renderPage(page) {
   page = clamp(page, 1, doc.pages);
   state.page = page;
 
+  const pane = $('#pdfPane');
+  if (pane) pane.scrollTop = 0;
+
   const img = $('#pageImg');
   const url = pageUrl(doc, page);
   $('#loading').classList.add('show');
@@ -233,6 +236,65 @@ function updateIndicators() {
   }
   $('#statusbar').dataset.card = card ? card.id : '';
   $('#statusbar').dataset.problem = prob || '';
+
+  const pages = doc ? doc.pages : 0;
+  const counter = $('#pageCounter');
+  if (counter) counter.textContent = pages ? state.page + ' / ' + pages : '– / –';
+  const prevFloat = $('#pagePrevBtn');
+  const nextFloat = $('#pageNextBtn');
+  if (prevFloat) prevFloat.disabled = !pages || state.page <= 1;
+  if (nextFloat) nextFloat.disabled = !pages || state.page >= pages;
+}
+
+function turnPage(delta) {
+  const doc = docById(state.docId);
+  if (!doc) return;
+  const next = clamp(state.page + Math.sign(delta), 1, doc.pages);
+  if (next !== state.page) renderPage(next);
+}
+
+function setupPageGestures() {
+  const pane = $('#pdfPane');
+  if (!pane) return;
+  let wheelTotal = 0;
+  let lockedUntil = 0;
+
+  pane.addEventListener('wheel', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (document.body.classList.contains('hl-mode')) return;
+    const doc = docById(state.docId);
+    if (!doc) return;
+
+    const unit = e.deltaMode === 1 ? 16 : (e.deltaMode === 2 ? pane.clientHeight : 1);
+    const dy = e.deltaY * unit;
+    if (!dy) return;
+
+    const now = performance.now();
+    if (now < lockedUntil) return;
+
+    const scrollable = pane.scrollHeight - pane.clientHeight > 3;
+    const atBottom = pane.scrollTop + pane.clientHeight >= pane.scrollHeight - 3;
+    const atTop = pane.scrollTop <= 3;
+    const down = dy > 0;
+
+    // Normal wheel scrolling wins while the current page still has content
+    // above/below the viewport. Only the page boundary turns the page.
+    if (scrollable && !((down && atBottom) || (!down && atTop))) {
+      wheelTotal = 0;
+      return;
+    }
+
+    e.preventDefault();
+    wheelTotal += dy;
+    if (Math.abs(wheelTotal) < 50) return;
+
+    const dir = wheelTotal > 0 ? 1 : -1;
+    wheelTotal = 0;
+    if ((dir > 0 && state.page < doc.pages) || (dir < 0 && state.page > 1)) {
+      lockedUntil = now + 700;
+      turnPage(dir);
+    }
+  }, { passive: false });
 }
 
 /* ---------------- 课程切换 ---------------- */
@@ -720,6 +782,9 @@ function wireUI() {
     e.target.blur();
   });
   $('#pageSlider').addEventListener('input', (e) => renderPage(Number(e.target.value)));
+  $('#pagePrevBtn').addEventListener('click', () => turnPage(-1));
+  $('#pageNextBtn').addEventListener('click', () => turnPage(1));
+  setupPageGestures();
   $('#zoomIn').addEventListener('click', () => {
     state.zoom = clamp(state.zoom * 1.2, 0.4, 4);
     $('#fitBtn').classList.remove('on');

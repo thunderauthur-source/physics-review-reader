@@ -1250,6 +1250,94 @@ body:not(.anime) .mascot-lightbox { display:none !important; }
   body.anime { background:#fff !important; }
 }
 
+/* ===== 完整推导：保证浅色/深色下都有足够对比度 ===== */
+.b-full {
+  background: linear-gradient(180deg, #f1e8ff 0%, #eef8ff 100%);
+  border-color: #bca7e6;
+  color: #2f2545;
+}
+.b-full > summary {
+  color: #38245f;
+  background: rgba(255, 255, 255, .58);
+  border-bottom: 1px solid rgba(120, 90, 180, .22);
+  border-radius: 8px 8px 0 0;
+  opacity: 1;
+  font-weight: 800;
+}
+.b-full > summary::after { opacity: .64; }
+.deriv-note {
+  color: #3d2d5d;
+  background: #e5d8fb;
+  border-left-color: #7a57c1;
+}
+.b-full .dbody { color: #342a47; }
+.step {
+  background: #fffdfd;
+  border-color: #d2c1e9;
+  box-shadow: 0 1px 3px rgba(75, 50, 115, .06);
+}
+.step-title { color: #2a1f40; }
+.step-body { color: #342a47; }
+.step-why {
+  color: #453065;
+  background: #ece3fb;
+  border-left-color: #8866cf;
+}
+.step-check {
+  color: #1e5c50;
+  background: #e1f6ef;
+  border-left-color: #39a78e;
+}
+.keyeq {
+  color: #1b4e44;
+  background: #ecf9f4;
+  border-color: #8bc9b8;
+}
+body.dark .b-full {
+  background: linear-gradient(180deg, #211c34 0%, #16232c 100%);
+  border-color: #55446f;
+  color: #e8f1fb;
+}
+body.dark .b-full > summary {
+  color: #f0e6ff;
+  background: rgba(255, 255, 255, .06);
+  border-bottom-color: #493b61;
+}
+body.dark .b-full > summary::after { opacity: .74; }
+body.dark .deriv-note {
+  color: #e9dcff;
+  background: rgba(122, 87, 193, .22);
+  border-left-color: #b8a4f4;
+}
+body.dark .b-full .dbody { color: #e7f1fa; }
+body.dark .step {
+  background: rgba(255, 255, 255, .055);
+  border-color: #463a5e;
+  box-shadow: none;
+}
+body.dark .step-title { color: #ffffff; }
+body.dark .step-body { color: #e7f1fa; }
+body.dark .step-why {
+  color: #e6dbff;
+  background: rgba(136, 102, 207, .16);
+  border-left-color: #b8a4f4;
+}
+body.dark .step-check {
+  color: #c9f8e9;
+  background: rgba(57, 167, 142, .14);
+  border-left-color: #5fd1b5;
+}
+body.dark .keyeq {
+  color: #d8fff4;
+  background: rgba(57, 167, 142, .10);
+  border-color: #4e9b88;
+}
+body.dark .b-full a.kp {
+  color: #d6c6ff;
+  border-bottom-color: #9d83e0;
+}
+body.dark .b-full a.kp:hover { background: rgba(157, 131, 224, .18); }
+
 </style>
 </head>
 <body data-mode="all" class="anime">

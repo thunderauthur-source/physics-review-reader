@@ -55,17 +55,29 @@
     <iframe id="outline" src="outline_qm.html" title="复习提纲"></iframe>
   </section>
   <div id="splitter" title="拖动调整宽度"></div>
-  <section id="pdfPane">
-    <div id="canvasWrap">
-      <div id="pageStage">
-        <img id="pageImg" alt="页面">
-        <div id="hlLayer"></div>
+  <section id="pdfShell">
+    <section id="pdfPane">
+      <div id="canvasWrap">
+        <div id="pageStage">
+          <img id="pageImg" alt="页面">
+          <div id="hlLayer"></div>
+        </div>
       </div>
+      <div id="loading" class="loading">正在加载页面…</div>
+    </section>
+
+    <div id="pageNav" aria-label="翻页">
+      <button id="pagePrevBtn" class="page-arrow" type="button" title="上一页（←）" aria-label="上一页" disabled>‹</button>
+      <button id="pageNextBtn" class="page-arrow" type="button" title="下一页（→）" aria-label="下一页" disabled>›</button>
     </div>
+
     <div id="pageSliderWrap">
+      <div class="page-slider-meta">
+        <span id="pageCounter" aria-live="polite">– / –</span>
+        <span class="page-slider-hint">滚轮：本页到底再翻页 · 也可点两侧箭头</span>
+      </div>
       <input id="pageSlider" type="range" min="1" max="1" value="1" step="1" title="拖动快速翻页">
     </div>
-    <div id="loading" class="loading">正在加载页面…</div>
   </section>
 </main>
 
