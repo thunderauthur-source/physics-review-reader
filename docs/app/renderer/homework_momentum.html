@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="量子力学动量空间作业四题详解：坐标期望值的动量表示、运动高斯波包、自由粒子含时薛定谔方程、谐振子基态的经典禁区概率。">
+<title>动量空间 · 四题详解｜量子力学作业</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="katex/katex.min.css">
+<script>
+  try {
+    if (localStorage.getItem('phys.hw.theme') === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  } catch (e) { /* localStorage 不可用时保持浅色 */ }
+</script>
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --paper: #ffffff;
+    --paper-soft: #f8fafd;
+    --ink: #233247;
+    --ink-2: #42536a;
+    --muted: #718198;
+    --line: #dde6f0;
+    --line-strong: #c8d5e4;
+    --navy: #173b5e;
+    --blue: #24688f;
+    --blue-soft: #edf7fd;
+    --teal: #1f7a6b;
+    --teal-soft: #e9f8f4;
+    --violet: #5b4aa0;
+    --violet-soft: #f2effc;
+    --pink: #a83b70;
+    --pink-soft: #fff0f7;
+    --gold: #8a6510;
+    --gold-soft: #fff8e4;
+    --shadow: 0 14px 40px rgba(29, 53, 87, .08);
+    --shadow-soft: 0 5px 18px rgba(29, 53, 87, .06);
+    --radius: 18px;
+    --maxw: 1080px;
+    --serif: Georgia, 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f1520;
+    --paper: #161f2c;
+    --paper-soft: #1a2534;
+    --ink: #e9eef7;
+    --ink-2: #c4cfdf;
+    --muted: #91a0b5;
+    --line: #2a3748;
+    --line-strong: #3a4a5f;
+    --navy: #9dc9ef;
+    --blue: #8ecdf5;
+    --blue-soft: #172b3b;
+    --teal: #67d5c0;
+    --teal-soft: #16332e;
+    --violet: #c3b5ff;
+    --violet-soft: #24203a;
+    --pink: #ff9cc7;
+    --pink-soft: #3a2233;
+    --gold: #f2cf7f;
+    --gold-soft: #302a1b;
+    --shadow: 0 18px 50px rgba(0, 0, 0, .35);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, .24);
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(96, 165, 210, .11) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 82% 8%, rgba(46, 151, 132, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 24% 78%, rgba(110, 92, 180, .08) 0 1.2px, transparent 1.7px),
+      radial-gradient(900px 520px at 100% 0%, rgba(160, 211, 235, .20), transparent 62%),
+      radial-gradient(820px 500px at 0% 100%, rgba(180, 232, 217, .18), transparent 60%);
+    background-attachment: fixed;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :root[data-theme="dark"] body {
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(160, 205, 240, .16) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 82% 8%, rgba(100, 220, 190, .12) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 24% 78%, rgba(190, 170, 255, .12) 0 1.2px, transparent 1.7px),
+      radial-gradient(900px 520px at 100% 0%, rgba(22, 68, 92, .48), transparent 62%),
+      radial-gradient(820px 500px at 0% 100%, rgba(20, 76, 65, .36), transparent 60%);
+  }
+
+  ::selection { background: rgba(84, 170, 210, .28); }
+
+  a { color: var(--blue); }
+  a:hover { text-decoration-thickness: 2px; }
+
+  button { font-family: inherit; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: 28px 22px 34px;
+    background:
+      radial-gradient(900px 380px at 86% 0%, rgba(95, 215, 190, .24), transparent 68%),
+      radial-gradient(760px 360px at 4% 100%, rgba(114, 166, 230, .24), transparent 64%),
+      linear-gradient(135deg, #112b43 0%, #1b4d6c 48%, #146b5e 100%);
+  }
+
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::before {
+    width: 420px;
+    height: 420px;
+    right: -150px;
+    top: -230px;
+  }
+
+  .hero::after {
+    width: 260px;
+    height: 260px;
+    right: 30px;
+    top: -170px;
+  }
+
+  .hero-in {
+    position: relative;
+    z-index: 1;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+
+  .crumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    color: rgba(255, 255, 255, .62);
+    font-size: 12.5px;
+    letter-spacing: .035em;
+  }
+
+  .crumb a {
+    color: rgba(255, 255, 255, .86);
+    text-decoration: none;
+  }
+
+  .crumb a:hover { color: #fff; text-decoration: underline; }
+
+  .hero-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 17px;
+  }
+
+  .kicker {
+    margin: 0 0 7px;
+    color: #bcebdd;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.5vw, 3.05rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .025em;
+  }
+
+  .hero .sub {
+    max-width: 700px;
+    margin: 11px 0 0;
+    color: rgba(255, 255, 255, .82);
+    font-size: .96rem;
+    line-height: 1.8;
+  }
+
+  .hero-badge {
+    min-width: 154px;
+    padding: 13px 17px;
+    border: 1px solid rgba(255, 255, 255, .24);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .09);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge .num {
+    display: block;
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .hero-badge .txt {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, .68);
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 36px;
+    padding: 7px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-light {
+    background: #fff;
+    border-color: #fff;
+    color: #17324d;
+    font-weight: 600;
+  }
+
+  .btn-light:hover { background: #effaff; }
+
+  .btn-ghost {
+    border-color: rgba(255, 255, 255, .34);
+    background: rgba(255, 255, 255, .075);
+    color: #fff;
+  }
+
+  .btn-ghost:hover { background: rgba(255, 255, 255, .16); }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .hero-meta span {
+    padding: 3px 9px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, .70);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- STICKY QUICK NAV ---------- */
+  .quicknav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 91%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 4px 18px rgba(25, 50, 80, .04);
+  }
+
+  .quicknav-in {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 8px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .quicknav-in::-webkit-scrollbar { display: none; }
+
+  .qn-label {
+    flex: 0 0 auto;
+    margin-right: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .qlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .16s ease, background .16s ease, border-color .16s ease;
+  }
+
+  .qlink .n {
+    display: inline-grid;
+    place-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--paper-soft);
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .qlink:hover {
+    color: var(--ink);
+    background: var(--paper-soft);
+    border-color: var(--line);
+  }
+
+  .qlink.active {
+    color: var(--navy);
+    background: var(--blue-soft);
+    border-color: color-mix(in srgb, var(--blue) 26%, transparent);
+    font-weight: 600;
+  }
+
+  .qlink.active .n { background: var(--navy); color: var(--paper); }
+
+  .qn-hint {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .readbar {
+    height: 2px;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .readbar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--blue));
+  }
+
+  /* ---------- PAGE ---------- */
+  .page {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 24px 20px 54px;
+  }
+
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .intro {
+    padding: 23px 26px 25px;
+  }
+
+  .eyebrow {
+    margin: 0 0 3px;
+    color: var(--teal);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .intro h2,
+  .recap h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 2.7vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    gap: 27px;
+    margin-top: 17px;
+  }
+
+  .intro p { margin: 0; color: var(--ink-2); font-size: .95rem; }
+  .intro p + p { margin-top: 8px; }
+
+  .mathbox {
+    margin: 11px 0;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+    overflow-x: auto;
+  }
+
+  .mathbox .katex-display { margin: .2em 0; }
+
+  .dict {
+    margin-top: 11px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+
+  .dict-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 13px;
+    font-size: .9rem;
+  }
+
+  .dict-row + .dict-row { border-top: 1px solid var(--line); }
+
+  .dict-row .k {
+    flex: 0 0 46px;
+    color: var(--muted);
+    font-size: 11.5px;
+    letter-spacing: .05em;
+  }
+
+  .dict-row .v { min-width: 0; overflow-x: auto; }
+
+  .route {
+    display: grid;
+    gap: 8px;
+  }
+
+  .route-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 11px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-soft);
+    color: var(--ink-2);
+    font-size: .9rem;
+    line-height: 1.68;
+  }
+
+  .route-item .rn {
+    flex: 0 0 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--paper);
+    font-size: 10.5px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .route-item b { color: var(--ink); font-weight: 650; }
+
+  .quick-answers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .qa {
+    display: block;
+    padding: 10px 13px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: .89rem;
+    line-height: 1.65;
+    transition: border-color .16s ease, background .16s ease, transform .16s ease;
+  }
+
+  .qa:hover {
+    border-color: color-mix(in srgb, var(--blue) 40%, var(--line));
+    background: var(--blue-soft);
+    transform: translateY(-1px);
+  }
+
+  .qa .qn {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--teal);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .08em;
+  }
+
+  .qa b { color: var(--ink); }
+
+  /* ---------- QUESTION CARD ---------- */
+  .qcard {
+    --accent: var(--violet);
+    --accent-strong: #4f3f8f;
+    --accent-soft: var(--violet-soft);
+    margin-top: 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    scroll-margin-top: 72px;
+  }
+
+  .qcard.q2 { --accent: var(--teal); --accent-strong: #17685c; --accent-soft: var(--teal-soft); }
+  .qcard.q3 { --accent: var(--blue); --accent-strong: #1c5c80; --accent-soft: var(--blue-soft); }
+  .qcard.q4 { --accent: var(--pink); --accent-strong: #91325f; --accent-soft: var(--pink-soft); }
+
+  :root[data-theme="dark"] .qcard.q1 { --accent: #c3b5ff; --accent-strong: #4a3c82; }
+  :root[data-theme="dark"] .qcard.q2 { --accent: #7fe0cd; --accent-strong: #15594f; }
+  :root[data-theme="dark"] .qcard.q3 { --accent: #9bd8fb; --accent-strong: #174e6e; }
+  :root[data-theme="dark"] .qcard.q4 { --accent: #ffacd0; --accent-strong: #7c2a52; }
+
+  .qhead {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 21px 26px 20px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(120deg, var(--accent-soft), transparent 66%);
+  }
+
+  .qnum {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--accent-strong);
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--accent-strong) 28%, transparent);
+  }
+
+  .qhead-main { min-width: 0; flex: 1; }
+
+  .qmeta {
+    margin-bottom: 4px;
+    color: var(--accent);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .055em;
+  }
+
+  .qhead h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 2.6vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: .01em;
+  }
+
+  .qtag {
+    flex: 0 0 auto;
+    align-self: center;
+    padding: 4px 9px;
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    border-radius: 999px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent-soft) 72%, var(--paper));
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .qbody { padding: 23px 26px 28px; }
+
+  .prompt {
+    margin: 0 0 19px;
+    padding: 15px 17px;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 11px 11px 0;
+    background: var(--accent-soft);
+  }
+
+  .prompt-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 5px;
+  }
+
+  .prompt-label {
+    color: var(--accent);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .15em;
+  }
+
+  .prompt-meta {
+    color: var(--muted);
+    font-size: 11.5px;
+  }
+
+  .prompt p { margin: 0; color: var(--ink); font-size: .95rem; }
+  .prompt p + p { margin-top: 6px; }
+  .prompt .katex-display { margin: .7em 0; }
+
+  .lead {
+    margin: 0 0 15px;
+    color: var(--ink-2);
+    font-size: .95rem;
+  }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 17px 0 0;
+    padding: 0;
+  }
+
+  .steps > li {
+    position: relative;
+    margin-left: 14px;
+    padding: 0 0 21px 36px;
+    border-left: 1px solid var(--line);
+  }
+
+  .steps > li:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+  }
+
+  .steps > li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: -14px;
+    top: -1px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+
+  .step-title {
+    margin: 0 0 5px;
+    color: var(--ink);
+    font-size: .97rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .step-body { color: var(--ink-2); font-size: .94rem; }
+  .step-body p { margin: 0; }
+  .step-body p + p { margin-top: 7px; }
+  .step-body .katex-display { margin: .65em 0; }
+
+  .math-note {
+    margin: 9px 0;
+    color: var(--muted);
+    font-size: .84rem;
+    line-height: 1.65;
+  }
+
+  .callout {
+    margin: 16px 0;
+    padding: 12px 15px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+    color: var(--ink-2);
+    font-size: .91rem;
+    line-height: 1.75;
+  }
+
+  .callout b { color: var(--ink); }
+
+  .callout.key {
+    border-color: color-mix(in srgb, var(--gold) 30%, var(--line));
+    background: var(--gold-soft);
+  }
+
+  .callout.key b { color: var(--gold); }
+
+  .callout.check {
+    border-color: color-mix(in srgb, var(--teal) 28%, var(--line));
+    background: var(--teal-soft);
+  }
+
+  .callout.check b { color: var(--teal); }
+
+  .callout.warn {
+    border-color: color-mix(in srgb, var(--pink) 26%, var(--line));
+    background: var(--pink-soft);
+  }
+
+  .callout.warn b { color: var(--pink); }
+
+  .callout p { margin: 0; }
+  .callout p + p { margin-top: 5px; }
+
+  .result {
+    margin-top: 21px;
+    padding: 16px 18px;
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+    border-radius: 13px;
+    background:
+      linear-gradient(130deg, var(--accent-soft), transparent 78%),
+      var(--paper);
+  }
+
+  .result-label {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--accent);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .result p { margin: 0; color: var(--ink); font-size: .95rem; }
+  .result p + p { margin-top: 7px; }
+  .result .katex-display { margin: .5em 0; }
+
+  .formula-lines {
+    display: grid;
+    gap: 7px;
+    margin: 8px 0 2px;
+  }
+
+  .formula-line {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper-soft);
+    overflow-x: auto;
+  }
+
+  .formula-line .katex-display { margin: .08em 0; }
+
+  /* ---------- OPTIONS ---------- */
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin: 16px 0 19px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 13px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+  }
+
+  .option .letter {
+    display: grid;
+    place-items: center;
+    flex: 0 0 27px;
+    width: 27px;
+    height: 27px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--muted);
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  .option .value {
+    color: var(--ink);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .025em;
+  }
+
+  .option .badge {
+    margin-left: auto;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
+  .option.correct {
+    border-color: color-mix(in srgb, var(--teal) 55%, var(--line));
+    background: var(--teal-soft);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--teal) 14%, transparent);
+  }
+
+  .option.correct .letter {
+    border-color: var(--teal);
+    background: var(--teal);
+    color: #fff;
+  }
+
+  /* ---------- RECAP ---------- */
+  .recap {
+    margin-top: 24px;
+    padding: 23px 26px 24px;
+  }
+
+  .recap-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .recap-head p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: .88rem;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: .91rem;
+  }
+
+  th,
+  td {
+    padding: 11px 13px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--paper-soft);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  tr:last-child td { border-bottom: 0; }
+
+  td:first-child {
+    width: 54px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  td .cell-title {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  td .cell-math { color: var(--ink-2); }
+  td .cell-math .katex-display { margin: .2em 0; }
+
+  .answer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-weight: 700;
+    font-size: .9rem;
+  }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 20px 46px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .foot a { color: var(--muted); }
+  .foot a:hover { color: var(--ink); }
+
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0;
+  }
+
+  .katex { font-size: 1.02em; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 20px; }
+    .qn-hint { display: none; }
+    .quick-answers { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .hero { padding: 23px 17px 27px; }
+    .hero-main { gap: 15px; }
+    .hero-badge { display: none; }
+    .hero .sub { font-size: .9rem; }
+    .quicknav-in { padding: 7px 13px; }
+    .qn-label { display: none; }
+    .qlink { font-size: 12.5px; padding: 4px 8px; }
+    .page { padding: 17px 12px 38px; }
+    .intro { padding: 18px 16px 19px; }
+    .qhead { padding: 17px 16px 16px; gap: 11px; }
+    .qnum { width: 44px; height: 44px; border-radius: 12px; font-size: 1.1rem; }
+    .qtag { display: none; }
+    .qbody { padding: 17px 16px 22px; }
+    .prompt { padding: 12px 13px; }
+    .steps > li { margin-left: 12px; padding-left: 29px; }
+    .steps > li::before { left: -12px; width: 24px; height: 24px; font-size: 10.5px; }
+    .options { grid-template-columns: 1fr; }
+    .recap { padding: 18px 16px 20px; }
+    .foot { padding: 0 13px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+
+  /* ---------- PRINT ---------- */
+  @page { margin: 15mm 14mm; }
+
+  @media print {
+    :root { --bg: #fff; --paper: #fff; --paper-soft: #fff; --ink: #111; --ink-2: #222; --muted: #555; --line: #bbb; --shadow: none; --shadow-soft: none; }
+    body { background: #fff !important; font-size: 10.5pt; line-height: 1.65; }
+    .hero { color: #111; background: #fff; border-bottom: 2px solid #222; padding: 0 0 10px; }
+    .hero::before, .hero::after, .hero-actions, .hero-badge, .hero-meta, .crumb { display: none !important; }
+    .hero h1 { font-size: 22pt; }
+    .hero .sub, .kicker { color: #444; }
+    .quicknav, .foot { display: none !important; }
+    .page { max-width: none; padding: 10px 0 0; }
+    .panel, .qcard { border: 1px solid #aaa; box-shadow: none; break-inside: auto; }
+    .qcard { margin-top: 14px; }
+    .qhead { background: #f3f3f3 !important; }
+    .qnum { background: #333 !important; box-shadow: none; }
+    .qtag { display: none; }
+    .qbody { padding: 14px 16px 16px; }
+    .prompt, .result, .mathbox, .formula-line, .option, .route-item, .qa { break-inside: avoid; }
+    .callout, .steps > li { break-inside: auto; }
+    .step-title { break-after: avoid; page-break-after: avoid; }
+    .steps > li, .step-body p, .callout { orphans: 2; widows: 2; }
+    .callout { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .route { display: block; }
+    .route-item + .route-item { margin-top: 5px; }
+    .quick-answers { display: block; }
+    .qa + .qa { margin-top: 5px; }
+    a { color: #111; text-decoration: none; }
+    .dict-row .v, .mathbox, .formula-line, .katex-display, .table-wrap { overflow: visible !important; }
+    table { min-width: 0; font-size: 9pt; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="crumb">
+      <a href="index.html">物理 · 提纲阅读器</a>
+      <span>/</span>
+      <span>量子力学 · 作业题解</span>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <p class="kicker">Quantum Mechanics · Momentum Representation</p>
+        <h1>动量空间 · 四题详解</h1>
+        <p class="sub">从坐标算符的动量表示，到运动高斯波包、自由粒子含时演化，再到谐振子基态的经典禁区概率。四道题按“题目 → 思路 → 推导 → 检验”完整展开。</p>
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <span class="num">04</span>
+        <span class="txt">题 · 全推导 · 含检验</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-light" href="outline_qm.html">← 返回提纲</a>
+      <button class="btn btn-ghost" id="printBtn" type="button">打印 / 存 PDF</button>
+      <button class="btn btn-ghost" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+    </div>
+
+    <div class="hero-meta">
+      <span>对应 §3.4 广义统计诠释</span>
+      <span>§2.4 自由粒子</span>
+      <span>§2.3 谐振子</span>
+      <span>傅里叶约定 e<sup>−ipx/ℏ</sup></span>
+    </div>
+  </div>
+</header>
+
+<nav class="quicknav" aria-label="题目快速导航">
+  <div class="quicknav-in">
+    <span class="qn-label">答题卡</span>
+    <a class="qlink" href="#q1"><span class="n">1</span>坐标期望</a>
+    <a class="qlink" href="#q2"><span class="n">2</span>高斯波包</a>
+    <a class="qlink" href="#q3"><span class="n">3</span>自由粒子</a>
+    <a class="qlink" href="#q4"><span class="n">4</span>谐振子</a>
+    <a class="qlink" href="#recap"><span class="n">✓</span>一页速记</a>
+    <span class="qn-hint">1–4 跳题 · D 深色</span>
+  </div>
+  <div class="readbar" aria-hidden="true"><i id="readProgress"></i></div>
+</nav>
+
+<main class="page">
+
+  <section class="intro panel" aria-labelledby="introTitle">
+    <p class="eyebrow">Read Me First</p>
+    <h2 id="introTitle">先统一约定，再动手</h2>
+
+    <div class="intro-grid">
+      <div>
+        <p>整页采用 Griffiths 的动量表象约定。\(\Phi(p,t)\) 是动量空间波函数，\(|\Phi(p,t)|^2\mathrm{d}p\) 是动量落在 \([p,p+\mathrm{d}p]\) 的概率。所有“动量空间”的结论都相对于下面这组傅里叶变换。</p>
+
+        <div class="mathbox">
+          \[
+            \Phi(p,t)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}
+            e^{-ipx/\hbar}\Psi(x,t)\,\mathrm{d}x,
+          \]
+          \[
+            \Psi(x,t)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}
+            e^{ipx/\hbar}\Phi(p,t)\,\mathrm{d}p.
+          \]
+        </div>
+
+        <p>这组约定下，位置乘法变成对 \(p\) 的微分，动量则保持为乘法。四道题反复用到的就是这张“算符字典”。</p>
+
+        <div class="dict">
+          <div class="dict-row"><span class="k">位置</span><span class="v">\(\hat x \;\longrightarrow\; i\hbar\dfrac{\partial}{\partial p}\)</span></div>
+          <div class="dict-row"><span class="k">动量</span><span class="v">\(\hat p \;\longrightarrow\; p\)</span></div>
+          <div class="dict-row"><span class="k">动能</span><span class="v">\(\dfrac{\hat p^2}{2m} \;\longrightarrow\; \dfrac{p^2}{2m}\)</span></div>
+        </div>
+      </div>
+
+      <div>
+        <p><b>四题路线</b>：第 1 题先证明算符字典；第 2 题用傅里叶变换处理一个具体高斯态；第 3 题给出自由粒子在动量空间的普遍演化；第 4 题把同一套概率语言用到谐振子基态。</p>
+
+        <div class="route">
+          <div class="route-item"><span class="rn">1</span><span><b>坐标期望值的动量表示</b><br>证明 \(\langle x\rangle=\int\Phi^*(-\frac{\hbar}{i}\partial_p)\Phi\,\mathrm{d}p\)，并检查厄密性。</span></div>
+          <div class="route-item"><span class="rn">2</span><span><b>运动高斯波包</b><br>傅里叶变换、自由演化、概率密度，以及 \(\langle p\rangle\)、\(\langle p^2\rangle\)。</span></div>
+          <div class="route-item"><span class="rn">3</span><span><b>自由粒子的动量空间方程</b><br>把含时薛定谔方程变换到 \(p\) 表象并求解初值问题。</span></div>
+          <div class="route-item"><span class="rn">4</span><span><b>谐振子基态的经典禁区</b><br>用高斯动量分布计算 \(|p|>\sqrt{m\omega\hbar}\) 的概率。</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-answers" aria-label="答案速览">
+      <a class="qa" href="#q1"><span class="qn">Q1</span><b>结论</b>：\(\hat x=i\hbar\partial_p\)，故 \(\langle x\rangle=\int\Phi^*i\hbar\partial_p\Phi\,\mathrm{d}p\)。</a>
+      <a class="qa" href="#q2"><span class="qn">Q2</span><b>结论</b>：\(\Phi(p,t)\propto e^{-(p-\hbar l)^2/(4a\hbar^2)}e^{-ip^2t/(2m\hbar)}\)，且 \(|\Phi|^2\) 与 \(t\) 无关。</a>
+      <a class="qa" href="#q3"><span class="qn">Q3</span><b>结论</b>：\(i\hbar\partial_t\Phi=\frac{p^2}{2m}\Phi\)，解为 \(\Phi(p,t)=\Phi(p,0)e^{-ip^2t/(2m\hbar)}\)。</a>
+      <a class="qa" href="#q4"><span class="qn">Q4</span><b>答案</b>：A，\(P=\operatorname{erfc}(1)\approx0.157\)。</a>
+    </div>
+  </section>
+
+  <!-- ================= Q1 ================= -->
+  <article class="qcard q1" id="q1">
+    <div class="qhead">
+      <div class="qnum" aria-hidden="true">01</div>
+      <div class="qhead-main">
+        <div class="qmeta">主观题 · 30 分 · 对应 §3.4 广义统计诠释</div>
+        <h2>坐标期望值的动量空间表示</h2>
+      </div>
+      <span class="qtag">证明</span>
+    </div>
+
+    <div class="qbody">
+      <div class="prompt">
+        <div class="prompt-head"><span class="prompt-label">题目</span><span class="prompt-meta">证明题</span></div>
+        <p>证明</p>
+        \[
+          \langle x\rangle=\int \Phi^*\left(-\frac{\hbar}{i}\frac{\partial}{\partial p}\right)\Phi\,\mathrm{d}p.
+        \]
+        <p>提示：在动量空间，坐标算符可表示为 \(i\hbar\partial/\partial p\)。更普遍地，有</p>
+        \[
+          \langle Q(x,p)\rangle=
+          \begin{cases}
+            \displaystyle\int \Psi^*\hat Q\left(x,\frac{\hbar}{i}\frac{\partial}{\partial x}\right)\Psi\,\mathrm{d}x, & \text{坐标空间},\\[8pt]
+            \displaystyle\int \Phi^*\hat Q\left(-\frac{\hbar}{i}\frac{\partial}{\partial p},p\right)\Phi\,\mathrm{d}p, & \text{动量空间}.
+          \end{cases}
+        \]
+        <p>原则上，可以像在坐标空间一样在动量空间进行所有计算。</p>
+      </div>
+
+      <p class="lead">核心只有一句话：<b>位置乘法 \(x\) 在动量表象中不是乘法，而是 \(i\hbar\partial_p\)</b>。下面从坐标空间的期望值出发，用傅里叶变换和 Plancherel 定理把它严格推出来，而不是直接把提示当成结论。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">从坐标空间的期望值出发，把 \(x\Psi\) 看成一个整体</div>
+          <div class="step-body">
+            <p>按定义</p>
+            \[
+              \langle x\rangle=\int_{-\infty}^{\infty}\Psi^*(x,t)\,x\,\Psi(x,t)\,\mathrm{d}x.
+            \]
+            <p>被积函数可以看成 \(\Psi^*\) 与 \(x\Psi\) 的内积。要对它用 Plancherel 定理，先求 \(x\Psi\) 的傅里叶变换。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">对 \(\Phi(p,t)\) 求 \(p\) 的导数，得到 \(x\Psi\) 的变换</div>
+          <div class="step-body">
+            <p>由傅里叶变换的定义，</p>
+            \[
+              \frac{\partial\Phi}{\partial p}
+              =\frac{1}{\sqrt{2\pi\hbar}}\int
+              \left(-\frac{ix}{\hbar}\right)e^{-ipx/\hbar}\Psi(x,t)\,\mathrm{d}x
+              =-\frac{i}{\hbar}\,
+              \frac{1}{\sqrt{2\pi\hbar}}\int e^{-ipx/\hbar}\,x\Psi(x,t)\,\mathrm{d}x.
+            \]
+            <p>右边出现的正是 \(x\Psi\) 的傅里叶变换，记为 \(\widetilde{x\Psi}(p)\)。于是</p>
+            \[
+              \widetilde{x\Psi}(p)=i\hbar\,\frac{\partial\Phi(p,t)}{\partial p}.
+            \]
+            <p>这一步就是“位置乘法 → 对 \(p\) 求导”的数学来源。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">用 Plancherel 定理把坐标积分换成动量积分</div>
+          <div class="step-body">
+            <p>对平方可积函数 \(f,g\)，有</p>
+            \[
+              \int_{-\infty}^{\infty}f^*(x)g(x)\,\mathrm{d}x
+              =\int_{-\infty}^{\infty}\widetilde f^{\,*}(p)\widetilde g(p)\,\mathrm{d}p.
+            \]
+            <p>取 \(f=\Psi\)、\(g=x\Psi\)，则 \(\widetilde f=\Phi\)，\(\widetilde g=i\hbar\partial_p\Phi\)。因此</p>
+            \[
+              \langle x\rangle
+              =\int_{-\infty}^{\infty}\Phi^*(p,t)\,
+              \left(i\hbar\frac{\partial\Phi(p,t)}{\partial p}\right)\mathrm{d}p.
+            \]
+            <p>再用 \(\dfrac{\hbar}{i}=-i\hbar\)，即 \(-\dfrac{\hbar}{i}=i\hbar\)，就得到题目要证的式子：</p>
+            \[
+              \langle x\rangle
+              =\int \Phi^*\left(-\frac{\hbar}{i}\frac{\partial}{\partial p}\right)\Phi\,\mathrm{d}p.
+            \]
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">检查：这个算符是厄密的，期望值必为实数</div>
+          <div class="step-body">
+            <p>定义 \(\hat x_p=i\hbar\partial_p\)。对物理波包，\(\Phi\) 在 \(p=\pm\infty\) 足够快趋于零，分部积分边界项消失：</p>
+            \[
+              \langle x\rangle^*
+              =\int (i\hbar\partial_p\Phi)^*\Phi\,\mathrm{d}p
+              =-i\hbar\int(\partial_p\Phi^*)\Phi\,\mathrm{d}p
+              =i\hbar\int\Phi^*\partial_p\Phi\,\mathrm{d}p
+              =\langle x\rangle.
+            \]
+            <p>所以 \(\langle x\rangle\) 是实数，和位置是可观测量一致。也可以直接检查对易子：</p>
+            \[
+              [\hat x_p,p]\Phi
+              =i\hbar\partial_p(p\Phi)-p\,i\hbar\partial_p\Phi
+              =i\hbar\Phi,
+            \]
+            <p>正是 \([\hat x,\hat p]=i\hbar\)，符号自洽。</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout key">
+        <p><b>结论：</b>在动量表象中，位置算符的作用是 \(\hat x\,\Phi(p)=i\hbar\,\partial_p\Phi(p)\)。题目里的 \(-\hbar/i\) 只是把 \(i\hbar\) 写成等价形式，二者完全相等。</p>
+      </div>
+
+      <div class="result">
+        <span class="result-label">Result · Q1</span>
+        <div class="formula-lines">
+          <div class="formula-line">\[
+            \hat x\;\longrightarrow\;i\hbar\frac{\partial}{\partial p}
+            =\left(-\frac{\hbar}{i}\frac{\partial}{\partial p}\right),
+            \qquad
+            \langle x\rangle=\int\Phi^*\,i\hbar\frac{\partial\Phi}{\partial p}\,\mathrm{d}p.
+          \]</div>
+        </div>
+        <p>对一般的 \(Q(x,p)\)，把 \(x\) 逐项替换为 \(i\hbar\partial_p\)、\(p\) 保持为乘法，即得题给的一般公式。</p>
+      </div>
+
+      <div class="callout warn">
+        <p><b>两个容易扣分的点：</b>① Plancherel 定理里用的是 \(\widetilde{x\Psi}\)，不是把 \(x\) 直接搬进动量积分；② 若 \(Q\) 中含 \(xp\) 这类交叉项，必须先指定算符次序（例如对称化），不能随便交换 \(x\) 与 \(p\)。本题 \(Q=x\)，没有次序歧义。</p>
+        <p>若课程采用 \(e^{+ipx/\hbar}\) 的相反傅里叶约定，中间所有 \(i\) 会一起变号，但 \(\hat x\) 与 \(\Phi\) 的相位约定也同时改变，最终期望值不变。考试时先写清约定即可。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= Q2 ================= -->
+  <article class="qcard q2" id="q2">
+    <div class="qhead">
+      <div class="qnum" aria-hidden="true">02</div>
+      <div class="qhead-main">
+        <div class="qmeta">主观题 · 30 分 · 对应 §2.4 自由粒子 / 波包</div>
+        <h2>运动高斯波包：变换、演化与动量矩</h2>
+      </div>
+      <span class="qtag">计算</span>
+    </div>
+
+    <div class="qbody">
+      <div class="prompt">
+        <div class="prompt-head"><span class="prompt-label">题目</span><span class="prompt-meta">含 (a)(b) 两问</span></div>
+        <p><b>(a)</b> 求运动高斯波包（初始波函数为 \(\Psi(x,0)=Ae^{-ax^2}e^{ilx}\)）的 \(\Phi(p,0)\)，并构造 \(\Phi(p,t)\)。给出 \(|\Phi(p,t)|^2\)，注意到它是不依赖于时间的。</p>
+        <p><b>(b)</b> 通过求涉及 \(\Phi\) 的积分，计算 \(\langle p\rangle\) 和 \(\langle p^2\rangle\)。</p>
+      </div>
+
+      <p class="lead">这是自由粒子：\(V=0\)，\(H=p^2/2m\)。先由归一化定出 \(A\)，再把 \(e^{ilx}\) 看成动量中心的平移；时间演化在动量空间只是给每个 \(p\) 乘一个相位，所以概率密度不变。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">由归一化确定 \(A\)</div>
+          <div class="step-body">
+            <p>要求 \(\int|\Psi(x,0)|^2\mathrm{d}x=1\)：</p>
+            \[
+              1=|A|^2\int_{-\infty}^{\infty}e^{-2ax^2}\,\mathrm{d}x
+              =|A|^2\sqrt{\frac{\pi}{2a}}.
+            \]
+            <p>因此（取 \(A\) 为正实数，整体相位不影响物理）</p>
+            \[
+              A=\left(\frac{2a}{\pi}\right)^{1/4},\qquad a>0.
+            \]
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">做傅里叶变换，配方得到 \(\Phi(p,0)\)</div>
+          <div class="step-body">
+            <p>由定义</p>
+            \[
+              \Phi(p,0)=\frac{A}{\sqrt{2\pi\hbar}}
+              \int_{-\infty}^{\infty}
+              \exp\left[-ax^2+i\left(l-\frac{p}{\hbar}\right)x\right]\mathrm{d}x.
+            \]
+            <p>用标准高斯积分</p>
+            \[
+              \int_{-\infty}^{\infty}e^{-ax^2+i\beta x}\,\mathrm{d}x
+              =\sqrt{\frac{\pi}{a}}\,e^{-\beta^2/(4a)},
+              \qquad \beta=l-\frac{p}{\hbar}.
+            \]
+            <p>代入 \(\beta^2=(p-\hbar l)^2/\hbar^2\)，得</p>
+            \[
+              \Phi(p,0)
+              =\frac{A}{\sqrt{2\pi\hbar}}\sqrt{\frac{\pi}{a}}
+              \exp\left[-\frac{(p-\hbar l)^2}{4a\hbar^2}\right].
+            \]
+            <p>再用 \(A=(2a/\pi)^{1/4}\) 化简：</p>
+            \[
+              \boxed{\;
+              \Phi(p,0)=\left(\frac{1}{2\pi a\hbar^2}\right)^{1/4}
+              \exp\left[-\frac{(p-\hbar l)^2}{4a\hbar^2}\right]
+              \;}
+            \]
+            <p>它是中心在 \(p=\hbar l\) 的高斯波包，宽度由 \(a\) 控制。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">构造 \(\Phi(p,t)\)：自由演化的相位</div>
+          <div class="step-body">
+            <p>自由粒子的能量本征值是 \(E_p=p^2/2m\)。动量本征态在时间演化下只获得相位 \(e^{-iE_pt/\hbar}\)，所以</p>
+            \[
+              \boxed{\;
+              \Phi(p,t)=\Phi(p,0)\,
+              \exp\left[-\frac{ip^2t}{2m\hbar}\right]
+              \;}
+            \]
+            <p>即</p>
+            \[
+              \Phi(p,t)=\left(\frac{1}{2\pi a\hbar^2}\right)^{1/4}
+              \exp\left[-\frac{(p-\hbar l)^2}{4a\hbar^2}
+              -\frac{ip^2t}{2m\hbar}\right].
+            \]
+            <p>这里 \(m\) 是粒子质量。若题目只给“自由粒子”而没有写 \(m\)，就保留 \(E_p=p^2/2m\) 的形式；若势场不是零，这个相位要换成相应的 \(e^{-iE(p)t/\hbar}\)，不能直接套用。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">取模方：时间相位消失</div>
+          <div class="step-body">
+            <p>因为 \(\left|e^{-ip^2t/(2m\hbar)}\right|=1\)，</p>
+            \[
+              |\Phi(p,t)|^2
+              =|\Phi(p,0)|^2
+              =\left(\frac{1}{2\pi a\hbar^2}\right)^{1/2}
+              \exp\left[-\frac{(p-\hbar l)^2}{2a\hbar^2}\right].
+            \]
+            <p>化简系数：</p>
+            \[
+              \boxed{\;
+              |\Phi(p,t)|^2
+              =\frac{1}{\hbar\sqrt{2\pi a}}
+              \exp\left[-\frac{(p-\hbar l)^2}{2a\hbar^2}\right]
+              \;}
+            \]
+            <p>确实不依赖 \(t\)。物理含义不是“波包不动”，而是：<b>自由粒子的动量分布守恒</b>；坐标空间的中心仍以群速度 \(v_g=\hbar l/m\) 移动，波包宽度还会随时间扩散。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">(b) 用高斯积分求 \(\langle p\rangle\) 与 \(\langle p^2\rangle\)</div>
+          <div class="step-body">
+            <p>记 \(p_0=\hbar l\)，\(\sigma_p^2=a\hbar^2\)。分布是均值为 \(p_0\)、方差为 \(\sigma_p^2\) 的高斯：</p>
+            \[
+              \rho(p)=|\Phi(p,t)|^2
+              =\frac{1}{\sqrt{2\pi}\sigma_p}
+              e^{-(p-p_0)^2/(2\sigma_p^2)}.
+            \]
+            <p>令 \(u=p-p_0\)。一次矩：</p>
+            \[
+              \langle p\rangle
+              =\frac{1}{\sqrt{2\pi}\sigma_p}
+              \int_{-\infty}^{\infty}(u+p_0)e^{-u^2/(2\sigma_p^2)}\,\mathrm{d}u
+              =p_0=\hbar l,
+            \]
+            <p>因为 \(u e^{-u^2/(2\sigma_p^2)}\) 是奇函数，积分为零。</p>
+            <p>二次矩用标准结果 \(\int u^2e^{-u^2/(2\sigma_p^2)}\mathrm{d}u=\sqrt{2\pi}\sigma_p^3\)：</p>
+            \[
+              \langle p^2\rangle
+              =\frac{1}{\sqrt{2\pi}\sigma_p}
+              \int_{-\infty}^{\infty}(u+p_0)^2e^{-u^2/(2\sigma_p^2)}\,\mathrm{d}u
+              =\sigma_p^2+p_0^2
+              =a\hbar^2+\hbar^2l^2.
+            \]
+            <p>交叉项 \(2p_0u\) 因奇偶性消失，只剩下方差项和均值平方项。</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout check">
+        <p><b>检验 1（归一化）：</b>\(\int|\Phi(p,t)|^2\mathrm{d}p=1\)，因为它是标准高斯分布。</p>
+        <p><b>检验 2（不确定关系）：</b>坐标分布 \(|\Psi|^2\propto e^{-2ax^2}\) 给出 \(\sigma_x=1/(2\sqrt a)\)，而 \(\sigma_p=\hbar\sqrt a\)，所以 \(\sigma_x\sigma_p=\hbar/2\)。这是高斯波包取等号的最小不确定态。</p>
+        <p><b>检验 3（极限）：</b>\(l=0\) 时 \(\langle p\rangle=0\)、\(\langle p^2\rangle=a\hbar^2\)；\(t=0\) 时回到 \(\Phi(p,0)\)。两项都符合预期。</p>
+      </div>
+
+      <div class="result">
+        <span class="result-label">Result · Q2</span>
+        <div class="formula-lines">
+          <div class="formula-line">\[
+            \Phi(p,0)=\left(\frac{1}{2\pi a\hbar^2}\right)^{1/4}
+            \exp\left[-\frac{(p-\hbar l)^2}{4a\hbar^2}\right],
+            \qquad
+            \Phi(p,t)=\Phi(p,0)e^{-ip^2t/(2m\hbar)}.
+          \]</div>
+          <div class="formula-line">\[
+            |\Phi(p,t)|^2=\frac{1}{\hbar\sqrt{2\pi a}}
+            \exp\left[-\frac{(p-\hbar l)^2}{2a\hbar^2}\right],
+            \qquad
+            \langle p\rangle=\hbar l,\qquad
+            \langle p^2\rangle=a\hbar^2+\hbar^2l^2.
+          \]</div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <p><b>常见错误：</b>把 \(|\Phi(p,t)|^2\) 写成还含 \(t\) 的式子；忘记 \(e^{ilx}\) 会把动量中心移到 \(\hbar l\)；以及把 \(\langle p^2\rangle\) 直接写成 \(\hbar^2l^2\)，漏掉高斯分布的方差 \(a\hbar^2\)。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= Q3 ================= -->
+  <article class="qcard q3" id="q3">
+    <div class="qhead">
+      <div class="qnum" aria-hidden="true">03</div>
+      <div class="qhead-main">
+        <div class="qmeta">主观题 · 对应 §2.4 自由粒子 / §3.4 动量表象</div>
+        <h2>自由粒子的动量空间薛定谔方程</h2>
+      </div>
+      <span class="qtag">方程 + 求解</span>
+    </div>
+
+    <div class="qbody">
+      <div class="prompt">
+        <div class="prompt-head"><span class="prompt-label">题目</span><span class="prompt-meta">含时方程</span></div>
+        <p>对自由粒子，在动量空间中写出其含时薛定谔方程并求解。</p>
+      </div>
+
+      <p class="lead">思路：坐标空间的自由粒子方程只含 \(\partial_x^2\)。傅里叶变换把 \(\partial_x\) 变成 \(ip/\hbar\)，于是方程从偏微分方程退化成一族关于 \(t\) 的常微分方程——每个 \(p\) 独立演化。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">写出坐标空间的自由粒子方程</div>
+          <div class="step-body">
+            <p>自由粒子 \(V(x)=0\)，哈密顿量 \(\hat H=\hat p^2/2m\)。坐标空间的含时薛定谔方程为</p>
+            \[
+              i\hbar\frac{\partial\Psi(x,t)}{\partial t}
+              =-\frac{\hbar^2}{2m}\frac{\partial^2\Psi(x,t)}{\partial x^2}.
+            \]
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">逐项做傅里叶变换</div>
+          <div class="step-body">
+            <p>两边乘以 \(e^{-ipx/\hbar}/\sqrt{2\pi\hbar}\) 并对 \(x\) 积分。左边给出 \(i\hbar\partial_t\Phi(p,t)\)。右边需要 \(\partial_x^2\Psi\) 的变换：</p>
+            \[
+              \widetilde{\frac{\partial\Psi}{\partial x}}
+              =\frac{ip}{\hbar}\Phi,
+              \qquad
+              \widetilde{\frac{\partial^2\Psi}{\partial x^2}}
+              =\left(\frac{ip}{\hbar}\right)^2\Phi
+              =-\frac{p^2}{\hbar^2}\Phi.
+            \]
+            <p>代回方程：</p>
+            \[
+              i\hbar\frac{\partial\Phi(p,t)}{\partial t}
+              =-\frac{\hbar^2}{2m}\left(-\frac{p^2}{\hbar^2}\right)\Phi(p,t)
+              =\frac{p^2}{2m}\Phi(p,t).
+            \]
+            <p>因此动量空间的含时薛定谔方程是</p>
+            \[
+              \boxed{\;
+              i\hbar\frac{\partial\Phi(p,t)}{\partial t}
+              =\frac{p^2}{2m}\Phi(p,t)
+              \;}
+            \]
+            <p>它没有对 \(p\) 的导数：在动量表象里，自由粒子的哈密顿量是对角的。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">固定 \(p\)，解一阶常微分方程</div>
+          <div class="step-body">
+            <p>把 \(p\) 当作参数，方程变为</p>
+            \[
+              \frac{\mathrm{d}\Phi(p,t)}{\mathrm{d}t}
+              =-\frac{i}{\hbar}\frac{p^2}{2m}\Phi(p,t).
+            \]
+            <p>分离变量并积分：</p>
+            \[
+              \frac{\mathrm{d}\Phi}{\Phi}
+              =-\frac{i}{\hbar}\frac{p^2}{2m}\,\mathrm{d}t
+              \quad\Longrightarrow\quad
+              \Phi(p,t)=C(p)\exp\left[-\frac{ip^2t}{2m\hbar}\right].
+            \]
+            <p>由初始条件 \(\Phi(p,0)=C(p)\)，得到</p>
+            \[
+              \boxed{\;
+              \Phi(p,t)=\Phi(p,0)\,
+              \exp\left[-\frac{ip^2t}{2m\hbar}\right]
+              \;}
+            \]
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">写成一般解与坐标空间形式</div>
+          <div class="step-body">
+            <p>记 \(E_p=p^2/2m\)。一般解可以写成</p>
+            \[
+              \Phi(p,t)=c(p)e^{-iE_pt/\hbar},
+              \qquad c(p)=\Phi(p,0),
+            \]
+            <p>其中 \(c(p)\) 是任意平方可积的初始动量分布。做逆傅里叶变换，坐标空间解为</p>
+            \[
+              \Psi(x,t)=\frac{1}{\sqrt{2\pi\hbar}}
+              \int_{-\infty}^{\infty}
+              e^{i(px-E_pt)/\hbar}c(p)\,\mathrm{d}p.
+            \]
+            <p>这就是自由粒子初值问题的完整解：给定了 \(\Phi(p,0)\)（或等价地给定了 \(\Psi(x,0)\)），每一时刻的波函数就由上式确定。</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout check">
+        <p><b>代回检验：</b>\(\Phi(p,t)=\Phi(p,0)e^{-iE_pt/\hbar}\) 满足 \(i\hbar\partial_t\Phi=E_p\Phi\)，而 \(E_p=p^2/2m\)，两边一致。</p>
+        <p><b>归一化检验：</b>\(\int|\Phi(p,t)|^2\mathrm{d}p=\int|\Phi(p,0)|^2\mathrm{d}p=1\)。自由演化只改相位，不改动量分布。</p>
+        <p><b>初值检验：</b>\(t=0\) 时相位为 1，回到 \(\Phi(p,0)\)；这与坐标空间初值 \(\Psi(x,0)\) 的傅里叶变换完全一致。</p>
+      </div>
+
+      <div class="callout key">
+        <p><b>物理图像：</b>动量本征态 \(\phi_p(x)=e^{ipx/\hbar}/\sqrt{2\pi\hbar}\) 是自由哈密顿量的本征态，本征值 \(E_p=p^2/2m\)。任意态都是这些本征态的叠加，每个分量独立地积累相位 \(e^{-iE_pt/\hbar}\)。因此“求解”在动量空间只是给每个 \(p\) 乘一个相位。</p>
+      </div>
+
+      <div class="result">
+        <span class="result-label">Result · Q3</span>
+        <div class="formula-lines">
+          <div class="formula-line">\[
+            i\hbar\frac{\partial\Phi(p,t)}{\partial t}
+            =\frac{p^2}{2m}\Phi(p,t),
+            \qquad
+            \Phi(p,t)=\Phi(p,0)e^{-ip^2t/(2m\hbar)}.
+          \]</div>
+          <div class="formula-line">\[
+            \Psi(x,t)=\frac{1}{\sqrt{2\pi\hbar}}
+            \int e^{i(px-p^2t/2m)/\hbar}\Phi(p,0)\,\mathrm{d}p.
+          \]</div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <p><b>注意：</b>这个“对角化”只对自由粒子成立。若存在势场 \(V(x)\)，动量空间的方程会出现势能的卷积项，\(\Phi(p,t)\) 的不同 \(p\) 分量会耦合，不能再逐个 \(p\) 独立求解。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= Q4 ================= -->
+  <article class="qcard q4" id="q4">
+    <div class="qhead">
+      <div class="qnum" aria-hidden="true">04</div>
+      <div class="qhead-main">
+        <div class="qmeta">单选题 · 10 分 · 对应 §2.3 谐振子</div>
+        <h2>谐振子基态的经典禁区概率</h2>
+      </div>
+      <span class="qtag">单选</span>
+    </div>
+
+    <div class="qbody">
+      <div class="prompt">
+        <div class="prompt-head"><span class="prompt-label">题目</span><span class="prompt-meta">选择一项</span></div>
+        <p>对谐振子的基态，对其动量空间波函数 \(\Phi(p,t)\)，测量该动量，发现其结果处于经典范围（具有相同能量）之外的概率 \(P\) 是：</p>
+      </div>
+
+      <div class="options" aria-label="第 4 题选项">
+        <div class="option correct"><span class="letter">A</span><span class="value">0.157</span><span class="badge">正确</span></div>
+        <div class="option"><span class="letter">B</span><span class="value">0.277</span></div>
+        <div class="option"><span class="letter">C</span><span class="value">0.432</span></div>
+        <div class="option"><span class="letter">D</span><span class="value">0.092</span></div>
+      </div>
+
+      <p class="lead">关键是先找“经典允许的动量范围”。基态能量 \(E_0=\hbar\omega/2\)；在经典相空间中，给定能量后动量最大出现在 \(x=0\) 处，边界为 \(|p|=p_{\max}=\sqrt{m\omega\hbar}\)。超过这个边界的概率就是高斯分布的尾部概率。</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-title">写出基态坐标波函数与动量波函数</div>
+          <div class="step-body">
+            <p>一维谐振子基态为</p>
+            \[
+              \psi_0(x)=\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}
+              \exp\left[-\frac{m\omega x^2}{2\hbar}\right].
+            \]
+            <p>它正是第 2 题中 \(a=\dfrac{m\omega}{2\hbar}\)、\(l=0\) 的高斯波包。直接套用第 2 题的傅里叶变换结果：</p>
+            \[
+              \boxed{\;
+              \Phi_0(p)=\left(\frac{1}{\pi m\omega\hbar}\right)^{1/4}
+              \exp\left[-\frac{p^2}{2m\omega\hbar}\right]
+              \;}
+            \]
+            <p>基态是定态，时间演化只给整体相位：</p>
+            \[
+              \Phi(p,t)=\Phi_0(p)e^{-iE_0t/\hbar}
+              =\Phi_0(p)e^{-i\omega t/2}.
+            \]
+            <p>所以 \(|\Phi(p,t)|^2=|\Phi_0(p)|^2\)，测量概率不随时间改变。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">确定经典允许的动量边界</div>
+          <div class="step-body">
+            <p>基态能量为</p>
+            \[
+              E_0=\frac12\hbar\omega.
+            \]
+            <p>经典谐振子的能量为</p>
+            \[
+              E=\frac{p^2}{2m}+\frac12m\omega^2x^2.
+            \]
+            <p>给定 \(E_0\)，动量最大时 \(x=0\)，于是</p>
+            \[
+              \frac{p_{\max}^2}{2m}=\frac12\hbar\omega
+              \quad\Longrightarrow\quad
+              p_{\max}=\sqrt{m\omega\hbar}.
+            \]
+            <p>因此经典允许范围是 \(|p|\le p_{\max}\)，超出这个范围即“经典禁区”。</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">把概率写成无量纲高斯积分</div>
+          <div class="step-body">
+            <p>动量概率密度为</p>
+            \[
+              |\Phi_0(p)|^2
+              =\left(\frac{1}{\pi m\omega\hbar}\right)^{1/2}
+              \exp\left[-\frac{p^2}{m\omega\hbar}\right]
+              =\frac{1}{\sqrt{\pi m\omega\hbar}}
+              e^{-p^2/(m\omega\hbar)}.
+            \]
+            <p>因此</p>
+            \[
+              P_{\text{out}}
+              =\int_{|p|>p_{\max}}|\Phi_0(p)|^2\,\mathrm{d}p
+              =2\int_{p_{\max}}^{\infty}\frac{1}{\sqrt{\pi m\omega\hbar}}
+              e^{-p^2/(m\omega\hbar)}\,\mathrm{d}p.
+            \]
+            <p>令</p>
+            \[
+              u=\frac{p}{\sqrt{m\omega\hbar}},
+              \qquad \mathrm{d}p=\sqrt{m\omega\hbar}\,\mathrm{d}u,
+            \]
+            <p>则 \(p=p_{\max}\) 对应 \(u=1\)，并且</p>
+            \[
+              P_{\text{out}}
+              =\frac{2}{\sqrt{\pi}}\int_{1}^{\infty}e^{-u^2}\,\mathrm{d}u
+              =\operatorname{erfc}(1).
+            \]
+          </div>
+        </li>
+
+        <li>
+          <div class="step-title">数值计算与选项判断</div>
+          <div class="step-body">
+            <p>查表或数值积分：</p>
+            \[
+              \operatorname{erf}(1)=0.8427007929\ldots,
+              \qquad
+              \operatorname{erfc}(1)=1-\operatorname{erf}(1)
+              =0.1572992070\ldots
+            \]
+            <p>所以</p>
+            \[
+              P_{\text{out}}\approx0.1573\approx0.157.
+            \]
+            <p>对应选项 <b>A</b>。顺便，落在经典允许范围内的概率是 \(\operatorname{erf}(1)\approx0.843\)，两者相加为 1。</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout check">
+        <p><b>用标准差复核：</b>动量分布方差为 \(\sigma_p^2=m\omega\hbar/2\)，所以 \(\sigma_p=\sqrt{m\omega\hbar/2}\)，边界 \(p_{\max}=\sqrt{2}\sigma_p\)。于是</p>
+        \[
+          P_{\text{out}}=2\left[1-\Phi_{\text{CDF}}(\sqrt2)\right]
+          \approx2(1-0.92135)=0.1573.
+        \]
+        <p>与 \(\operatorname{erfc}(1)\) 完全一致。这个检查也能防止把边界误写成 \(\sigma_p\) 或 \(\sqrt{2m\hbar\omega}\) 时算错。</p>
+      </div>
+
+      <div class="callout key">
+        <p><b>物理含义：</b>量子基态不是“静止在势阱底部”，而是在 \(x\) 和 \(p\) 上都有零点涨落。高斯动量分布有约 \(15.7\%\) 的尾部落在经典允许范围之外，这是量子涨落的直接体现；它不是测量误差，而是态本身的性质。</p>
+      </div>
+
+      <div class="result">
+        <span class="result-label">Result · Q4</span>
+        <p><span class="answer-pill">答案 A · \(P\approx0.157\)</span></p>
+        <div class="formula-lines">
+          <div class="formula-line">\[
+            p_{\max}=\sqrt{m\omega\hbar},
+            \qquad
+            P_{\text{out}}=\operatorname{erfc}(1)
+            =0.157299\ldots
+          \]</div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <p><b>易错点：</b>不要把“经典允许范围”理解成整个相空间，也不要把边界写成 \(\sqrt{2mE_0}\) 后忘记 \(E_0=\hbar\omega/2\)——其实 \(\sqrt{2mE_0}=\sqrt{m\hbar\omega}\)，与上面一致；真正容易错的是把高斯分布的 \(\sigma_p\) 当成边界，或把 \(P_{\text{in}}\approx0.843\) 选成答案。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= RECAP ================= -->
+  <section class="recap panel" id="recap" aria-labelledby="recapTitle">
+    <div class="recap-head">
+      <div>
+        <p class="eyebrow">One-Page Recap</p>
+        <h2 id="recapTitle">一页速记</h2>
+        <p>考前只看这一张表：每题的核心式子、答案与最容易忘的检查。</p>
+      </div>
+      <a class="btn" href="outline_qm.html" style="border-color: var(--line); color: var(--ink); background: var(--paper-soft);">回到提纲 →</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>题</th>
+            <th>核心结果</th>
+            <th>关键提醒</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>
+              <span class="cell-title">坐标期望值的动量表示</span>
+              <span class="cell-math">\[
+                \hat x=i\hbar\partial_p,\qquad
+                \langle x\rangle=\int\Phi^*\left(-\frac{\hbar}{i}\partial_p\right)\Phi\,\mathrm{d}p.
+              \]</span>
+            </td>
+            <td>用 Plancherel 定理时，被变换的是 \(x\Psi\)；边界项对物理波包为零。</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>
+              <span class="cell-title">运动高斯波包</span>
+              <span class="cell-math">\[
+                \Phi(p,0)=\left(\frac{1}{2\pi a\hbar^2}\right)^{1/4}
+                e^{-(p-\hbar l)^2/(4a\hbar^2)},\qquad
+                \Phi(p,t)=\Phi(p,0)e^{-ip^2t/(2m\hbar)}.
+              \]</span>
+              <span class="cell-math">\[
+                |\Phi|^2=\frac{1}{\hbar\sqrt{2\pi a}}
+                e^{-(p-\hbar l)^2/(2a\hbar^2)},\qquad
+                \langle p\rangle=\hbar l,\quad
+                \langle p^2\rangle=a\hbar^2+\hbar^2l^2.
+              \]</span>
+            </td>
+            <td>\(|\Phi|^2\) 与时间无关；位置波包仍会移动和扩散。别漏掉方差 \(a\hbar^2\)。</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>
+              <span class="cell-title">自由粒子的动量空间方程</span>
+              <span class="cell-math">\[
+                i\hbar\partial_t\Phi=\frac{p^2}{2m}\Phi,\qquad
+                \Phi(p,t)=\Phi(p,0)e^{-ip^2t/(2m\hbar)}.
+              \]</span>
+            </td>
+            <td>自由哈密顿量在 \(p\) 表象对角；每个 \(p\) 独立积累相位。有势时会出现卷积。</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td>
+              <span class="cell-title">谐振子基态的经典禁区概率</span>
+              <span class="cell-math">\[
+                \Phi_0(p)=\left(\frac{1}{\pi m\omega\hbar}\right)^{1/4}
+                e^{-p^2/(2m\omega\hbar)},\qquad
+                P_{\text{out}}=\operatorname{erfc}(1)\approx0.157.
+              \]</span>
+              <span class="answer-pill">选 A</span>
+            </td>
+            <td>经典动量边界 \(p_{\max}=\sqrt{m\omega\hbar}=\sqrt2\sigma_p\)；不要选成 \(P_{\text{in}}\approx0.843\)。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>量子力学 · 动量空间作业题解 · 按 Griffiths 约定整理</span>
+  <span><a href="outline_qm.html">返回量子力学提纲</a> · <a href="index.html">打开阅读器</a></span>
+</footer>
+
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var printBtn = document.getElementById('printBtn');
+  var progress = document.getElementById('readProgress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.qlink'));
+  var sections = links.map(function (a) {
+    var id = a.getAttribute('href');
+    return id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+  }).filter(Boolean);
+
+  function applyTheme(isDark, persist) {
+    root.dataset.theme = isDark ? 'dark' : 'light';
+    if (themeBtn) {
+      themeBtn.textContent = isDark ? '☀️ 浅色' : '🌙 深色';
+      themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+    if (persist) {
+      try { localStorage.setItem('phys.hw.theme', isDark ? 'dark' : 'light'); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function renderMath() {
+    if (typeof window.renderMathInElement !== 'function') return;
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      strict: false,
+      trust: false
+    });
+  }
+
+  function updateActive() {
+    if (!sections.length) return;
+    var y = window.scrollY + 118;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function (a) {
+      var isCurrent = a.getAttribute('href') === '#' + current.id;
+      a.classList.toggle('active', isCurrent);
+      if (isCurrent) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progress) progress.style.width = (ratio * 100).toFixed(2) + '%';
+      updateActive();
+      ticking = false;
+    });
+  }
+
+  function afterMath() {
+    onScroll();
+    updateActive();
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      applyTheme(root.dataset.theme !== 'dark', true);
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', function () { window.print(); });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key >= '1' && e.key <= '4') {
+      var target = document.getElementById('q' + e.key);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else if (e.key.toLowerCase() === 'd') {
+      e.preventDefault();
+      applyTheme(root.dataset.theme !== 'dark', true);
+    }
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.dataset.theme === 'dark', false);
+    renderMath();
+    afterMath();
+    setTimeout(afterMath, 350);
+  });
+})();
+</script>
+</body>
+</html>

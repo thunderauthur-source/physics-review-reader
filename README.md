@@ -113,6 +113,19 @@
 - 151 个不同知识点可点击弹卡，卡内可跳提纲卡片或教材/讲义页
 - 离线单文件已内联 KaTeX 的 CSS、JS 和字体，断网双击即可打开；单文件里的教材/讲义页链接不会打开 PDF
 
+## 拓展内容（2026-11）
+
+- **动量空间四题题解**：坐标期望值、运动高斯波包、自由粒子动量空间方程、谐振子经典禁区概率
+  <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/homework_momentum.html>
+- **氢原子电子云 · 五种轨道**：1s、2s、2p<sub>z</sub>、3d<sub>z²</sub>、3d<sub>xy</sub> 的 |ψ|² 截面图、量子数与节点
+  <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/hydrogen_clouds.html>
+- **代码版**：左图右代码，附核心 Python 与复制按钮
+  <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/hydrogen_clouds_code.html>
+- **汇报材料**：`发布/氢原子电子云.pdf`（5 页左图右码版）、`发布/氢原子电子云.pptx`（10 页公式版，约 4 分 40 秒，含演讲备注）
+- 生成脚本：`构建/生成氢原子电子云.py`、`构建/生成氢原子汇报PPT.py`、`构建/添加氢原子公式页.py`
+
+三处副本（`程序/resources/app/renderer`、`docs/app/renderer`、`发布/网页版/app/renderer`）内容保持一致；拓展页入口在量子力学提纲顶部和侧栏「拓展 · 题解 / 图像」。
+
 ## 快速开始
 
 ### 在线网页版
@@ -293,7 +306,7 @@ python -m http.server 8080 --bind 127.0.0.1
 
 ### Windows 启动器
 
-`程序/QMLauncher.exe` 是 C# 编译的启动器，用 Edge 应用模式打开本地页面：
+`程序/物理复习提纲阅读器.lnk` 直接调用系统已签名的 Edge，用应用模式打开本地页面。旧的 `QMLauncher.exe` 未签名，会被 Windows SmartScreen 拦截，已改名为 `QMLauncher.exe.disabled`，`打开阅读器.cmd` 也改为启动该快捷方式。
 
 ```
 --app="file:///.../renderer/index.html"
@@ -311,16 +324,23 @@ python -m http.server 8080 --bind 127.0.0.1
 ```
 物理复习提纲合集/
 ├─ 程序/                          Windows 本机阅读器
-│  ├─ QMLauncher.exe
+│  ├─ 物理复习提纲阅读器.lnk      推荐入口（调用已签名的 Edge）
+│  ├─ QMLauncher.exe.disabled     旧启动器（未签名，已停用）
 │  ├─ edgeprofile/                本机进度（gitignore）
 │  └─ resources/app/
 │     ├─ renderer/                index.html / app.js / app.css / 两份 outline
+│     │  ├─ homework_momentum.html      动量空间四题题解
+│     │  ├─ hydrogen_clouds.html        氢原子电子云五轨道
+│     │  ├─ hydrogen_clouds_code.html   左图右码代码版
+│     │  └─ hydrogen/                   五张电子云 WebP
 │     ├─ data/                    manifest + search_index
 │     └─ docs/pages/              1536 张 WebP
 ├─ HTML/                          两份单文件可打印提纲
 ├─ 发布/
 │  ├─ 安装版/                     安装包说明（exe 在 Releases）
-│  └─ 网页版/                     网页版本地副本
+│  ├─ 网页版/                     网页版本地副本
+│  ├─ 氢原子电子云.pdf             5 页左图右码 PDF
+│  └─ 氢原子电子云.pptx            10 页公式版汇报 PPT
 ├─ docs/                          GitHub Pages 发布目录
 │  ├─ index.html                  入口（跳 app/renderer/index.html）
 │  ├─ app/                        网页版全部资源
@@ -329,6 +349,9 @@ python -m http.server 8080 --bind 127.0.0.1
 │  ├─ 自检.py
 │  ├─ 生成搜索索引.py
 │  ├─ 生成热统教材链接.py
+│  ├─ 生成氢原子电子云.py
+│  ├─ 生成氢原子汇报PPT.py
+│  ├─ 添加氢原子公式页.py
 │  └─ 安装器/Bootstrapper.cs
 ├─ README.md
 └─ 说明.txt
@@ -491,6 +514,12 @@ Star 只是收藏和扩散，不会解锁任何功能。不要买 Star 或到无
 - 三套独立遮罩、知识点弹卡、本地 KaTeX、点击高亮
 - 二次元主题与溟月表情包
 - 单文件 HTML 同步并内联 KaTeX，可离线双击打开
+
+**2026-11 拓展 DLC**
+
+- 动量空间四题完整题解
+- 氢原子电子云五轨道图、代码版与生成脚本
+- 5 页左图右码 PDF；10 页公式版汇报 PPT（含备注，约 4 分 40 秒）
 
 ## 版权声明
 

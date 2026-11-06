@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="五个氢原子电子云截面的左图右代码版：1s、2s、2p_z、3d_z²、3d_xy 的核心 Python 波函数与绘图参数。">
+<title>氢原子电子云 · 左图右代码｜量子力学拓展</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<script>
+  try {
+    if (localStorage.getItem('phys.hw.theme') === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  } catch (e) { /* localStorage 不可用时保持浅色 */ }
+</script>
+<style>
+  :root {
+    --bg: #f3f7f8;
+    --paper: #ffffff;
+    --paper-soft: #f7fafb;
+    --ink: #1a2b31;
+    --ink-2: #40555c;
+    --muted: #73878d;
+    --line: #dbe6e9;
+    --line-strong: #c6d5da;
+    --teal: #0d6d61;
+    --teal-soft: #e8f8f4;
+    --amber: #9a6813;
+    --amber-soft: #fff7e4;
+    --code-bg: #0a111b;
+    --code-head: #0e1825;
+    --code-line: #1e3042;
+    --code-text: #d8e6f5;
+    --code-muted: #7890a8;
+    --code-kw: #ff9cc7;
+    --code-fn: #7dd3fc;
+    --code-num: #f6c177;
+    --code-str: #a7e8bd;
+    --code-com: #7189a1;
+    --shadow: 0 16px 44px rgba(20, 50, 55, .09);
+    --shadow-soft: 0 6px 22px rgba(20, 50, 55, .06);
+    --radius: 18px;
+    --maxw: 1160px;
+    --serif: Georgia, 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', system-ui, sans-serif;
+    --mono: 'Cascadia Code', 'Consolas', 'SFMono-Regular', 'Liberation Mono', monospace;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0b1416;
+    --paper: #122022;
+    --paper-soft: #172729;
+    --ink: #e7f3f1;
+    --ink-2: #bdd3ce;
+    --muted: #8da6a0;
+    --line: #29413f;
+    --line-strong: #3a5652;
+    --teal: #6fddc7;
+    --teal-soft: #15332c;
+    --amber: #f2ce7b;
+    --amber-soft: #322b1b;
+    --shadow: 0 20px 52px rgba(0, 0, 0, .38);
+    --shadow-soft: 0 8px 26px rgba(0, 0, 0, .25);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(70, 170, 160, .11) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 84% 8%, rgba(155, 120, 80, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(900px 520px at 102% 0%, rgba(160, 218, 226, .19), transparent 62%),
+      radial-gradient(820px 500px at 0% 100%, rgba(232, 204, 150, .15), transparent 60%);
+    background-attachment: fixed;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root[data-theme="dark"] body {
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(140, 230, 210, .13) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 84% 8%, rgba(240, 200, 130, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(900px 520px at 102% 0%, rgba(20, 74, 78, .40), transparent 62%),
+      radial-gradient(820px 500px at 0% 100%, rgba(75, 55, 30, .30), transparent 60%);
+  }
+
+  ::selection { background: rgba(67, 195, 177, .26); }
+  a { color: var(--teal); }
+  button { font-family: inherit; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: 28px 22px 34px;
+    background:
+      radial-gradient(760px 400px at 82% 24%, rgba(75, 215, 196, .18), transparent 64%),
+      radial-gradient(680px 400px at 8% 108%, rgba(222, 174, 96, .15), transparent 64%),
+      linear-gradient(134deg, #07131d 0%, #102d36 48%, #172a35 78%, #201d30 100%);
+  }
+
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border: 1px solid rgba(166, 255, 237, .12);
+    border-radius: 8px;
+    transform: rotate(-10deg);
+  }
+
+  .hero::before {
+    width: 460px;
+    height: 150px;
+    right: -100px;
+    top: 40px;
+  }
+
+  .hero::after {
+    width: 310px;
+    height: 104px;
+    right: 15px;
+    top: 66px;
+    border-color: rgba(255, 218, 158, .12);
+  }
+
+  .hero-in {
+    position: relative;
+    z-index: 1;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+
+  .crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, .60);
+    font-size: 12.5px;
+    letter-spacing: .035em;
+  }
+
+  .crumb a { color: rgba(255, 255, 255, .84); text-decoration: none; }
+  .crumb a:hover { color: #fff; text-decoration: underline; }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 17px;
+  }
+
+  .kicker {
+    margin: 0 0 7px;
+    color: #a8efdd;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.5vw, 3.15rem);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: .025em;
+  }
+
+  .hero .sub {
+    max-width: 720px;
+    margin: 11px 0 0;
+    color: rgba(255, 255, 255, .82);
+    font-size: .96rem;
+    line-height: 1.8;
+  }
+
+  .hero-badge {
+    min-width: 168px;
+    padding: 13px 17px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge .num {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .hero-badge .txt {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, .68);
+    font-size: 11.5px;
+    letter-spacing: .05em;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 36px;
+    padding: 7px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-light {
+    background: #fff;
+    border-color: #fff;
+    color: #12322e;
+    font-weight: 600;
+  }
+
+  .btn-light:hover { background: #effffa; }
+
+  .btn-ghost {
+    border-color: rgba(255, 255, 255, .34);
+    background: rgba(255, 255, 255, .075);
+    color: #fff;
+  }
+
+  .btn-ghost:hover { background: rgba(255, 255, 255, .16); }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .hero-meta span {
+    padding: 3px 9px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, .70);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- NAV ---------- */
+  .quicknav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 91%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 4px 18px rgba(20, 55, 48, .04);
+  }
+
+  .quicknav-in {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 8px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .quicknav-in::-webkit-scrollbar { display: none; }
+
+  .qn-label {
+    flex: 0 0 auto;
+    margin-right: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .qlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .16s ease, background .16s ease, border-color .16s ease;
+  }
+
+  .qlink .n {
+    display: inline-grid;
+    place-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--paper-soft);
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
+  .qlink:hover {
+    color: var(--ink);
+    background: var(--paper-soft);
+    border-color: var(--line);
+  }
+
+  .qlink.active {
+    color: var(--teal);
+    background: var(--teal-soft);
+    border-color: color-mix(in srgb, var(--teal) 26%, transparent);
+    font-weight: 600;
+  }
+
+  .qlink.active .n { background: var(--teal); color: var(--paper); }
+
+  .qn-hint {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .readbar { height: 2px; overflow: hidden; }
+  .readbar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--amber));
+  }
+
+  /* ---------- PAGE ---------- */
+  .page {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 24px 20px 54px;
+  }
+
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .intro { padding: 24px 26px 25px; }
+
+  .eyebrow {
+    margin: 0 0 3px;
+    color: var(--teal);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .intro h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 2.7vw, 1.78rem);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    gap: 26px;
+    margin-top: 16px;
+    align-items: start;
+  }
+
+  .intro p { margin: 0; color: var(--ink-2); font-size: .94rem; }
+  .intro p + p { margin-top: 8px; }
+
+  .intro-list {
+    display: grid;
+    gap: 7px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .intro-list li {
+    display: flex;
+    gap: 9px;
+    color: var(--ink-2);
+    font-size: .9rem;
+    line-height: 1.7;
+  }
+
+  .intro-list .dot {
+    flex: 0 0 6px;
+    width: 6px;
+    height: 6px;
+    margin-top: .65em;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px var(--teal-soft);
+  }
+
+  .intro-list b { color: var(--ink); }
+
+  .code-note {
+    margin-top: 13px;
+    color: var(--muted);
+    font-size: .8rem;
+    line-height: 1.65;
+  }
+
+  .code-note code,
+  .path-code {
+    padding: .08em .28em;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper-soft);
+    font-family: var(--mono);
+    font-size: .9em;
+    color: var(--ink-2);
+  }
+
+  /* ---------- CODE CARD ---------- */
+  .code-card {
+    margin: 0;
+    border: 1px solid var(--code-line);
+    border-radius: 12px;
+    background: var(--code-bg);
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(4, 12, 22, .18);
+  }
+
+  .code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 38px;
+    padding: 0 11px 0 14px;
+    border-bottom: 1px solid var(--code-line);
+    background: var(--code-head);
+  }
+
+  .code-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #9fb5c9;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+  }
+
+  .code-name::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #57d5bd;
+    box-shadow: 0 0 0 3px rgba(87, 213, 189, .12);
+  }
+
+  .copy-btn {
+    padding: 3px 8px;
+    border: 1px solid #2a4054;
+    border-radius: 6px;
+    background: #132132;
+    color: #a9bed1;
+    font-size: 10.5px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: color .16s ease, border-color .16s ease, background .16s ease;
+  }
+
+  .copy-btn:hover {
+    color: #e8f7ff;
+    border-color: #4e7a96;
+    background: #1a2c40;
+  }
+
+  .code-card pre {
+    margin: 0;
+    padding: 14px 16px 16px;
+    overflow: auto;
+    max-height: 330px;
+    color: var(--code-text);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    tab-size: 4;
+    white-space: pre;
+  }
+
+  .code-card code { font-family: inherit; }
+
+  .tok-k { color: var(--code-kw); }
+  .tok-f { color: var(--code-fn); }
+  .tok-n { color: var(--code-num); }
+  .tok-s { color: var(--code-str); }
+  .tok-c { color: var(--code-com); }
+  .tok-p { color: #9ab0c5; }
+
+  /* ---------- ROWS ---------- */
+  .code-row {
+    display: grid;
+    grid-template-columns: minmax(0, 39%) minmax(0, 61%);
+    gap: 20px;
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    scroll-margin-top: 72px;
+  }
+
+  .shot {
+    margin: 0;
+    min-width: 0;
+    align-self: start;
+  }
+
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+    border-radius: 13px;
+    background: #050b12;
+  }
+
+  .shot figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+
+  .shot figcaption b { color: var(--ink-2); font-weight: 600; }
+
+  .row-side {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .row-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .row-kicker {
+    margin: 0 0 1px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .row-head h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.48rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .row-head h2 small {
+    display: inline-block;
+    margin-left: 4px;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: .58em;
+    font-weight: 400;
+    letter-spacing: .02em;
+  }
+
+  .row-tag {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-size: 10.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .brief {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: .91rem;
+    line-height: 1.78;
+  }
+
+  .brief b { color: var(--ink); }
+
+  .code-card { margin-top: 1px; }
+
+  /* ---------- FOOT ---------- */
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 20px 46px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .foot a { color: var(--muted); }
+  .foot a:hover { color: var(--ink); }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    z-index: 100;
+    transform: translate(-50%, 14px);
+    padding: 8px 14px;
+    border: 1px solid rgba(120, 230, 205, .35);
+    border-radius: 999px;
+    background: #0c201f;
+    color: #d8fff5;
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 18px; }
+    .qn-hint { display: none; }
+  }
+
+  @media (max-width: 760px) {
+    .code-row {
+      grid-template-columns: 1fr;
+      padding: 12px;
+      gap: 14px;
+    }
+    .shot img { max-height: 520px; object-fit: contain; }
+    .row-head h2 { font-size: 1.38rem; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .hero { padding: 23px 17px 27px; }
+    .hero-main { gap: 15px; }
+    .hero-badge { display: none; }
+    .hero .sub { font-size: .9rem; }
+    .quicknav-in { padding: 7px 13px; }
+    .qn-label { display: none; }
+    .qlink { font-size: 12.5px; padding: 4px 8px; }
+    .page { padding: 17px 12px 38px; }
+    .intro { padding: 18px 16px 20px; }
+    .code-row { margin-top: 14px; padding: 10px; }
+    .shot figcaption { font-size: 10px; }
+    .code-card pre { padding: 12px; font-size: 11.5px; }
+    .foot { padding: 0 13px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+
+  /* ---------- PRINT ---------- */
+  @page { size: A4 landscape; margin: 10mm 12mm; }
+
+  @media print {
+    :root { --bg: #fff; --paper: #fff; --paper-soft: #fff; --ink: #111; --ink-2: #222; --muted: #555; --line: #bbb; --shadow: none; --shadow-soft: none; }
+    body { background: #fff !important; font-size: 10pt; line-height: 1.5; }
+    .hero, .quicknav, .intro, .foot, .toast, .copy-btn { display: none !important; }
+    .page { max-width: none; margin: 0; padding: 0; }
+
+    .code-row {
+      display: grid;
+      grid-template-columns: 152mm minmax(0, 1fr);
+      gap: 9mm;
+      align-items: center;
+      width: 100%;
+      min-height: 174mm;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      break-after: page;
+      page-break-after: always;
+      break-inside: avoid;
+    }
+
+    .code-row:last-of-type {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    .shot { max-width: none; margin: 0; }
+    .shot img {
+      width: 100%;
+      max-height: none;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 1px solid #999;
+      border-radius: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .shot figcaption { margin-top: 2.5mm; font-size: 8pt; line-height: 1.5; }
+
+    .row-side { display: block; }
+    .row-head h2 { font-size: 17pt; line-height: 1.25; }
+    .row-head h2 small { font-size: .52em; }
+    .row-kicker { font-size: 7pt; letter-spacing: .13em; }
+    .row-tag {
+      padding: 1mm 2.2mm;
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+      color: #444;
+      font-size: 7pt;
+    }
+    .brief { margin: 2mm 0 3mm; font-size: 8.6pt; line-height: 1.55; }
+    .brief code { padding: 0 .3mm; border-color: #ccc; background: #f5f5f5; font-size: .92em; }
+
+    .code-card {
+      border: 1px solid #27384a;
+      box-shadow: none;
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .code-head { min-height: 7mm; padding: 0 3mm; }
+    .code-name { font-size: 7pt; }
+    .code-card pre {
+      max-height: none;
+      overflow: visible;
+      padding: 3mm 4mm;
+      font-size: 8pt;
+      line-height: 1.45;
+    }
+    a { color: #111; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="crumb">
+      <a href="index.html">物理 · 提纲阅读器</a>
+      <span>/</span>
+      <a href="hydrogen_clouds.html">氢原子电子云</a>
+      <span>/</span>
+      <span>代码版</span>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <p class="kicker">Left Figure · Right Code</p>
+        <h1>电子云 · 代码版</h1>
+        <p class="sub">左边是五个氢原子轨道的 |ψ|² 截面，右边是生成它们所需的核心 Python。每段代码都能单独复制。</p>
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <span class="num">05</span>
+        <span class="txt">SNIPPETS · NumPy</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-light" href="hydrogen_clouds.html">← 图像版</a>
+      <a class="btn btn-ghost" href="outline_qm.html">返回提纲</a>
+      <button class="btn btn-ghost" id="printBtn" type="button">打印 / 存 PDF</button>
+      <button class="btn btn-ghost" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+    </div>
+
+    <div class="hero-meta">
+      <span>numpy · scipy</span>
+      <span>a<sub>0</sub> = 1</span>
+      <span>五段核心代码</span>
+      <span>左图 / 右代码</span>
+    </div>
+  </div>
+</header>
+
+<nav class="quicknav" aria-label="代码快速导航">
+  <div class="quicknav-in">
+    <span class="qn-label">代码</span>
+    <a class="qlink" href="#frame"><span class="n">i</span>公共网格</a>
+    <a class="qlink" href="#c1s"><span class="n">1</span>1s</a>
+    <a class="qlink" href="#c2s"><span class="n">2</span>2s</a>
+    <a class="qlink" href="#c2pz"><span class="n">3</span>2p<sub>z</sub></a>
+    <a class="qlink" href="#c3dz2"><span class="n">4</span>3d<sub>z²</sub></a>
+    <a class="qlink" href="#c3dxy"><span class="n">5</span>3d<sub>xy</sub></a>
+    <span class="qn-hint">1–5 跳转 · D 深色</span>
+  </div>
+  <div class="readbar" aria-hidden="true"><i id="readProgress"></i></div>
+</nav>
+
+<main class="page">
+
+  <section class="intro panel" id="frame" aria-labelledby="frameTitle">
+    <p class="eyebrow">Common Frame</p>
+    <h2 id="frameTitle">先搭一个二维截面网格</h2>
+
+    <div class="intro-grid">
+      <div>
+        <p>所有图都采用同一套流程：在 x–z 或 x–y 平面上取网格，算出每一点的波函数，再取模方 |ψ|²。代码中以玻尔半径 a<sub>0</sub> = 1 为单位。</p>
+        <ul class="intro-list">
+          <li><span class="dot"></span><span><b>左图</b>：概率密度截面，暗处为低概率或节点。</span></li>
+          <li><span class="dot"></span><span><b>右码</b>：只保留该轨道的波函数与取模方，省略配色、等高线和标尺。</span></li>
+          <li><span class="dot"></span><span>每段代码的 <code>L</code> 与 <code>gamma</code> 是该图实际使用的取景半宽和亮度压缩参数。</span></li>
+        </ul>
+        <p class="code-note">完整渲染器（渐变、等高线、标尺）在 <code>构建/生成氢原子电子云.py</code>。本页不依赖 KaTeX，复制即可在 NumPy 环境运行。</p>
+      </div>
+
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">common.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-c"># 公共网格：xz 平面；3d_xy 改用 xy 平面</span>
+<span class="tok-k">import</span> numpy <span class="tok-k">as</span> np
+
+A0 = <span class="tok-n">1.0</span>  <span class="tok-c"># 长度单位：玻尔半径 a0</span>
+
+x = np.linspace(-L, L, <span class="tok-n">1000</span>)
+X, Z = np.meshgrid(x, x, indexing=<span class="tok-s">"xy"</span>)
+R = np.hypot(X, Z)
+THETA = np.arccos(Z / R)
+
+<span class="tok-c"># psi 为下面五个函数之一；取模方后按 gamma 调到适合显示</span>
+rho = np.abs(psi(R, THETA))**<span class="tok-n">2</span>
+img = (rho / rho.max()) ** gamma</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1s -->
+  <article class="code-row" id="c1s">
+    <figure class="shot">
+      <img src="hydrogen/1s.webp" alt="1s 氢原子电子云概率密度截面" loading="eager">
+      <figcaption><span><b>1s</b> · 无节点</span><span>x–z 截面 · 标尺 2a₀</span></figcaption>
+    </figure>
+    <div class="row-side">
+      <div class="row-head">
+        <div>
+          <p class="row-kicker">01 · s Orbital</p>
+          <h2>1s <small>球对称基态</small></h2>
+        </div>
+        <span class="row-tag">L=3.8 · γ=0.50</span>
+      </div>
+      <p class="brief">基态波函数只有指数衰减，没有节点。代码直接写出归一化函数，再对二维网格取模方。</p>
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">psi_1s.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-k">def</span> <span class="tok-f">psi_1s</span>(r):
+    <span class="tok-k">return</span> np.exp(-r / A0) / np.sqrt(np.pi * A0**<span class="tok-n">3</span>)
+
+rho = np.abs(<span class="tok-f">psi_1s</span>(R))**<span class="tok-n">2</span>
+<span class="tok-c"># 本图：L=3.8, gamma=0.50, scale=2 a0</span></code></pre>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2s -->
+  <article class="code-row" id="c2s">
+    <figure class="shot">
+      <img src="hydrogen/2s.webp" alt="2s 氢原子电子云概率密度截面，带径向节点" loading="eager">
+      <figcaption><span><b>2s</b> · 径向节点 r=2a₀</span><span>x–z 截面 · 标尺 5a₀</span></figcaption>
+    </figure>
+    <div class="row-side">
+      <div class="row-head">
+        <div>
+          <p class="row-kicker">02 · s Orbital</p>
+          <h2>2s <small>带节点壳的球</small></h2>
+        </div>
+        <span class="row-tag">L=8.2 · γ=0.30</span>
+      </div>
+      <p class="brief">因子 <code>(2 - r/A0)</code> 在 <b>r = 2a₀</b> 处变号，对应图中亮核与外围壳层之间的暗环。</p>
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">psi_2s.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-k">def</span> <span class="tok-f">psi_2s</span>(r):
+    x = r / A0
+    <span class="tok-k">return</span> ((<span class="tok-n">2</span> - x) * np.exp(-x / <span class="tok-n">2</span>)
+            / (<span class="tok-n">4</span> * np.sqrt(<span class="tok-n">2</span> * np.pi) * A0**<span class="tok-n">1.5</span>))
+
+rho = np.abs(<span class="tok-f">psi_2s</span>(R))**<span class="tok-n">2</span>
+<span class="tok-c"># 本图：L=8.2, gamma=0.30, scale=5 a0</span></code></pre>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2pz -->
+  <article class="code-row" id="c2pz">
+    <figure class="shot">
+      <img src="hydrogen/2pz.webp" alt="2p_z 氢原子电子云概率密度截面，双瓣结构" loading="lazy">
+      <figcaption><span><b>2p<sub>z</sub></b> · xy 节面</span><span>x–z 截面 · 标尺 5a₀</span></figcaption>
+    </figure>
+    <div class="row-side">
+      <div class="row-head">
+        <div>
+          <p class="row-kicker">03 · p Orbital</p>
+          <h2>2p<sub>z</sub> <small>双瓣哑铃</small></h2>
+        </div>
+        <span class="row-tag">L=13 · γ=0.48</span>
+      </div>
+      <p class="brief"><code>cos(theta)</code> 在 xy 平面为零，给出中间的角节点；<code>r</code> 因子保证核处波函数为零。</p>
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">psi_2pz.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-k">def</span> <span class="tok-f">psi_2pz</span>(r, theta):
+    x = r / A0
+    <span class="tok-k">return</span> (x * np.exp(-x / <span class="tok-n">2</span>) * np.cos(theta)
+            / (<span class="tok-n">4</span> * np.sqrt(<span class="tok-n">2</span> * np.pi) * A0**<span class="tok-n">1.5</span>))
+
+rho = np.abs(<span class="tok-f">psi_2pz</span>(R, THETA))**<span class="tok-n">2</span>
+<span class="tok-c"># 本图：L=13, gamma=0.48, scale=5 a0</span></code></pre>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3dz2 -->
+  <article class="code-row" id="c3dz2">
+    <figure class="shot">
+      <img src="hydrogen/3dz2.webp" alt="3d_z² 氢原子电子云概率密度截面，两瓣加腰部环" loading="lazy">
+      <figcaption><span><b>3d<sub>z²</sub></b> · 双锥节点</span><span>x–z 截面 · 标尺 10a₀</span></figcaption>
+    </figure>
+    <div class="row-side">
+      <div class="row-head">
+        <div>
+          <p class="row-kicker">04 · d Orbital</p>
+          <h2>3d<sub>z²</sub> <small>双瓣 + 环</small></h2>
+        </div>
+        <span class="row-tag">L=22 · γ=0.52</span>
+      </div>
+      <p class="brief"><code>3*cos(theta)**2 - 1</code> 给出两个锥形角节点。三维里的腰部环，在截面上表现为左右两个小瓣。</p>
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">psi_3dz2.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-k">def</span> <span class="tok-f">psi_3dz2</span>(r, theta):
+    x = r / A0
+    <span class="tok-k">return</span> ((x**<span class="tok-n">2</span> * np.exp(-x / <span class="tok-n">3</span>)
+             * (<span class="tok-n">3</span> * np.cos(theta)**<span class="tok-n">2</span> - <span class="tok-n">1</span>))
+            / (<span class="tok-n">81</span> * np.sqrt(<span class="tok-n">6</span> * np.pi) * A0**<span class="tok-n">1.5</span>))
+
+rho = np.abs(<span class="tok-f">psi_3dz2</span>(R, THETA))**<span class="tok-n">2</span>
+<span class="tok-c"># 本图：L=22, gamma=0.52, scale=10 a0</span></code></pre>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3dxy -->
+  <article class="code-row" id="c3dxy">
+    <figure class="shot">
+      <img src="hydrogen/3dxy.webp" alt="3d_xy 氢原子电子云概率密度截面，xy 平面四瓣" loading="lazy">
+      <figcaption><span><b>3d<sub>xy</sub></b> · 两个节面</span><span>x–y 截面 · 标尺 10a₀</span></figcaption>
+    </figure>
+    <div class="row-side">
+      <div class="row-head">
+        <div>
+          <p class="row-kicker">05 · d Orbital</p>
+          <h2>3d<sub>xy</sub> <small>四瓣梅花</small></h2>
+        </div>
+        <span class="row-tag">L=22 · γ=0.52</span>
+      </div>
+      <p class="brief"><code>sin(2*phi)</code> 在 x=0 与 y=0 两个平面为零，把 xy 平面分成四瓣。它是 m = ±2 的实线性组合。</p>
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-name">psi_3dxy.py</span>
+          <button class="copy-btn" type="button">复制</button>
+        </div>
+        <pre><code><span class="tok-k">def</span> <span class="tok-f">psi_3dxy</span>(r, theta, phi):
+    x = r / A0
+    <span class="tok-k">return</span> ((x**<span class="tok-n">2</span> * np.exp(-x / <span class="tok-n">3</span>)
+             * np.sin(theta)**<span class="tok-n">2</span> * np.sin(<span class="tok-n">2</span> * phi))
+            / (<span class="tok-n">81</span> * np.sqrt(<span class="tok-n">2</span> * np.pi) * A0**<span class="tok-n">1.5</span>))
+
+<span class="tok-c"># 本图取 x-y 平面</span>
+Y = np.meshgrid(x, x, indexing=<span class="tok-s">"xy"</span>)[<span class="tok-n">1</span>]
+R_XY = np.hypot(X, Y)
+PHI = np.arctan2(Y, X)
+
+rho = np.abs(<span class="tok-f">psi_3dxy</span>(R_XY, np.pi / <span class="tok-n">2</span>, PHI))**<span class="tok-n">2</span></code></pre>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<footer class="foot">
+  <span>量子力学 · 氢原子电子云 · 左图 / 右代码</span>
+  <span><a href="hydrogen_clouds.html">图像版</a> · <a href="outline_qm.html">返回提纲</a> · <a href="index.html">打开阅读器</a></span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var printBtn = document.getElementById('printBtn');
+  var toast = document.getElementById('toast');
+  var progress = document.getElementById('readProgress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.qlink'));
+  var sections = links.map(function (a) {
+    var id = a.getAttribute('href');
+    return id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+  }).filter(Boolean);
+  var toastTimer = null;
+
+  function showToast(text) {
+    if (!toast) return;
+    toast.textContent = text || '已复制';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1600);
+  }
+
+  function applyTheme(isDark, persist) {
+    root.dataset.theme = isDark ? 'dark' : 'light';
+    if (themeBtn) {
+      themeBtn.textContent = isDark ? '☀️ 浅色' : '🌙 深色';
+      themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+    if (persist) {
+      try { localStorage.setItem('phys.hw.theme', isDark ? 'dark' : 'light'); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function updateActive() {
+    if (!sections.length) return;
+    var y = window.scrollY + 118;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function (a) {
+      var isCurrent = a.getAttribute('href') === '#' + current.id;
+      a.classList.toggle('active', isCurrent);
+      if (isCurrent) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progress) progress.style.width = (ratio * 100).toFixed(2) + '%';
+      updateActive();
+      ticking = false;
+    });
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) resolve();
+        else reject(new Error('copy failed'));
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.copy-btn'), function (btn) {
+    btn.addEventListener('click', function () {
+      var card = btn.closest('.code-card');
+      var code = card ? card.querySelector('pre code') : null;
+      if (!code) return;
+      copyText(code.innerText).then(function () {
+        showToast('代码已复制');
+      }).catch(function () {
+        showToast('复制失败，请手动选择');
+      });
+    });
+  });
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      applyTheme(root.dataset.theme !== 'dark', true);
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', function () { window.print(); });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key >= '1' && e.key <= '5') {
+      var ids = ['c1s', 'c2s', 'c2pz', 'c3dz2', 'c3dxy'];
+      var target = document.getElementById(ids[Number(e.key) - 1]);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else if (e.key.toLowerCase() === 'd') {
+      e.preventDefault();
+      applyTheme(root.dataset.theme !== 'dark', true);
+    }
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.dataset.theme === 'dark', false);
+    onScroll();
+    updateActive();
+    setTimeout(function () { onScroll(); updateActive(); }, 300);
+  });
+})();
+</script>
+</body>
+</html>

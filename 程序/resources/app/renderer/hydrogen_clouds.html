@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="利用氢原子波函数绘制的五个电子云截面：1s、2s、2p_z、3d_z²、3d_xy，含量子数、节点、最概然半径与教材对照。">
+<title>氢原子电子云 · 五种轨道｜量子力学拓展</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="katex/katex.min.css">
+<script>
+  try {
+    if (localStorage.getItem('phys.hw.theme') === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  } catch (e) { /* localStorage 不可用时保持浅色 */ }
+</script>
+<style>
+  :root {
+    --bg: #f3f8f6;
+    --paper: #ffffff;
+    --paper-soft: #f7fbfa;
+    --ink: #1c2f2d;
+    --ink-2: #415d59;
+    --muted: #738b87;
+    --line: #dce8e4;
+    --line-strong: #c6d9d4;
+    --teal: #0f6b5c;
+    --teal-2: #1f8a7a;
+    --teal-soft: #e8f8f4;
+    --indigo: #4f438f;
+    --indigo-soft: #f0edfb;
+    --amber: #936310;
+    --amber-soft: #fff7e3;
+    --pink: #a83b70;
+    --pink-soft: #fff0f7;
+    --blue: #24688f;
+    --blue-soft: #edf7fd;
+    --shadow: 0 16px 44px rgba(21, 55, 49, .09);
+    --shadow-soft: 0 6px 22px rgba(21, 55, 49, .06);
+    --radius: 19px;
+    --maxw: 1120px;
+    --serif: Georgia, 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0b1513;
+    --paper: #13211e;
+    --paper-soft: #172824;
+    --ink: #e7f4f0;
+    --ink-2: #bdd4ce;
+    --muted: #8eaaa4;
+    --line: #29413b;
+    --line-strong: #3a5650;
+    --teal: #6fddc7;
+    --teal-2: #95ead9;
+    --teal-soft: #15332c;
+    --indigo: #c5b7ff;
+    --indigo-soft: #24203a;
+    --amber: #f2ce7b;
+    --amber-soft: #322b1b;
+    --pink: #ffa8cf;
+    --pink-soft: #392231;
+    --blue: #9dd8fa;
+    --blue-soft: #162e3c;
+    --shadow: 0 20px 52px rgba(0, 0, 0, .36);
+    --shadow-soft: 0 8px 26px rgba(0, 0, 0, .24);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 14%, rgba(63, 163, 145, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 82% 9%, rgba(99, 82, 166, .09) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 22% 84%, rgba(68, 145, 181, .08) 0 1.2px, transparent 1.7px),
+      radial-gradient(960px 540px at 102% -4%, rgba(148, 216, 200, .20), transparent 62%),
+      radial-gradient(860px 520px at -4% 104%, rgba(183, 201, 242, .18), transparent 62%);
+    background-attachment: fixed;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root[data-theme="dark"] body {
+    background-image:
+      radial-gradient(circle at 10% 14%, rgba(140, 230, 210, .14) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 82% 9%, rgba(190, 172, 255, .12) 0 1.2px, transparent 1.7px),
+      radial-gradient(circle at 22% 84%, rgba(130, 205, 240, .10) 0 1.2px, transparent 1.7px),
+      radial-gradient(960px 540px at 102% -4%, rgba(21, 78, 68, .40), transparent 62%),
+      radial-gradient(860px 520px at -4% 104%, rgba(44, 38, 88, .34), transparent 62%);
+  }
+
+  ::selection { background: rgba(62, 190, 164, .25); }
+  a { color: var(--teal); }
+  button { font-family: inherit; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: 28px 22px 35px;
+    background:
+      radial-gradient(800px 420px at 82% 22%, rgba(70, 225, 198, .22), transparent 62%),
+      radial-gradient(700px 420px at 12% 108%, rgba(91, 103, 205, .28), transparent 64%),
+      linear-gradient(136deg, #061421 0%, #0d3540 46%, #17304a 76%, #241b47 100%);
+  }
+
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(158, 255, 233, .13);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: rotate(-18deg);
+  }
+
+  .hero::before {
+    width: 560px;
+    height: 230px;
+    right: -150px;
+    top: 45px;
+  }
+
+  .hero::after {
+    width: 360px;
+    height: 150px;
+    right: -50px;
+    top: 85px;
+    border-color: rgba(190, 180, 255, .14);
+  }
+
+  .hero-in {
+    position: relative;
+    z-index: 1;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+
+  .crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, .62);
+    font-size: 12.5px;
+    letter-spacing: .035em;
+  }
+
+  .crumb a { color: rgba(255, 255, 255, .86); text-decoration: none; }
+  .crumb a:hover { color: #fff; text-decoration: underline; }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 17px;
+  }
+
+  .kicker {
+    margin: 0 0 7px;
+    color: #a9efdd;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2.15rem, 4.8vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.16;
+    letter-spacing: .03em;
+  }
+
+  .hero .sub {
+    max-width: 720px;
+    margin: 11px 0 0;
+    color: rgba(255, 255, 255, .82);
+    font-size: .96rem;
+    line-height: 1.8;
+  }
+
+  .hero-badge {
+    min-width: 158px;
+    padding: 13px 18px;
+    border: 1px solid rgba(255, 255, 255, .23);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, .09);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge .num {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .hero-badge .txt {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, .68);
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 36px;
+    padding: 7px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-light {
+    background: #fff;
+    border-color: #fff;
+    color: #12322e;
+    font-weight: 600;
+  }
+
+  .btn-light:hover { background: #effffa; }
+
+  .btn-ghost {
+    border-color: rgba(255, 255, 255, .34);
+    background: rgba(255, 255, 255, .075);
+    color: #fff;
+  }
+
+  .btn-ghost:hover { background: rgba(255, 255, 255, .16); }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .hero-meta span {
+    padding: 3px 9px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, .70);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- QUICK NAV ---------- */
+  .quicknav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 91%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 4px 18px rgba(20, 55, 48, .04);
+  }
+
+  .quicknav-in {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 8px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .quicknav-in::-webkit-scrollbar { display: none; }
+
+  .qn-label {
+    flex: 0 0 auto;
+    margin-right: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .qlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .16s ease, background .16s ease, border-color .16s ease;
+  }
+
+  .qlink .n {
+    display: inline-grid;
+    place-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--paper-soft);
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
+  .qlink:hover {
+    color: var(--ink);
+    background: var(--paper-soft);
+    border-color: var(--line);
+  }
+
+  .qlink.active {
+    color: var(--teal);
+    background: var(--teal-soft);
+    border-color: color-mix(in srgb, var(--teal) 26%, transparent);
+    font-weight: 600;
+  }
+
+  .qlink.active .n { background: var(--teal); color: var(--paper); }
+
+  .qn-hint {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .readbar { height: 2px; overflow: hidden; }
+  .readbar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), #7b6bdc);
+  }
+
+  /* ---------- PAGE ---------- */
+  .page {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 24px 20px 54px;
+  }
+
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .intro { padding: 24px 26px 26px; }
+
+  .eyebrow {
+    margin: 0 0 3px;
+    color: var(--teal);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .intro h2,
+  .section-head h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 2.7vw, 1.78rem);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    gap: 28px;
+    margin-top: 17px;
+  }
+
+  .intro p { margin: 0; color: var(--ink-2); font-size: .95rem; }
+  .intro p + p { margin-top: 8px; }
+
+  .mathbox {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+    overflow-x: auto;
+  }
+
+  .mathbox .katex-display { margin: .25em 0; }
+
+  .read-list {
+    display: grid;
+    gap: 7px;
+    margin-top: 12px;
+  }
+
+  .read-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    color: var(--ink-2);
+    font-size: .9rem;
+    line-height: 1.7;
+  }
+
+  .read-item .dot {
+    flex: 0 0 6px;
+    width: 6px;
+    height: 6px;
+    margin-top: .62em;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px var(--teal-soft);
+  }
+
+  .legend {
+    margin-top: 13px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper-soft);
+  }
+
+  .legend-bar {
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #06101a, #0a3540, #15897e, #7be3cf, #f1fffb);
+  }
+
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .orbital {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    scroll-margin-top: 74px;
+  }
+
+  .orb-media {
+    position: relative;
+    background: #050b12;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .orb-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #050b12;
+  }
+
+  .orb-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .orb-badges span {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border: 1px solid rgba(180, 255, 235, .25);
+    border-radius: 999px;
+    background: rgba(3, 13, 20, .62);
+    color: rgba(220, 255, 246, .86);
+    font-size: 10.5px;
+    line-height: 1.5;
+    letter-spacing: .03em;
+    backdrop-filter: blur(5px);
+  }
+
+  .orb-body { padding: 18px 20px 20px; }
+
+  .orb-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .orb-kicker {
+    margin: 0 0 2px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .orb-head h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .orb-head h2 small {
+    display: inline-block;
+    margin-left: 5px;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: .58em;
+    font-weight: 400;
+    letter-spacing: .02em;
+  }
+
+  .energy {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .formula {
+    margin: 11px 0 10px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper-soft);
+    overflow-x: auto;
+  }
+
+  .formula .katex-display { margin: .18em 0; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 9px 0 10px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--muted);
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+
+  .chip b {
+    color: var(--ink-2);
+    font-weight: 650;
+  }
+
+  .orb-note {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: .91rem;
+    line-height: 1.78;
+  }
+
+  .orb-note b { color: var(--ink); }
+
+  .orbital.wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+  }
+
+  .orbital.wide .orb-media {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .orbital.wide .orb-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 26px;
+  }
+
+  .orbital.wide .orb-head h2 { font-size: 1.75rem; }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 28px 0 13px;
+  }
+
+  .section-head p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  /* ---------- NODES / TABLE ---------- */
+  .rules {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .rule {
+    padding: 13px 15px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper-soft);
+  }
+
+  .rule .label {
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .rule .big {
+    display: block;
+    margin: 3px 0 1px;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    line-height: 1.4;
+  }
+
+  .rule p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .82rem;
+    line-height: 1.65;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+
+  table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    font-size: .9rem;
+  }
+
+  th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--paper-soft);
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  tr:last-child td { border-bottom: 0; }
+
+  td:first-child {
+    color: var(--ink);
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  td .small { color: var(--muted); font-size: .85em; }
+  .accent { color: var(--teal); }
+
+  /* ---------- SOURCE ---------- */
+  .source {
+    margin-top: 22px;
+    padding: 22px 24px;
+  }
+
+  .source-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    gap: 24px;
+    margin-top: 12px;
+  }
+
+  .source p { margin: 0; color: var(--ink-2); font-size: .92rem; }
+  .source p + p { margin-top: 7px; }
+
+  .cite-list {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 6px;
+    color: var(--ink-2);
+    font-size: .9rem;
+  }
+
+  .cite-list li {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper-soft);
+  }
+
+  .cite-list b { color: var(--ink); }
+
+  .source-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .source-actions .btn {
+    border-color: var(--line);
+    background: var(--paper-soft);
+    color: var(--ink);
+  }
+
+  .source-actions .btn:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 20px 46px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .foot a { color: var(--muted); }
+  .foot a:hover { color: var(--ink); }
+
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+  .katex { font-size: 1.02em; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .intro-grid,
+    .source-grid { grid-template-columns: 1fr; gap: 20px; }
+    .qn-hint { display: none; }
+    .rules { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 700px) {
+    .gallery { grid-template-columns: 1fr; }
+    .orbital.wide {
+      display: block;
+      grid-column: auto;
+    }
+    .orbital.wide .orb-media {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .orbital.wide .orb-body { padding: 18px 20px 20px; }
+    .orbital.wide .orb-head h2 { font-size: 1.55rem; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .hero { padding: 23px 17px 27px; }
+    .hero-main { gap: 15px; }
+    .hero-badge { display: none; }
+    .hero .sub { font-size: .9rem; }
+    .quicknav-in { padding: 7px 13px; }
+    .qn-label { display: none; }
+    .qlink { font-size: 12.5px; padding: 4px 8px; }
+    .page { padding: 17px 12px 38px; }
+    .intro { padding: 18px 16px 20px; }
+    .orb-body { padding: 15px 16px 18px; }
+    .orbital.wide .orb-body { padding: 15px 16px 18px; }
+    .orb-head h2 { font-size: 1.4rem; }
+    .orb-badges { top: 9px; left: 9px; right: 9px; }
+    .orb-badges span { font-size: 9.5px; }
+    .source { padding: 18px 16px 19px; }
+    .foot { padding: 0 13px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+
+  /* ---------- PRINT ---------- */
+  @page { margin: 14mm 13mm; }
+
+  @media print {
+    :root { --bg: #fff; --paper: #fff; --paper-soft: #fff; --ink: #111; --ink-2: #222; --muted: #555; --line: #bbb; --shadow: none; --shadow-soft: none; }
+    body { background: #fff !important; font-size: 10pt; line-height: 1.6; }
+    .hero { color: #111; background: #fff; border-bottom: 2px solid #222; padding: 0 0 9px; }
+    .hero::before, .hero::after, .hero-actions, .hero-badge, .hero-meta, .crumb { display: none !important; }
+    .hero h1 { font-size: 21pt; }
+    .hero .sub, .kicker { color: #444; }
+    .quicknav, .foot { display: none !important; }
+    .page { max-width: none; padding: 9px 0 0; }
+    .panel, .orbital { border: 1px solid #aaa; box-shadow: none; }
+    .orbital { break-inside: avoid; margin-bottom: 10px; }
+    .orb-media img { max-height: 78mm; object-fit: contain; }
+    .orbital.wide { display: block; }
+    .orbital.wide .orb-media { border-right: 0; border-bottom: 1px solid #bbb; }
+    .orb-body { padding: 10px 12px 12px; }
+    .orbital.wide .orb-body { padding: 10px 12px 12px; }
+    .intro, .source { padding: 12px 14px; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; font-size: 8.5pt; }
+    .intro-grid, .source-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .rules { grid-template-columns: repeat(3, 1fr); }
+    .formula, .mathbox, .katex-display { overflow: visible !important; }
+    a { color: #111; text-decoration: none; }
+    .orb-badges span { color: #fff; background: #222; border-color: #222; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="crumb">
+      <a href="index.html">物理 · 提纲阅读器</a>
+      <span>/</span>
+      <span>量子力学 · 拓展图像</span>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <p class="kicker">Hydrogen Atom · Electron Cloud</p>
+        <h1>氢原子电子云</h1>
+        <p class="sub">依据教材 §4.2 的氢原子波函数，用 |ψ<sub>nlm</sub>|² 画出五个代表性轨道的电子云截面。</p>
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <span class="num">05</span>
+        <span class="txt">ORBITALS · 截面图</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-light" href="outline_qm.html">← 返回提纲</a>
+      <a class="btn btn-ghost" href="hydrogen_clouds_code.html">代码版</a>
+      <button class="btn btn-ghost" id="printBtn" type="button">打印 / 存 PDF</button>
+      <button class="btn btn-ghost" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+    </div>
+
+    <div class="hero-meta">
+      <span>教材 §4.2 氢原子</span>
+      <span>a<sub>0</sub> = 0.529 Å</span>
+      <span>亮度 ∝ |ψ|²</span>
+      <span>五个真实轨道截面</span>
+    </div>
+  </div>
+</header>
+
+<nav class="quicknav" aria-label="页面快速导航">
+  <div class="quicknav-in">
+    <span class="qn-label">轨道</span>
+    <a class="qlink" href="#intro"><span class="n">i</span>读图约定</a>
+    <a class="qlink" href="#o1s"><span class="n">1</span>1s</a>
+    <a class="qlink" href="#o2s"><span class="n">2</span>2s</a>
+    <a class="qlink" href="#o2pz"><span class="n">3</span>2p<sub>z</sub></a>
+    <a class="qlink" href="#o3dz2"><span class="n">4</span>3d<sub>z²</sub></a>
+    <a class="qlink" href="#o3dxy"><span class="n">5</span>3d<sub>xy</sub></a>
+    <a class="qlink" href="#compare"><span class="n">✓</span>对照表</a>
+    <span class="qn-hint">1–5 切换 · D 深色</span>
+  </div>
+  <div class="readbar" aria-hidden="true"><i id="readProgress"></i></div>
+</nav>
+
+<main class="page">
+
+  <section class="intro panel" id="intro" aria-labelledby="introTitle">
+    <p class="eyebrow">How to Read</p>
+    <h2 id="introTitle">电子云不是电子的轨迹</h2>
+
+    <div class="intro-grid">
+      <div>
+        <p>氢原子的定态由三个量子数 \((n,l,m)\) 标记。空间波函数分离成径向部分与球谐函数：</p>
+        <div class="mathbox">
+          \[
+            \psi_{nlm}(r,\theta,\phi)=R_{nl}(r)\,Y_l^m(\theta,\phi),
+            \qquad
+            \mathrm{d}P=|\psi_{nlm}|^2\,r^2\sin\theta\,\mathrm{d}r\,\mathrm{d}\theta\,\mathrm{d}\phi.
+          \]
+        </div>
+        <p>图中画的是概率密度 \(|\psi|^2\) 的一个二维截面：亮的地方表示电子出现的概率密度高，黑的地方表示密度低或恰好是节点。它不是电子绕核运动的轨道，也不是某一瞬间的“电子位置照片”。</p>
+        <p>取 \(a_0=0.529\,\text{Å}\) 为长度单位。1s、2s、2p<sub>z</sub>、3d<sub>z²</sub> 取 \(x\)–\(z\) 平面；3d<sub>xy</sub> 取 \(x\)–\(y\) 平面。每个轨道独立归一化亮度，因此不同图之间只比较形状，不比较绝对亮度；各图取景范围也不同，比较尺寸时以左下角标尺为准。</p>
+      </div>
+
+      <div>
+        <div class="legend">
+          <div class="legend-bar" aria-hidden="true"></div>
+          <div class="legend-labels"><span>低概率密度</span><span>高概率密度</span></div>
+        </div>
+
+        <div class="read-list">
+          <div class="read-item"><span class="dot"></span><span><b>标尺</b>：左下角横线标出 \(2a_0\)、\(5a_0\) 或 \(10a_0\)。</span></div>
+          <div class="read-item"><span class="dot"></span><span><b>节点</b>：概率密度为零的曲面或平面；在截面上表现为暗线或暗环。</span></div>
+          <div class="read-item"><span class="dot"></span><span><b>径向节点</b>：只与 \(r\) 有关的节点球面；<b>角节点</b>：只与 \(\theta,\phi\) 有关的节面或节锥。</span></div>
+          <div class="read-item"><span class="dot"></span><span><b>总节点数</b>：\(n-1\)。这是判断轨道“层次”的快速检查。</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gallery" aria-label="五个氢原子轨道的电子云截面">
+
+    <!-- 1s -->
+    <article class="orbital" id="o1s">
+      <div class="orb-media">
+        <img src="hydrogen/1s.webp" alt="1s 氢原子电子云概率密度截面，球对称，无节点" loading="eager">
+        <div class="orb-badges"><span>n=1 · l=0 · m=0</span><span>x–z 截面</span></div>
+      </div>
+      <div class="orb-body">
+        <div class="orb-head">
+          <div>
+            <p class="orb-kicker">Ground State</p>
+            <h2>1s <small>球对称基态</small></h2>
+          </div>
+          <span class="energy">−13.6 eV</span>
+        </div>
+        <div class="formula">
+          \[
+            \psi_{100}(r)=\frac{1}{\sqrt{\pi a_0^3}}e^{-r/a_0}.
+          \]
+        </div>
+        <div class="chips">
+          <span class="chip">径向节点 <b>0</b></span>
+          <span class="chip">角节点 <b>0</b></span>
+          <span class="chip">最概然半径 <b>\(a_0\)</b></span>
+        </div>
+        <p class="orb-note">指数衰减的球形云，没有节点。径向概率 \(4\pi r^2|\psi|^2\) 在 \(r=a_0\) 处达到最大；越靠近核，概率密度越高，但球壳体积元 \(4\pi r^2\mathrm{d}r\) 在 \(r=0\) 处为零。</p>
+      </div>
+    </article>
+
+    <!-- 2s -->
+    <article class="orbital" id="o2s">
+      <div class="orb-media">
+        <img src="hydrogen/2s.webp" alt="2s 氢原子电子云概率密度截面，中心亮区和外围壳层之间有一个径向节点" loading="eager">
+        <div class="orb-badges"><span>n=2 · l=0 · m=0</span><span>x–z 截面</span></div>
+      </div>
+      <div class="orb-body">
+        <div class="orb-head">
+          <div>
+            <p class="orb-kicker">First Excited s</p>
+            <h2>2s <small>带径向节点的球</small></h2>
+          </div>
+          <span class="energy">−3.40 eV</span>
+        </div>
+        <div class="formula">
+          \[
+            \psi_{200}(r)=\frac{1}{4\sqrt{2\pi}a_0^{3/2}}
+            \left(2-\frac{r}{a_0}\right)e^{-r/(2a_0)}.
+          \]
+        </div>
+        <div class="chips">
+          <span class="chip">径向节点 <b>1</b></span>
+          <span class="chip">角节点 <b>0</b></span>
+          <span class="chip">外峰 <b>\(5.24a_0\)</b></span>
+        </div>
+        <p class="orb-note">在 <b>\(r=2a_0\)</b> 处有一个球状径向节点，图中央亮区与外围壳层之间的暗环就是它。径向概率有两个峰：内峰约 \(0.76a_0\)，外峰约 \(5.24a_0\)，外峰更高、更宽。</p>
+      </div>
+    </article>
+
+    <!-- 2p_z -->
+    <article class="orbital" id="o2pz">
+      <div class="orb-media">
+        <img src="hydrogen/2pz.webp" alt="2p_z 氢原子电子云概率密度截面，沿 z 轴的双瓣结构，中间为节面" loading="lazy">
+        <div class="orb-badges"><span>n=2 · l=1 · m=0</span><span>x–z 截面</span></div>
+      </div>
+      <div class="orb-body">
+        <div class="orb-head">
+          <div>
+            <p class="orb-kicker">p Orbital</p>
+            <h2>2p<sub>z</sub> <small>双瓣哑铃</small></h2>
+          </div>
+          <span class="energy">−3.40 eV</span>
+        </div>
+        <div class="formula">
+          \[
+            \psi_{210}(r,\theta)=\frac{1}{4\sqrt{2\pi}a_0^{3/2}}
+            \frac{r}{a_0}e^{-r/(2a_0)}\cos\theta.
+          \]
+        </div>
+        <div class="chips">
+          <span class="chip">径向节点 <b>0</b></span>
+          <span class="chip">角节点 <b>1</b></span>
+          <span class="chip">最概然半径 <b>\(4a_0\)</b></span>
+        </div>
+        <p class="orb-note"><b>\(x\)–\(y\) 平面</b>（\(\theta=90^\circ\)）是角节点，所以两瓣被中间的暗平面分开。电子云沿 \(z\) 轴伸展，绕 \(z\) 轴旋转对称；它没有径向节点，最概然半径是 \(4a_0\)。</p>
+      </div>
+    </article>
+
+    <!-- 3d_z2 -->
+    <article class="orbital" id="o3dz2">
+      <div class="orb-media">
+        <img src="hydrogen/3dz2.webp" alt="3d_z² 氢原子电子云概率密度截面，两个沿 z 轴的大瓣和中间的环形电子云" loading="lazy">
+        <div class="orb-badges"><span>n=3 · l=2 · m=0</span><span>x–z 截面</span></div>
+      </div>
+      <div class="orb-body">
+        <div class="orb-head">
+          <div>
+            <p class="orb-kicker">d Orbital</p>
+            <h2>3d<sub>z²</sub> <small>双瓣 + 环</small></h2>
+          </div>
+          <span class="energy">−1.51 eV</span>
+        </div>
+        <div class="formula">
+          \[
+            \psi_{320}(r,\theta)=\frac{1}{81\sqrt{6\pi}a_0^{3/2}}
+            \left(\frac{r}{a_0}\right)^2e^{-r/(3a_0)}
+            (3\cos^2\theta-1).
+          \]
+        </div>
+        <div class="chips">
+          <span class="chip">径向节点 <b>0</b></span>
+          <span class="chip">角节点 <b>2</b></span>
+          <span class="chip">最概然半径 <b>\(9a_0\)</b></span>
+        </div>
+        <p class="orb-note">\(3\cos^2\theta-1=0\) 给出两个锥形角节点（\(\theta\approx54.7^\circ,125.3^\circ\)）。三维形状是沿 \(z\) 轴的两大瓣加上腰部的一个<b>环形电子云</b>；在这个 \(x\)–\(z\) 截面上，环被切成左右两个小瓣。</p>
+      </div>
+    </article>
+
+    <!-- 3d_xy wide -->
+    <article class="orbital wide" id="o3dxy">
+      <div class="orb-media">
+        <img src="hydrogen/3dxy.webp" alt="3d_xy 氢原子电子云概率密度截面，在 xy 平面上呈四瓣梅花形，两对节面" loading="lazy">
+        <div class="orb-badges"><span>n=3 · l=2 · |m|=2</span><span>x–y 截面</span></div>
+      </div>
+      <div class="orb-body">
+        <div class="orb-head">
+          <div>
+            <p class="orb-kicker">Real d Orbital</p>
+            <h2>3d<sub>xy</sub> <small>四瓣梅花</small></h2>
+          </div>
+          <span class="energy">−1.51 eV</span>
+        </div>
+        <div class="formula">
+          \[
+            \psi_{3d_{xy}}(r,\theta,\phi)=\frac{1}{81\sqrt{2\pi}a_0^{3/2}}
+            \left(\frac{r}{a_0}\right)^2e^{-r/(3a_0)}
+            \sin^2\theta\,\sin 2\phi.
+          \]
+        </div>
+        <div class="chips">
+          <span class="chip">径向节点 <b>0</b></span>
+          <span class="chip">角节点 <b>2</b></span>
+          <span class="chip">最概然半径 <b>\(9a_0\)</b></span>
+          <span class="chip">四瓣</span>
+        </div>
+        <p class="orb-note">这是 \(m=\pm2\) 两个球谐函数的实线性组合。\(x=0\) 和 \(y=0\) 两个平面是节面，把电子云分成四瓣，瓣的中心沿 \(x\)–\(y\) 平面的对角线方向。它与 \(3d_{z^2}\) 有相同的 \(n,l\) 和能量，只是 \(m\) 与空间取向不同。</p>
+      </div>
+    </article>
+
+  </div>
+
+  <section id="compare" aria-labelledby="compareTitle">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Compare</p>
+        <h2 id="compareTitle">五个轨道放在一起看</h2>
+        <p>能量只由 \(n\) 决定；形状和节点由 \(l,m\) 决定。</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>轨道</th>
+            <th>\((n,l,m)\)</th>
+            <th>能量</th>
+            <th>节点（径向 / 角 / 总）</th>
+            <th>最概然半径</th>
+            <th>形状</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1s</td>
+            <td>\((1,0,0)\)</td>
+            <td>−13.6 eV</td>
+            <td>0 / 0 / 0</td>
+            <td>\(a_0\)</td>
+            <td>球对称，无节点</td>
+          </tr>
+          <tr>
+            <td>2s</td>
+            <td>\((2,0,0)\)</td>
+            <td>−3.40 eV</td>
+            <td>1 / 0 / 1</td>
+            <td>\(5.24a_0\)（外峰）</td>
+            <td>球对称，一层节点壳</td>
+          </tr>
+          <tr>
+            <td>2p<sub>z</sub></td>
+            <td>\((2,1,0)\)</td>
+            <td>−3.40 eV</td>
+            <td>0 / 1 / 1</td>
+            <td>\(4a_0\)</td>
+            <td>沿 \(z\) 轴的双瓣</td>
+          </tr>
+          <tr>
+            <td>3d<sub>z²</sub></td>
+            <td>\((3,2,0)\)</td>
+            <td>−1.51 eV</td>
+            <td>0 / 2 / 2</td>
+            <td>\(9a_0\)</td>
+            <td>双瓣 + 腰部环</td>
+          </tr>
+          <tr>
+            <td>3d<sub>xy</sub></td>
+            <td>\((3,2,\pm2)\)</td>
+            <td>−1.51 eV</td>
+            <td>0 / 2 / 2</td>
+            <td>\(9a_0\)</td>
+            <td>\(xy\) 平面四瓣</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rules" aria-label="节点计数规则">
+      <div class="rule">
+        <span class="label">RADIAL NODES</span>
+        <span class="big">\(n-l-1\)</span>
+        <p>只与半径 \(r\) 有关；2s 的 \(r=2a_0\) 暗环就是一个例子。</p>
+      </div>
+      <div class="rule">
+        <span class="label">ANGULAR NODES</span>
+        <span class="big">\(l\)</span>
+        <p>节面、节锥的数量；p 轨道有 1 个，d 轨道有 2 个。</p>
+      </div>
+      <div class="rule">
+        <span class="label">TOTAL NODES</span>
+        <span class="big">\(n-1\)</span>
+        <p>径向与角节点数之和；可用来快速检查轨道的层次。</p>
+      </div>
+    </div>
+
+    <div class="panel source" aria-labelledby="sourceTitle">
+      <p class="eyebrow">Textbook Link</p>
+      <h2 id="sourceTitle" style="font-family: var(--serif); font-size: 1.5rem; margin: 0; font-weight: 600;">教材依据与读图边界</h2>
+      <div class="source-grid">
+        <div>
+          <p>本页的波函数、径向函数与节点规则取自 Griffiths《量子力学概论》第 4 章 §4.2「氢原子」。图像按归一化波函数数值计算，不是教材扫描件；生成脚本在 <code>构建/生成氢原子电子云.py</code>。</p>
+          <p>教材用密度图（图 4.5）和等 \(|ψ|^2\) 面（图 4.6）两种方式展示氢原子；本页选择前者，因为它能直接看清 2s 的径向节点与 p、d 轨道的节面。</p>
+          <div class="source-actions">
+            <a class="btn" href="outline_qm.html">返回量子力学提纲 →</a>
+            <a class="btn" href="index.html">打开阅读器</a>
+            <a class="btn" href="hydrogen_clouds_code.html">代码版</a>
+            <a class="btn" href="homework_momentum.html">动量空间题解</a>
+          </div>
+        </div>
+        <div>
+          <ul class="cite-list">
+            <li><b>§4.2 氢原子</b> · 中译本 pp.96–104（PDF pp.108–116）</li>
+            <li><b>表 4.7</b> · 前几个径向波函数 \(R_{nl}(r)\)，p.103</li>
+            <li><b>图 4.5</b> · 氢原子波函数密度作图，p.103</li>
+            <li><b>图 4.6</b> · 前几个氢原子波函数的等 \(|ψ|^2\) 面，p.104</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>量子力学 · 氢原子电子云拓展 · 五种轨道截面</span>
+  <span><a href="outline_qm.html">返回提纲</a> · <a href="index.html">打开阅读器</a></span>
+</footer>
+
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var printBtn = document.getElementById('printBtn');
+  var progress = document.getElementById('readProgress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.qlink'));
+  var sections = links.map(function (a) {
+    var id = a.getAttribute('href');
+    return id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+  }).filter(Boolean);
+
+  function applyTheme(isDark, persist) {
+    root.dataset.theme = isDark ? 'dark' : 'light';
+    if (themeBtn) {
+      themeBtn.textContent = isDark ? '☀️ 浅色' : '🌙 深色';
+      themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+    if (persist) {
+      try { localStorage.setItem('phys.hw.theme', isDark ? 'dark' : 'light'); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function renderMath() {
+    if (typeof window.renderMathInElement !== 'function') return;
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        { left: '\\[', right: '\\]', display: true },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      strict: false,
+      trust: false
+    });
+  }
+
+  function updateActive() {
+    if (!sections.length) return;
+    var y = window.scrollY + 118;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function (a) {
+      var isCurrent = a.getAttribute('href') === '#' + current.id;
+      a.classList.toggle('active', isCurrent);
+      if (isCurrent) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progress) progress.style.width = (ratio * 100).toFixed(2) + '%';
+      updateActive();
+      ticking = false;
+    });
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      applyTheme(root.dataset.theme !== 'dark', true);
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', function () { window.print(); });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key >= '1' && e.key <= '5') {
+      var ids = ['o1s', 'o2s', 'o2pz', 'o3dz2', 'o3dxy'];
+      var target = document.getElementById(ids[Number(e.key) - 1]);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else if (e.key.toLowerCase() === 'd') {
+      e.preventDefault();
+      applyTheme(root.dataset.theme !== 'dark', true);
+    }
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.dataset.theme === 'dark', false);
+    renderMath();
+    onScroll();
+    updateActive();
+    setTimeout(function () { onScroll(); updateActive(); }, 350);
+  });
+})();
+</script>
+</body>
+</html>

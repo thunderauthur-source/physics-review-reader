@@ -43,6 +43,19 @@
   .hero h1 { font-size:1.65em; font-weight:500; letter-spacing:.02em; }
   .hero .sub { opacity:.88; font-size:.9em; margin-top:5px; }
   .hero .info { margin-top:11px; font-size:.79em; opacity:.66; line-height:1.7; }
+  .hero .hw-entry {
+    display:inline-flex; align-items:center; gap:7px;
+    margin-top:13px; padding:7px 15px;
+    border:1px solid rgba(255,255,255,.38); border-radius:999px;
+    background:rgba(255,255,255,.12); color:#fff;
+    font-size:.8em; letter-spacing:.02em; text-decoration:none;
+    transition:background .18s, border-color .18s, transform .18s;
+  }
+  .hero .hw-entry:hover {
+    background:rgba(255,255,255,.22); border-color:rgba(255,255,255,.58);
+    transform:translateY(-1px); text-decoration:none;
+  }
+  .hero .hw-entry .arr { font-size:.92em; opacity:.72; }
 
   /* ============ TOOLBAR ============ */
   .toolbar {
@@ -296,6 +309,7 @@
     .hero::before, .hero::after { display:none !important; }
     .hero h1::before, .hero h1::after { display:none !important; }
     .hero .sub { background:none !important; border:0 !important; }
+    .hero .hw-entry { display:none !important; }
     .card { break-inside:avoid; box-shadow:none; }
     .card.closed .cbody { display:block !important; }
     details.b-deriv > .dbody { display:block !important; }
@@ -1248,6 +1262,12 @@ body:not(.anime) .mascot-lightbox { display:none !important; }
     Griffiths《Introduction to Quantum Mechanics》Second Edition 中文译本 · 机械工业出版社<br>
     按「物理图像 → 推导脉络 → 关键结论 → 易错点」组织 · 每节标注原书页码与对应课件
   </p>
+  <a class="hw-entry" href="homework_momentum.html" target="_blank" rel="noopener">
+    📝 动量空间作业 · 四题详解 <span class="arr">↗</span>
+  </a>
+  <a class="hw-entry" href="hydrogen_clouds.html" target="_blank" rel="noopener">
+    🌫 氢原子电子云 · 五种轨道 <span class="arr">↗</span>
+  </a>
 </div>
 
 <div class="toolbar">
@@ -1302,6 +1322,9 @@ body:not(.anime) .mascot-lightbox { display:none !important; }
   <div class="side-h">速查 · 考点</div>
   <a href="#fx">公式速查表</a>
   <a href="#ex">考点与习题归类</a>
+  <div class="side-h">拓展 · 题解 / 图像</div>
+  <a href="homework_momentum.html" target="_blank" rel="noopener">📝 作业题解 · 动量空间 ↗</a>
+  <a href="hydrogen_clouds.html" target="_blank" rel="noopener">🌫 氢原子电子云 · 五种轨道 ↗</a>
 </nav>
 
 <main id="main">

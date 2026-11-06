@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
-QMLauncher.exe
-if errorlevel 1 (
-  echo Launcher failed. See launcher-error.log.
-  pause
+if exist "物理复习提纲阅读器.lnk" (
+  start "" "物理复习提纲阅读器.lnk"
+) else (
+  start "" "阅读器.html"
 )
