@@ -21,6 +21,13 @@ def check(cond, msg):
 
 qm = json.load(io.open(os.path.join(DATA, "manifest_qm.json"), encoding="utf-8"))
 th = json.load(io.open(os.path.join(DATA, "manifest_thermo.json"), encoding="utf-8"))
+
+# 入口 index.html 只加载 manifest_qm.js；它必须同时包含两门课的 manifest。
+combined = io.open(os.path.join(DATA, "manifest_qm.js"), encoding="utf-8").read()
+check("__MANIFESTS__.qm" in combined, "manifest_qm.js 缺少量子力学 manifest")
+check("__MANIFESTS__.thermo" in combined, "manifest_qm.js 缺少热力学 manifest")
+check("thermo-book" in combined, "manifest_qm.js 缺少 thermo-book")
+
 docs = {}
 for mf in (qm, th):
     for d in mf["docs"]:
