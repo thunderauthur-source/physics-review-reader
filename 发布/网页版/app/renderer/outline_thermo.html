@@ -10136,13 +10136,22 @@ applyFilter();
 
   function makeImg(item, cls, size) {
     const img = document.createElement('img');
+    const web = location.protocol === 'http:' || location.protocol === 'https:';
+    const base = prefix + item[0] + '.webp';
     img.className = cls + ' mascot-img';
-    img.src = prefix + item[0] + '.webp';
+    img.src = base + (web ? '?v=20261112' : '');
     img.alt = '溟月表情包：' + item[1];
     img.title = '点击放大：' + item[1];
-    img.loading = 'lazy';
+    img.loading = 'eager';
     img.decoding = 'async';
-    img.addEventListener('error', function () { this.style.display = 'none'; });
+    img.addEventListener('error', function () {
+      if (!this.dataset.retry) {
+        this.dataset.retry = '1';
+        this.src = base + (web ? '?retry=' + Date.now() : '');
+        return;
+      }
+      this.style.display = 'none';
+    });
     return img;
   }
 
