@@ -230,6 +230,39 @@
    "pageDir": "docs/pages/deck-4-6",
    "pagePattern": "p%04d.webp",
    "imgWidth": 1050
+  },
+  {
+   "id": "deck-5-1",
+   "kind": "deck",
+   "title": "课件 5-1 · 球坐标系下薛定谔方程",
+   "file": "docs/decks/deck-5-1.pdf",
+   "pages": 14,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-5-1",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-5-2",
+   "kind": "deck",
+   "title": "课件 5-2 · 氢原子",
+   "file": "docs/decks/deck-5-2.pdf",
+   "pages": 13,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-5-2",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
+  },
+  {
+   "id": "deck-5-3",
+   "kind": "deck",
+   "title": "课件 5-3 · 角动量",
+   "file": "docs/decks/deck-5-3.pdf",
+   "pages": 11,
+   "offset": 0,
+   "pageDir": "docs/pages/deck-5-3",
+   "pagePattern": "p%04d.webp",
+   "imgWidth": 1050
   }
  ],
  "cards": [
@@ -448,6 +481,39 @@
    "deck": "deck-4-6",
    "deckStart": 1,
    "deckEnd": 8
+  },
+  {
+   "id": "s41",
+   "label": "§4.1 球坐标系中的薛定谔方程",
+   "doc": "book",
+   "start": 100,
+   "end": 107,
+   "printed": "88–95",
+   "deck": "deck-5-1",
+   "deckStart": 1,
+   "deckEnd": 14
+  },
+  {
+   "id": "s42",
+   "label": "§4.2 氢原子",
+   "doc": "book",
+   "start": 108,
+   "end": 117,
+   "printed": "96–105",
+   "deck": "deck-5-2",
+   "deckStart": 1,
+   "deckEnd": 13
+  },
+  {
+   "id": "s43",
+   "label": "§4.3 角动量",
+   "doc": "book",
+   "start": 118,
+   "end": 128,
+   "printed": "106–116",
+   "deck": "deck-5-3",
+   "deckStart": 1,
+   "deckEnd": 11
   }
  ],
  "problems": {
