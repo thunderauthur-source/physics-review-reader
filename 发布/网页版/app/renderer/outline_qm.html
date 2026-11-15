@@ -8931,12 +8931,50 @@ applyFilter();
 /* ===== ANIME MASCOTS ===== */
 (function () {
   const MASCOTS = [
-    ['hello', '你好'], ['morning', '早安'], ['bye', '拜拜'], ['wow', '哇'],
-    ['cry', '哭哭'], ['smiletears', '笑泪'], ['shy', '害羞'], ['pout', '鼓脸'],
-    ['wait', '等等'], ['peek', '偷看'], ['promise', '约定'], ['phonehug', '抱手机'],
-    ['goodnight', '晚安'], ['snow', '下雪'], ['eraser', '橡皮'], ['fade', '消失'],
-    ['yandere', '病娇'], ['cos_cat', '猫猫'], ['cos_school', '校服'], ['cos_idol', '偶像'],
-    ['cos_astro', '宇航员'], ['cos_bride', '婚纱']
+    ["hello", "你好"], ["morning", "早安"],
+    ["bye", "拜拜"], ["wow", "哇"],
+    ["cry", "哭哭"], ["smiletears", "笑泪"],
+    ["shy", "害羞"], ["pout", "鼓脸"],
+    ["wait", "等等"], ["peek", "偷看"],
+    ["promise", "约定"], ["phonehug", "抱手机"],
+    ["goodnight", "晚安"], ["snow", "下雪"],
+    ["eraser", "橡皮"], ["fade", "消失"],
+    ["yandere", "病娇"], ["cos_cat", "猫猫"],
+    ["cos_school", "校服"], ["cos_idol", "偶像"],
+    ["cos_astro", "宇航员"], ["cos_bride", "婚纱"],
+    ["ex01", "撒红包", "anim"], ["ex02", "发红包", "anim"],
+    ["ex03", "要红包", "anim"], ["ex07", "浇水", "anim"],
+    ["ex08", "被戳戳", "anim"], ["ex09", "催眠 2", "anim"],
+    ["ex10", "互联网暴力", "anim"], ["ex11", "燃尽", "anim"],
+    ["ex12", "新奥变身", "anim"], ["ex13", "英雄降临", "anim"],
+    ["ex14", "一键三连 1", "anim"], ["ex15", "一键三连 2", "anim"],
+    ["ex16", "吉他", "anim"], ["ex18", "键盘", "anim"],
+    ["ex19", "鼓", "anim"], ["ex20", "主唱", "anim"],
+    ["ex21", "叫我吗", "anim"], ["ex22", "甩吉他", "anim"],
+    ["ex23", "上硬菜", "anim"], ["ex24", "大角牛", "anim"],
+    ["ex25", "真蓄", "anim"], ["ex26", "大舌头舔雪糕", "anim"],
+    ["ex27", "嗦冰棍", "anim"], ["ex28", "铁锅炖", "anim"],
+    ["ex29", "分冰棍", "anim"], ["ex35", "哈气哈气哈", "anim"],
+    ["ex36", "灯下猫", "anim"], ["ex38", "套娃猫", "anim"],
+    ["ex58", "桶装猫", "anim"], ["ex59", "抓猪", "anim"],
+    ["ex60", "八分光轮", "anim"], ["ex61", "猫儿这个XX", "anim"],
+    ["ex62", "猫猫吐息", "anim"], ["ex64", "疯狂暗示", "anim"],
+    ["ex65", "臭臭喵", "anim"], ["ex66", "小猫懵逼", "anim"],
+    ["ex67", "开窍", "anim"], ["ex68", "就是这个啊", "anim"],
+    ["ex69", "恢复术", "anim"], ["ex70", "超电磁炮", "anim"],
+    ["ex71", "太鼓达人", "anim"], ["ex72", "猫猫占领世界", "anim"],
+    ["ex73", "哦啦哦啦", "anim"], ["ex74", "木大木大", "anim"],
+    ["ex75", "慈祥", "anim"], ["ex76", "我也要死么", "anim"],
+    ["ex77", "热化了", "anim"], ["ex78", "猫之矢", "anim"],
+    ["n15_01", "灵光一闪", "anim"], ["n15_02", "妈妈", "anim"],
+    ["n16_01", "超开心", "anim"], ["n16_02", "超勇的", "anim"],
+    ["n16_03", "魔法棒", "anim"], ["n16_04", "宣判 2", "anim"],
+    ["n16_04_2", "宣判 3", "anim"], ["n16_04_3", "宣判", "anim"],
+    ["n16_05", "这有问题", "anim"], ["n16_06", "苦酒入喉", "anim"],
+    ["n16_07", "委屈哭哭", "anim"], ["n16_08", "给你心心", "anim"],
+    ["n16_09", "干嘛", "anim"], ["n16_10", "呵", "anim"],
+    ["n16_11", "呕", "anim"], ["n16_12", "不够吃", "anim"],
+    ["sp01", "特殊01", "anim"], ["sp02", "特殊02", "anim"],
   ];
   const prefix = 'mascot/';
   const pick = i => MASCOTS[((i % MASCOTS.length) + MASCOTS.length) % MASCOTS.length];
@@ -8949,7 +8987,7 @@ applyFilter();
     img.src = base + (web ? '?v=20261112' : '');
     img.alt = '溟月表情包：' + item[1];
     img.title = '点击放大：' + item[1];
-    img.loading = 'eager';
+    img.loading = item[2] === 'anim' ? 'lazy' : 'eager';
     img.decoding = 'async';
     img.addEventListener('error', function () {
       if (!this.dataset.retry) {
@@ -8963,7 +9001,9 @@ applyFilter();
   }
 
   /* 每张卡片右上角 + 卡片结尾 */
-  document.querySelectorAll('.card').forEach(function (card, i) {
+  const cards = document.querySelectorAll('.card');
+  const cardCount = cards.length;
+  cards.forEach(function (card, i) {
     const head = card.querySelector('.chead');
     if (head && !head.querySelector('.mascot-corner')) {
       const item = pick(i);
@@ -8973,7 +9013,7 @@ applyFilter();
     }
     const body = card.querySelector('.cbody');
     if (body && !body.querySelector('.card-mascot-end')) {
-      const item = pick(i + 7);
+      const item = pick(i + cardCount);
       const end = document.createElement('div');
       end.className = 'card-mascot-end';
       const text = document.createElement('span');
@@ -8996,7 +9036,7 @@ applyFilter();
   if (main && !document.querySelector('.mascot-credit')) {
     const credit = document.createElement('div');
     credit.className = 'mascot-credit';
-    credit.textContent = '表情包：溟月 © 上善无形 ／ 女仆版 ZipZipPipe · CC BY-NC-SA 4.0 · AI 生成';
+    credit.textContent = '表情包：溟月 © 上善无形 ／ 女仆版 ZipZipPipe · CC BY-NC-SA 4.0 · AI 生成 · 88 张';
     main.appendChild(credit);
   }
 
