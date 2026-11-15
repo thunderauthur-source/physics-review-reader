@@ -794,6 +794,10 @@ function zoomBy(factor) {
   saveLayout();
 }
 
+function openHomework() {
+  window.open('homework_solutions.html', '_blank', 'noopener');
+}
+
 function setupSwipePaging() {
   const pane = $('#pdfPane');
   if (!pane) return;
@@ -910,6 +914,7 @@ function wireUI() {
   $('#tocBtn').addEventListener('click', openToc);
   $('#searchBtn').addEventListener('click', openSearch);
   $('#focusBtn').addEventListener('click', toggleFocus);
+  $('#homeworkBtn').addEventListener('click', openHomework);
   $('#outlineFullBtn').addEventListener('click', () => setOutlineOnly());
   $('#moreBtn').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -924,6 +929,7 @@ function wireUI() {
       if (action === 'bookmark') toggleBookmark();
       else if (action === 'highlight') toggleHighlightMode();
       else if (action === 'study') openDrawer('bm');
+      else if (action === 'homework') openHomework();
       else if (action === 'toc') openToc();
       else if (action === 'search') openSearch();
       else if (action === 'locate') locateCard();

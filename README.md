@@ -75,6 +75,7 @@
 - **完整推导**：81 张卡片全部补齐 8–40 步教材级推导，共 1383 步；每步标注依据/检查；浅色/深色主题均使用高对比度底色与文字
 - **三套独立遮罩**：结论 / 公式 / 推导分别开关，支持单块 👁、点击恢复、计数和刷新记忆
 - **知识点弹卡**：151 个不同知识点可点击，弹卡内可跳提纲卡片或教材/讲义页
+- **作业与题解板块**：6 份作业/小测独立成板，左侧目录切换，原页面公式与排版保持原样；顶栏「作业」可直接进入
 - **二次元主题**：溟月表情包、章首大图、卡片右上角/结尾随读表情；支持悬停动效和点击放大
 - **完全离线**：不联网、不占端口、没有后端；在线版和单文件 HTML 都只是静态文件
 
@@ -115,6 +116,10 @@
 
 ## 拓展内容（2026-11）
 
+- **作业与题解 · 独立板块**：量子力学 3 份 + 热统 3 份，统一目录与切换，保留每份原页面的公式排版
+  <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/homework_solutions.html>
+  - 量子力学：动量空间四题、不确定原理小测、有心力场作业
+  - 热力学统计物理：第三章相变、第四章多元系、第六章近独立粒子
 - **动量空间四题题解**：坐标期望值、运动高斯波包、自由粒子动量空间方程、谐振子经典禁区概率
   <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/homework_momentum.html>
 - **氢原子电子云 · 五种轨道**：1s、2s、2p<sub>z</sub>、3d<sub>z²</sub>、3d<sub>xy</sub> 的 |ψ|² 截面图、量子数与节点
@@ -126,7 +131,7 @@
   <https://thunderauthur-source.github.io/physics-review-reader/app/renderer/thermo_ch6_solutions.html>
 - 生成脚本：`构建/生成氢原子电子云.py`、`构建/生成氢原子汇报PPT.py`、`构建/添加氢原子公式页.py`
 
-三处副本（`程序/resources/app/renderer`、`docs/app/renderer`、`发布/网页版/app/renderer`）内容保持一致；拓展页入口在量子力学提纲顶部和侧栏「拓展 · 题解 / 图像」。
+三处副本（`程序/resources/app/renderer`、`docs/app/renderer`、`发布/网页版/app/renderer`）内容保持一致；作业板块入口在阅读器顶栏「作业」、量子力学提纲顶部/侧栏，以及热统提纲顶部/侧栏。
 
 ## 快速开始
 
@@ -336,7 +341,13 @@ python -m http.server 8080 --bind 127.0.0.1
 │  ├─ edgeprofile/                本机进度（gitignore）
 │  └─ resources/app/
 │     ├─ renderer/                index.html / app.js / app.css / 两份 outline
+│     │  ├─ homework_solutions.html     作业与题解独立板块（6 份）
 │     │  ├─ homework_momentum.html      动量空间四题题解
+│     │  ├─ solutions_qm_uncertainty.html  不确定原理小测解答
+│     │  ├─ solutions_qm_central.html   有心力场作业解答
+│     │  ├─ solutions_thermo_ch3.html   第三章相变习题详解
+│     │  ├─ solutions_thermo_ch4.html   第四章多元系习题详解
+│     │  ├─ thermo_ch6_solutions.html   第六章近独立粒子习题详解
 │     │  ├─ hydrogen_clouds.html        氢原子电子云五轨道
 │     │  ├─ hydrogen_clouds_code.html   左图右码代码版
 │     │  └─ hydrogen/                   五张电子云 WebP

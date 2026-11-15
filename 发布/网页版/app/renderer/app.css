@@ -634,7 +634,7 @@ body.dark #pdfPane::-webkit-scrollbar-thumb {
     font-size: 12px;
     text-overflow: ellipsis;
   }
-  .pager, #rangeInfo, #searchBtn, #bookmarkBtn, #hlBtn, #studyBtn, #tocBtn,
+  .pager, #rangeInfo, #searchBtn, #bookmarkBtn, #hlBtn, #studyBtn, #homeworkBtn, #tocBtn,
   #focusBtn, #outlineFullBtn, #locateBtn, #fitBtn, #zoomOut, #zoomIn {
     display: none !important;
   }

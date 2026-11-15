@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>作业与题解 · 物理复习阅读器</title>
+<style>
+  :root {
+    --paper: #f3eee5;
+    --paper-deep: #e9e2d7;
+    --card: #fffdf9;
+    --ink: #222a32;
+    --muted: #6f746f;
+    --line: #ddd4c5;
+    --accent: #8c2f24;
+    --accent-soft: #f0dfd8;
+    --qm: #385a8a;
+    --thermo: #0f6b5c;
+    --shadow: 0 10px 28px rgba(65, 50, 35, .10);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  a { color: inherit; }
+  button, select { font-family: inherit; }
+
+  .top {
+    flex: 0 0 auto;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    background: linear-gradient(180deg, #26221e, #1d1a17);
+    color: #fbf7ee;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, .16);
+    position: relative;
+    z-index: 5;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 8px;
+    color: #f4e9d9;
+    text-decoration: none;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: background .16s, border-color .16s;
+  }
+  .back:hover { background: rgba(255, 255, 255, .10); border-color: rgba(255, 255, 255, .45); }
+  .brand { display: flex; align-items: center; gap: 9px; min-width: 0; }
+  .brand .mark {
+    width: 30px; height: 30px; flex: 0 0 auto;
+    display: grid; place-items: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #b04a35, var(--accent));
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28);
+  }
+  .brand h1 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
+  .brand p { margin: 1px 0 0; color: #bdb3a4; font-size: 10.5px; letter-spacing: .03em; white-space: nowrap; }
+  .top .spacer { flex: 1; }
+  .pick { display: none; align-items: center; gap: 6px; min-width: 0; }
+  .pick span { color: #cfc4b5; font-size: 11px; white-space: nowrap; }
+  .pick select {
+    height: 32px; min-width: 0; max-width: 100%;
+    padding: 0 8px;
+    border: 1px solid rgba(255, 255, 255, .20);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, .08);
+    color: #fbf7ee;
+    font-size: 12px;
+    outline: none;
+  }
+  .pick select option { color: #222a32; background: #fff; }
+  .top-action {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 31px; padding: 0 11px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 8px;
+    color: #f4e9d9; text-decoration: none; font-size: 11.5px; white-space: nowrap;
+  }
+  .top-action:hover { background: rgba(255, 255, 255, .10); }
+
+  .layout {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 284px minmax(0, 1fr);
+  }
+
+  .side {
+    min-height: 0;
+    overflow: auto;
+    padding: 16px 12px 22px;
+    background: #fbf7ef;
+    border-right: 1px solid var(--line);
+    scrollbar-width: thin;
+    scrollbar-color: #c9beb0 transparent;
+  }
+  .side::-webkit-scrollbar { width: 7px; }
+  .side::-webkit-scrollbar-thumb { background: #c9beb0; border-radius: 10px; }
+  .side-head {
+    display: flex; align-items: baseline; gap: 7px;
+    margin: 4px 7px 8px;
+    color: var(--muted);
+    font-size: 11px; font-weight: 700; letter-spacing: .10em;
+  }
+  .side-head:not(:first-child) { margin-top: 18px; }
+  .side-head span { color: #a49a8b; font-weight: 400; letter-spacing: 0; }
+  .hw-item {
+    width: 100%;
+    display: block;
+    padding: 10px 11px;
+    margin: 0 0 6px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    transition: background .16s, border-color .16s, transform .16s;
+  }
+  .hw-item:hover { background: #f2eade; border-color: #e2d6c4; }
+  .hw-item.on {
+    background: var(--card);
+    border-color: #cfb7a2;
+    box-shadow: 0 3px 12px rgba(108, 80, 52, .10);
+  }
+  .hw-item .itop { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .tag {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 25px; height: 17px; padding: 0 5px;
+    border-radius: 4px;
+    font-size: 9px; font-weight: 700; letter-spacing: .04em;
+  }
+  .tag.qm { color: #fff; background: var(--qm); }
+  .tag.thermo { color: #fff; background: var(--thermo); }
+  .hw-item b { display: block; font-size: 12.6px; font-weight: 600; line-height: 1.45; }
+  .hw-item small { display: block; margin-top: 3px; color: #8a8174; font-size: 10.4px; line-height: 1.5; }
+  .side-note {
+    margin: 18px 7px 0;
+    padding-top: 11px;
+    border-top: 1px dashed #d8cdbd;
+    color: #9b9184;
+    font-size: 10.5px;
+    line-height: 1.7;
+  }
+
+  .viewer {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper-deep);
+  }
+  .viewbar {
+    flex: 0 0 auto;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 253, 249, .88);
+  }
+  .viewtitle { min-width: 0; display: flex; align-items: center; gap: 8px; }
+  #curTag {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 18px; padding: 0 6px;
+    border-radius: 4px;
+    color: #fff; font-size: 9px; font-weight: 700;
+  }
+  #curTag.qm { background: var(--qm); }
+  #curTag.thermo { background: var(--thermo); }
+  #curTitle {
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #curMeta {
+    color: var(--muted); font-size: 10.5px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .viewbar .actions { margin-left: auto; display: flex; gap: 6px; flex: 0 0 auto; }
+  .vbtn {
+    height: 29px; padding: 0 9px;
+    border: 1px solid #d8cdbd;
+    border-radius: 7px;
+    background: #fffdf9;
+    color: #62594d;
+    font-size: 11px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .vbtn:hover { background: #f5ecdf; border-color: #c3b29d; }
+  .frame-wrap {
+    flex: 1;
+    min-height: 0;
+    padding: 10px;
+  }
+  #hwFrame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 11px;
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 244px minmax(0, 1fr); }
+    .brand p { display: none; }
+    #curMeta { display: none; }
+  }
+  @media (max-width: 820px) {
+    .top {
+      height: 58px;
+      gap: 7px;
+      padding: 0 9px;
+    }
+    .back { padding: 0 8px; font-size: 11px; }
+    .back .txt { display: none; }
+    .brand { gap: 6px; flex: 0 0 auto; }
+    .brand .mark { width: 27px; height: 27px; font-size: 15px; }
+    .brand h1 { font-size: 14px; }
+    .pick { display: flex; flex: 1; min-width: 0; }
+    .pick select { flex: 1; width: 100%; height: 30px; font-size: 11.5px; }
+    .top-action { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .viewbar {
+      min-height: 0;
+      padding: 6px 10px;
+      gap: 6px;
+    }
+    .viewtitle { flex: 1; min-width: 0; }
+    #curTitle { font-size: 11.5px; }
+    .viewbar .actions { gap: 4px; }
+    .vbtn { height: 27px; padding: 0 7px; font-size: 10px; }
+    .frame-wrap { padding: 6px; }
+    #hwFrame { border-radius: 8px; }
+  }
+  @media (max-width: 430px) {
+    .brand h1 { display: none; }
+    .pick select { max-width: 190px; }
+    #curTag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back" href="index.html" title="返回阅读器">← <span class="txt">阅读器</span></a>
+  <div class="brand">
+    <span class="mark">作</span>
+    <div>
+      <h1>作业与题解</h1>
+      <p>六份作业 / 小测 · 独立板块</p>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <label class="pick">
+    <span>选择</span>
+    <select id="hwSelect" aria-label="选择作业"></select>
+  </label>
+  <a id="openTop" class="top-action" href="homework_momentum.html" target="_blank" rel="noopener">新标签 ↗</a>
+</header>
+
+<main class="layout">
+  <aside class="side" aria-label="作业目录">
+    <div id="hwNav"></div>
+    <p class="side-note">题解保持原始排版与公式渲染，以独立页面嵌入。可用「新标签」单独打开或打印。</p>
+  </aside>
+
+  <section class="viewer">
+    <div class="viewbar">
+      <div class="viewtitle">
+        <span id="curTag" class="qm">QM</span>
+        <b id="curTitle">动量空间 · 四题详解</b>
+        <small id="curMeta">4 题 · 动量表象 / 高斯波包 / 谐振子</small>
+      </div>
+      <div class="actions">
+        <button id="reloadBtn" class="vbtn" type="button" title="重新载入当前题解">重载</button>
+        <a id="openPage" class="vbtn" href="homework_momentum.html" target="_blank" rel="noopener">原页 ↗</a>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <iframe id="hwFrame" title="作业题解内容"></iframe>
+    </div>
+  </section>
+</main>
+
+<script>
+  const ITEMS = [
+    {
+      key: 'qm-momentum', group: '量子力学', tag: 'QM', tagClass: 'qm',
+      label: '动量空间 · 四题详解', short: '动量表象 / 高斯波包 / 谐振子',
+      meta: '4 题 · 动量表象、运动高斯波包、自由粒子演化、经典禁区',
+      src: 'homework_momentum.html'
+    },
+    {
+      key: 'qm-uncertainty', group: '量子力学', tag: 'QM', tagClass: 'qm',
+      label: '不确定原理小测', short: '判断题 / 对易式 / 能量–时间',
+      meta: '4 题 · 不确定原理、对易关系、能量–时间、洛伦兹波函数',
+      src: 'solutions_qm_uncertainty.html'
+    },
+    {
+      key: 'qm-central', group: '量子力学', tag: 'QM', tagClass: 'qm',
+      label: '有心力场作业', short: '恩费斯脱 / 球谐 / 有限深势阱',
+      meta: '5 题 · 恩费斯脱定理、球谐函数、角动量、勒让德多项式、有限深球势阱',
+      src: 'solutions_qm_central.html'
+    },
+    {
+      key: 'thermo-ch3', group: '热力学·统计物理', tag: '热统', tagClass: 'thermo',
+      label: '第三章 · 单元系的相变', short: '平衡判据 / 两相稳定性 / 范德瓦尔斯',
+      meta: '8 题 · 平衡判据、两相稳定性、三相点、饱和蒸气、范德瓦尔斯方程',
+      src: 'solutions_thermo_ch3.html'
+    },
+    {
+      key: 'thermo-ch4', group: '热力学·统计物理', tag: '热统', tagClass: 'thermo',
+      label: '第四章 · 多元系的复相平衡', short: '拉乌尔 / 渗透压 / 化学平衡',
+      meta: '7 题 · 理想溶液、拉乌尔定律、沸点升高、渗透压、化学平衡、表面张力',
+      src: 'solutions_thermo_ch4.html'
+    },
+    {
+      key: 'thermo-ch6', group: '热力学·统计物理', tag: '热统', tagClass: 'thermo',
+      label: '第六章 · 近独立粒子的最概然分布', short: '量子态数 / BE / FD',
+      meta: '6 题 · 自由粒子量子态数、可分辨粒子、玻色–爱因斯坦与费米–狄拉克分布',
+      src: 'thermo_ch6_solutions.html'
+    }
+  ];
+
+  const $ = (sel) => document.querySelector(sel);
+  const frame = $('#hwFrame');
+  const select = $('#hwSelect');
+  const nav = $('#hwNav');
+  let currentKey = '';
+
+  function byKey(key) {
+    return ITEMS.find((item) => item.key === key) || ITEMS[0];
+  }
+
+  function renderNav() {
+    const groups = [...new Set(ITEMS.map((item) => item.group))];
+    nav.innerHTML = groups.map((group) => {
+      const rows = ITEMS.filter((item) => item.group === group).map((item) => `
+        <button class="hw-item" type="button" data-key="${item.key}">
+          <span class="itop"><span class="tag ${item.tagClass}">${item.tag}</span></span>
+          <b>${item.label}</b>
+          <small>${item.short}</small>
+        </button>`).join('');
+      return `<div class="side-head">${group}<span>${ITEMS.filter((item) => item.group === group).length}</span></div>${rows}`;
+    }).join('');
+    nav.querySelectorAll('.hw-item').forEach((btn) => {
+      btn.addEventListener('click', () => load(btn.dataset.key));
+    });
+  }
+
+  function renderSelect() {
+    select.innerHTML = [...new Set(ITEMS.map((item) => item.group))].map((group) => {
+      const options = ITEMS.filter((item) => item.group === group)
+        .map((item) => `<option value="${item.key}">${item.label}</option>`).join('');
+      return `<optgroup label="${group}">${options}</optgroup>`;
+    }).join('');
+  }
+
+  function setActive(key) {
+    nav.querySelectorAll('.hw-item').forEach((btn) => {
+      btn.classList.toggle('on', btn.dataset.key === key);
+    });
+    select.value = key;
+  }
+
+  function load(key, updateHash) {
+    const item = byKey(key);
+    currentKey = item.key;
+    frame.src = item.src;
+    frame.title = item.label + ' · 作业题解';
+    const tag = $('#curTag');
+    tag.textContent = item.tag;
+    tag.className = item.tagClass;
+    $('#curTitle').textContent = item.label;
+    $('#curMeta').textContent = item.meta;
+    $('#openPage').href = item.src;
+    $('#openTop').href = item.src;
+    document.title = item.label + ' · 作业与题解';
+    setActive(item.key);
+    if (updateHash !== false) history.replaceState(null, '', '#' + item.key);
+  }
+
+  function init() {
+    renderNav();
+    renderSelect();
+    const hash = location.hash.replace(/^#/, '');
+    const initial = ITEMS.some((item) => item.key === hash) ? hash : ITEMS[0].key;
+    load(initial, false);
+    if (location.hash !== '#' + initial) history.replaceState(null, '', '#' + initial);
+  }
+
+  select.addEventListener('change', () => load(select.value));
+  $('#reloadBtn').addEventListener('click', () => {
+    const item = byKey(currentKey);
+    frame.src = item.src + '?reload=' + Date.now();
+  });
+  window.addEventListener('hashchange', () => {
+    const key = location.hash.replace(/^#/, '');
+    if (ITEMS.some((item) => item.key === key) && key !== currentKey) load(key, false);
+  });
+
+  // Keep the embedded page's “返回提纲” links from replacing the whole board.
+  frame.addEventListener('load', () => {
+    try {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      doc.querySelectorAll('a[href]').forEach((a) => {
+        const href = a.getAttribute('href') || '';
+        if (/^(index\.html|outline_qm\.html|outline_thermo\.html)/.test(href)) {
+          a.target = '_blank';
+          a.rel = 'noopener';
+        }
+      });
+    } catch (err) { /* ignore cross-document access failures */ }
+  });
+
+  init();
+</script>
+</body>
+</html>
