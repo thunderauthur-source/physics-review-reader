@@ -36,7 +36,10 @@ study.notes = study.notes || {};
 study.highlights = study.highlights || {};
 study.visited = study.visited || {};
 
-const layout = loadJson(LAYOUT_KEY, { course: 'qm', width: 0, zoom: 1, focus: false });
+const layout = loadJson(LAYOUT_KEY, {
+  course: 'qm', width: 0, zoom: 1, focus: false,
+  outlineOnly: false, mobileTab: 'outline'
+});
 
 function saveStudy() {
   try { localStorage.setItem(STUDY_KEY, JSON.stringify(study)); } catch (e) { /* ignore */ }
@@ -49,7 +52,9 @@ function saveLayout() {
       course: course,
       width: parseInt(pane.style.width, 10) || 0,
       zoom: state.zoom,
-      focus: document.body.classList.contains('focus')
+      focus: document.body.classList.contains('focus'),
+      outlineOnly: document.body.classList.contains('outline-only'),
+      mobileTab: document.body.classList.contains('mobile-doc') ? 'doc' : 'outline'
     }));
   } catch (e) { /* ignore */ }
 }
@@ -724,7 +729,100 @@ function setDrawerTab(tab) {
   document.querySelectorAll('.tabpane').forEach((p) => p.classList.toggle('on', p.id === 'tab-' + tab));
 }
 
+function isMobile() {
+  return window.matchMedia('(max-width: 820px)').matches;
+}
+
+function syncOutlineButton() {
+  const btn = $('#outlineFullBtn');
+  if (!btn) return;
+  const on = document.body.classList.contains('outline-only');
+  btn.classList.toggle('on', on);
+  btn.textContent = on ? '显示讲义' : '提纲全屏';
+  btn.title = on ? '恢复右侧讲义/课本（O）' : '隐藏右侧讲义/课本，提纲占满内容区（O）';
+}
+
+function setOutlineOnly(force) {
+  if (isMobile()) {
+    setMobileTab(force === false ? 'doc' : 'outline');
+    return;
+  }
+  const on = typeof force === 'boolean'
+    ? force
+    : !document.body.classList.contains('outline-only');
+  if (on) {
+    document.body.classList.remove('focus');
+    $('#focusBtn').classList.remove('on');
+  }
+  document.body.classList.toggle('outline-only', on);
+  syncOutlineButton();
+  saveLayout();
+  requestAnimationFrame(layoutImage);
+}
+
+function setMobileTab(tab, silent) {
+  const next = tab === 'doc' ? 'doc' : 'outline';
+  if (isMobile()) document.body.classList.remove('outline-only');
+  document.body.classList.toggle('mobile-doc', next === 'doc');
+  document.body.classList.toggle('mobile-outline', next === 'outline');
+  document.querySelectorAll('.mobile-tab').forEach((b) => {
+    b.classList.toggle('on', b.dataset.tab === next);
+    b.setAttribute('aria-selected', b.dataset.tab === next ? 'true' : 'false');
+  });
+  if (next === 'doc') requestAnimationFrame(layoutImage);
+  if (!silent) closeMobileMenu();
+  saveLayout();
+}
+
+function closeMobileMenu() {
+  document.body.classList.remove('mobile-menu-open');
+  const btn = $('#moreBtn');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+function toggleMobileMenu() {
+  const open = !document.body.classList.contains('mobile-menu-open');
+  document.body.classList.toggle('mobile-menu-open', open);
+  const btn = $('#moreBtn');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function zoomBy(factor) {
+  state.zoom = clamp(state.zoom * factor, 0.4, 4);
+  $('#fitBtn').classList.remove('on');
+  layoutImage();
+  saveLayout();
+}
+
+function setupSwipePaging() {
+  const pane = $('#pdfPane');
+  if (!pane) return;
+  let sx = 0, sy = 0;
+  pane.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1 || !isMobile()) return;
+    if (document.body.classList.contains('hl-mode')) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+  pane.addEventListener('touchend', (e) => {
+    if (!isMobile() || document.body.classList.contains('hl-mode')) return;
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!t) return;
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      turnPage(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+}
+
 function toggleFocus() {
+  if (isMobile()) {
+    setMobileTab('doc');
+    return;
+  }
+  document.body.classList.remove('outline-only');
+  syncOutlineButton();
   const on = !document.body.classList.contains('focus');
   document.body.classList.toggle('focus', on);
   $('#focusBtn').classList.toggle('on', on);
@@ -785,6 +883,7 @@ function wireUI() {
   $('#pagePrevBtn').addEventListener('click', () => turnPage(-1));
   $('#pageNextBtn').addEventListener('click', () => turnPage(1));
   setupPageGestures();
+  setupSwipePaging();
   $('#zoomIn').addEventListener('click', () => {
     state.zoom = clamp(state.zoom * 1.2, 0.4, 4);
     $('#fitBtn').classList.remove('on');
@@ -811,6 +910,33 @@ function wireUI() {
   $('#tocBtn').addEventListener('click', openToc);
   $('#searchBtn').addEventListener('click', openSearch);
   $('#focusBtn').addEventListener('click', toggleFocus);
+  $('#outlineFullBtn').addEventListener('click', () => setOutlineOnly());
+  $('#moreBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+  document.querySelectorAll('.mobile-tab').forEach((b) => {
+    b.addEventListener('click', () => setMobileTab(b.dataset.tab));
+  });
+  document.querySelectorAll('#mobileMenu [data-action]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const action = b.dataset.action;
+      if (action === 'bookmark') toggleBookmark();
+      else if (action === 'highlight') toggleHighlightMode();
+      else if (action === 'study') openDrawer('bm');
+      else if (action === 'toc') openToc();
+      else if (action === 'search') openSearch();
+      else if (action === 'locate') locateCard();
+      else if (action === 'fit') { state.zoom = 1; $('#fitBtn').classList.add('on'); layoutImage(); saveLayout(); }
+      else if (action === 'zoomIn') zoomBy(1.2);
+      else if (action === 'zoomOut') zoomBy(1 / 1.2);
+      closeMobileMenu();
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!document.body.classList.contains('mobile-menu-open')) return;
+    if (!e.target.closest('#mobileMenu, #moreBtn')) closeMobileMenu();
+  });
 
   $('#drawerClose').addEventListener('click', closeDrawer);
   document.querySelectorAll('.drawer-tabs button').forEach((b) => {
@@ -858,7 +984,7 @@ function wireUI() {
     const tag = (e.target.tagName || '').toUpperCase();
     const typing = tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
     if (e.key === 'Escape') {
-      closeSearch(); closeToc(); closeDrawer();
+      closeSearch(); closeToc(); closeDrawer(); closeMobileMenu();
       if (document.body.classList.contains('hl-mode')) toggleHighlightMode();
       return;
     }
@@ -885,6 +1011,7 @@ function wireUI() {
     if (e.key === '-') { state.zoom = clamp(state.zoom / 1.2, 0.4, 4); $('#fitBtn').classList.remove('on'); layoutImage(); saveLayout(); }
     if (e.key === '0') { state.zoom = 1; $('#fitBtn').classList.add('on'); layoutImage(); saveLayout(); }
     if (e.key === 'f' || e.key === 'F') toggleFocus();
+    if (e.key === 'o' || e.key === 'O') setOutlineOnly();
     if (e.key === 'b' || e.key === 'B') toggleBookmark();
     if (e.key === 'n' || e.key === 'N') openDrawer('note');
     if (e.key === 't' || e.key === 'T') openToc();
@@ -929,6 +1056,18 @@ function wireUI() {
   window.addEventListener('blur', () => endDrag(null));
 
   window.addEventListener('resize', () => {
+    if (isMobile()) {
+      if (document.body.classList.contains('focus') ||
+          document.body.classList.contains('outline-only')) {
+        document.body.classList.remove('focus', 'outline-only');
+        $('#focusBtn').classList.remove('on');
+        syncOutlineButton();
+      }
+      if (!document.body.classList.contains('mobile-doc') &&
+          !document.body.classList.contains('mobile-outline')) {
+        setMobileTab('outline', true);
+      }
+    }
     if (state.zoom === 1) layoutImage();
   });
 
@@ -951,12 +1090,16 @@ function boot() {
     if (layout.width) $('#outlinePane').style.width = layout.width + 'px';
     if (layout.zoom) state.zoom = layout.zoom;
     $('#fitBtn').classList.toggle('on', state.zoom === 1);
-    if (layout.focus) {
+    if (layout.outlineOnly && !isMobile()) {
+      document.body.classList.add('outline-only');
+      syncOutlineButton();
+    } else if (layout.focus && !isMobile()) {
       document.body.classList.add('focus');
       $('#focusBtn').classList.add('on');
     }
     const startCourse = layout.course === 'thermo' ? 'thermo' : 'qm';
     switchCourse(startCourse, true);
+    setMobileTab(layout.mobileTab === 'doc' ? 'doc' : 'outline', true);
     updateNoteForPage();
     renderBmList();
     renderNoteList();

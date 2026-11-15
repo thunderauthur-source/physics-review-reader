@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>物理 · 提纲阅读器</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="256x256" href="icon-256.png">
@@ -37,11 +38,25 @@
   <button id="tocBtn" class="btn" title="章节目录（T）">目录</button>
   <button id="searchBtn" class="btn" title="全局搜索（/ 或 Ctrl+K）">搜索</button>
   <button id="focusBtn" class="btn" title="专注模式，隐藏左侧提纲（F）">专注</button>
+  <button id="outlineFullBtn" class="btn" title="隐藏右侧讲义/课本，提纲占满内容区（O）">提纲全屏</button>
   <button id="locateBtn" class="btn" title="在提纲中定位当前页对应的卡片">定位卡片</button>
   <button id="fitBtn" class="btn on" title="按窗宽缩放（0）">适宽</button>
   <button id="zoomOut" class="btn" title="缩小（-）">−</button>
   <button id="zoomIn" class="btn" title="放大（+）">＋</button>
+  <button id="moreBtn" class="btn icon" title="更多工具" aria-label="更多工具" aria-expanded="false">⋯</button>
 </header>
+
+<div id="mobileMenu" class="mobile-menu" aria-label="移动端工具菜单">
+  <button type="button" data-action="study">学习</button>
+  <button type="button" data-action="toc">目录</button>
+  <button type="button" data-action="search">搜索</button>
+  <button type="button" data-action="highlight">高亮</button>
+  <button type="button" data-action="bookmark">收藏</button>
+  <button type="button" data-action="locate">定位卡片</button>
+  <button type="button" data-action="fit">适宽</button>
+  <button type="button" data-action="zoomIn">放大</button>
+  <button type="button" data-action="zoomOut">缩小</button>
+</div>
 
 <main id="main">
   <section id="outlinePane">
@@ -74,7 +89,8 @@
     <div id="pageSliderWrap">
       <div class="page-slider-meta">
         <span id="pageCounter" aria-live="polite">– / –</span>
-        <span class="page-slider-hint">滚轮：本页到底再翻页 · 也可点两侧箭头</span>
+        <span class="page-slider-hint desktop-hint">滚轮：本页到底再翻页 · 也可点两侧箭头</span>
+        <span class="page-slider-hint page-mobile-hint">左右滑动翻页 · 也可点两侧按钮</span>
       </div>
       <input id="pageSlider" type="range" min="1" max="1" value="1" step="1" title="拖动快速翻页">
     </div>
@@ -85,6 +101,15 @@
   <span id="statusText" class="muted">就绪</span>
   <span id="docInfo" class="muted"></span>
 </footer>
+
+<nav id="mobileTabs" aria-label="移动端视图切换">
+  <button type="button" class="mobile-tab on" data-tab="outline">
+    <span class="mt-ico">☰</span><span>提纲</span>
+  </button>
+  <button type="button" class="mobile-tab" data-tab="doc">
+    <span class="mt-ico">▤</span><span>讲义</span>
+  </button>
+</nav>
 
 <!-- 学习抽屉 -->
 <aside id="drawer">

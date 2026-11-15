@@ -616,6 +616,141 @@ body.dark #pdfPane::-webkit-scrollbar-thumb {
   .page-slider-hint { display: none; }
 }
 
+@media (max-width: 820px) {
+  #topbar {
+    height: 54px;
+    gap: 6px;
+    padding: 0 8px;
+  }
+  #topbar .brand { margin-right: 0; }
+  #topbar .brand .title { display: none; }
+  .docpick { flex: 1 1 0; min-width: 0; max-width: calc(100% - 82px); }
+  .docpick span { display: none; }
+  .docpick select {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    padding: 6px 8px;
+    font-size: 12px;
+    text-overflow: ellipsis;
+  }
+  .pager, #rangeInfo, #searchBtn, #bookmarkBtn, #hlBtn, #studyBtn, #tocBtn,
+  #focusBtn, #outlineFullBtn, #locateBtn, #fitBtn, #zoomOut, #zoomIn {
+    display: none !important;
+  }
+  #topbar .spacer { display: none; }
+  #moreBtn { display: inline-flex !important; margin-left: auto; flex: 0 0 auto; }
+
+  #main {
+    height: calc(100% - 54px - 58px - env(safe-area-inset-bottom, 0px));
+    min-height: 0;
+  }
+  #outlinePane {
+    width: 100% !important;
+    min-width: 0;
+    flex: 1 1 100%;
+    border-right: 0;
+    box-shadow: none;
+  }
+  #splitter { display: none !important; }
+  #pdfShell {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+    display: none;
+  }
+  body.mobile-outline #outlinePane { display: flex !important; }
+  body.mobile-outline #pdfShell { display: none !important; }
+  body.mobile-doc #outlinePane { display: none !important; }
+  body.mobile-doc #pdfShell { display: flex !important; }
+  body.mobile-doc #statusbar, body.mobile-outline #statusbar { display: none; }
+  #statusbar { display: none; }
+  #pdfPane { touch-action: pan-y; }
+  #pageSliderWrap {
+    bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+    width: calc(100% - 18px);
+    padding: 7px 10px 8px;
+    border-radius: 14px;
+  }
+  .page-slider-meta { font-size: 10px; }
+  .desktop-hint { display: none; }
+  .page-mobile-hint { display: inline; }
+  .page-arrow { width: 40px; height: 60px; font-size: 26px; }
+  #pagePrevBtn { left: 8px; }
+  #pageNextBtn { right: 8px; }
+
+  #mobileTabs {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    height: calc(58px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: rgba(255, 253, 255, .94);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px rgba(90, 55, 100, .08);
+    backdrop-filter: blur(16px);
+  }
+  .mobile-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .mobile-tab .mt-ico { font-size: 17px; line-height: 1.2; }
+  .mobile-tab.on { color: var(--accent); font-weight: 700; }
+  body.dark #mobileTabs { background: rgba(29, 24, 43, .95); }
+
+  #mobileMenu {
+    position: fixed;
+    top: 62px;
+    right: 8px;
+    z-index: 60;
+    width: min(250px, calc(100vw - 16px));
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel-solid);
+    box-shadow: 0 18px 50px rgba(55, 30, 70, .22);
+  }
+  body.mobile-menu-open #mobileMenu { display: grid; }
+  #mobileMenu button {
+    min-height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--panel);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  #mobileMenu button:active { background: var(--hover); }
+  body.dark #mobileMenu { box-shadow: 0 18px 50px rgba(0, 0, 0, .45); }
+
+  body.outline-only #pdfShell { display: none !important; }
+  body.outline-only #outlinePane { display: flex !important; }
+  #drawer {
+    top: 54px;
+    bottom: calc(58px + env(safe-area-inset-bottom, 0px));
+    width: min(100%, 380px);
+    z-index: 65;
+  }
+  .modal { z-index: 70; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
@@ -751,6 +886,22 @@ body.dark.course-thermo .page-arrow {
 
 body.focus #outlinePane, body.focus #splitter { display: none; }
 body.focus #pdfShell { flex: 1; }
+
+/* ---------- 提纲全屏：隐藏右侧阅读区 ---------- */
+body.outline-only #pdfShell,
+body.outline-only #splitter { display: none !important; }
+body.outline-only #outlinePane {
+  width: 100% !important;
+  min-width: 0;
+  flex: 1 1 100%;
+  border-right: 0;
+  box-shadow: none;
+}
+#outlineFullBtn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (min-width: 821px) {
+  #mobileMenu, #mobileTabs, #moreBtn { display: none; }
+}
+.page-mobile-hint { display: none; }
 
 #bookmarkBtn.on { color: #e8a400; border-color: #e8a400; }
 body.dark #bookmarkBtn.on { color: #ffd166; }
